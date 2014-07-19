@@ -16,6 +16,8 @@ public class ControladorEgresado {
     private int idEgresado;
     private final EntityManagerFactory emf = Persistence.createEntityManagerFactory("WebEgresadosPU");
     
+    // Cambio
+    
     /**
      * @return the idEgresado
      */
