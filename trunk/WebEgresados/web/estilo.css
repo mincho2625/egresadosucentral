@@ -1,0 +1,162 @@
+html,body{
+	height: 100%;
+}
+
+*{
+	margin:0px;
+	padding: 0px;
+}
+
+#cabecera{
+	width: 98%;
+	height: 150px;
+	margin: 0 auto;
+	background:#f0e7cc url(imagenes/backCabeceraa.jpg) no-repeat right;
+	text-align: left;
+	padding: 20px 0px 0px 35px;
+	box-sizing:border-box; 
+	-moz-box-sizing:border-box;
+}
+
+#cabecera img{
+	float: left;
+	margin-right: 0px;
+}
+
+h1{
+	float: left;
+	padding: 50px;
+	border: 0px solid #000;
+	color:#000;
+	font-family: Verdana;
+	font-size: 24px;
+
+}
+
+#frameAbajo{
+	width: 98%;
+	height: auto;
+border: 0px solid #000;
+margin:0 auto;
+
+}
+
+.tituloMenu{
+	width: 100%;
+	height: 40px;
+	background: #436600;
+	color: #fff;
+	font-size: 18px;
+	font-family: verdana;
+	margin-top: 15px;
+	text-align: center;
+	padding: 10px 5px 5px 10px;
+	box-sizing:border-box; 
+	-moz-box-sizing:border-box;
+}
+
+li{
+	color: #616161;
+	font-size: 14px;
+	font-family: verdana;
+	border-bottom: 1px dotted #436600;
+	height: 20px; 
+	padding: 5px 5px 5px 25px;
+	background: url(imagenes/arrow.png) no-repeat;
+	list-style:none;
+}
+
+li:hover{
+	color: #fff;
+	background: #90B000 url(imagenes/arrowHover.png) no-repeat;
+}
+
+
+a{text-decoration: none;}
+
+#menu{
+	width: 25%;
+	height: 100%;
+	background: #fff;
+	float: left;
+border: 0px solid #000;
+}
+
+#contenido{
+	margin-top: 15px;
+	width: 74%;
+	height: 100%;
+	float: left;
+border-left: 1px solid #436600;
+
+}
+
+#contenido iframe{
+	width: 100%;
+	height: 100%;
+	border: 0px;
+	padding: 0px;
+}
+
+table{border: 1px solid #436600;
+width: 80%;
+height: 80%;
+text-align: left; 
+margin-left: auto; 
+margin-right: auto;
+background: #e9e9e9;
+border-radius:10px;
+caption-side: top;
+}
+
+caption{
+	color: #000000;
+	font-size: 14px;
+	font-family: verdana;
+	height: 20px; 
+	padding: 5px 5px 5px 25px;
+	background: url(imagenes/arrow.png) no-repeat;
+	list-style:none;
+	text-align: left;
+}
+
+.tduno{
+	color:#436600;
+	font-family:verdana;
+font-size:12px;
+font-weight:bold;}
+
+.tddos{
+	background: #436600;
+	color:#FFFFFF;
+	font-family:verdana;
+font-size:12px;
+font-weight:bold;
+text-align: center;
+height: 25px;
+}
+
+.tdtres{
+	font-family:verdana;
+font-size:10px;
+text-align: left;
+height: 20px;
+padding: 5px;
+}
+
+input{ width: 100%;
+height: 25px;
+font-family:verdana;}
+
+select{ width: 100%;
+height: 25px;
+font-family:verdana;}
+
+
+#footer{
+	width: 98%;
+	height: 80px;
+	background: #dda;
+	clear: both;
+	margin:0 auto;
+}

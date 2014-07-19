@@ -1,0 +1,125 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+package Persistencia;
+
+import java.io.Serializable;
+import java.util.Collection;
+import javax.persistence.Basic;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Lob;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+
+/**
+ *
+ * @author YURY
+ */
+@Entity
+@Table(name = "dominio_lengua_ext")
+@XmlRootElement
+@NamedQueries({
+    @NamedQuery(name = "DominioLenguaExt.findAll", query = "SELECT d FROM DominioLenguaExt d"),
+    @NamedQuery(name = "DominioLenguaExt.findByIdDominioLenguaExt", query = "SELECT d FROM DominioLenguaExt d WHERE d.idDominioLenguaExt = :idDominioLenguaExt"),
+    @NamedQuery(name = "DominioLenguaExt.findByDominioLenguaExt", query = "SELECT d FROM DominioLenguaExt d WHERE d.dominioLenguaExt = :dominioLenguaExt")})
+public class DominioLenguaExt implements Serializable {
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "ID_DOMINIO_LENGUA_EXT")
+    private Integer idDominioLenguaExt;
+    @Basic(optional = false)
+    @Column(name = "DOMINIO_LENGUA_EXT")
+    private String dominioLenguaExt;
+    @Basic(optional = false)
+    @Lob
+    @Column(name = "ESTADO")
+    private byte[] estado;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idDominio")
+    private Collection<LenguaExtranjera> lenguaExtranjeraCollection;
+
+    public DominioLenguaExt() {
+    }
+
+    public DominioLenguaExt(Integer idDominioLenguaExt) {
+        this.idDominioLenguaExt = idDominioLenguaExt;
+    }
+
+    public DominioLenguaExt(Integer idDominioLenguaExt, String dominioLenguaExt, byte[] estado) {
+        this.idDominioLenguaExt = idDominioLenguaExt;
+        this.dominioLenguaExt = dominioLenguaExt;
+        this.estado = estado;
+    }
+
+    public Integer getIdDominioLenguaExt() {
+        return idDominioLenguaExt;
+    }
+
+    public void setIdDominioLenguaExt(Integer idDominioLenguaExt) {
+        this.idDominioLenguaExt = idDominioLenguaExt;
+    }
+
+    public String getDominioLenguaExt() {
+        return dominioLenguaExt;
+    }
+
+    public void setDominioLenguaExt(String dominioLenguaExt) {
+        this.dominioLenguaExt = dominioLenguaExt;
+    }
+
+    public byte[] getEstado() {
+        return estado;
+    }
+
+    public void setEstado(byte[] estado) {
+        this.estado = estado;
+    }
+
+    @XmlTransient
+    public Collection<LenguaExtranjera> getLenguaExtranjeraCollection() {
+        return lenguaExtranjeraCollection;
+    }
+
+    public void setLenguaExtranjeraCollection(Collection<LenguaExtranjera> lenguaExtranjeraCollection) {
+        this.lenguaExtranjeraCollection = lenguaExtranjeraCollection;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (idDominioLenguaExt != null ? idDominioLenguaExt.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof DominioLenguaExt)) {
+            return false;
+        }
+        DominioLenguaExt other = (DominioLenguaExt) object;
+        if ((this.idDominioLenguaExt == null && other.idDominioLenguaExt != null) || (this.idDominioLenguaExt != null && !this.idDominioLenguaExt.equals(other.idDominioLenguaExt))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "Persistencia.DominioLenguaExt[ idDominioLenguaExt=" + idDominioLenguaExt + " ]";
+    }
+    
+}
