@@ -1,15 +1,11 @@
 
+<%@taglib uri="/struts-tags" prefix="s"%>
 <html lang="es"><head><title>Registro Sistema</title>
-
         <meta charset="utf-8">
-
         <link rel="stylesheet" href="estilo.css"></head>
-
     <body>
-
         <div id="Tabla" align="center">
-
-            <form method="post" action=".jsp" name="f1"> <br>
+            <s:form action="Registro"> <br>
 
                 <table cellpadding="2" cellspacing="12">
                     <caption>REGISTRO EN EL SISTEMA</caption>
@@ -46,9 +42,7 @@
                         <td><input name="fecExpe"><br>
                         </td>
                         <td>
-                            <select name="paisExp">
-                                <option>Seleccione</option>
-                            </select>
+                            <s:select name="paisExp" list="listaPaises" listKey="idPais" listValue="nombre" headerValue="Pais"/>
                             <br>
                         </td>
                     </tr>
@@ -190,8 +184,8 @@
                         <td><br>
 
                 </table>
-              
-            </form>
+
+            </s:form>
 
         </div>
         <br>

@@ -105,8 +105,8 @@ public class ControladorListas {
         return listaGruposSanguineos;
     }
 
-    public List<Pais> obtenerPaises() {
-        List<Pais> listaPaises = new ArrayList<Pais>();
+    public ArrayList<Pais> obtenerPaises() {
+        ArrayList<Pais> listaPaises = new ArrayList<Pais>();
 
         EntityManager em = emf.createEntityManager();
         Query query = em.createNamedQuery("Pais.findAll");
