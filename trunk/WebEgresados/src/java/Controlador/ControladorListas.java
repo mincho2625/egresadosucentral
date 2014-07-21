@@ -1,12 +1,12 @@
 package Controlador;
 
-import Modelo.TipoDocumento;
-import Modelo.GrupoSanguineo;
-import Modelo.EstadoCivil;
 import Modelo.Ciudad;
 import Modelo.Departamento;
+import Modelo.EstadoCivil;
 import Modelo.Genero;
+import Modelo.GrupoSanguineo;
 import Modelo.Pais;
+import Modelo.TipoDocumento;
 import Util.ConvertidosObjetos;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,8 +30,8 @@ public class ControladorListas {
      * @param idDepartamento
      * @return
      */
-    public List<Ciudad> obtenerCiudadesPorDepartamento(int idDepartamento) {
-        List<Ciudad> listaCiudades = new ArrayList<Ciudad>();
+    public ArrayList<Ciudad> obtenerCiudadesPorDepartamento(int idDepartamento) {
+        ArrayList<Ciudad> listaCiudades = new ArrayList<>();
 
         EntityManager em = emf.createEntityManager();
         Query query = em.createNamedQuery("Ciudad.findByIdDepartamento");
@@ -49,8 +49,8 @@ public class ControladorListas {
      * @param idPais
      * @return 
      */
-    public List<Departamento> obtenerDepartamentosPorPais(int idPais) {
-        List<Departamento> listaDepartamentos = new ArrayList<Departamento>();
+    public ArrayList<Departamento> obtenerDepartamentosPorPais(int idPais) {
+        ArrayList<Departamento> listaDepartamentos = new ArrayList<Departamento>();
 
         EntityManager em = emf.createEntityManager();
         Query query = em.createNamedQuery("Pais.findByIdPais");
@@ -63,8 +63,8 @@ public class ControladorListas {
         return listaDepartamentos;
     }
 
-    public List<EstadoCivil> obtenerEstadosCiviles() {
-        List<EstadoCivil> listaEstadosCiviles = new ArrayList<EstadoCivil>();
+    public ArrayList<EstadoCivil> obtenerEstadosCiviles() {
+        ArrayList<EstadoCivil> listaEstadosCiviles = new ArrayList<EstadoCivil>();
 
         EntityManager em = emf.createEntityManager();
         Query query = em.createNamedQuery("EstadoCivil.findAll");
@@ -77,8 +77,8 @@ public class ControladorListas {
         return listaEstadosCiviles;
     }
 
-    public List<Genero> obtenerGeneros() {
-        List<Genero> listaGeneros = new ArrayList<Genero>();
+    public ArrayList<Genero> obtenerGeneros() {
+        ArrayList<Genero> listaGeneros = new ArrayList<Genero>();
 
         EntityManager em = emf.createEntityManager();
         Query query = em.createNamedQuery("Genero.findAll");
@@ -91,8 +91,8 @@ public class ControladorListas {
         return listaGeneros;
     }
 
-    public List<GrupoSanguineo> obtenerGruposSanguineos() {
-        List<GrupoSanguineo> listaGruposSanguineos = new ArrayList<GrupoSanguineo>();
+    public ArrayList<GrupoSanguineo> obtenerGruposSanguineos() {
+        ArrayList<GrupoSanguineo> listaGruposSanguineos = new ArrayList<GrupoSanguineo>();
 
         EntityManager em = emf.createEntityManager();
         Query query = em.createNamedQuery("GrupoSanguineo.findAll");
@@ -119,8 +119,8 @@ public class ControladorListas {
         return listaPaises;
     }
 
-    public List<TipoDocumento> obtenerTiposDocumento() {
-        List<TipoDocumento> listaTiposDocumento = new ArrayList<TipoDocumento>();
+    public ArrayList<TipoDocumento> obtenerTiposDocumento() {
+        ArrayList<TipoDocumento> listaTiposDocumento = new ArrayList<TipoDocumento>();
 
         EntityManager em = emf.createEntityManager();
         Query query = em.createNamedQuery("TipoDocumento.findAll");

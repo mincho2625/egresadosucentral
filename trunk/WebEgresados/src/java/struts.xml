@@ -11,8 +11,8 @@
         
         <action name="*Registro" method="{1}" class="Controlador.RegistroAction">
             <result name="populate">/registroSistema.jsp</result>
-            <result name="input">/register.jsp</result>
-            <result name="success">/success.jsp</result>
+            <result name="input">/registroSistema.jsp</result>
+            <result name="success">/informacionPersonal.jsp</result>
         </action>
     </package>
 </struts>

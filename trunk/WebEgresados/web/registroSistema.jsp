@@ -17,11 +17,11 @@
                         <td class="tduno" colspan="2">Nombres:</td>
                     </tr>
                     <tr>
-                        <td><input name="primerApellido"><br>
+                        <td><s:textfield name="primerApellido"/><br>
                         </td>
-                        <td><input name="segundoApellido"><br>
+                        <td><s:textfield name="segundoApellido"/><br>
                         </td>
-                        <td colspan="2"><input name="nombres"><br>
+                        <td colspan="2"><s:textfield name="nombres"/><br>
                         </td>
                     </tr>
                     <tr>
@@ -35,20 +35,18 @@
                         </td>
                     </tr>
                     <tr>
-                        <td><input name="fecNaci"><br>
+                        <td><s:date name="fechaNacimiento"/><br>
                         </td>
-                        <td><input name="documento"><br>
+                        <td><s:number name="numeroDocumento"/><br>
                         </td>
-                        <td><input name="fecExpe"><br>
+                        <td><s:date name="fechaExpedicion"/><br>
                         </td>
                         <td>
-                            <s:select name="paisExp" list="listaPaises" listKey="idPais" listValue="nombre" headerValue="Pais"/>
-                            <br>
+                            <s:select name="paisExpedicion" list="listaPaises" listKey="idPais" listValue="nombre" headerValue="Pais"/>
                         </td>
                     </tr>
                     <tr>
-                        <td class="tduno">Departamento
-                            Expedicion:<br>
+                        <td class="tduno">DepartamentoExpedicion:<br>
                         </td>
                         <td class="tduno">Ciudad Expedicion:<br>
                         </td>
@@ -59,27 +57,19 @@
                     </tr>
                     <tr>
                         <td>
-                            <select name="deparExp">
-                                <option>Seleccione</option>
-                            </select>
+                                <s:select name="departamentoExpedicion" list="listaDepartamentos" listKey="idDepartamento" listValue="nombre" headerValue="Departamento"/>
                             <br>
                         </td>
                         <td>
-                            <select name="ciudadExp">
-                                <option>Seleccione</option>
-                            </select>
+                            <s:select name="ciudadExpedicion" list="listaCiudades" listKey="idCiudad" listValue="nombre" headerValue="Ciudad"/>
                             <br>
                         </td>
                         <td>
-                            <select name="tipoDocu">
-                                <option>Seleccione</option>
-                            </select>
+                            <s:select name="tipoDocumento" list="listaTiposDocumento" listKey="idTipoDocumento" listValue="nombre" headerValue="TipoDocumento"/>
                             <br>
                         </td>
                         <td>
-                            <select name="grupoSang">
-                                <option>Seleccione</option>
-                            </select>
+                            <s:select name="grupoSanguineo" list="listaGruposSanguineos" listKey="idGrupoSanguineo" listValue="nombre" headerValue="GrupoSanguineo"/>
                             <br>
                         </td>
                     </tr>
@@ -96,27 +86,19 @@
                     </tr>
                     <tr>
                         <td>
-                            <select name="depNaci">
-                                <option>Seleccione</option>
-                            </select>
+                            <s:select name="departamentoNacimiento" list="listaDepartamentos" listKey="idDepartamento" listValue="nombre" headerValue="Departamento"/>
                             <br>
                         </td>
                         <td>
-                            <select name="ciudadNaci">
-                                <option>Seleccione</option>
-                            </select>
+                            <s:select name="ciudadNacimiento" list="listaCiudades" listKey="idCiudad" listValue="nombre" headerValue="Ciudad"/>
                             <br>
                         </td>
                         <td>
-                            <select name="genero">
-                                <option>Seleccione</option>
-                            </select>
+                            <s:select name="genero" list="listaGeneros" listKey="idGenero" listValue="nombre" headerValue="Genero"/>
                             <br>
                         </td>
                         <td>
-                            <select name="estadoCivil">
-                                <option>Seleccione</option>
-                            </select>
+                            <s:select name="estadoCivil" list="listaEstadosCiviles" listKey="idEstadoCivil" listValue="nombre" headerValue="EstadoCivil"/>
                             <br>
                         </td>
                     </tr>
@@ -191,4 +173,5 @@
         <br>
         <br>
 
-    </body></html>
+    </body>
+</html>
