@@ -16,9 +16,9 @@
   <tbody>
     <tr>
       <td>
-      <form method="post" action=".jsp" name="f1">
+      <s:form method="post" action=".jsp" name="f1">
   En Desarrollo...
-      </form>
+      </s:form>
       </td>
     </tr>
   </tbody>
