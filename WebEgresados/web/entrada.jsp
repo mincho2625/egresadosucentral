@@ -17,7 +17,7 @@
 <div id="frameAbajo">
 	<div id="menu">
 		<div class="tituloMenu">Acceso</div>
-		<form name="f1" method="post" action="index.jsp">
+		<s:form name="f1" method="post" action="index.jsp">
 
 			<center><table>
 				<tr><br><br>
@@ -40,7 +40,7 @@
 				</tr>
 			</table></center>
 
-		</form>
+		</s:form>
 	</div>
 	
 	<div id="contenido">

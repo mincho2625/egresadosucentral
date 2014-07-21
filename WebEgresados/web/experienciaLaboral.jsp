@@ -12,7 +12,7 @@
 </head>
 <body>
 <div id="Tabla" align="center">
-<form method="post" action=".jsp" name="f1">
+<s:form method="post" action=".jsp" name="f1">
 <table rules="all">
 <caption>DATOS LABORALES</caption>
 <tr>
@@ -94,7 +94,7 @@ src="../plantillaHTML/imagenes/Icono_de_editar.png" align="top"><br>
 <div style="text-align: right;"><input name="laboral"
 value="Agregar Otro Registro Laboral" type="button"><br>
 </div>
-</form>
+</s:form>
       
 </div>	
 </body>

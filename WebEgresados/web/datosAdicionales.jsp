@@ -11,7 +11,7 @@
 </head>
 <body>
 <div id="Tabla" align="center">
-<form method="post" action=".jsp" name="f1">
+<s:form method="post" action=".jsp" name="f1">
 <table rules="all">
 <caption>DISTINCIONES Y RECONOCIMIENTOS</caption>
 <tr>
@@ -193,7 +193,7 @@ src="../plantillaHTML/imagenes/Icono_de_editar.png" align="top"> </td>
 <div style="text-align: right;"><input name="actividad"
 value="Agregar Otra Actividad" type="button"><br>
 </div>
-      </form>
+      </s:form>
 </table>
 </div>	
 </body>

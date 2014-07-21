@@ -13,7 +13,7 @@
 <body>
 <div id="Tabla" align="center">
 
-<form method="post" action=".jsp" name="f1">
+<s:form method="post" action=".jsp" name="f1">
  
         <table rules="all" >
            <caption>DATOS DE UBICACION</caption>
@@ -187,7 +187,7 @@
 <br>
 <div style="text-align: right;"><input name="residencia" value="Agregar Otra Residencia" type="button"><br>
 </div>
-</form>
+</s:form>
 
 </div>	
 </body>

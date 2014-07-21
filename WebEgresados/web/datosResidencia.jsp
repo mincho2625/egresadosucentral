@@ -9,7 +9,7 @@
 
         <div id="Tabla" align="center">
 
-            <form method="post" action=".jsp" name="f1"> <br>
+            <s:form method="post" action=".jsp" name="f1"> <br>
 
                 <table cellpadding="2" cellspacing="10">
                     <caption>Guardar/Editar/Eliminar</caption>
@@ -61,7 +61,7 @@
                     </tr>
                     <br>
                 </table>
-            </form>
+            </s:form>
 
         </div>
         <br>

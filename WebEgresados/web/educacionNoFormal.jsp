@@ -12,7 +12,7 @@
 </head>
 <body>
 <div id="Tabla" align="center">
- <form method="post" action=".jsp" name="f1">
+ <s:form method="post" action=".jsp" name="f1">
 <table rules="all">
 <caption>INFORMACION ACADEMICA NO FORMAL OTRAS INSTITUCIONES</caption>
 <tr>
@@ -151,7 +151,7 @@ value="Agregar Otro Registro" type="button"><br>
 </div>
 <br>
 <br>
-      </form>
+      </s:form>
 </div>	
 </body>
 </html>
