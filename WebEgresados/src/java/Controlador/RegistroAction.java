@@ -23,16 +23,17 @@ import java.util.ArrayList;
  * @author YURY
  */
 public class RegistroAction extends ActionSupport implements ModelDriven<Egresado>{
-    
+
+    ControladorListas cl = new ControladorListas();
     private Egresado egresado = new Egresado();
-    private ArrayList<Pais> listaPaises;
-    private ArrayList<Departamento> listaDepartamentos;
-    private ArrayList<Ciudad> listaCiudades;
-    private ArrayList<TipoDocumento> listaTiposDocumento;
-    private ArrayList<GrupoSanguineo> listaGruposSanguineos;
-    private ArrayList<Genero> listaGeneros;
-    private ArrayList<EstadoCivil> listaEstadosCiviles;
-        
+    private ArrayList<Pais> listaPaises = cl.obtenerPaises();
+    private ArrayList<Departamento> listaDepartamentos = cl.obtenerDepartamentosPorPais(1);
+    private ArrayList<Ciudad> listaCiudades = cl.obtenerCiudadesPorDepartamento(1);
+    private ArrayList<TipoDocumento> listaTiposDocumento = cl.obtenerTiposDocumento();
+    private ArrayList<GrupoSanguineo> listaGruposSanguineos = cl.obtenerGruposSanguineos();
+    private ArrayList<Genero> listaGeneros = cl.obtenerGeneros();
+    private ArrayList<EstadoCivil> listaEstadosCiviles = cl.obtenerEstadosCiviles();
+            
     /**
      * @return the egresado
      */
@@ -147,10 +148,10 @@ public class RegistroAction extends ActionSupport implements ModelDriven<Egresad
     
     public String populate()
     {
-        ControladorListas cl = new ControladorListas();
+        //
         setListaPaises(cl.obtenerPaises());
-//        setListaCiudades(cl.obtenerCiudadesPorDepartamento(1));
-//        setListaDepartamentos(cl.obtenerDepartamentosPorPais(1));
+        setListaCiudades(cl.obtenerCiudadesPorDepartamento(1));
+        setListaDepartamentos(cl.obtenerDepartamentosPorPais(1));
         setListaEstadosCiviles(cl.obtenerEstadosCiviles());
         setListaGeneros(cl.obtenerGeneros());
         setListaGruposSanguineos(cl.obtenerGruposSanguineos());

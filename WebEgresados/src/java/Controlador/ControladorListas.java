@@ -34,8 +34,10 @@ public class ControladorListas {
         ArrayList<Ciudad> listaCiudades = new ArrayList<>();
 
         EntityManager em = emf.createEntityManager();
-        Query query = em.createNamedQuery("Ciudad.findByIdDepartamento");
-        query.setParameter("idDepartamento", idDepartamento);
+        
+        Query query = em.createNamedQuery("Ciudad.findAll");
+//        Query query = em.createNamedQuery("Ciudad.findByIdDepartamento");
+//        query.setParameter("idDepartamento", idDepartamento);
         List<Persistencia.Ciudad> lista = query.getResultList();
         for (Persistencia.Ciudad c : lista) {
             listaCiudades.add(convertidosObjetos.convertirCiudad(c));
@@ -53,8 +55,10 @@ public class ControladorListas {
         ArrayList<Departamento> listaDepartamentos = new ArrayList<Departamento>();
 
         EntityManager em = emf.createEntityManager();
-        Query query = em.createNamedQuery("Pais.findByIdPais");
-        query.setParameter("idPais", idPais);
+        
+        Query query = em.createNamedQuery("Departamento.findAll");
+//        Query query = em.createNamedQuery("Departamento.findByIdPais");
+//        query.setParameter("idPais", idPais);
         List<Persistencia.Departamento> lista = query.getResultList();
         for (Persistencia.Departamento d: lista) {
             listaDepartamentos.add(convertidosObjetos.convertirDepartamento(d));

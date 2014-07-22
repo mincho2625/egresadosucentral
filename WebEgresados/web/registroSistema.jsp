@@ -57,7 +57,7 @@
                     </tr>
                     <tr>
                         <td>
-                                <s:select name="departamentoExpedicion" list="listaDepartamentos" listKey="idDepartamento" listValue="nombre" headerValue="Departamento"/>
+                            <s:select name="departamentoExpedicion" list="listaDepartamentos" listKey="idDepartamento" listValue="nombre" headerValue="Departamento"/>
                             <br>
                         </td>
                         <td>
