@@ -128,7 +128,7 @@
                     </tr>
                     <tr>
                         <td colspan="4">
-                            <textarea name="mensaje" cols="70" rows="6">Ingrese una descripcion de sus Funciones y/o Logros!</textarea>
+                            <textarea name="descripcion" cols="70" rows="6">Ingrese una descripcion de sus Funciones y/o Logros!</textarea>
                         </td>
                     </tr>
                     <tr>
