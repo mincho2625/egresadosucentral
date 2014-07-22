@@ -1,5 +1,5 @@
 
-<html lang="es"><head><title>Datos Academicos Ucentral</title>
+<html lang="es"><head><title>Informacion Academica No Formal</title>
 
         <meta charset="utf-8">
 
@@ -14,22 +14,21 @@
                 <table cellpadding="2" cellspacing="10">
                     <caption>Guardar/Editar/Eliminar</caption>
                     <tr>
-                        <td class="tduno" colspan="2">Nivel de Estudios:</td>
-                        <td class="tduno" colspan="2">Area de Estudios:</td>
+                        <td class="tduno" colspan="2">Tipo De Estudios:</td>
+                        <td class="tduno" colspan="2">Otro Tipo:</td>
                     </tr>
                     <tr>
-                        <td colspan="2"><input name="nivelEstu">
-                        </td>
                         <td colspan="2">
-                            <select name="areaEstu">
+                            <select name="tipoEstudio">
                                 <option>Seleccione</option>
                             </select>
                         </td>
+                        <td colspan="2"><input name="otroTipo">
+                        </td>                        
                     </tr>
                     <tr>
                         <td class="tduno" colspan="2">Modalidad:</td>
-                        <td class="tduno">Facultad:</td>
-                        <td class="tduno">Programa:</td>
+                        <td class="tduno" colspan="2">Area del Curso:</td>
                     </tr>
                     <tr>
                         <td colspan="2">
@@ -37,21 +36,15 @@
                                 <option>Seleccione</option>
                             </select>
                         </td>
-                        <td>
-                            <select name="facultad">
-                                <option>Seleccione</option>
-                            </select>
-                        </td>
-                        <td>
-                            <select name="Programa">
+                        <td colspan="2">
+                            <select name="areaCurso">
                                 <option>Seleccione</option>
                             </select>
                         </td>
                     </tr>
                     <tr>
-                        <td class="tduno" colspan="2">Institucion:</td>
-                        <td class="tduno">Jornada:</td>
-                        <td class="tduno">Departamento:</td>
+                        <td class="tduno" colspan="2">Institucion Educativa:</td>
+                        <td class="tduno" colspan="2">Otra Institucion:</td>
                     </tr>
                     <tr>
                         <td colspan="2">
@@ -59,26 +52,37 @@
                                 <option>Seleccione</option>
                             </select>
                         </td>
-                        <td>
-                            <select name="jornada">
-                                <option>Seleccione</option>
-                            </select>
+                        <td colspan="2"><input name="otraIntitucion">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tduno" colspan="2">Titulo:</td>
+                        <td class="tduno">Departamento:</td>
+                        <td class="tduno">Ciudad:</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><input name="titulo">
                         </td>
                         <td>
                             <select name="departamento">
                                 <option>Seleccione</option>
                             </select>
                         </td>
+                        <td>
+                            <select name="ciudad">
+                                <option>Seleccione</option>
+                            </select>
+                        </td>
                     </tr>
                     <tr>
-                        <td class="tduno">Ciudad:</td>
+                        <td class="tduno">Intensidad Horaria:</td>
                         <td class="tduno">Ingreso:</td>
                         <td class="tduno">Estado:</td>
                         <td class="tduno">Finalizacion:</td>
                     </tr>
                     <tr>
                         <td>
-                            <select name="ciudad">
+                            <select name="intensidad">
                                 <option>Seleccione</option>
                             </select>
                         </td>
@@ -89,13 +93,23 @@
                                 <option>Seleccione</option>
                             </select>
                         </td>
-                        <td><input name="final">
+                        <td><input name="finalizacion">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tduno" colspan="2">Descripcion del Curso:</td>
+                        <td class="tduno"></td>
+                        <td class="tduno"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="4">
+                            <textarea name="descripcion" cols="70" rows="6">Ingrese una descripcion del Curso</textarea>
                         </td>
                     </tr>
                     <tr>
                         <td></td>
                         <td></td>
-                        <td colspan="2"><input value="Regresar" name="BtnRegresar" type="submit"></td>
+                        <td colspan="2"><input value="Guardar" name="BtnGuardar" type="submit"></td>
                     </tr>
                     <br>
                 </table>
@@ -105,4 +119,3 @@
         <br>
 
     </body></html>
-
