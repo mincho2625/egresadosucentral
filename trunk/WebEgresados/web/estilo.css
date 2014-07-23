@@ -60,7 +60,7 @@ li{
 	font-size: 14px;
 	font-family: verdana;
 	border-bottom: 1px dotted #436600;
-	height: 20px; 
+	//height: 20px; 
 	padding: 5px 5px 5px 25px;
 	background: url(imagenes/arrow.png) no-repeat;
 	list-style:none;
@@ -71,7 +71,6 @@ li:hover{
 	background: #90B000 url(imagenes/arrowHover.png) no-repeat;
 }
 
-
 a{text-decoration: none;}
 
 #menu{
@@ -79,7 +78,7 @@ a{text-decoration: none;}
 	height: 100%;
 	background: #fff;
 	float: left;
-border: 0px solid #000;
+        border: 0px solid #000;
 }
 
 #contenido{
@@ -87,8 +86,14 @@ border: 0px solid #000;
 	width: 74%;
 	height: 100%;
 	float: left;
-border-left: 1px solid #436600;
+        border-left: 1px solid #436600;
 
+}
+#contenido2{
+	margin-top: 15px;
+	width: 100%;
+	height: 100%;
+	float:none;
 }
 
 #contenido iframe{
@@ -146,7 +151,8 @@ padding: 5px;
 
 input{ width: 100%;
 height: 25px;
-font-family:verdana;}
+font-family:verdana;
+}
 
 select{ width: 100%;
 height: 25px;
@@ -159,4 +165,113 @@ font-family:verdana;}
 	background: #dda;
 	clear: both;
 	margin:0 auto;
+}
+
+.menu{
+    padding:0;
+    list-style:none;
+    //width:620px;
+    font-size:18px;
+    //background:#c1c1c1;
+    //border: 1px solid rgba(0,0,0,0.8);
+    
+        width: 100%;
+        height: 100%;
+        background: #fff;
+        float: left;
+        border: 0px solid #000;
+}
+ 
+.menu li a{
+    display: block;
+    //border-bottom: 1px solid rgba(0,0,0, 0.2);
+    border-top: 1px solid rgba(255,255,255, 0.2);
+    //background:#3e3f44;
+    text-decoration:none;
+    //color:#FFF;
+    text-shadow: 1px 0px 1px rgba(0,0,0,0.2);
+    filter: dropshadow(color=#000, offx=1, offy=0);
+    padding:10px;
+    padding-left:20px;
+    
+        color: #616161;
+	font-size: 14px;
+	font-family: verdana;
+	border-bottom: 1px dotted #436600;
+	height: 20px; 
+	padding: 5px 5px 5px 25px;
+	background: url(imagenes/arrow.png) no-repeat;
+	list-style:none;
+}
+ 
+.menu li ul li a{
+    
+    //font-size:14px;
+    //color:#47689d;
+    text-shadow: 1px 0px 1px rgba(255,255,255,0.5);
+    
+        /*color: #616161;
+	font-size: 14px;
+	font-family: verdana;
+	border-bottom: 1px dotted #436600;
+	height: 20px; 
+	padding: 5px 5px 5px 25px;
+	background: url(imagenes/arrow.png) no-repeat;
+	list-style:none;*/
+}
+ 
+.menu li a:hover{
+    -moz-transition: background 0.3s ease-in;
+    -webkit-transition: background 0.3s ease-in;
+    -o-transition: background 0.3s ease-in;
+        
+        color: #fff;
+        background: #90B000 url(imagenes/arrowHover.png) no-repeat;
+}
+ 
+.menu ul{
+    margin:0;
+    padding:0;
+    list-style:none;
+    height:0;
+    overflow: hidden;
+    transition:1s;
+    -moz-transition:1s;
+    -webkit-transition:1s;
+    
+        /*color: #616161;
+	font-size: 14px;
+	font-family: verdana;
+	border-bottom: 1px dotted #436600;
+	height: 20px; 
+	padding: 5px 5px 5px 25px;
+	background: url(imagenes/arrow.png) no-repeat;
+	list-style:none;*/
+}
+ 
+.menu li:hover ul{
+    height:120px;
+    overflow-y:auto;
+    overflow-x:hidden;
+    /*color: #fff;
+    background: #90B000 url(imagenes/arrowHover.png) no-repeat;*/
+}
+ 
+.menu ul li a{
+        /*color: #616161;
+	font-size: 14px;
+	font-family: verdana;
+	border-bottom: 1px dotted #436600;
+	//height: 20px; 
+	padding: 5px 5px 5px 25px;
+	background: url(imagenes/arrow.png) no-repeat;
+	list-style:none;*/
+}
+ 
+.menu ul li a:hover {
+    background: none repeat scroll 0 0 #ccc;
+    color: #fff;
+    -moz-transition: color 0.4s ease;
+    -webkit-transition: color 0.4s ease;
+    -o-transition: color 0.4s ease;
 }

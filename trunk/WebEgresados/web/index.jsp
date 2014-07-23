@@ -15,14 +15,58 @@
 
             <div id="menu">
                 <div class="tituloMenu">Datos Personales</div>
-                <ul>
+                <ul class="menu">
+                    
                     <a href="populateRegistro.action" target="contenido"><li>Registro en Sistema</li></a>
-                    <a href="informacionPersonal.jsp" target="contenido"><li>Informacion Personal</li></a>
-                    <a href="experienciaLaboral.jsp" target="contenido"><li>Experiecia Laboral</li></a>
-                    <a href="educacionFormal.jsp" target="contenido"><li>Educacion Formal</li></a>
-                    <a href="educacionNoFormal.jsp" target="contenido"><li>Educacion No Formal e Idiomas</li></a>
-                    <a href="datosAdicionales.jsp" target="contenido"><li>Datos Adicionales</li></a>
+                    
+                    <a href="informacionPersonal.jsp" target="contenido">
+                        <li>Informacion Personal
+                            <ul>
+                                <li>Datos de Ubicacion</li>
+                                <li>Redes Sociales</li>
+                                <li>Datos de Residencia</li>
+                            </ul>
+                        </li>
+                    </a>
+                    
+                    <a href="experienciaLaboral.jsp" target="contenido">
+                        <li>Experiecia Laboral
+                            <ul>
+                                <li>Datos Laborales</li>
+                            </ul>
+                        </li>
+                    </a>
+                    
+                    <a href="educacionFormal.jsp" target="contenido">
+                        <li>Educacion Formal
+                            <ul>
+                                <li>Datos Academicos Ucentral</li>
+                                <li>Informacion Academica Otras Instituciones</li>
+                            </ul>
+                        </li>
+                    </a>
+                    
+                    <a href="educacionNoFormal.jsp" target="contenido">
+                        <li>Educacion No Formal e Idiomas
+                            <ul>
+                                <li>Educacion No Formal</li>
+                                <li>Lengua Extranjera</li>
+                            </ul>
+                        </li>
+                    </a>
+                    
+                    <a href="datosAdicionales.jsp" target="contenido">
+                        <li>Datos Adicionales
+                            <ul>
+                                <li>Distinciones y Reconocimientos</li>
+                                <li>Asociaciones o Redes Profesionales</li>
+                                <li>Deportes o Aficiones</li>
+                            </ul>
+                        </li>
+                    </a>
+                    
                     <a href="encuesta.jsp" target="contenido"><li>Encuesta</li></a>
+                    
                 </ul>
             </div>
 
