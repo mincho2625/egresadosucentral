@@ -35,9 +35,8 @@ public class ControladorListas {
 
         EntityManager em = emf.createEntityManager();
         
-        Query query = em.createNamedQuery("Ciudad.findAll");
-//        Query query = em.createNamedQuery("Ciudad.findByIdDepartamento");
-//        query.setParameter("idDepartamento", idDepartamento);
+        Query query = em.createNamedQuery("Ciudad.findByIdDepartamento");
+        query.setParameter("idDepartamento", em.getReference(Persistencia.Departamento.class, idDepartamento));
         List<Persistencia.Ciudad> lista = query.getResultList();
         for (Persistencia.Ciudad c : lista) {
             listaCiudades.add(convertidosObjetos.convertirCiudad(c));
@@ -52,13 +51,11 @@ public class ControladorListas {
      * @return 
      */
     public ArrayList<Departamento> obtenerDepartamentosPorPais(int idPais) {
-        ArrayList<Departamento> listaDepartamentos = new ArrayList<Departamento>();
+        ArrayList<Departamento> listaDepartamentos = new ArrayList<>();
 
         EntityManager em = emf.createEntityManager();
-        
-        Query query = em.createNamedQuery("Departamento.findAll");
-//        Query query = em.createNamedQuery("Departamento.findByIdPais");
-//        query.setParameter("idPais", idPais);
+        Query query = em.createNamedQuery("Departamento.findByIdPais");
+        query.setParameter("idPais", em.getReference(Persistencia.Pais.class, idPais));
         List<Persistencia.Departamento> lista = query.getResultList();
         for (Persistencia.Departamento d: lista) {
             listaDepartamentos.add(convertidosObjetos.convertirDepartamento(d));
@@ -68,7 +65,7 @@ public class ControladorListas {
     }
 
     public ArrayList<EstadoCivil> obtenerEstadosCiviles() {
-        ArrayList<EstadoCivil> listaEstadosCiviles = new ArrayList<EstadoCivil>();
+        ArrayList<EstadoCivil> listaEstadosCiviles = new ArrayList<>();
 
         EntityManager em = emf.createEntityManager();
         Query query = em.createNamedQuery("EstadoCivil.findAll");
@@ -82,7 +79,7 @@ public class ControladorListas {
     }
 
     public ArrayList<Genero> obtenerGeneros() {
-        ArrayList<Genero> listaGeneros = new ArrayList<Genero>();
+        ArrayList<Genero> listaGeneros = new ArrayList<>();
 
         EntityManager em = emf.createEntityManager();
         Query query = em.createNamedQuery("Genero.findAll");
@@ -96,7 +93,7 @@ public class ControladorListas {
     }
 
     public ArrayList<GrupoSanguineo> obtenerGruposSanguineos() {
-        ArrayList<GrupoSanguineo> listaGruposSanguineos = new ArrayList<GrupoSanguineo>();
+        ArrayList<GrupoSanguineo> listaGruposSanguineos = new ArrayList<>();
 
         EntityManager em = emf.createEntityManager();
         Query query = em.createNamedQuery("GrupoSanguineo.findAll");
@@ -110,7 +107,7 @@ public class ControladorListas {
     }
 
     public ArrayList<Pais> obtenerPaises() {
-        ArrayList<Pais> listaPaises = new ArrayList<Pais>();
+        ArrayList<Pais> listaPaises = new ArrayList<>();
 
         EntityManager em = emf.createEntityManager();
         Query query = em.createNamedQuery("Pais.findAll");
@@ -124,7 +121,7 @@ public class ControladorListas {
     }
 
     public ArrayList<TipoDocumento> obtenerTiposDocumento() {
-        ArrayList<TipoDocumento> listaTiposDocumento = new ArrayList<TipoDocumento>();
+        ArrayList<TipoDocumento> listaTiposDocumento = new ArrayList<>();
 
         EntityManager em = emf.createEntityManager();
         Query query = em.createNamedQuery("TipoDocumento.findAll");

@@ -59,23 +59,23 @@ public class ControladorEgresado {
         if (e != null)
         {
             egresado = new Egresado();
-            egresado.setCiudadExpedicion(tro.convertirCiudad(e.getIdCiudadExpedicion()));
-            egresado.setCiudadNacimiento(tro.convertirCiudad(e.getIdCiudadNacimiento()));
+            egresado.setCiudadExpedicion(e.getIdCiudadExpedicion().getIdCiudad());
+            egresado.setCiudadNacimiento(e.getIdCiudadNacimiento().getIdCiudad());
             egresado.setCorreoInstitucional(e.getUsuario().getCorreoInstitucional());
-            egresado.setEstadoCivil(tro.convertirEstadoCivil(e.getIdEstadoCivil()));
+            egresado.setEstadoCivil(e.getIdEstadoCivil().getIdEstadoCivil());
             egresado.setFechaExpedicion(e.getFechaExpedicion());
             egresado.setFechaNacimiento(e.getFechaNacimiento());
             egresado.setFechaUltimaAct(e.getFechaUltimaAct());
             egresado.setFoto(e.getFoto());
-            egresado.setGenero(tro.convertirGenero(e.getIdGenero()));
-            egresado.setGrupoSanguineo(tro.convertirGrupoSanguineo(e.getIdGrupoSanguineo()));
+            egresado.setGenero(e.getIdGenero().getIdGenero());
+            egresado.setGrupoSanguineo(e.getIdGrupoSanguineo().getIdGrupoSanguineo());
             egresado.setIdEgresado(e.getIdEgresado());
             egresado.setNombre(e.getUsuario().getNombre());
             egresado.setNombres(e.getNombres());
             egresado.setNumeroDocumento(e.getNumeroDocumento());
             egresado.setPrimerApellido(e.getPrimerApellido());
             egresado.setSegundoApellido(e.getSegundoApellido());
-            egresado.setTipoDocumento(tro.convertirTipoDocumento(e.getIdTipoDocumento()));
+            egresado.setTipoDocumento(e.getIdTipoDocumento().getIdTipoDocumento());
         }
         else{
             egresado = null;
