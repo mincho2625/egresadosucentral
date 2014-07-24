@@ -13,5 +13,10 @@
             <result name="input">/registroSistema.jsp</result>
             <result name="success">/informacionPersonal.jsp</result>
         </action>
+        
+        <action name="Ingreso" method="{1}" class="Controlador.IngresoAction">
+            <result name="success">/index.jsp</result>
+            <result name="error">/entrada.jsp</result>
+        </action>
     </package>
 </struts>
