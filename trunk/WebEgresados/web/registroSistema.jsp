@@ -1,11 +1,13 @@
-
+<!DOCTYPE html>
 <%@taglib uri="/struts-tags" prefix="s"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <html lang="es"><head><title>Registro Sistema</title>
         <meta charset="utf-8">
         <link rel="stylesheet" href="estilo.css"></head>
     <body>
         <div id="Tabla" align="center">
-            <s:form action="Registro"> <br>
+            <s:form action="Registro" id="formRegistro"> <br>
 
                 <table cellpadding="2" cellspacing="12">
                     <caption>REGISTRO EN EL SISTEMA</caption>
@@ -42,7 +44,17 @@
                         <td><s:date name="fechaExpedicion"/><br>
                         </td>
                         <td>
-                            <s:select name="paisExpedicion" list="listaPaises" listKey="idPais" listValue="nombre" headerValue="Pais"/>
+                            <s:url var="refrescarPaisesURL" action="refrescarPaises"></s:url>
+                            <s:select
+                                href="%{refrescarPaisesURL}"
+                                id="idPais"
+                                onChangeTopics="cargarDepartamentos"
+                                name="idPais"
+                                list="listaPaises"
+                                listKey="idPais"
+                                listValue="nombre"
+                                headerKey="-1"
+                                headerValue="Seleccione País"/>
                         </td>
                     </tr>
                     <tr>
@@ -57,11 +69,31 @@
                     </tr>
                     <tr>
                         <td>
-                            <s:select name="departamentoExpedicion" list="listaDepartamentos" listKey="idDepartamento" listValue="nombre" headerValue="Departamento"/>
+                            <s:select
+                                href="%{refrescarPaisesURL}"
+                                id="idDepartamento"
+                                formIds="formRegistro"
+                                reloadTopics="cargarDepartamentos"
+                                onChangeTopics="cargarCiudades"
+                                name="idDepartamento"
+                                list="listaDepartamentos"
+                                listKey="idDepartamento"
+                                listValue="nombre"
+                                headerKey="-1"
+                                headerValue="Seleccione Departamento"/>
                             <br>
                         </td>
                         <td>
-                            <s:select name="ciudadExpedicion" list="listaCiudades" listKey="idCiudad" listValue="nombre" headerValue="Ciudad"/>
+                            <s:select
+                                id="ciudadExpedicion"
+                                formIds="formRegistro"
+                                reloadTopics="cargarCiudades"
+                                name="ciudadExpedicion"
+                                list="listaCiudades"
+                                listKey="idCiudad"
+                                listValue="nombre"
+                                headerKey="-1"
+                                headerValue="Seleccione Ciudad"/>
                             <br>
                         </td>
                         <td>
@@ -85,14 +117,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>
-                            <s:select name="departamentoNacimiento" list="listaDepartamentos" listKey="idDepartamento" listValue="nombre" headerValue="Departamento"/>
-                            <br>
-                        </td>
-                        <td>
-                            <s:select name="ciudadNacimiento" list="listaCiudades" listKey="idCiudad" listValue="nombre" headerValue="Ciudad"/>
-                            <br>
-                        </td>
+
                         <td>
                             <s:select name="genero" list="listaGeneros" listKey="idGenero" listValue="nombre" headerValue="Genero"/>
                             <br>

@@ -18,12 +18,12 @@ public class Egresado extends Usuario {
 	private String numeroDocumento;
 	private String primerApellido;
 	private String segundoApellido;
-	private Ciudad ciudadNacimiento;
-        private Ciudad ciudadExpedicion;
-	private EstadoCivil estadoCivil;
-	private GrupoSanguineo grupoSanguineo;
-	private Genero genero;
-	private TipoDocumento tipoDocumento;
+	private int ciudadNacimiento;
+        private int ciudadExpedicion;
+	private int estadoCivil;
+	private int grupoSanguineo;
+	private int genero;
+	private int tipoDocumento;
 
     /**
      * @return the fechaExpedicion
@@ -154,85 +154,84 @@ public class Egresado extends Usuario {
     /**
      * @return the estadoCivil
      */
-    public EstadoCivil getEstadoCivil() {
+    public int getEstadoCivil() {
         return estadoCivil;
     }
 
     /**
      * @param estadoCivil the estadoCivil to set
      */
-    public void setEstadoCivil(EstadoCivil estadoCivil) {
+    public void setEstadoCivil(int estadoCivil) {
         this.estadoCivil = estadoCivil;
     }
 
     /**
      * @return the grupoSanguineo
      */
-    public GrupoSanguineo getGrupoSanguineo() {
+    public int getGrupoSanguineo() {
         return grupoSanguineo;
     }
 
     /**
      * @param grupoSanguineo the grupoSanguineo to set
      */
-    public void setGrupoSanguineo(GrupoSanguineo grupoSanguineo) {
+    public void setGrupoSanguineo(int grupoSanguineo) {
         this.grupoSanguineo = grupoSanguineo;
     }
 
     /**
      * @return the genero
      */
-    public Genero getGenero() {
+    public int getGenero() {
         return genero;
     }
 
     /**
      * @param genero the genero to set
      */
-    public void setGenero(Genero genero) {
+    public void setGenero(int genero) {
         this.genero = genero;
     }
 
     /**
      * @return the tipoDocumento
      */
-    public TipoDocumento getTipoDocumento() {
+    public int getTipoDocumento() {
         return tipoDocumento;
     }
 
     /**
      * @param tipoDocumento the tipoDocumento to set
      */
-    public void setTipoDocumento(TipoDocumento tipoDocumento) {
+    public void setTipoDocumento(int tipoDocumento) {
         this.tipoDocumento = tipoDocumento;
     }
 
     /**
      * @return the ciudadNacimiento
      */
-    public Ciudad getCiudadNacimiento() {
+    public int getCiudadNacimiento() {
         return ciudadNacimiento;
     }
 
     /**
      * @param ciudadNacimiento the ciudadNacimiento to set
      */
-    public void setCiudadNacimiento(Ciudad ciudadNacimiento) {
+    public void setCiudadNacimiento(int ciudadNacimiento) {
         this.ciudadNacimiento = ciudadNacimiento;
     }
 
     /**
      * @return the ciudadExpedicion
      */
-    public Ciudad getCiudadExpedicion() {
+    public int getCiudadExpedicion() {
         return ciudadExpedicion;
     }
 
     /**
      * @param ciudadExpedicion the ciudadExpedicion to set
      */
-    public void setCiudadExpedicion(Ciudad ciudadExpedicion) {
+    public void setCiudadExpedicion(int ciudadExpedicion) {
         this.ciudadExpedicion = ciudadExpedicion;
     }
-
 }

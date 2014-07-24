@@ -58,6 +58,11 @@ public class ConvertidosObjetos {
         Pais pais = new Pais();
         pais.setIdPais(p.getIdPais());
         pais.setNombre(p.getNombre());
+        
+        for (Persistencia.Departamento d : p.getDepartamentoCollection()) {
+            pais.agregarDepartamento(d.getIdDepartamento(), d.getNombre());
+        }
+        
         return pais;
     }
 

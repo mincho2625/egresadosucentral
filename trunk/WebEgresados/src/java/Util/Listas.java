@@ -4,30 +4,23 @@
  * and open the template in the editor.
  */
 
-package Controlador;
+package Util;
 
+import Controlador.ControladorListas;
 import Modelo.Ciudad;
 import Modelo.Departamento;
-import Modelo.Egresado;
 import Modelo.EstadoCivil;
 import Modelo.Genero;
 import Modelo.GrupoSanguineo;
 import Modelo.Pais;
 import Modelo.TipoDocumento;
-import com.opensymphony.xwork2.ActionSupport;
-import com.opensymphony.xwork2.ModelDriven;
 import java.util.ArrayList;
-import org.apache.struts2.convention.annotation.Action;
-import org.apache.struts2.convention.annotation.Actions;
-import org.apache.struts2.convention.annotation.Result;
 
 /**
  *
  * @author YURY
  */
-public class RegistroAction extends ActionSupport implements ModelDriven<Egresado>{
-
-    private Egresado egresado = new Egresado();
+public final class Listas {
     private ArrayList<Pais> listaPaises;
     private ArrayList<Departamento> listaDepartamentos;
     private ArrayList<Ciudad> listaCiudades;
@@ -35,21 +28,27 @@ public class RegistroAction extends ActionSupport implements ModelDriven<Egresad
     private ArrayList<GrupoSanguineo> listaGruposSanguineos;
     private ArrayList<Genero> listaGeneros;
     private ArrayList<EstadoCivil> listaEstadosCiviles;
-    private int idPais;
-    private int idDepartamento;
-            
-    /**
-     * @return the egresado
-     */
-    public Egresado getEgresado() {
-        return egresado;
+    
+    private Listas()
+    {
+        ControladorListas cl = new ControladorListas();
+        setListaPaises(cl.obtenerPaises());
+        setListaCiudades(cl.obtenerCiudadesPorDepartamento(1));
+        setListaDepartamentos(cl.obtenerDepartamentosPorPais(1));
+        setListaEstadosCiviles(cl.obtenerEstadosCiviles());
+        setListaGeneros(cl.obtenerGeneros());
+        setListaGruposSanguineos(cl.obtenerGruposSanguineos());
+        setListaTiposDocumento(cl.obtenerTiposDocumento());
     }
-
-    /**
-     * @param egresado the egresado to set
-     */
-    public void setEgresado(Egresado egresado) {
-        this.egresado = egresado;
+    
+    private static Listas listas;
+    
+    public static Listas obtenerLilstas()
+    {
+        if (listas == null)
+            listas = new Listas();
+        
+        return listas;
     }
 
     /**
@@ -148,78 +147,5 @@ public class RegistroAction extends ActionSupport implements ModelDriven<Egresad
      */
     public void setListaEstadosCiviles(ArrayList<EstadoCivil> listaEstadosCiviles) {
         this.listaEstadosCiviles = listaEstadosCiviles;
-    }
-    
-    /**
-     * @return the idPais
-     */
-    public int getIdPais() {
-        return idPais;
-    }
-
-    /**
-     * @param idPais the idPais to set
-     */
-    public void setIdPais(int idPais) {
-        this.idPais = idPais;
-    }
-
-    /**
-     * @return the idDepartamento
-     */
-    public int getIdDepartamento() {
-        return idDepartamento;
-    }
-
-    /**
-     * @param idDepartamento the idDepartamento to set
-     */
-    public void setIdDepartamento(int idDepartamento) {
-        this.idDepartamento = idDepartamento;
-    }
-    
-    public String populate()
-    {
-        ControladorListas cl = new ControladorListas();
-        setListaPaises(cl.obtenerPaises());
-        setListaDepartamentos(new ArrayList<Departamento>());
-        setListaCiudades(new ArrayList<Ciudad>());
-        setListaEstadosCiviles(cl.obtenerEstadosCiviles());
-        setListaGeneros(cl.obtenerGeneros());
-        setListaGruposSanguineos(cl.obtenerGruposSanguineos());
-        setListaTiposDocumento(cl.obtenerTiposDocumento());
-        
-        return "populate";
-    }
-    
-    @Override
-    public String execute()
-    {
-        ControladorEgresado ce = new ControladorEgresado();
-        ce.actualizarInformacionBasica(getEgresado());
-        return SUCCESS;
-    }
-
-    @Actions({
-        @Action(
-        value="/refrescarPaises",
-        results={
-        @Result(name="populate",type="json")
-        })
-    })
-    public String refrescarPaises()
-    {
-        if (idPais > 0){
-            ControladorListas cl = new ControladorListas();
-            setListaPaises(cl.obtenerPaises());
-            setListaDepartamentos(cl.obtenerDepartamentosPorPais(getIdPais()));
-            setListaCiudades(cl.obtenerCiudadesPorDepartamento(getIdDepartamento()));
-        }
-        return "populate";
-    }
-
-    @Override
-    public Egresado getModel() {
-        return getEgresado();
     }
 }
