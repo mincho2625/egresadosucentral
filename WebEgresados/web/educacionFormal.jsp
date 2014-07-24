@@ -38,7 +38,7 @@
 </td>
 <td class="tdtres"><img
 style="width: 20px; height: 19px;" title="Editar" alt="Editar"
-src="../plantillaHTML/imagenes/Icono_de_editar.png" align="top"><br>
+src="imagenes/Icono_de_editar.png" align="top"><br>
 </td>
 </tr>
 <tr>
@@ -52,7 +52,7 @@ src="../plantillaHTML/imagenes/Icono_de_editar.png" align="top"><br>
 </td>
 <td class="tdtres"><img
 style="width: 20px; height: 19px;" title="Editar" alt="Editar"
-src="../plantillaHTML/imagenes/Icono_de_editar.png" align="top"> </td>
+src="imagenes/Icono_de_editar.png" align="top"> </td>
 </tr>
 <tr>
 <td class="tdtres"><br>
@@ -65,7 +65,7 @@ src="../plantillaHTML/imagenes/Icono_de_editar.png" align="top"> </td>
 </td>
 <td class="tdtres"><img
 style="width: 20px; height: 19px;" title="Editar" alt="Editar"
-src="../plantillaHTML/imagenes/Icono_de_editar.png" align="top"> </td>
+src="imagenes/Icono_de_editar.png" align="top"> </td>
 </tr>
 <tr>
 <td class="tdtres"><br>
@@ -78,7 +78,7 @@ src="../plantillaHTML/imagenes/Icono_de_editar.png" align="top"> </td>
 </td>
 <td class="tdtres"><img
 style="width: 20px; height: 19px;" title="Editar" alt="Editar"
-src="../plantillaHTML/imagenes/Icono_de_editar.png" align="top"> </td>
+src="imagenes/Icono_de_editar.png" align="top"> </td>
 </tr>
 </table>
 <br>
@@ -112,7 +112,7 @@ value="Consultar" type="button"><br>
 </td>
 <td class="tdtres"><img
 style="width: 20px; height: 19px;" title="Editar" alt="Editar"
-src="../plantillaHTML/imagenes/Icono_de_editar.png" align="top"> </td>
+src="imagenes/Icono_de_editar.png" align="top"> </td>
 </tr>
 <tr>
 <td class="tdtres"><br>
@@ -125,7 +125,7 @@ src="../plantillaHTML/imagenes/Icono_de_editar.png" align="top"> </td>
 </td>
 <td class="tdtres"><img
 style="width: 20px; height: 19px;" title="Editar" alt="Editar"
-src="../plantillaHTML/imagenes/Icono_de_editar.png" align="top"> </td>
+src="imagenes/Icono_de_editar.png" align="top"> </td>
 </tr>
 <tr>
 <td class="tdtres"><br>
@@ -138,7 +138,7 @@ src="../plantillaHTML/imagenes/Icono_de_editar.png" align="top"> </td>
 </td>
 <td class="tdtres"><img
 style="width: 20px; height: 19px;" title="Editar" alt="Editar"
-src="../plantillaHTML/imagenes/Icono_de_editar.png" align="top"> </td>
+src="imagenes/Icono_de_editar.png" align="top"> </td>
 </tr>
 <tr>
 <td class="tdtres"><br>
@@ -151,7 +151,7 @@ src="../plantillaHTML/imagenes/Icono_de_editar.png" align="top"> </td>
 </td>
 <td class="tdtres"><img
 style="width: 20px; height: 19px;" title="Editar" alt="Editar"
-src="../plantillaHTML/imagenes/Icono_de_editar.png" align="top"> </td>
+src="imagenes/Icono_de_editar.png" align="top"> </td>
 </tr>
 </table>
 <br>

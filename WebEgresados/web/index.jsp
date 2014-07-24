@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="es">
     <head>
         <title>Formulario Principal </title>
@@ -19,51 +18,38 @@
                     
                     <a href="populateRegistro.action" target="contenido"><li>Registro en Sistema</li></a>
                     
-                    <a href="informacionPersonal.jsp" target="contenido">
-                        <li>Informacion Personal
-                            <ul>
-                                <li>Datos de Ubicacion</li>
-                                <li>Redes Sociales</li>
-                                <li>Datos de Residencia</li>
-                            </ul>
-                        </li>
-                    </a>
+                    <li>Informacion Personal
+                        <ul>
+                            <a href="datosUbicacionTabla.jsp" target="contenido"><li>Datos de Ubicacion</li></a>
+                            <a href="redesSocialesTabla.jsp" target="contenido"><li>Redes Sociales</li></a>
+                            <a href="datosResidenciaTabla.jsp" target="contenido"><li>Datos de Residencia</li></a>
+                        </ul>
+                    </li>
                     
-                    <a href="experienciaLaboral.jsp" target="contenido">
-                        <li>Experiecia Laboral
-                            <ul>
-                                <li>Datos Laborales</li>
-                            </ul>
-                        </li>
-                    </a>
+                    <a href="experienciaLaboral.jsp" target="contenido"><li>Experiecia Laboral</li></a>
+                                       
+                    <li>Educacion Formal
+                        <ul>
+                            <a href="datosAcademicosUcentralTabla.jsp" target="contenido"><li>Datos Academicos Ucentral</li></a>
+                            <a href="informacionAcademicaOtrasTabla.jsp" target="contenido"><li>Informacion Academica Otras Instituciones</li></a>
+                        </ul>
+                    </li>
                     
-                    <a href="educacionFormal.jsp" target="contenido">
-                        <li>Educacion Formal
-                            <ul>
-                                <li>Datos Academicos Ucentral</li>
-                                <li>Informacion Academica Otras Instituciones</li>
-                            </ul>
-                        </li>
-                    </a>
+                    <li>Educacion No Formal e Idiomas
+                        <ul>
+                            <a href="informacionAcademicaNoFormalTabla.jsp" target="contenido"><li>Educacion No Formal</li></a>
+                            <a href="lenguaExtranjeraTabla.jsp" target="contenido"><li>Lengua Extranjera</li></a>
+                        </ul>
+                    </li>
                     
-                    <a href="educacionNoFormal.jsp" target="contenido">
-                        <li>Educacion No Formal e Idiomas
-                            <ul>
-                                <li>Educacion No Formal</li>
-                                <li>Lengua Extranjera</li>
-                            </ul>
-                        </li>
-                    </a>
+                    <li>Datos Adicionales
+                        <ul>
+                            <a href="distincionesReconocimientoTabla.jsp" target="contenido"><li>Distinciones y Reconocimientos</li></a>
+                            <a href="asociacionesRedesProfesionalesTabla.jsp" target="contenido"><li>Asociaciones o Redes Profesionales</li></a>
+                            <a href="deportesAficionesTabla.jsp" target="contenido"><li>Deportes o Aficiones</li></a>
+                        </ul>
+                    </li>
                     
-                    <a href="datosAdicionales.jsp" target="contenido">
-                        <li>Datos Adicionales
-                            <ul>
-                                <li>Distinciones y Reconocimientos</li>
-                                <li>Asociaciones o Redes Profesionales</li>
-                                <li>Deportes o Aficiones</li>
-                            </ul>
-                        </li>
-                    </a>
                     
                     <a href="encuesta.jsp" target="contenido"><li>Encuesta</li></a>
                     

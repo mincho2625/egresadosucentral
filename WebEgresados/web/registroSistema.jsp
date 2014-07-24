@@ -12,19 +12,16 @@
                 <table cellpadding="2" cellspacing="12">
                     <caption>REGISTRO EN EL SISTEMA</caption>
                     <tr>
-                        <td class="tduno">Primer Apellido:<br>
+                        <td class="tduno">Primer Apellido:
                         </td>
-                        <td class="tduno">Segundo Apellido:<br>
+                        <td class="tduno">Segundo Apellido:
                         </td>
                         <td class="tduno" colspan="2">Nombres:</td>
                     </tr>
                     <tr>
-                        <td><s:textfield name="primerApellido"/><br>
-                        </td>
-                        <td><s:textfield name="segundoApellido"/><br>
-                        </td>
-                        <td colspan="2"><s:textfield name="nombres"/><br>
-                        </td>
+                        <td><s:textfield name="primerApellido"/></td>
+                        <td><s:textfield name="segundoApellido"/></td>
+                        <td colspan="2"><s:textfield name="nombres"/></td>
                     </tr>
                     <tr>
                         <td class="tduno">Fecha Nacimiento:<br>
@@ -174,7 +171,12 @@
                         </td>
                     </tr>
                     <tr>
-                        <td><input value="Cambio Clave" name="BtnCambioClave" type="submit"> </td>
+                        <td><div class="buttons">
+                                <button type="submit" class="positive" name="cambioClave">
+                                    <img src="imagenes/btnCambioClave.png" alt=""/>
+                                    Cambio Clave
+                                </button><br>
+                            </div></td>
                         <td><br>
                         </td>
                         <td><br>
@@ -187,7 +189,12 @@
                         </td>
                         <td><br>
                         </td>
-                        <td><input class="boton" name="GuardarRS" value="Guardar" type="submit"> </td>
+                        <td><div class="buttons">
+                                <button type="submit" class="positive" name="guardar">
+                                    <img src="imagenes/btnGuardar.png" alt=""/>
+                                    Guardar
+                                </button><br>
+                            </div></td>
                         <td><br>
 
                 </table>
