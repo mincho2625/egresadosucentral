@@ -18,7 +18,6 @@
                 </iframe>
             </div>
         </div>
-
         <div id="footer">footer</div>
     </body>
 </html>

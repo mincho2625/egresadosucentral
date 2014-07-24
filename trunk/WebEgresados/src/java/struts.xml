@@ -8,7 +8,6 @@
     <constant name="struts.configuration.xml.reload" value="true" />
     
     <package name="egresados" extends="struts-default">
-        
         <action name="*Registro" method="{1}" class="Controlador.RegistroAction">
             <result name="populate">/registroSistema.jsp</result>
             <result name="input">/registroSistema.jsp</result>
