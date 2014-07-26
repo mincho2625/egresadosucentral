@@ -6,6 +6,7 @@ import Modelo.EstadoCivil;
 import Modelo.Genero;
 import Modelo.GrupoSanguineo;
 import Modelo.Pais;
+import Modelo.PreguntaSeguridad;
 import Modelo.TipoDocumento;
 import Util.ConvertidosObjetos;
 import java.util.ArrayList;
@@ -25,6 +26,20 @@ public class ControladorListas {
     private final EntityManagerFactory emf = Persistence.createEntityManagerFactory("WebEgresadosPU");
     private final ConvertidosObjetos convertidosObjetos = new ConvertidosObjetos();
 
+    public ArrayList<Ciudad> obtenerCiudades() {
+        ArrayList<Ciudad> listaCiudades = new ArrayList<>();
+
+        EntityManager em = emf.createEntityManager();
+        
+        Query query = em.createNamedQuery("Ciudad.findAll");
+        List<Persistencia.Ciudad> lista = query.getResultList();
+        for (Persistencia.Ciudad c : lista) {
+            listaCiudades.add(convertidosObjetos.convertirCiudad(c));
+        }
+
+        return listaCiudades;
+    }
+    
     /**
      *
      * @param idDepartamento
@@ -133,5 +148,19 @@ public class ControladorListas {
 
         return listaTiposDocumento;
     }
+    
+    public ArrayList<PreguntaSeguridad> obtenerPreguntasSeguridad()
+    {
+        ArrayList<PreguntaSeguridad> listaPreguntasSeguridad = new ArrayList<>();
 
+        EntityManager em = emf.createEntityManager();
+        Query query = em.createNamedQuery("PreguntaSeguridad.findAll");
+        
+        List<Persistencia.PreguntaSeguridad> lista = query.getResultList();
+        for (Persistencia.PreguntaSeguridad ps: lista) {
+            listaPreguntasSeguridad.add(convertidosObjetos.convertirPreguntaSeguridad(ps));
+        }
+
+        return listaPreguntasSeguridad;
+    }
 }

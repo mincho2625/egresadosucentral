@@ -7,9 +7,11 @@ package Modelo;
  */
 public class Usuario {
 
-	private String correoInstitucional;
-	private String nombre;
-	private String password;
+    private String correoInstitucional;
+    private String nombreUsuario;
+    private String clave;
+    private int idPreguntaSeguridad;
+    private String respuestaSeguridad;
 
     /**
      * @return the correoInstitucional
@@ -26,30 +28,58 @@ public class Usuario {
     }
 
     /**
-     * @return the nombre
+     * @return the nombreUsuario
      */
-    public String getNombre() {
-        return nombre;
+    public String getNombreUsuario() {
+        return nombreUsuario;
     }
 
     /**
-     * @param nombre the nombre to set
+     * @param nombreUsuario the nombreUsuario to set
      */
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setNombreUsuario(String nombreUsuario) {
+        this.nombreUsuario = nombreUsuario;
     }
 
     /**
-     * @return the password
+     * @return the clave
      */
-    public String getPassword() {
-        return password;
+    public String getClave() {
+        return clave;
     }
 
     /**
-     * @param password the password to set
+     * @param clave the clave to set
      */
-    public void setPassword(String password) {
-        this.password = password;
+    public void setClave(String clave) {
+        this.clave = clave;
+    }
+
+    /**
+     * @return the idPreguntaSeguridad
+     */
+    public int getIdPreguntaSeguridad() {
+        return idPreguntaSeguridad;
+    }
+
+    /**
+     * @param idPreguntaSeguridad the idPreguntaSeguridad to set
+     */
+    public void setIdPreguntaSeguridad(int idPreguntaSeguridad) {
+        this.idPreguntaSeguridad = idPreguntaSeguridad;
+    }
+
+    /**
+     * @return the respuestaSeguridad
+     */
+    public String getRespuestaSeguridad() {
+        return respuestaSeguridad;
+    }
+
+    /**
+     * @param respuestaSeguridad the respuestaSeguridad to set
+     */
+    public void setRespuestaSeguridad(String respuestaSeguridad) {
+        this.respuestaSeguridad = respuestaSeguridad;
     }
 }

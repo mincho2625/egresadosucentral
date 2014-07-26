@@ -34,7 +34,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Usuario.findByIdUsuario", query = "SELECT u FROM Usuario u WHERE u.idUsuario = :idUsuario"),
     @NamedQuery(name = "Usuario.findByNombre", query = "SELECT u FROM Usuario u WHERE u.nombre = :nombre"),
     @NamedQuery(name = "Usuario.findByContrasenia", query = "SELECT u FROM Usuario u WHERE u.contrasenia = :contrasenia"),
-    @NamedQuery(name = "Usuario.findByCorreoInstitucional", query = "SELECT u FROM Usuario u WHERE u.correoInstitucional = :correoInstitucional")})
+    @NamedQuery(name = "Usuario.findByCorreoInstitucional", query = "SELECT u FROM Usuario u WHERE u.correoInstitucional = :correoInstitucional"),
+    @NamedQuery(name = "Usuario.findByRespuestaSeguridad", query = "SELECT u FROM Usuario u WHERE u.respuestaSeguridad = :respuestaSeguridad")})
 public class Usuario implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -51,9 +52,12 @@ public class Usuario implements Serializable {
     @Basic(optional = false)
     @Column(name = "CORREO_INSTITUCIONAL")
     private String correoInstitucional;
-    @JoinColumn(name = "ID_RESPUESTA_SEGURIDAD", referencedColumnName = "ID_RESPUESTA_SEGURIDAD")
+    @Basic(optional = false)
+    @Column(name = "RESPUESTA_SEGURIDAD")
+    private String respuestaSeguridad;
+    @JoinColumn(name = "ID_PREGUNTA_SEGURIDAD", referencedColumnName = "ID_PREGUNTA_SEGURIDAD")
     @ManyToOne(optional = false)
-    private RespuestaSeguridad idRespuestaSeguridad;
+    private PreguntaSeguridad idPreguntaSeguridad;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "usuario")
     private Egresado egresado;
 
@@ -64,11 +68,12 @@ public class Usuario implements Serializable {
         this.idUsuario = idUsuario;
     }
 
-    public Usuario(Integer idUsuario, String nombre, String contrasenia, String correoInstitucional) {
+    public Usuario(Integer idUsuario, String nombre, String contrasenia, String correoInstitucional, String respuestaSeguridad) {
         this.idUsuario = idUsuario;
         this.nombre = nombre;
         this.contrasenia = contrasenia;
         this.correoInstitucional = correoInstitucional;
+        this.respuestaSeguridad = respuestaSeguridad;
     }
 
     public Integer getIdUsuario() {
@@ -103,12 +108,20 @@ public class Usuario implements Serializable {
         this.correoInstitucional = correoInstitucional;
     }
 
-    public RespuestaSeguridad getIdRespuestaSeguridad() {
-        return idRespuestaSeguridad;
+    public String getRespuestaSeguridad() {
+        return respuestaSeguridad;
     }
 
-    public void setIdRespuestaSeguridad(RespuestaSeguridad idRespuestaSeguridad) {
-        this.idRespuestaSeguridad = idRespuestaSeguridad;
+    public void setRespuestaSeguridad(String respuestaSeguridad) {
+        this.respuestaSeguridad = respuestaSeguridad;
+    }
+
+    public PreguntaSeguridad getIdPreguntaSeguridad() {
+        return idPreguntaSeguridad;
+    }
+
+    public void setIdPreguntaSeguridad(PreguntaSeguridad idPreguntaSeguridad) {
+        this.idPreguntaSeguridad = idPreguntaSeguridad;
     }
 
     public Egresado getEgresado() {

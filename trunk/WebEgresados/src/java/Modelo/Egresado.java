@@ -9,21 +9,26 @@ import java.util.Date;
  */
 public class Egresado extends Usuario {
 
-	private Date fechaExpedicion;
-	private Date fechaNacimiento;
-	private Date fechaUltimaAct;
-	private byte[] foto;
-	private int idEgresado;
-	private String nombres;
-	private String numeroDocumento;
-	private String primerApellido;
-	private String segundoApellido;
-	private int ciudadNacimiento;
-        private int ciudadExpedicion;
-	private int estadoCivil;
-	private int grupoSanguineo;
-	private int genero;
-	private int tipoDocumento;
+    private Date fechaExpedicion;
+    private Date fechaNacimiento;
+    private Date fechaUltimaAct;
+    private byte[] foto;
+    private int idEgresado;
+    private String nombres;
+    private String numeroDocumento;
+    private String primerApellido;
+    private String segundoApellido;
+    private int ciudadNacimiento;
+    private int ciudadExpedicion;
+    private int estadoCivil;
+    private int grupoSanguineo;
+    private int genero;
+    private int tipoDocumento;
+    
+    public Egresado()
+    {
+        fechaExpedicion = new Date();
+    }
 
     /**
      * @return the fechaExpedicion

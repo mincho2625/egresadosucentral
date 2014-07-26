@@ -11,6 +11,7 @@ import Modelo.EstadoCivil;
 import Modelo.Genero;
 import Modelo.GrupoSanguineo;
 import Modelo.Pais;
+import Modelo.PreguntaSeguridad;
 import Modelo.TipoDocumento;
 
 /**
@@ -71,5 +72,13 @@ public class ConvertidosObjetos {
         tipoDocumento.setIdTipoDocumento(td.getIdTipoDocumento());
         tipoDocumento.setNombre(td.getNombre());
         return tipoDocumento;
+    }
+    
+    public PreguntaSeguridad convertirPreguntaSeguridad(Persistencia.PreguntaSeguridad ps)
+    {
+        PreguntaSeguridad preguntaSeguridad = new PreguntaSeguridad();
+        preguntaSeguridad.setIdPreguntaSeguridad(ps.getIdPreguntaSeguridad());
+        preguntaSeguridad.setPreguntaSeguridad(ps.getPregunta());
+        return preguntaSeguridad;
     }
 }
