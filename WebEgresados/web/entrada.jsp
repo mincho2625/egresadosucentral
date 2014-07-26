@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-
+<%@taglib uri="/struts-tags" prefix="s"%>
 <html lang="es">
 
     <head>
@@ -17,7 +17,7 @@
         <div id="frameAbajo">
             <div id="menu">
                 <div class="tituloMenu">Acceso</div>
-                <s:form name="f1" method="post" action="index.jsp">
+                <s:form name="f1" method="post" action="Ingreso">
 
                     <center><table>
                             <tr><br><br>
@@ -27,18 +27,26 @@
                                 <td class="tduno">Usuario</td>
                             </tr>
                             <tr>
-                                <td><input type="text" name="cod_usua" id="cod_usua"></td>
-                            </tr>
+                                <td><s:textfield name="usuario"></s:textfield></td>
+                                </tr>
+                                <tr>
+                                    <td class="tduno">Clave</td>
+                                </tr>
+                                <tr>
+                                    <td><s:password name="contrasenia"></s:password></td>
+                                </tr>
+                            <s:if test="hasActionErrors()">
+                                <tr>
+                                <div class="errors">
+                                    <s:actionerror />
+                                    <s:a href="nuevoEgresadoRegistro.action">Registro</s:a>
+                                    </div>
+                                    </tr>
+                            </s:if>
                             <tr>
-                                <td class="tduno">Clave</td>
-                            </tr>
-                            <tr>
-                                <td><input type="text" name="clave" id="clave"></td>
-                            </tr>
-                            <tr>
-                                <td><input type="submit" name="ingreso" id="ingreso" value="ENTRAR"></td>
-                            </tr>
-                        </table></center>
+                                <td><s:submit value="ENTRAR"></s:submit></td>
+                                </tr>
+                            </table></center>
 
                 </s:form>
             </div>

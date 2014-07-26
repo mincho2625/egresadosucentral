@@ -44,7 +44,7 @@ public class PreguntaSeguridad implements Serializable {
     @Column(name = "PREGUNTA")
     private String pregunta;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idPreguntaSeguridad")
-    private Collection<RespuestaSeguridad> respuestaSeguridadCollection;
+    private Collection<Usuario> usuarioCollection;
 
     public PreguntaSeguridad() {
     }
@@ -75,12 +75,12 @@ public class PreguntaSeguridad implements Serializable {
     }
 
     @XmlTransient
-    public Collection<RespuestaSeguridad> getRespuestaSeguridadCollection() {
-        return respuestaSeguridadCollection;
+    public Collection<Usuario> getUsuarioCollection() {
+        return usuarioCollection;
     }
 
-    public void setRespuestaSeguridadCollection(Collection<RespuestaSeguridad> respuestaSeguridadCollection) {
-        this.respuestaSeguridadCollection = respuestaSeguridadCollection;
+    public void setUsuarioCollection(Collection<Usuario> usuarioCollection) {
+        this.usuarioCollection = usuarioCollection;
     }
 
     @Override

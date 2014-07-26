@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Controlador;
 
 import Modelo.Ciudad;
@@ -13,6 +12,7 @@ import Modelo.EstadoCivil;
 import Modelo.Genero;
 import Modelo.GrupoSanguineo;
 import Modelo.Pais;
+import Modelo.PreguntaSeguridad;
 import Modelo.TipoDocumento;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
@@ -25,7 +25,7 @@ import org.apache.struts2.convention.annotation.Result;
  *
  * @author YURY
  */
-public class RegistroAction extends ActionSupport implements ModelDriven<Egresado>{
+public class RegistroAction extends ActionSupport implements ModelDriven<Egresado> {
 
     private Egresado egresado = new Egresado();
     private ArrayList<Pais> listaPaises;
@@ -35,9 +35,12 @@ public class RegistroAction extends ActionSupport implements ModelDriven<Egresad
     private ArrayList<GrupoSanguineo> listaGruposSanguineos;
     private ArrayList<Genero> listaGeneros;
     private ArrayList<EstadoCivil> listaEstadosCiviles;
+    private ArrayList<PreguntaSeguridad> listaPreguntas;
     private int idPais;
     private int idDepartamento;
-            
+    private String confirmacionClave;
+    private boolean terminos;
+
     /**
      * @return the egresado
      */
@@ -151,6 +154,20 @@ public class RegistroAction extends ActionSupport implements ModelDriven<Egresad
     }
     
     /**
+     * @return the listaPreguntas
+     */
+    public ArrayList<PreguntaSeguridad> getListaPreguntas() {
+        return listaPreguntas;
+    }
+
+    /**
+     * @param listaPreguntas the listaPreguntas to set
+     */
+    public void setListaPreguntas(ArrayList<PreguntaSeguridad> listaPreguntas) {
+        this.listaPreguntas = listaPreguntas;
+    }
+
+    /**
      * @return the idPais
      */
     public int getIdPais() {
@@ -177,39 +194,63 @@ public class RegistroAction extends ActionSupport implements ModelDriven<Egresad
     public void setIdDepartamento(int idDepartamento) {
         this.idDepartamento = idDepartamento;
     }
-    
-    public String populate()
-    {
+
+    /**
+     * @return the confirmacionClave
+     */
+    public String getConfirmacionClave() {
+        return confirmacionClave;
+    }
+
+    /**
+     * @param confirmacionClave the confirmacionClave to set
+     */
+    public void setConfirmacionClave(String confirmacionClave) {
+        this.confirmacionClave = confirmacionClave;
+    }
+
+    /**
+     * @return the terminos
+     */
+    public boolean isTerminos() {
+        return terminos;
+    }
+
+    /**
+     * @param terminos the terminos to set
+     */
+    public void setTerminos(boolean terminos) {
+        this.terminos = terminos;
+    }
+
+    @Override
+    public Egresado getModel() {
+        return getEgresado();
+    }
+
+    private String desplegar() {
         ControladorListas cl = new ControladorListas();
-        setListaPaises(cl.obtenerPaises());
-        setListaDepartamentos(new ArrayList<Departamento>());
-        setListaCiudades(new ArrayList<Ciudad>());
+//        setListaPaises(cl.obtenerPaises());
+//        setListaDepartamentos(new ArrayList<Departamento>());
+        setListaCiudades(cl.obtenerCiudades());
         setListaEstadosCiviles(cl.obtenerEstadosCiviles());
         setListaGeneros(cl.obtenerGeneros());
         setListaGruposSanguineos(cl.obtenerGruposSanguineos());
         setListaTiposDocumento(cl.obtenerTiposDocumento());
-        
+        setListaPreguntas(cl.obtenerPreguntasSeguridad());
+
         return "populate";
-    }
-    
-    @Override
-    public String execute()
-    {
-        ControladorEgresado ce = new ControladorEgresado();
-        ce.actualizarInformacionBasica(getEgresado());
-        return SUCCESS;
     }
 
     @Actions({
         @Action(
-        value="/refrescarPaises",
-        results={
-        @Result(name="populate",type="json")
-        })
+                value = "/refrescarPaises",
+                results = {
+                    @Result(name = "populate", type = "json")
+                })
     })
-    public String refrescarPaises()
-    {
-        if (idPais > 0){
+    public String refrescarPaises() {
+        if (idPais > 0) {
             ControladorListas cl = new ControladorListas();
             setListaPaises(cl.obtenerPaises());
             setListaDepartamentos(cl.obtenerDepartamentosPorPais(getIdPais()));
@@ -218,8 +259,34 @@ public class RegistroAction extends ActionSupport implements ModelDriven<Egresad
         return "populate";
     }
 
-    @Override
-    public Egresado getModel() {
-        return getEgresado();
+    public String nuevoEgresado() {
+        setEgresado(new Egresado());
+        desplegar();
+
+        return "nuevo";
+    }
+
+    public String obtenerEgresado() {
+        ControladorEgresado controladorEgresado = new ControladorEgresado(1);
+        setEgresado(controladorEgresado.obtenerInformacionBasica());
+        desplegar();
+
+        return "actual";
+    }
+
+    public String crearEgresado() {
+        if (terminos) {
+            if (egresado.getClave().equals(confirmacionClave)) {
+                ControladorEgresado controladorEgresado = new ControladorEgresado();
+                controladorEgresado.actualizarInformacionBasica(egresado);
+                return "successNuevo";
+            } else {
+                addActionError("La confirmación de contraseña es incorrecta");
+                return "errorNuevo";
+            }
+        } else {
+            addActionError("Debe aceptar términos y condiciones");
+            return "errorNuevo";
+        }
     }
 }

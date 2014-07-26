@@ -1,7 +1,6 @@
 package Controlador;
 
 import Modelo.Egresado;
-import Util.ConvertidosObjetos;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -16,19 +15,13 @@ public class ControladorEgresado {
     private int idEgresado;
     private final EntityManagerFactory emf = Persistence.createEntityManagerFactory("WebEgresadosPU");
     
-    // Cambio
-    
-    /**
-     * @return the idEgresado
-     */
-    public int getIdEgresado() {
-        return idEgresado;
+    public ControladorEgresado()
+    {
+        
     }
-
-    /**
-     * @param idEgresado the idEgresado to set
-     */
-    public void setIdEgresado(int idEgresado) {
+    
+    public ControladorEgresado(int idEgresado)
+    {
         this.idEgresado = idEgresado;
     }
     
@@ -50,7 +43,6 @@ public class ControladorEgresado {
 
     public Egresado obtenerInformacionBasica() {
         Egresado egresado;
-        ConvertidosObjetos tro = new ConvertidosObjetos();
         
         EntityManager em = emf.createEntityManager();
         Query query = em.createNamedQuery("Egresado.findByIdEgresado");
@@ -70,7 +62,7 @@ public class ControladorEgresado {
             egresado.setGenero(e.getIdGenero().getIdGenero());
             egresado.setGrupoSanguineo(e.getIdGrupoSanguineo().getIdGrupoSanguineo());
             egresado.setIdEgresado(e.getIdEgresado());
-            egresado.setNombre(e.getUsuario().getNombre());
+            egresado.setNombreUsuario(e.getUsuario().getNombre());
             egresado.setNombres(e.getNombres());
             egresado.setNumeroDocumento(e.getNumeroDocumento());
             egresado.setPrimerApellido(e.getPrimerApellido());
@@ -96,7 +88,47 @@ public class ControladorEgresado {
     
     public void actualizarExperienciaLaboral(){}
     
-    public void actualizarInformacionBasica(Egresado egresado){}
+    public boolean actualizarInformacionBasica(Egresado egresado){
+        if (egresado == null)
+            return false;
+        
+        EntityManager em = emf.createEntityManager();
+        Persistencia.Egresado e;
+        
+        em.getTransaction().begin();
+        if (egresado.getIdEgresado() > 0)
+            e = em.getReference(Persistencia.Egresado.class, egresado.getIdEgresado());
+        else
+            e = new Persistencia.Egresado();
+        
+        e.setFechaExpedicion(egresado.getFechaExpedicion());
+        e.setFechaNacimiento(egresado.getFechaNacimiento());
+        e.setFechaUltimaAct(egresado.getFechaUltimaAct());
+        e.setIdCiudadExpedicion(em.getReference(Persistencia.Ciudad.class, egresado.getCiudadExpedicion()));
+        e.setIdCiudadNacimiento(em.getReference(Persistencia.Ciudad.class, egresado.getCiudadNacimiento()));
+        e.setIdEstadoCivil(em.getReference(Persistencia.EstadoCivil.class, egresado.getEstadoCivil()));
+        e.setIdGenero(em.getReference(Persistencia.Genero.class, e.getIdGenero()));
+        e.setIdGrupoSanguineo(em.getReference(Persistencia.GrupoSanguineo.class, egresado.getGrupoSanguineo()));
+        e.setIdTipoDocumento(em.getReference(Persistencia.TipoDocumento.class, egresado.getTipoDocumento()));
+        e.setNombres(egresado.getNombres());
+        e.setNumeroDocumento(egresado.getNumeroDocumento());
+        e.setPrimerApellido(egresado.getPrimerApellido());
+        e.setSegundoApellido(egresado.getSegundoApellido());
+        
+        Persistencia.Usuario u = new Persistencia.Usuario();
+        u.setContrasenia(egresado.getClave());
+        u.setCorreoInstitucional(egresado.getCorreoInstitucional());
+        u.setIdPreguntaSeguridad(em.getReference(Persistencia.PreguntaSeguridad.class, egresado.getIdPreguntaSeguridad()));
+        u.setNombre(egresado.getNombreUsuario());
+        u.setRespuestaSeguridad(egresado.getRespuestaSeguridad());
+        
+        e.setUsuario(u);
+        em.persist(u);
+        em.persist(e);
+        em.getTransaction().commit();
+        
+        return true;
+    }
     
     public void actualizarInformacionPersonal(){}
 }
