@@ -7,6 +7,7 @@
 package Persistencia;
 
 import java.io.Serializable;
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -26,15 +27,19 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "EgresadoRespuesta.findAll", query = "SELECT e FROM EgresadoRespuesta e"),
-    @NamedQuery(name = "EgresadoRespuesta.findByIdEgresado", query = "SELECT e FROM EgresadoRespuesta e WHERE e.egresadoRespuestaPK.idEgresado = :idEgresado"),
     @NamedQuery(name = "EgresadoRespuesta.findByIdRespuesta", query = "SELECT e FROM EgresadoRespuesta e WHERE e.egresadoRespuestaPK.idRespuesta = :idRespuesta"),
-    @NamedQuery(name = "EgresadoRespuesta.findByOtra", query = "SELECT e FROM EgresadoRespuesta e WHERE e.otra = :otra")})
+    @NamedQuery(name = "EgresadoRespuesta.findByOtra", query = "SELECT e FROM EgresadoRespuesta e WHERE e.otra = :otra"),
+    @NamedQuery(name = "EgresadoRespuesta.findByEstado", query = "SELECT e FROM EgresadoRespuesta e WHERE e.estado = :estado"),
+    @NamedQuery(name = "EgresadoRespuesta.findByIdEgresado", query = "SELECT e FROM EgresadoRespuesta e WHERE e.egresadoRespuestaPK.idEgresado = :idEgresado")})
 public class EgresadoRespuesta implements Serializable {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected EgresadoRespuestaPK egresadoRespuestaPK;
     @Column(name = "OTRA")
     private String otra;
+    @Basic(optional = false)
+    @Column(name = "ESTADO")
+    private boolean estado;
     @JoinColumn(name = "ID_RESPUESTA", referencedColumnName = "ID_RESPUESTA_ENCUESTA", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private RespuestaEncuesta respuestaEncuesta;
@@ -49,8 +54,13 @@ public class EgresadoRespuesta implements Serializable {
         this.egresadoRespuestaPK = egresadoRespuestaPK;
     }
 
-    public EgresadoRespuesta(int idEgresado, int idRespuesta) {
-        this.egresadoRespuestaPK = new EgresadoRespuestaPK(idEgresado, idRespuesta);
+    public EgresadoRespuesta(EgresadoRespuestaPK egresadoRespuestaPK, boolean estado) {
+        this.egresadoRespuestaPK = egresadoRespuestaPK;
+        this.estado = estado;
+    }
+
+    public EgresadoRespuesta(long idRespuesta, long idEgresado) {
+        this.egresadoRespuestaPK = new EgresadoRespuestaPK(idRespuesta, idEgresado);
     }
 
     public EgresadoRespuestaPK getEgresadoRespuestaPK() {
@@ -67,6 +77,14 @@ public class EgresadoRespuesta implements Serializable {
 
     public void setOtra(String otra) {
         this.otra = otra;
+    }
+
+    public boolean getEstado() {
+        return estado;
+    }
+
+    public void setEstado(boolean estado) {
+        this.estado = estado;
     }
 
     public RespuestaEncuesta getRespuestaEncuesta() {

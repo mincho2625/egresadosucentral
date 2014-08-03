@@ -32,17 +32,21 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Pais.findAll", query = "SELECT p FROM Pais p"),
     @NamedQuery(name = "Pais.findByIdPais", query = "SELECT p FROM Pais p WHERE p.idPais = :idPais"),
-    @NamedQuery(name = "Pais.findByNombre", query = "SELECT p FROM Pais p WHERE p.nombre = :nombre")})
+    @NamedQuery(name = "Pais.findByNombre", query = "SELECT p FROM Pais p WHERE p.nombre = :nombre"),
+    @NamedQuery(name = "Pais.findByEstado", query = "SELECT p FROM Pais p WHERE p.estado = :estado")})
 public class Pais implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "ID_PAIS")
-    private Integer idPais;
+    private Long idPais;
     @Basic(optional = false)
     @Column(name = "NOMBRE")
     private String nombre;
+    @Basic(optional = false)
+    @Column(name = "ESTADO")
+    private boolean estado;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idPais")
     private Collection<Asociacion> asociacionCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idPais")
@@ -51,20 +55,21 @@ public class Pais implements Serializable {
     public Pais() {
     }
 
-    public Pais(Integer idPais) {
+    public Pais(Long idPais) {
         this.idPais = idPais;
     }
 
-    public Pais(Integer idPais, String nombre) {
+    public Pais(Long idPais, String nombre, boolean estado) {
         this.idPais = idPais;
         this.nombre = nombre;
+        this.estado = estado;
     }
 
-    public Integer getIdPais() {
+    public Long getIdPais() {
         return idPais;
     }
 
-    public void setIdPais(Integer idPais) {
+    public void setIdPais(Long idPais) {
         this.idPais = idPais;
     }
 
@@ -74,6 +79,14 @@ public class Pais implements Serializable {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public boolean getEstado() {
+        return estado;
+    }
+
+    public void setEstado(boolean estado) {
+        this.estado = estado;
     }
 
     @XmlTransient

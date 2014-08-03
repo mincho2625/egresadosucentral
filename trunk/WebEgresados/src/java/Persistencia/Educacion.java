@@ -39,14 +39,15 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Educacion.findByFechaRegistro", query = "SELECT e FROM Educacion e WHERE e.fechaRegistro = :fechaRegistro"),
     @NamedQuery(name = "Educacion.findByAnioInicio", query = "SELECT e FROM Educacion e WHERE e.anioInicio = :anioInicio"),
     @NamedQuery(name = "Educacion.findByAnioFinalizacion", query = "SELECT e FROM Educacion e WHERE e.anioFinalizacion = :anioFinalizacion"),
-    @NamedQuery(name = "Educacion.findByOtraInstitucion", query = "SELECT e FROM Educacion e WHERE e.otraInstitucion = :otraInstitucion")})
+    @NamedQuery(name = "Educacion.findByOtraInstitucion", query = "SELECT e FROM Educacion e WHERE e.otraInstitucion = :otraInstitucion"),
+    @NamedQuery(name = "Educacion.findByEstado", query = "SELECT e FROM Educacion e WHERE e.estado = :estado")})
 public class Educacion implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "ID_EDUCACION")
-    private Integer idEducacion;
+    private Long idEducacion;
     @Basic(optional = false)
     @Column(name = "FECHA_ACT_ESTADO")
     @Temporal(TemporalType.TIMESTAMP)
@@ -62,13 +63,13 @@ public class Educacion implements Serializable {
     private Integer anioFinalizacion;
     @Column(name = "OTRA_INSTITUCION")
     private String otraInstitucion;
+    @Basic(optional = false)
+    @Column(name = "ESTADO")
+    private boolean estado;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "educacion")
     private EducacionNoFormal educacionNoFormal;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "educacion")
     private LenguaExtranjera lenguaExtranjera;
-    @JoinColumn(name = "ID_EGRESADO", referencedColumnName = "ID_EGRESADO")
-    @ManyToOne(optional = false)
-    private Egresado idEgresado;
     @JoinColumn(name = "ID_CIUDAD", referencedColumnName = "ID_CIUDAD")
     @ManyToOne(optional = false)
     private Ciudad idCiudad;
@@ -90,28 +91,32 @@ public class Educacion implements Serializable {
     @JoinColumn(name = "ID_INSTITUCION", referencedColumnName = "ID_INSTITUCION")
     @ManyToOne(optional = false)
     private Institucion idInstitucion;
+    @JoinColumn(name = "ID_EGRESADO", referencedColumnName = "ID_EGRESADO")
+    @ManyToOne(optional = false)
+    private Egresado idEgresado;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "educacion")
     private EducacionFormal educacionFormal;
 
     public Educacion() {
     }
 
-    public Educacion(Integer idEducacion) {
+    public Educacion(Long idEducacion) {
         this.idEducacion = idEducacion;
     }
 
-    public Educacion(Integer idEducacion, Date fechaActEstado, Date fechaRegistro, int anioInicio) {
+    public Educacion(Long idEducacion, Date fechaActEstado, Date fechaRegistro, int anioInicio, boolean estado) {
         this.idEducacion = idEducacion;
         this.fechaActEstado = fechaActEstado;
         this.fechaRegistro = fechaRegistro;
         this.anioInicio = anioInicio;
+        this.estado = estado;
     }
 
-    public Integer getIdEducacion() {
+    public Long getIdEducacion() {
         return idEducacion;
     }
 
-    public void setIdEducacion(Integer idEducacion) {
+    public void setIdEducacion(Long idEducacion) {
         this.idEducacion = idEducacion;
     }
 
@@ -155,6 +160,14 @@ public class Educacion implements Serializable {
         this.otraInstitucion = otraInstitucion;
     }
 
+    public boolean getEstado() {
+        return estado;
+    }
+
+    public void setEstado(boolean estado) {
+        this.estado = estado;
+    }
+
     public EducacionNoFormal getEducacionNoFormal() {
         return educacionNoFormal;
     }
@@ -169,14 +182,6 @@ public class Educacion implements Serializable {
 
     public void setLenguaExtranjera(LenguaExtranjera lenguaExtranjera) {
         this.lenguaExtranjera = lenguaExtranjera;
-    }
-
-    public Egresado getIdEgresado() {
-        return idEgresado;
-    }
-
-    public void setIdEgresado(Egresado idEgresado) {
-        this.idEgresado = idEgresado;
     }
 
     public Ciudad getIdCiudad() {
@@ -233,6 +238,14 @@ public class Educacion implements Serializable {
 
     public void setIdInstitucion(Institucion idInstitucion) {
         this.idInstitucion = idInstitucion;
+    }
+
+    public Egresado getIdEgresado() {
+        return idEgresado;
+    }
+
+    public void setIdEgresado(Egresado idEgresado) {
+        this.idEgresado = idEgresado;
     }
 
     public EducacionFormal getEducacionFormal() {

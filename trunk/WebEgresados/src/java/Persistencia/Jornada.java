@@ -15,7 +15,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -33,42 +32,42 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Jornada.findAll", query = "SELECT j FROM Jornada j"),
     @NamedQuery(name = "Jornada.findByIdJornada", query = "SELECT j FROM Jornada j WHERE j.idJornada = :idJornada"),
-    @NamedQuery(name = "Jornada.findByNombre", query = "SELECT j FROM Jornada j WHERE j.nombre = :nombre")})
+    @NamedQuery(name = "Jornada.findByNombre", query = "SELECT j FROM Jornada j WHERE j.nombre = :nombre"),
+    @NamedQuery(name = "Jornada.findByEstado", query = "SELECT j FROM Jornada j WHERE j.estado = :estado")})
 public class Jornada implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "ID_JORNADA")
-    private Integer idJornada;
+    private Long idJornada;
     @Basic(optional = false)
     @Column(name = "NOMBRE")
     private String nombre;
     @Basic(optional = false)
-    @Lob
     @Column(name = "ESTADO")
-    private byte[] estado;
+    private boolean estado;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idJornada")
     private Collection<EducacionFormal> educacionFormalCollection;
 
     public Jornada() {
     }
 
-    public Jornada(Integer idJornada) {
+    public Jornada(Long idJornada) {
         this.idJornada = idJornada;
     }
 
-    public Jornada(Integer idJornada, String nombre, byte[] estado) {
+    public Jornada(Long idJornada, String nombre, boolean estado) {
         this.idJornada = idJornada;
         this.nombre = nombre;
         this.estado = estado;
     }
 
-    public Integer getIdJornada() {
+    public Long getIdJornada() {
         return idJornada;
     }
 
-    public void setIdJornada(Integer idJornada) {
+    public void setIdJornada(Long idJornada) {
         this.idJornada = idJornada;
     }
 
@@ -80,11 +79,11 @@ public class Jornada implements Serializable {
         this.nombre = nombre;
     }
 
-    public byte[] getEstado() {
+    public boolean getEstado() {
         return estado;
     }
 
-    public void setEstado(byte[] estado) {
+    public void setEstado(boolean estado) {
         this.estado = estado;
     }
 

@@ -15,7 +15,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -33,42 +32,42 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "CargoEquivalente.findAll", query = "SELECT c FROM CargoEquivalente c"),
     @NamedQuery(name = "CargoEquivalente.findByIdCargoEquivalente", query = "SELECT c FROM CargoEquivalente c WHERE c.idCargoEquivalente = :idCargoEquivalente"),
-    @NamedQuery(name = "CargoEquivalente.findByNombre", query = "SELECT c FROM CargoEquivalente c WHERE c.nombre = :nombre")})
+    @NamedQuery(name = "CargoEquivalente.findByNombre", query = "SELECT c FROM CargoEquivalente c WHERE c.nombre = :nombre"),
+    @NamedQuery(name = "CargoEquivalente.findByEstado", query = "SELECT c FROM CargoEquivalente c WHERE c.estado = :estado")})
 public class CargoEquivalente implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "ID_CARGO_EQUIVALENTE")
-    private Integer idCargoEquivalente;
+    private Long idCargoEquivalente;
     @Basic(optional = false)
     @Column(name = "NOMBRE")
     private String nombre;
     @Basic(optional = false)
-    @Lob
     @Column(name = "ESTADO")
-    private byte[] estado;
+    private boolean estado;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCargoEquivalente")
     private Collection<ExperienciaLaboral> experienciaLaboralCollection;
 
     public CargoEquivalente() {
     }
 
-    public CargoEquivalente(Integer idCargoEquivalente) {
+    public CargoEquivalente(Long idCargoEquivalente) {
         this.idCargoEquivalente = idCargoEquivalente;
     }
 
-    public CargoEquivalente(Integer idCargoEquivalente, String nombre, byte[] estado) {
+    public CargoEquivalente(Long idCargoEquivalente, String nombre, boolean estado) {
         this.idCargoEquivalente = idCargoEquivalente;
         this.nombre = nombre;
         this.estado = estado;
     }
 
-    public Integer getIdCargoEquivalente() {
+    public Long getIdCargoEquivalente() {
         return idCargoEquivalente;
     }
 
-    public void setIdCargoEquivalente(Integer idCargoEquivalente) {
+    public void setIdCargoEquivalente(Long idCargoEquivalente) {
         this.idCargoEquivalente = idCargoEquivalente;
     }
 
@@ -80,11 +79,11 @@ public class CargoEquivalente implements Serializable {
         this.nombre = nombre;
     }
 
-    public byte[] getEstado() {
+    public boolean getEstado() {
         return estado;
     }
 
-    public void setEstado(byte[] estado) {
+    public void setEstado(boolean estado) {
         this.estado = estado;
     }
 

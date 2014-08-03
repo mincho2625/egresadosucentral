@@ -9,7 +9,7 @@ import java.util.ArrayList;
  */
 public class Pais {
 
-    private int idPais;
+    private long idPais;
     private String nombre;
     private ArrayList<Departamento> listaDepartamentos;
     
@@ -21,14 +21,14 @@ public class Pais {
     /**
      * @return the idPais
      */
-    public int getIdPais() {
+    public long getIdPais() {
         return idPais;
     }
 
     /**
      * @param idPais the idPais to set
      */
-    public void setIdPais(int idPais) {
+    public void setIdPais(long idPais) {
         this.idPais = idPais;
     }
 
@@ -53,7 +53,7 @@ public class Pais {
         return listaDepartamentos;
     }
 
-    public void agregarDepartamento(int idDepartamento, String nombre)
+    public void agregarDepartamento(long idDepartamento, String nombre)
     {
         Departamento departamento = new Departamento();
         departamento.setIdDepartamento(idDepartamento);

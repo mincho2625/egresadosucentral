@@ -15,7 +15,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -33,42 +32,42 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Idioma.findAll", query = "SELECT i FROM Idioma i"),
     @NamedQuery(name = "Idioma.findByIdIdioma", query = "SELECT i FROM Idioma i WHERE i.idIdioma = :idIdioma"),
-    @NamedQuery(name = "Idioma.findByNombre", query = "SELECT i FROM Idioma i WHERE i.nombre = :nombre")})
+    @NamedQuery(name = "Idioma.findByNombre", query = "SELECT i FROM Idioma i WHERE i.nombre = :nombre"),
+    @NamedQuery(name = "Idioma.findByEstado", query = "SELECT i FROM Idioma i WHERE i.estado = :estado")})
 public class Idioma implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "ID_IDIOMA")
-    private Integer idIdioma;
+    private Long idIdioma;
     @Basic(optional = false)
     @Column(name = "NOMBRE")
     private String nombre;
     @Basic(optional = false)
-    @Lob
     @Column(name = "ESTADO")
-    private byte[] estado;
+    private boolean estado;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idIdioma")
     private Collection<LenguaExtranjera> lenguaExtranjeraCollection;
 
     public Idioma() {
     }
 
-    public Idioma(Integer idIdioma) {
+    public Idioma(Long idIdioma) {
         this.idIdioma = idIdioma;
     }
 
-    public Idioma(Integer idIdioma, String nombre, byte[] estado) {
+    public Idioma(Long idIdioma, String nombre, boolean estado) {
         this.idIdioma = idIdioma;
         this.nombre = nombre;
         this.estado = estado;
     }
 
-    public Integer getIdIdioma() {
+    public Long getIdIdioma() {
         return idIdioma;
     }
 
-    public void setIdIdioma(Integer idIdioma) {
+    public void setIdIdioma(Long idIdioma) {
         this.idIdioma = idIdioma;
     }
 
@@ -80,11 +79,11 @@ public class Idioma implements Serializable {
         this.nombre = nombre;
     }
 
-    public byte[] getEstado() {
+    public boolean getEstado() {
         return estado;
     }
 
-    public void setEstado(byte[] estado) {
+    public void setEstado(boolean estado) {
         this.estado = estado;
     }
 

@@ -32,37 +32,42 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "TipoContacto.findAll", query = "SELECT t FROM TipoContacto t"),
     @NamedQuery(name = "TipoContacto.findByIdTipoContacto", query = "SELECT t FROM TipoContacto t WHERE t.idTipoContacto = :idTipoContacto"),
-    @NamedQuery(name = "TipoContacto.findByNombre", query = "SELECT t FROM TipoContacto t WHERE t.nombre = :nombre")})
+    @NamedQuery(name = "TipoContacto.findByNombre", query = "SELECT t FROM TipoContacto t WHERE t.nombre = :nombre"),
+    @NamedQuery(name = "TipoContacto.findByEstado", query = "SELECT t FROM TipoContacto t WHERE t.estado = :estado")})
 public class TipoContacto implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "ID_TIPO_CONTACTO")
-    private Integer idTipoContacto;
+    private Long idTipoContacto;
     @Basic(optional = false)
     @Column(name = "NOMBRE")
     private String nombre;
+    @Basic(optional = false)
+    @Column(name = "ESTADO")
+    private boolean estado;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idTipoContacto")
     private Collection<Contacto> contactoCollection;
 
     public TipoContacto() {
     }
 
-    public TipoContacto(Integer idTipoContacto) {
+    public TipoContacto(Long idTipoContacto) {
         this.idTipoContacto = idTipoContacto;
     }
 
-    public TipoContacto(Integer idTipoContacto, String nombre) {
+    public TipoContacto(Long idTipoContacto, String nombre, boolean estado) {
         this.idTipoContacto = idTipoContacto;
         this.nombre = nombre;
+        this.estado = estado;
     }
 
-    public Integer getIdTipoContacto() {
+    public Long getIdTipoContacto() {
         return idTipoContacto;
     }
 
-    public void setIdTipoContacto(Integer idTipoContacto) {
+    public void setIdTipoContacto(Long idTipoContacto) {
         this.idTipoContacto = idTipoContacto;
     }
 
@@ -72,6 +77,14 @@ public class TipoContacto implements Serializable {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public boolean getEstado() {
+        return estado;
+    }
+
+    public void setEstado(boolean estado) {
+        this.estado = estado;
     }
 
     @XmlTransient

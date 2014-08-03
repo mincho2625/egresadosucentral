@@ -7,20 +7,20 @@ package Modelo;
  */
 public class Genero {
 
-	private int idGenero;
-	private String nombre;
+    private long idGenero;
+    private String nombre;
 
     /**
      * @return the idGenero
      */
-    public int getIdGenero() {
+    public long getIdGenero() {
         return idGenero;
     }
 
     /**
      * @param idGenero the idGenero to set
      */
-    public void setIdGenero(int idGenero) {
+    public void setIdGenero(long idGenero) {
         this.idGenero = idGenero;
     }
 
@@ -37,5 +37,4 @@ public class Genero {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-
 }

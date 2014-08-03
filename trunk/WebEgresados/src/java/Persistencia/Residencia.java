@@ -15,7 +15,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -35,36 +34,33 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Residencia.findAll", query = "SELECT r FROM Residencia r"),
     @NamedQuery(name = "Residencia.findByIdResidencia", query = "SELECT r FROM Residencia r WHERE r.idResidencia = :idResidencia"),
     @NamedQuery(name = "Residencia.findByDireccion", query = "SELECT r FROM Residencia r WHERE r.direccion = :direccion"),
-    @NamedQuery(name = "Residencia.findByFechaRegistro", query = "SELECT r FROM Residencia r WHERE r.fechaRegistro = :fechaRegistro")})
+    @NamedQuery(name = "Residencia.findByComputador", query = "SELECT r FROM Residencia r WHERE r.computador = :computador"),
+    @NamedQuery(name = "Residencia.findByConexionInternet", query = "SELECT r FROM Residencia r WHERE r.conexionInternet = :conexionInternet"),
+    @NamedQuery(name = "Residencia.findByFechaRegistro", query = "SELECT r FROM Residencia r WHERE r.fechaRegistro = :fechaRegistro"),
+    @NamedQuery(name = "Residencia.findByEstado", query = "SELECT r FROM Residencia r WHERE r.estado = :estado")})
 public class Residencia implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "ID_RESIDENCIA")
-    private Integer idResidencia;
+    private Long idResidencia;
     @Basic(optional = false)
     @Column(name = "DIRECCION")
     private String direccion;
     @Basic(optional = false)
-    @Lob
     @Column(name = "COMPUTADOR")
-    private byte[] computador;
+    private boolean computador;
     @Basic(optional = false)
-    @Lob
     @Column(name = "CONEXION_INTERNET")
-    private byte[] conexionInternet;
+    private boolean conexionInternet;
     @Basic(optional = false)
     @Column(name = "FECHA_REGISTRO")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaRegistro;
     @Basic(optional = false)
-    @Lob
     @Column(name = "ESTADO")
-    private byte[] estado;
-    @JoinColumn(name = "ID_EGRESADO", referencedColumnName = "ID_EGRESADO")
-    @ManyToOne(optional = false)
-    private Egresado idEgresado;
+    private boolean estado;
     @JoinColumn(name = "ID_CIUDAD_RESIDENCIA", referencedColumnName = "ID_CIUDAD")
     @ManyToOne(optional = false)
     private Ciudad idCiudadResidencia;
@@ -77,15 +73,18 @@ public class Residencia implements Serializable {
     @JoinColumn(name = "ID_ESTRATO", referencedColumnName = "ID_ESTRATO")
     @ManyToOne(optional = false)
     private Estrato idEstrato;
+    @JoinColumn(name = "ID_EGRESADO", referencedColumnName = "ID_EGRESADO")
+    @ManyToOne(optional = false)
+    private Egresado idEgresado;
 
     public Residencia() {
     }
 
-    public Residencia(Integer idResidencia) {
+    public Residencia(Long idResidencia) {
         this.idResidencia = idResidencia;
     }
 
-    public Residencia(Integer idResidencia, String direccion, byte[] computador, byte[] conexionInternet, Date fechaRegistro, byte[] estado) {
+    public Residencia(Long idResidencia, String direccion, boolean computador, boolean conexionInternet, Date fechaRegistro, boolean estado) {
         this.idResidencia = idResidencia;
         this.direccion = direccion;
         this.computador = computador;
@@ -94,11 +93,11 @@ public class Residencia implements Serializable {
         this.estado = estado;
     }
 
-    public Integer getIdResidencia() {
+    public Long getIdResidencia() {
         return idResidencia;
     }
 
-    public void setIdResidencia(Integer idResidencia) {
+    public void setIdResidencia(Long idResidencia) {
         this.idResidencia = idResidencia;
     }
 
@@ -110,19 +109,19 @@ public class Residencia implements Serializable {
         this.direccion = direccion;
     }
 
-    public byte[] getComputador() {
+    public boolean getComputador() {
         return computador;
     }
 
-    public void setComputador(byte[] computador) {
+    public void setComputador(boolean computador) {
         this.computador = computador;
     }
 
-    public byte[] getConexionInternet() {
+    public boolean getConexionInternet() {
         return conexionInternet;
     }
 
-    public void setConexionInternet(byte[] conexionInternet) {
+    public void setConexionInternet(boolean conexionInternet) {
         this.conexionInternet = conexionInternet;
     }
 
@@ -134,20 +133,12 @@ public class Residencia implements Serializable {
         this.fechaRegistro = fechaRegistro;
     }
 
-    public byte[] getEstado() {
+    public boolean getEstado() {
         return estado;
     }
 
-    public void setEstado(byte[] estado) {
+    public void setEstado(boolean estado) {
         this.estado = estado;
-    }
-
-    public Egresado getIdEgresado() {
-        return idEgresado;
-    }
-
-    public void setIdEgresado(Egresado idEgresado) {
-        this.idEgresado = idEgresado;
     }
 
     public Ciudad getIdCiudadResidencia() {
@@ -180,6 +171,14 @@ public class Residencia implements Serializable {
 
     public void setIdEstrato(Estrato idEstrato) {
         this.idEstrato = idEstrato;
+    }
+
+    public Egresado getIdEgresado() {
+        return idEgresado;
+    }
+
+    public void setIdEgresado(Egresado idEgresado) {
+        this.idEgresado = idEgresado;
     }
 
     @Override

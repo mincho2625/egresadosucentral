@@ -15,7 +15,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -33,42 +32,42 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "TipoEdNoFormal.findAll", query = "SELECT t FROM TipoEdNoFormal t"),
     @NamedQuery(name = "TipoEdNoFormal.findByIdTipoEdNoFormal", query = "SELECT t FROM TipoEdNoFormal t WHERE t.idTipoEdNoFormal = :idTipoEdNoFormal"),
-    @NamedQuery(name = "TipoEdNoFormal.findByNombre", query = "SELECT t FROM TipoEdNoFormal t WHERE t.nombre = :nombre")})
+    @NamedQuery(name = "TipoEdNoFormal.findByNombre", query = "SELECT t FROM TipoEdNoFormal t WHERE t.nombre = :nombre"),
+    @NamedQuery(name = "TipoEdNoFormal.findByEstado", query = "SELECT t FROM TipoEdNoFormal t WHERE t.estado = :estado")})
 public class TipoEdNoFormal implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "ID_TIPO_ED_NO_FORMAL")
-    private Integer idTipoEdNoFormal;
+    private Long idTipoEdNoFormal;
     @Basic(optional = false)
     @Column(name = "NOMBRE")
     private String nombre;
     @Basic(optional = false)
-    @Lob
     @Column(name = "ESTADO")
-    private byte[] estado;
+    private boolean estado;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idTipoEdNoFormal")
     private Collection<EducacionNoFormal> educacionNoFormalCollection;
 
     public TipoEdNoFormal() {
     }
 
-    public TipoEdNoFormal(Integer idTipoEdNoFormal) {
+    public TipoEdNoFormal(Long idTipoEdNoFormal) {
         this.idTipoEdNoFormal = idTipoEdNoFormal;
     }
 
-    public TipoEdNoFormal(Integer idTipoEdNoFormal, String nombre, byte[] estado) {
+    public TipoEdNoFormal(Long idTipoEdNoFormal, String nombre, boolean estado) {
         this.idTipoEdNoFormal = idTipoEdNoFormal;
         this.nombre = nombre;
         this.estado = estado;
     }
 
-    public Integer getIdTipoEdNoFormal() {
+    public Long getIdTipoEdNoFormal() {
         return idTipoEdNoFormal;
     }
 
-    public void setIdTipoEdNoFormal(Integer idTipoEdNoFormal) {
+    public void setIdTipoEdNoFormal(Long idTipoEdNoFormal) {
         this.idTipoEdNoFormal = idTipoEdNoFormal;
     }
 
@@ -80,11 +79,11 @@ public class TipoEdNoFormal implements Serializable {
         this.nombre = nombre;
     }
 
-    public byte[] getEstado() {
+    public boolean getEstado() {
         return estado;
     }
 
-    public void setEstado(byte[] estado) {
+    public void setEstado(boolean estado) {
         this.estado = estado;
     }
 

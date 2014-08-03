@@ -11,6 +11,7 @@
 
                 <table cellpadding="2" cellspacing="12">
                     <caption>REGISTRO EN EL SISTEMA</caption>
+                    
                     <tr>
                         <td class="tduno">Primer Apellido:
                         </td>

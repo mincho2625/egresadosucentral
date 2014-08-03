@@ -13,7 +13,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -31,41 +30,41 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "TipoRespuesta.findAll", query = "SELECT t FROM TipoRespuesta t"),
     @NamedQuery(name = "TipoRespuesta.findByIdTipoRespuesta", query = "SELECT t FROM TipoRespuesta t WHERE t.idTipoRespuesta = :idTipoRespuesta"),
-    @NamedQuery(name = "TipoRespuesta.findByNombre", query = "SELECT t FROM TipoRespuesta t WHERE t.nombre = :nombre")})
+    @NamedQuery(name = "TipoRespuesta.findByNombre", query = "SELECT t FROM TipoRespuesta t WHERE t.nombre = :nombre"),
+    @NamedQuery(name = "TipoRespuesta.findByEstado", query = "SELECT t FROM TipoRespuesta t WHERE t.estado = :estado")})
 public class TipoRespuesta implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
     @Column(name = "ID_TIPO_RESPUESTA")
-    private Integer idTipoRespuesta;
+    private Long idTipoRespuesta;
     @Basic(optional = false)
     @Column(name = "NOMBRE")
     private String nombre;
     @Basic(optional = false)
-    @Lob
     @Column(name = "ESTADO")
-    private byte[] estado;
+    private boolean estado;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idTipoRespuesta")
     private Collection<PreguntaEncuesta> preguntaEncuestaCollection;
 
     public TipoRespuesta() {
     }
 
-    public TipoRespuesta(Integer idTipoRespuesta) {
+    public TipoRespuesta(Long idTipoRespuesta) {
         this.idTipoRespuesta = idTipoRespuesta;
     }
 
-    public TipoRespuesta(Integer idTipoRespuesta, String nombre, byte[] estado) {
+    public TipoRespuesta(Long idTipoRespuesta, String nombre, boolean estado) {
         this.idTipoRespuesta = idTipoRespuesta;
         this.nombre = nombre;
         this.estado = estado;
     }
 
-    public Integer getIdTipoRespuesta() {
+    public Long getIdTipoRespuesta() {
         return idTipoRespuesta;
     }
 
-    public void setIdTipoRespuesta(Integer idTipoRespuesta) {
+    public void setIdTipoRespuesta(Long idTipoRespuesta) {
         this.idTipoRespuesta = idTipoRespuesta;
     }
 
@@ -77,11 +76,11 @@ public class TipoRespuesta implements Serializable {
         this.nombre = nombre;
     }
 
-    public byte[] getEstado() {
+    public boolean getEstado() {
         return estado;
     }
 
-    public void setEstado(byte[] estado) {
+    public void setEstado(boolean estado) {
         this.estado = estado;
     }
 

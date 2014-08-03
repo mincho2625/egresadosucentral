@@ -15,7 +15,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -33,42 +32,42 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "RangoSalarial.findAll", query = "SELECT r FROM RangoSalarial r"),
     @NamedQuery(name = "RangoSalarial.findByIdRangoSalarial", query = "SELECT r FROM RangoSalarial r WHERE r.idRangoSalarial = :idRangoSalarial"),
-    @NamedQuery(name = "RangoSalarial.findByDescripcion", query = "SELECT r FROM RangoSalarial r WHERE r.descripcion = :descripcion")})
+    @NamedQuery(name = "RangoSalarial.findByDescripcion", query = "SELECT r FROM RangoSalarial r WHERE r.descripcion = :descripcion"),
+    @NamedQuery(name = "RangoSalarial.findByEstado", query = "SELECT r FROM RangoSalarial r WHERE r.estado = :estado")})
 public class RangoSalarial implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "ID_RANGO_SALARIAL")
-    private Integer idRangoSalarial;
+    private Long idRangoSalarial;
     @Basic(optional = false)
     @Column(name = "DESCRIPCION")
     private String descripcion;
     @Basic(optional = false)
-    @Lob
     @Column(name = "ESTADO")
-    private byte[] estado;
+    private boolean estado;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idRangoSalarial")
     private Collection<ExperienciaLaboral> experienciaLaboralCollection;
 
     public RangoSalarial() {
     }
 
-    public RangoSalarial(Integer idRangoSalarial) {
+    public RangoSalarial(Long idRangoSalarial) {
         this.idRangoSalarial = idRangoSalarial;
     }
 
-    public RangoSalarial(Integer idRangoSalarial, String descripcion, byte[] estado) {
+    public RangoSalarial(Long idRangoSalarial, String descripcion, boolean estado) {
         this.idRangoSalarial = idRangoSalarial;
         this.descripcion = descripcion;
         this.estado = estado;
     }
 
-    public Integer getIdRangoSalarial() {
+    public Long getIdRangoSalarial() {
         return idRangoSalarial;
     }
 
-    public void setIdRangoSalarial(Integer idRangoSalarial) {
+    public void setIdRangoSalarial(Long idRangoSalarial) {
         this.idRangoSalarial = idRangoSalarial;
     }
 
@@ -80,11 +79,11 @@ public class RangoSalarial implements Serializable {
         this.descripcion = descripcion;
     }
 
-    public byte[] getEstado() {
+    public boolean getEstado() {
         return estado;
     }
 
-    public void setEstado(byte[] estado) {
+    public void setEstado(boolean estado) {
         this.estado = estado;
     }
 

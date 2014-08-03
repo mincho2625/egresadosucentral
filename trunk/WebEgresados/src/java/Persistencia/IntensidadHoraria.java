@@ -15,7 +15,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -33,42 +32,42 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "IntensidadHoraria.findAll", query = "SELECT i FROM IntensidadHoraria i"),
     @NamedQuery(name = "IntensidadHoraria.findByIdIntensidadHoraria", query = "SELECT i FROM IntensidadHoraria i WHERE i.idIntensidadHoraria = :idIntensidadHoraria"),
-    @NamedQuery(name = "IntensidadHoraria.findByNombre", query = "SELECT i FROM IntensidadHoraria i WHERE i.nombre = :nombre")})
+    @NamedQuery(name = "IntensidadHoraria.findByNombre", query = "SELECT i FROM IntensidadHoraria i WHERE i.nombre = :nombre"),
+    @NamedQuery(name = "IntensidadHoraria.findByEstado", query = "SELECT i FROM IntensidadHoraria i WHERE i.estado = :estado")})
 public class IntensidadHoraria implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "ID_INTENSIDAD_HORARIA")
-    private Integer idIntensidadHoraria;
+    private Long idIntensidadHoraria;
     @Basic(optional = false)
     @Column(name = "NOMBRE")
     private String nombre;
     @Basic(optional = false)
-    @Lob
     @Column(name = "ESTADO")
-    private byte[] estado;
+    private boolean estado;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idIntensidadHoraria")
     private Collection<EducacionNoFormal> educacionNoFormalCollection;
 
     public IntensidadHoraria() {
     }
 
-    public IntensidadHoraria(Integer idIntensidadHoraria) {
+    public IntensidadHoraria(Long idIntensidadHoraria) {
         this.idIntensidadHoraria = idIntensidadHoraria;
     }
 
-    public IntensidadHoraria(Integer idIntensidadHoraria, String nombre, byte[] estado) {
+    public IntensidadHoraria(Long idIntensidadHoraria, String nombre, boolean estado) {
         this.idIntensidadHoraria = idIntensidadHoraria;
         this.nombre = nombre;
         this.estado = estado;
     }
 
-    public Integer getIdIntensidadHoraria() {
+    public Long getIdIntensidadHoraria() {
         return idIntensidadHoraria;
     }
 
-    public void setIdIntensidadHoraria(Integer idIntensidadHoraria) {
+    public void setIdIntensidadHoraria(Long idIntensidadHoraria) {
         this.idIntensidadHoraria = idIntensidadHoraria;
     }
 
@@ -80,11 +79,11 @@ public class IntensidadHoraria implements Serializable {
         this.nombre = nombre;
     }
 
-    public byte[] getEstado() {
+    public boolean getEstado() {
         return estado;
     }
 
-    public void setEstado(byte[] estado) {
+    public void setEstado(boolean estado) {
         this.estado = estado;
     }
 

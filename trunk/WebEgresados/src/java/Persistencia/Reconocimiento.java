@@ -15,7 +15,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -37,14 +36,15 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Reconocimiento.findByEntidadOtorgante", query = "SELECT r FROM Reconocimiento r WHERE r.entidadOtorgante = :entidadOtorgante"),
     @NamedQuery(name = "Reconocimiento.findByDescripcion", query = "SELECT r FROM Reconocimiento r WHERE r.descripcion = :descripcion"),
     @NamedQuery(name = "Reconocimiento.findByFechaReconocimiento", query = "SELECT r FROM Reconocimiento r WHERE r.fechaReconocimiento = :fechaReconocimiento"),
-    @NamedQuery(name = "Reconocimiento.findByFechaRegistro", query = "SELECT r FROM Reconocimiento r WHERE r.fechaRegistro = :fechaRegistro")})
+    @NamedQuery(name = "Reconocimiento.findByFechaRegistro", query = "SELECT r FROM Reconocimiento r WHERE r.fechaRegistro = :fechaRegistro"),
+    @NamedQuery(name = "Reconocimiento.findByEstado", query = "SELECT r FROM Reconocimiento r WHERE r.estado = :estado")})
 public class Reconocimiento implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "ID_RECONOCIMIENTO")
-    private Integer idReconocimiento;
+    private Long idReconocimiento;
     @Basic(optional = false)
     @Column(name = "ENTIDAD_OTORGANTE")
     private String entidadOtorgante;
@@ -59,9 +59,8 @@ public class Reconocimiento implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaRegistro;
     @Basic(optional = false)
-    @Lob
     @Column(name = "ESTADO")
-    private byte[] estado;
+    private boolean estado;
     @JoinColumn(name = "ID_TIPO_RECONOCIMIENTO", referencedColumnName = "ID_TIPO_RECONOCIMIENTO")
     @ManyToOne(optional = false)
     private TipoReconocimiento idTipoReconocimiento;
@@ -78,11 +77,11 @@ public class Reconocimiento implements Serializable {
     public Reconocimiento() {
     }
 
-    public Reconocimiento(Integer idReconocimiento) {
+    public Reconocimiento(Long idReconocimiento) {
         this.idReconocimiento = idReconocimiento;
     }
 
-    public Reconocimiento(Integer idReconocimiento, String entidadOtorgante, Date fechaReconocimiento, Date fechaRegistro, byte[] estado) {
+    public Reconocimiento(Long idReconocimiento, String entidadOtorgante, Date fechaReconocimiento, Date fechaRegistro, boolean estado) {
         this.idReconocimiento = idReconocimiento;
         this.entidadOtorgante = entidadOtorgante;
         this.fechaReconocimiento = fechaReconocimiento;
@@ -90,11 +89,11 @@ public class Reconocimiento implements Serializable {
         this.estado = estado;
     }
 
-    public Integer getIdReconocimiento() {
+    public Long getIdReconocimiento() {
         return idReconocimiento;
     }
 
-    public void setIdReconocimiento(Integer idReconocimiento) {
+    public void setIdReconocimiento(Long idReconocimiento) {
         this.idReconocimiento = idReconocimiento;
     }
 
@@ -130,11 +129,11 @@ public class Reconocimiento implements Serializable {
         this.fechaRegistro = fechaRegistro;
     }
 
-    public byte[] getEstado() {
+    public boolean getEstado() {
         return estado;
     }
 
-    public void setEstado(byte[] estado) {
+    public void setEstado(boolean estado) {
         this.estado = estado;
     }
 

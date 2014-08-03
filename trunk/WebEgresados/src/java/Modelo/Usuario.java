@@ -10,8 +10,9 @@ public class Usuario {
     private String correoInstitucional;
     private String nombreUsuario;
     private String clave;
-    private int idPreguntaSeguridad;
+    private long idPreguntaSeguridad;
     private String respuestaSeguridad;
+    private long idUsuario;
 
     /**
      * @return the correoInstitucional
@@ -58,14 +59,14 @@ public class Usuario {
     /**
      * @return the idPreguntaSeguridad
      */
-    public int getIdPreguntaSeguridad() {
+    public long getIdPreguntaSeguridad() {
         return idPreguntaSeguridad;
     }
 
     /**
      * @param idPreguntaSeguridad the idPreguntaSeguridad to set
      */
-    public void setIdPreguntaSeguridad(int idPreguntaSeguridad) {
+    public void setIdPreguntaSeguridad(long idPreguntaSeguridad) {
         this.idPreguntaSeguridad = idPreguntaSeguridad;
     }
 
@@ -81,5 +82,19 @@ public class Usuario {
      */
     public void setRespuestaSeguridad(String respuestaSeguridad) {
         this.respuestaSeguridad = respuestaSeguridad;
+    }
+
+    /**
+     * @return the idUsuario
+     */
+    public long getIdUsuario() {
+        return idUsuario;
+    }
+
+    /**
+     * @param idUsuario the idUsuario to set
+     */
+    public void setIdUsuario(long idUsuario) {
+        this.idUsuario = idUsuario;
     }
 }

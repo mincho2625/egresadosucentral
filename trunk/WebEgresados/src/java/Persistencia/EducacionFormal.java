@@ -34,7 +34,7 @@ public class EducacionFormal implements Serializable {
     @Id
     @Basic(optional = false)
     @Column(name = "ID_EDUCACION")
-    private Integer idEducacion;
+    private Long idEducacion;
     @JoinColumn(name = "ID_PROGRAMA", referencedColumnName = "ID_PROGRAMA")
     @ManyToOne(optional = false)
     private Programa idPrograma;
@@ -51,15 +51,15 @@ public class EducacionFormal implements Serializable {
     public EducacionFormal() {
     }
 
-    public EducacionFormal(Integer idEducacion) {
+    public EducacionFormal(Long idEducacion) {
         this.idEducacion = idEducacion;
     }
 
-    public Integer getIdEducacion() {
+    public Long getIdEducacion() {
         return idEducacion;
     }
 
-    public void setIdEducacion(Integer idEducacion) {
+    public void setIdEducacion(Long idEducacion) {
         this.idEducacion = idEducacion;
     }
 

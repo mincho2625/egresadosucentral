@@ -15,7 +15,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -35,14 +34,15 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Aficiones.findAll", query = "SELECT a FROM Aficiones a"),
     @NamedQuery(name = "Aficiones.findByIdAficion", query = "SELECT a FROM Aficiones a WHERE a.idAficion = :idAficion"),
     @NamedQuery(name = "Aficiones.findByListaActividades", query = "SELECT a FROM Aficiones a WHERE a.listaActividades = :listaActividades"),
-    @NamedQuery(name = "Aficiones.findByFechaRegistro", query = "SELECT a FROM Aficiones a WHERE a.fechaRegistro = :fechaRegistro")})
+    @NamedQuery(name = "Aficiones.findByFechaRegistro", query = "SELECT a FROM Aficiones a WHERE a.fechaRegistro = :fechaRegistro"),
+    @NamedQuery(name = "Aficiones.findByEstado", query = "SELECT a FROM Aficiones a WHERE a.estado = :estado")})
 public class Aficiones implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "ID_AFICION")
-    private Integer idAficion;
+    private Long idAficion;
     @Basic(optional = false)
     @Column(name = "LISTA_ACTIVIDADES")
     private String listaActividades;
@@ -51,9 +51,8 @@ public class Aficiones implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaRegistro;
     @Basic(optional = false)
-    @Lob
     @Column(name = "ESTADO")
-    private byte[] estado;
+    private boolean estado;
     @JoinColumn(name = "ID_TIPO_ACTIVIDAD", referencedColumnName = "ID_TIPO_ACTIVIDAD")
     @ManyToOne(optional = false)
     private TipoActividad idTipoActividad;
@@ -64,22 +63,22 @@ public class Aficiones implements Serializable {
     public Aficiones() {
     }
 
-    public Aficiones(Integer idAficion) {
+    public Aficiones(Long idAficion) {
         this.idAficion = idAficion;
     }
 
-    public Aficiones(Integer idAficion, String listaActividades, Date fechaRegistro, byte[] estado) {
+    public Aficiones(Long idAficion, String listaActividades, Date fechaRegistro, boolean estado) {
         this.idAficion = idAficion;
         this.listaActividades = listaActividades;
         this.fechaRegistro = fechaRegistro;
         this.estado = estado;
     }
 
-    public Integer getIdAficion() {
+    public Long getIdAficion() {
         return idAficion;
     }
 
-    public void setIdAficion(Integer idAficion) {
+    public void setIdAficion(Long idAficion) {
         this.idAficion = idAficion;
     }
 
@@ -99,11 +98,11 @@ public class Aficiones implements Serializable {
         this.fechaRegistro = fechaRegistro;
     }
 
-    public byte[] getEstado() {
+    public boolean getEstado() {
         return estado;
     }
 
-    public void setEstado(byte[] estado) {
+    public void setEstado(boolean estado) {
         this.estado = estado;
     }
 

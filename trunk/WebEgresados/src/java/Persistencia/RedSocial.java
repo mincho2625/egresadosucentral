@@ -15,7 +15,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -33,42 +32,42 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "RedSocial.findAll", query = "SELECT r FROM RedSocial r"),
     @NamedQuery(name = "RedSocial.findByIdRedSocial", query = "SELECT r FROM RedSocial r WHERE r.idRedSocial = :idRedSocial"),
-    @NamedQuery(name = "RedSocial.findByNombre", query = "SELECT r FROM RedSocial r WHERE r.nombre = :nombre")})
+    @NamedQuery(name = "RedSocial.findByNombre", query = "SELECT r FROM RedSocial r WHERE r.nombre = :nombre"),
+    @NamedQuery(name = "RedSocial.findByEstado", query = "SELECT r FROM RedSocial r WHERE r.estado = :estado")})
 public class RedSocial implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "ID_RED_SOCIAL")
-    private Integer idRedSocial;
+    private Long idRedSocial;
     @Basic(optional = false)
     @Column(name = "NOMBRE")
     private String nombre;
     @Basic(optional = false)
-    @Lob
     @Column(name = "ESTADO")
-    private byte[] estado;
+    private boolean estado;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idRedSocial")
     private Collection<EgresadoRedSocial> egresadoRedSocialCollection;
 
     public RedSocial() {
     }
 
-    public RedSocial(Integer idRedSocial) {
+    public RedSocial(Long idRedSocial) {
         this.idRedSocial = idRedSocial;
     }
 
-    public RedSocial(Integer idRedSocial, String nombre, byte[] estado) {
+    public RedSocial(Long idRedSocial, String nombre, boolean estado) {
         this.idRedSocial = idRedSocial;
         this.nombre = nombre;
         this.estado = estado;
     }
 
-    public Integer getIdRedSocial() {
+    public Long getIdRedSocial() {
         return idRedSocial;
     }
 
-    public void setIdRedSocial(Integer idRedSocial) {
+    public void setIdRedSocial(Long idRedSocial) {
         this.idRedSocial = idRedSocial;
     }
 
@@ -80,11 +79,11 @@ public class RedSocial implements Serializable {
         this.nombre = nombre;
     }
 
-    public byte[] getEstado() {
+    public boolean getEstado() {
         return estado;
     }
 
-    public void setEstado(byte[] estado) {
+    public void setEstado(boolean estado) {
         this.estado = estado;
     }
 

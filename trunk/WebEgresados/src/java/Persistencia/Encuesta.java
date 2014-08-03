@@ -15,7 +15,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -34,44 +33,44 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Encuesta.findAll", query = "SELECT e FROM Encuesta e"),
     @NamedQuery(name = "Encuesta.findByIdEncuesta", query = "SELECT e FROM Encuesta e WHERE e.idEncuesta = :idEncuesta"),
     @NamedQuery(name = "Encuesta.findByNombre", query = "SELECT e FROM Encuesta e WHERE e.nombre = :nombre"),
-    @NamedQuery(name = "Encuesta.findByDescripcion", query = "SELECT e FROM Encuesta e WHERE e.descripcion = :descripcion")})
+    @NamedQuery(name = "Encuesta.findByDescripcion", query = "SELECT e FROM Encuesta e WHERE e.descripcion = :descripcion"),
+    @NamedQuery(name = "Encuesta.findByEstado", query = "SELECT e FROM Encuesta e WHERE e.estado = :estado")})
 public class Encuesta implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "ID_ENCUESTA")
-    private Integer idEncuesta;
+    private Long idEncuesta;
     @Basic(optional = false)
     @Column(name = "NOMBRE")
     private String nombre;
     @Column(name = "DESCRIPCION")
     private String descripcion;
     @Basic(optional = false)
-    @Lob
     @Column(name = "ESTADO")
-    private byte[] estado;
+    private boolean estado;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idEncuesta")
     private Collection<PreguntaEncuesta> preguntaEncuestaCollection;
 
     public Encuesta() {
     }
 
-    public Encuesta(Integer idEncuesta) {
+    public Encuesta(Long idEncuesta) {
         this.idEncuesta = idEncuesta;
     }
 
-    public Encuesta(Integer idEncuesta, String nombre, byte[] estado) {
+    public Encuesta(Long idEncuesta, String nombre, boolean estado) {
         this.idEncuesta = idEncuesta;
         this.nombre = nombre;
         this.estado = estado;
     }
 
-    public Integer getIdEncuesta() {
+    public Long getIdEncuesta() {
         return idEncuesta;
     }
 
-    public void setIdEncuesta(Integer idEncuesta) {
+    public void setIdEncuesta(Long idEncuesta) {
         this.idEncuesta = idEncuesta;
     }
 
@@ -91,11 +90,11 @@ public class Encuesta implements Serializable {
         this.descripcion = descripcion;
     }
 
-    public byte[] getEstado() {
+    public boolean getEstado() {
         return estado;
     }
 
-    public void setEstado(byte[] estado) {
+    public void setEstado(boolean estado) {
         this.estado = estado;
     }
 

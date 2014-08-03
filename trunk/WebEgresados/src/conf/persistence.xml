@@ -2,64 +2,63 @@
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
   <persistence-unit name="WebEgresadosPU" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-    <class>Persistencia.Estrato</class>
-    <class>Persistencia.PreguntaSeguridad</class>
-    <class>Persistencia.TipoRespuesta</class>
-    <class>Persistencia.Departamento</class>
-    <class>Persistencia.AreaEstudios</class>
-    <class>Persistencia.Idioma</class>
-    <class>Persistencia.Reconocimiento</class>
-    <class>Persistencia.Educacion</class>
-    <class>Persistencia.CargoEquivalente</class>
-    <class>Persistencia.RespuestaSeguridad</class>
-    <class>Persistencia.Programa</class>
-    <class>Persistencia.EstadoCivil</class>
+    <class>Persistencia.TipoVivienda</class>
+    <class>Persistencia.EducacionFormal</class>
+    <class>Persistencia.EducacionNoFormal</class>
+    <class>Persistencia.Modalidad</class>
+    <class>Persistencia.Encuesta</class>
     <class>Persistencia.IntensidadHoraria</class>
-    <class>Persistencia.Pais</class>
-    <class>Persistencia.TipoActividad</class>
-    <class>Persistencia.Sector</class>
-    <class>Persistencia.Ciudad</class>
-    <class>Persistencia.EstadoEducacion</class>
-    <class>Persistencia.Genero</class>
-    <class>Persistencia.NivelEstudios</class>
-    <class>Persistencia.LenguaExtranjera</class>
-    <class>Persistencia.Contacto</class>
-    <class>Persistencia.Usuario</class>
-    <class>Persistencia.Parametro</class>
-    <class>Persistencia.TipoReconocimiento</class>
-    <class>Persistencia.TipoContrato</class>
-    <class>Persistencia.ClaseReconocimiento</class>
-    <class>Persistencia.AreaEmpresa</class>
-    <class>Persistencia.TipoAsociacion</class>
-    <class>Persistencia.RespuestaEncuesta</class>
-    <class>Persistencia.EgresadoRedSocial</class>
+    <class>Persistencia.PreguntaEncuesta</class>
+    <class>Persistencia.Departamento</class>
     <class>Persistencia.EgresadoRespuesta</class>
+    <class>Persistencia.Asociacion</class>
+    <class>Persistencia.Reconocimiento</class>
+    <class>Persistencia.TipoActividad</class>
+    <class>Persistencia.Parametro</class>
+    <class>Persistencia.Ciudad</class>
+    <class>Persistencia.TipoRespuesta</class>
+    <class>Persistencia.AreaEstudios</class>
+    <class>Persistencia.Contacto</class>
+    <class>Persistencia.GrupoSanguineo</class>
+    <class>Persistencia.TipoTenenciaVivienda</class>
     <class>Persistencia.Mes</class>
+    <class>Persistencia.NivelCargo</class>
+    <class>Persistencia.Estrato</class>
+    <class>Persistencia.AreaEmpresa</class>
+    <class>Persistencia.Residencia</class>
+    <class>Persistencia.EgresadoRedSocial</class>
     <class>Persistencia.RangoSalarial</class>
+    <class>Persistencia.DominioLenguaExt</class>
+    <class>Persistencia.TipoDocumento</class>
+    <class>Persistencia.TipoEdNoFormal</class>
+    <class>Persistencia.Pais</class>
+    <class>Persistencia.TipoContrato</class>
+    <class>Persistencia.Sector</class>
+    <class>Persistencia.TipoContacto</class>
+    <class>Persistencia.Egresado</class>
+    <class>Persistencia.EstadoCivil</class>
+    <class>Persistencia.RespuestaEncuesta</class>
+    <class>Persistencia.EstadoEducacion</class>
     <class>Persistencia.Facultad</class>
     <class>Persistencia.Aficiones</class>
-    <class>Persistencia.TipoDocumento</class>
-    <class>Persistencia.Jornada</class>
-    <class>Persistencia.Residencia</class>
-    <class>Persistencia.PlantillaCorreo</class>
-    <class>Persistencia.TipoVivienda</class>
+    <class>Persistencia.CargoEquivalente</class>
+    <class>Persistencia.ClaseReconocimiento</class>
+    <class>Persistencia.TipoAsociacion</class>
     <class>Persistencia.ExperienciaLaboral</class>
-    <class>Persistencia.TipoTenenciaVivienda</class>
-    <class>Persistencia.Modalidad</class>
-    <class>Persistencia.TipoEdNoFormal</class>
-    <class>Persistencia.TipoContacto</class>
-    <class>Persistencia.EducacionNoFormal</class>
-    <class>Persistencia.DominioLenguaExt</class>
-    <class>Persistencia.NivelCargo</class>
-    <class>Persistencia.Egresado</class>
-    <class>Persistencia.RedSocial</class>
-    <class>Persistencia.Subsector</class>
-    <class>Persistencia.GrupoSanguineo</class>
+    <class>Persistencia.Programa</class>
+    <class>Persistencia.Genero</class>
     <class>Persistencia.Institucion</class>
-    <class>Persistencia.PreguntaEncuesta</class>
-    <class>Persistencia.Encuesta</class>
-    <class>Persistencia.EducacionFormal</class>
-    <class>Persistencia.Asociacion</class>
+    <class>Persistencia.Idioma</class>
+    <class>Persistencia.Jornada</class>
+    <class>Persistencia.Educacion</class>
+    <class>Persistencia.NivelEstudios</class>
+    <class>Persistencia.LenguaExtranjera</class>
+    <class>Persistencia.PreguntaSeguridad</class>
+    <class>Persistencia.TipoReconocimiento</class>
+    <class>Persistencia.Subsector</class>
+    <class>Persistencia.RedSocial</class>
+    <class>Persistencia.PlantillaCorreo</class>
+    <class>Persistencia.Usuario</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/egresados?zeroDateTimeBehavior=convertToNull"/>
