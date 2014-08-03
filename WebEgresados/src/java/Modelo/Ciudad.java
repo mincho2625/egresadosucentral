@@ -7,20 +7,20 @@ package Modelo;
  */
 public class Ciudad {
 
-	private int idCiudad;
-	private String nombre;
+    private long idCiudad;
+    private String nombre;
 
     /**
      * @return the idCiudad
      */
-    public int getIdCiudad() {
+    public long getIdCiudad() {
         return idCiudad;
     }
 
     /**
      * @param idCiudad the idCiudad to set
      */
-    public void setIdCiudad(int idCiudad) {
+    public void setIdCiudad(long idCiudad) {
         this.idCiudad = idCiudad;
     }
 

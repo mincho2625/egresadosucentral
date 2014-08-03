@@ -15,7 +15,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -36,6 +35,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "ExperienciaLaboral.findByIdExperienciaLaboral", query = "SELECT e FROM ExperienciaLaboral e WHERE e.idExperienciaLaboral = :idExperienciaLaboral"),
     @NamedQuery(name = "ExperienciaLaboral.findByNombreEmpresa", query = "SELECT e FROM ExperienciaLaboral e WHERE e.nombreEmpresa = :nombreEmpresa"),
     @NamedQuery(name = "ExperienciaLaboral.findByCargo", query = "SELECT e FROM ExperienciaLaboral e WHERE e.cargo = :cargo"),
+    @NamedQuery(name = "ExperienciaLaboral.findByConexionInternet", query = "SELECT e FROM ExperienciaLaboral e WHERE e.conexionInternet = :conexionInternet"),
     @NamedQuery(name = "ExperienciaLaboral.findByFechaRegistro", query = "SELECT e FROM ExperienciaLaboral e WHERE e.fechaRegistro = :fechaRegistro"),
     @NamedQuery(name = "ExperienciaLaboral.findByFuncionesLogros", query = "SELECT e FROM ExperienciaLaboral e WHERE e.funcionesLogros = :funcionesLogros"),
     @NamedQuery(name = "ExperienciaLaboral.findByTelefonoEmpresa", query = "SELECT e FROM ExperienciaLaboral e WHERE e.telefonoEmpresa = :telefonoEmpresa"),
@@ -48,7 +48,7 @@ public class ExperienciaLaboral implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "ID_EXPERIENCIA_LABORAL")
-    private Integer idExperienciaLaboral;
+    private Long idExperienciaLaboral;
     @Basic(optional = false)
     @Column(name = "NOMBRE_EMPRESA")
     private String nombreEmpresa;
@@ -56,9 +56,8 @@ public class ExperienciaLaboral implements Serializable {
     @Column(name = "CARGO")
     private String cargo;
     @Basic(optional = false)
-    @Lob
     @Column(name = "CONEXION_INTERNET")
-    private byte[] conexionInternet;
+    private boolean conexionInternet;
     @Basic(optional = false)
     @Column(name = "FECHA_REGISTRO")
     @Temporal(TemporalType.TIMESTAMP)
@@ -90,9 +89,6 @@ public class ExperienciaLaboral implements Serializable {
     @JoinColumn(name = "ID_RANGO_SALARIAL", referencedColumnName = "ID_RANGO_SALARIAL")
     @ManyToOne(optional = false)
     private RangoSalarial idRangoSalarial;
-    @JoinColumn(name = "ID_EGRESADO", referencedColumnName = "ID_EGRESADO")
-    @ManyToOne(optional = false)
-    private Egresado idEgresado;
     @JoinColumn(name = "ID_CIUDAD", referencedColumnName = "ID_CIUDAD")
     @ManyToOne(optional = false)
     private Ciudad idCiudad;
@@ -105,15 +101,18 @@ public class ExperienciaLaboral implements Serializable {
     @JoinColumn(name = "ID_MES_FINALIZACION", referencedColumnName = "ID_MES")
     @ManyToOne
     private Mes idMesFinalizacion;
+    @JoinColumn(name = "ID_EGRESADO", referencedColumnName = "ID_EGRESADO")
+    @ManyToOne(optional = false)
+    private Egresado idEgresado;
 
     public ExperienciaLaboral() {
     }
 
-    public ExperienciaLaboral(Integer idExperienciaLaboral) {
+    public ExperienciaLaboral(Long idExperienciaLaboral) {
         this.idExperienciaLaboral = idExperienciaLaboral;
     }
 
-    public ExperienciaLaboral(Integer idExperienciaLaboral, String nombreEmpresa, String cargo, byte[] conexionInternet, Date fechaRegistro, String funcionesLogros, int anioIngreso) {
+    public ExperienciaLaboral(Long idExperienciaLaboral, String nombreEmpresa, String cargo, boolean conexionInternet, Date fechaRegistro, String funcionesLogros, int anioIngreso) {
         this.idExperienciaLaboral = idExperienciaLaboral;
         this.nombreEmpresa = nombreEmpresa;
         this.cargo = cargo;
@@ -123,11 +122,11 @@ public class ExperienciaLaboral implements Serializable {
         this.anioIngreso = anioIngreso;
     }
 
-    public Integer getIdExperienciaLaboral() {
+    public Long getIdExperienciaLaboral() {
         return idExperienciaLaboral;
     }
 
-    public void setIdExperienciaLaboral(Integer idExperienciaLaboral) {
+    public void setIdExperienciaLaboral(Long idExperienciaLaboral) {
         this.idExperienciaLaboral = idExperienciaLaboral;
     }
 
@@ -147,11 +146,11 @@ public class ExperienciaLaboral implements Serializable {
         this.cargo = cargo;
     }
 
-    public byte[] getConexionInternet() {
+    public boolean getConexionInternet() {
         return conexionInternet;
     }
 
-    public void setConexionInternet(byte[] conexionInternet) {
+    public void setConexionInternet(boolean conexionInternet) {
         this.conexionInternet = conexionInternet;
     }
 
@@ -243,14 +242,6 @@ public class ExperienciaLaboral implements Serializable {
         this.idRangoSalarial = idRangoSalarial;
     }
 
-    public Egresado getIdEgresado() {
-        return idEgresado;
-    }
-
-    public void setIdEgresado(Egresado idEgresado) {
-        this.idEgresado = idEgresado;
-    }
-
     public Ciudad getIdCiudad() {
         return idCiudad;
     }
@@ -281,6 +272,14 @@ public class ExperienciaLaboral implements Serializable {
 
     public void setIdMesFinalizacion(Mes idMesFinalizacion) {
         this.idMesFinalizacion = idMesFinalizacion;
+    }
+
+    public Egresado getIdEgresado() {
+        return idEgresado;
+    }
+
+    public void setIdEgresado(Egresado idEgresado) {
+        this.idEgresado = idEgresado;
     }
 
     @Override

@@ -15,7 +15,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -33,42 +32,42 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "AreaEstudios.findAll", query = "SELECT a FROM AreaEstudios a"),
     @NamedQuery(name = "AreaEstudios.findByIdAreaEstudios", query = "SELECT a FROM AreaEstudios a WHERE a.idAreaEstudios = :idAreaEstudios"),
-    @NamedQuery(name = "AreaEstudios.findByNombre", query = "SELECT a FROM AreaEstudios a WHERE a.nombre = :nombre")})
+    @NamedQuery(name = "AreaEstudios.findByNombre", query = "SELECT a FROM AreaEstudios a WHERE a.nombre = :nombre"),
+    @NamedQuery(name = "AreaEstudios.findByEstado", query = "SELECT a FROM AreaEstudios a WHERE a.estado = :estado")})
 public class AreaEstudios implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "ID_AREA_ESTUDIOS")
-    private Integer idAreaEstudios;
+    private Long idAreaEstudios;
     @Basic(optional = false)
     @Column(name = "NOMBRE")
     private String nombre;
     @Basic(optional = false)
-    @Lob
     @Column(name = "ESTADO")
-    private byte[] estado;
+    private boolean estado;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idAreaEstudios")
     private Collection<Educacion> educacionCollection;
 
     public AreaEstudios() {
     }
 
-    public AreaEstudios(Integer idAreaEstudios) {
+    public AreaEstudios(Long idAreaEstudios) {
         this.idAreaEstudios = idAreaEstudios;
     }
 
-    public AreaEstudios(Integer idAreaEstudios, String nombre, byte[] estado) {
+    public AreaEstudios(Long idAreaEstudios, String nombre, boolean estado) {
         this.idAreaEstudios = idAreaEstudios;
         this.nombre = nombre;
         this.estado = estado;
     }
 
-    public Integer getIdAreaEstudios() {
+    public Long getIdAreaEstudios() {
         return idAreaEstudios;
     }
 
-    public void setIdAreaEstudios(Integer idAreaEstudios) {
+    public void setIdAreaEstudios(Long idAreaEstudios) {
         this.idAreaEstudios = idAreaEstudios;
     }
 
@@ -80,11 +79,11 @@ public class AreaEstudios implements Serializable {
         this.nombre = nombre;
     }
 
-    public byte[] getEstado() {
+    public boolean getEstado() {
         return estado;
     }
 
-    public void setEstado(byte[] estado) {
+    public void setEstado(boolean estado) {
         this.estado = estado;
     }
 

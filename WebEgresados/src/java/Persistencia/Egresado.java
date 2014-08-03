@@ -13,6 +13,8 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
@@ -20,7 +22,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -36,20 +37,17 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Egresado.findAll", query = "SELECT e FROM Egresado e"),
-    @NamedQuery(name = "Egresado.findByIdEgresado", query = "SELECT e FROM Egresado e WHERE e.idEgresado = :idEgresado"),
     @NamedQuery(name = "Egresado.findByPrimerApellido", query = "SELECT e FROM Egresado e WHERE e.primerApellido = :primerApellido"),
     @NamedQuery(name = "Egresado.findBySegundoApellido", query = "SELECT e FROM Egresado e WHERE e.segundoApellido = :segundoApellido"),
     @NamedQuery(name = "Egresado.findByNombres", query = "SELECT e FROM Egresado e WHERE e.nombres = :nombres"),
     @NamedQuery(name = "Egresado.findByFechaNacimiento", query = "SELECT e FROM Egresado e WHERE e.fechaNacimiento = :fechaNacimiento"),
     @NamedQuery(name = "Egresado.findByNumeroDocumento", query = "SELECT e FROM Egresado e WHERE e.numeroDocumento = :numeroDocumento"),
     @NamedQuery(name = "Egresado.findByFechaExpedicion", query = "SELECT e FROM Egresado e WHERE e.fechaExpedicion = :fechaExpedicion"),
-    @NamedQuery(name = "Egresado.findByFechaUltimaAct", query = "SELECT e FROM Egresado e WHERE e.fechaUltimaAct = :fechaUltimaAct")})
+    @NamedQuery(name = "Egresado.findByFechaUltimaAct", query = "SELECT e FROM Egresado e WHERE e.fechaUltimaAct = :fechaUltimaAct"),
+    @NamedQuery(name = "Egresado.findByAceptaCondiciones", query = "SELECT e FROM Egresado e WHERE e.aceptaCondiciones = :aceptaCondiciones"),
+    @NamedQuery(name = "Egresado.findByIdEgresado", query = "SELECT e FROM Egresado e WHERE e.idEgresado = :idEgresado")})
 public class Egresado implements Serializable {
     private static final long serialVersionUID = 1L;
-    @Id
-    @Basic(optional = false)
-    @Column(name = "ID_EGRESADO")
-    private Integer idEgresado;
     @Basic(optional = false)
     @Column(name = "PRIMER_APELLIDO")
     private String primerApellido;
@@ -70,7 +68,6 @@ public class Egresado implements Serializable {
     @Column(name = "FECHA_EXPEDICION")
     @Temporal(TemporalType.DATE)
     private Date fechaExpedicion;
-    @Basic(optional = false)
     @Lob
     @Column(name = "FOTO")
     private byte[] foto;
@@ -79,9 +76,13 @@ public class Egresado implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaUltimaAct;
     @Basic(optional = false)
-    @Lob
     @Column(name = "ACEPTA_CONDICIONES")
-    private byte[] aceptaCondiciones;
+    private boolean aceptaCondiciones;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "ID_EGRESADO")
+    private Long idEgresado;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idEgresado")
     private Collection<Asociacion> asociacionCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "egresado")
@@ -116,20 +117,20 @@ public class Egresado implements Serializable {
     @JoinColumn(name = "ID_TIPO_DOCUMENTO", referencedColumnName = "ID_TIPO_DOCUMENTO")
     @ManyToOne(optional = false)
     private TipoDocumento idTipoDocumento;
-    @JoinColumn(name = "ID_EGRESADO", referencedColumnName = "ID_USUARIO", insertable = false, updatable = false)
-    @OneToOne(optional = false)
-    private Usuario usuario;
+    @JoinColumn(name = "ID_USUARIO", referencedColumnName = "ID_USUARIO")
+    @ManyToOne(optional = false, cascade = CascadeType.PERSIST)
+    private Usuario idUsuario;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idEgresado")
     private Collection<Educacion> educacionCollection;
 
     public Egresado() {
     }
 
-    public Egresado(Integer idEgresado) {
+    public Egresado(Long idEgresado) {
         this.idEgresado = idEgresado;
     }
 
-    public Egresado(Integer idEgresado, String primerApellido, String segundoApellido, String nombres, Date fechaNacimiento, String numeroDocumento, Date fechaExpedicion, byte[] foto, Date fechaUltimaAct, byte[] aceptaCondiciones) {
+    public Egresado(Long idEgresado, String primerApellido, String segundoApellido, String nombres, Date fechaNacimiento, String numeroDocumento, Date fechaExpedicion, Date fechaUltimaAct, boolean aceptaCondiciones) {
         this.idEgresado = idEgresado;
         this.primerApellido = primerApellido;
         this.segundoApellido = segundoApellido;
@@ -137,17 +138,8 @@ public class Egresado implements Serializable {
         this.fechaNacimiento = fechaNacimiento;
         this.numeroDocumento = numeroDocumento;
         this.fechaExpedicion = fechaExpedicion;
-        this.foto = foto;
         this.fechaUltimaAct = fechaUltimaAct;
         this.aceptaCondiciones = aceptaCondiciones;
-    }
-
-    public Integer getIdEgresado() {
-        return idEgresado;
-    }
-
-    public void setIdEgresado(Integer idEgresado) {
-        this.idEgresado = idEgresado;
     }
 
     public String getPrimerApellido() {
@@ -214,12 +206,20 @@ public class Egresado implements Serializable {
         this.fechaUltimaAct = fechaUltimaAct;
     }
 
-    public byte[] getAceptaCondiciones() {
+    public boolean getAceptaCondiciones() {
         return aceptaCondiciones;
     }
 
-    public void setAceptaCondiciones(byte[] aceptaCondiciones) {
+    public void setAceptaCondiciones(boolean aceptaCondiciones) {
         this.aceptaCondiciones = aceptaCondiciones;
+    }
+
+    public Long getIdEgresado() {
+        return idEgresado;
+    }
+
+    public void setIdEgresado(Long idEgresado) {
+        this.idEgresado = idEgresado;
     }
 
     @XmlTransient
@@ -342,12 +342,12 @@ public class Egresado implements Serializable {
         this.idTipoDocumento = idTipoDocumento;
     }
 
-    public Usuario getUsuario() {
-        return usuario;
+    public Usuario getIdUsuario() {
+        return idUsuario;
     }
 
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
+    public void setIdUsuario(Usuario idUsuario) {
+        this.idUsuario = idUsuario;
     }
 
     @XmlTransient

@@ -13,7 +13,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -30,14 +29,15 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "PlantillaCorreo.findAll", query = "SELECT p FROM PlantillaCorreo p"),
     @NamedQuery(name = "PlantillaCorreo.findByIdPlantillaCorreo", query = "SELECT p FROM PlantillaCorreo p WHERE p.idPlantillaCorreo = :idPlantillaCorreo"),
     @NamedQuery(name = "PlantillaCorreo.findByNombre", query = "SELECT p FROM PlantillaCorreo p WHERE p.nombre = :nombre"),
-    @NamedQuery(name = "PlantillaCorreo.findByTexto", query = "SELECT p FROM PlantillaCorreo p WHERE p.texto = :texto")})
+    @NamedQuery(name = "PlantillaCorreo.findByTexto", query = "SELECT p FROM PlantillaCorreo p WHERE p.texto = :texto"),
+    @NamedQuery(name = "PlantillaCorreo.findByEstado", query = "SELECT p FROM PlantillaCorreo p WHERE p.estado = :estado")})
 public class PlantillaCorreo implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "ID_PLANTILLA_CORREO")
-    private Integer idPlantillaCorreo;
+    private Long idPlantillaCorreo;
     @Basic(optional = false)
     @Column(name = "NOMBRE")
     private String nombre;
@@ -45,29 +45,28 @@ public class PlantillaCorreo implements Serializable {
     @Column(name = "TEXTO")
     private String texto;
     @Basic(optional = false)
-    @Lob
     @Column(name = "ESTADO")
-    private byte[] estado;
+    private boolean estado;
 
     public PlantillaCorreo() {
     }
 
-    public PlantillaCorreo(Integer idPlantillaCorreo) {
+    public PlantillaCorreo(Long idPlantillaCorreo) {
         this.idPlantillaCorreo = idPlantillaCorreo;
     }
 
-    public PlantillaCorreo(Integer idPlantillaCorreo, String nombre, String texto, byte[] estado) {
+    public PlantillaCorreo(Long idPlantillaCorreo, String nombre, String texto, boolean estado) {
         this.idPlantillaCorreo = idPlantillaCorreo;
         this.nombre = nombre;
         this.texto = texto;
         this.estado = estado;
     }
 
-    public Integer getIdPlantillaCorreo() {
+    public Long getIdPlantillaCorreo() {
         return idPlantillaCorreo;
     }
 
-    public void setIdPlantillaCorreo(Integer idPlantillaCorreo) {
+    public void setIdPlantillaCorreo(Long idPlantillaCorreo) {
         this.idPlantillaCorreo = idPlantillaCorreo;
     }
 
@@ -87,11 +86,11 @@ public class PlantillaCorreo implements Serializable {
         this.texto = texto;
     }
 
-    public byte[] getEstado() {
+    public boolean getEstado() {
         return estado;
     }
 
-    public void setEstado(byte[] estado) {
+    public void setEstado(boolean estado) {
         this.estado = estado;
     }
 

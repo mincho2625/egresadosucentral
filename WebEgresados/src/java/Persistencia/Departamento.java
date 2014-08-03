@@ -33,16 +33,19 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Departamento.findAll", query = "SELECT d FROM Departamento d"),
     @NamedQuery(name = "Departamento.findByIdDepartamento", query = "SELECT d FROM Departamento d WHERE d.idDepartamento = :idDepartamento"),
     @NamedQuery(name = "Departamento.findByNombre", query = "SELECT d FROM Departamento d WHERE d.nombre = :nombre"),
-    @NamedQuery(name = "Departamento.findByIdPais", query = "SELECT d FROM Departamento d WHERE d.idPais = :idPais")})
+    @NamedQuery(name = "Departamento.findByEstado", query = "SELECT d FROM Departamento d WHERE d.estado = :estado")})
 public class Departamento implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
     @Column(name = "ID_DEPARTAMENTO")
-    private Integer idDepartamento;
+    private Long idDepartamento;
     @Basic(optional = false)
     @Column(name = "NOMBRE")
     private String nombre;
+    @Basic(optional = false)
+    @Column(name = "ESTADO")
+    private boolean estado;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idDepartamento")
     private Collection<Ciudad> ciudadCollection;
     @JoinColumn(name = "ID_PAIS", referencedColumnName = "ID_PAIS")
@@ -52,20 +55,21 @@ public class Departamento implements Serializable {
     public Departamento() {
     }
 
-    public Departamento(Integer idDepartamento) {
+    public Departamento(Long idDepartamento) {
         this.idDepartamento = idDepartamento;
     }
 
-    public Departamento(Integer idDepartamento, String nombre) {
+    public Departamento(Long idDepartamento, String nombre, boolean estado) {
         this.idDepartamento = idDepartamento;
         this.nombre = nombre;
+        this.estado = estado;
     }
 
-    public Integer getIdDepartamento() {
+    public Long getIdDepartamento() {
         return idDepartamento;
     }
 
-    public void setIdDepartamento(Integer idDepartamento) {
+    public void setIdDepartamento(Long idDepartamento) {
         this.idDepartamento = idDepartamento;
     }
 
@@ -75,6 +79,14 @@ public class Departamento implements Serializable {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public boolean getEstado() {
+        return estado;
+    }
+
+    public void setEstado(boolean estado) {
+        this.estado = estado;
     }
 
     @XmlTransient

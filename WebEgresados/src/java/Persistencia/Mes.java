@@ -15,7 +15,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -33,21 +32,21 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Mes.findAll", query = "SELECT m FROM Mes m"),
     @NamedQuery(name = "Mes.findByIdMes", query = "SELECT m FROM Mes m WHERE m.idMes = :idMes"),
-    @NamedQuery(name = "Mes.findByMes", query = "SELECT m FROM Mes m WHERE m.mes = :mes")})
+    @NamedQuery(name = "Mes.findByMes", query = "SELECT m FROM Mes m WHERE m.mes = :mes"),
+    @NamedQuery(name = "Mes.findByEstado", query = "SELECT m FROM Mes m WHERE m.estado = :estado")})
 public class Mes implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "ID_MES")
-    private Integer idMes;
+    private Long idMes;
     @Basic(optional = false)
     @Column(name = "MES")
     private String mes;
     @Basic(optional = false)
-    @Lob
     @Column(name = "ESTADO")
-    private byte[] estado;
+    private boolean estado;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idMesIngreso")
     private Collection<ExperienciaLaboral> experienciaLaboralCollection;
     @OneToMany(mappedBy = "idMesFinalizacion")
@@ -60,21 +59,21 @@ public class Mes implements Serializable {
     public Mes() {
     }
 
-    public Mes(Integer idMes) {
+    public Mes(Long idMes) {
         this.idMes = idMes;
     }
 
-    public Mes(Integer idMes, String mes, byte[] estado) {
+    public Mes(Long idMes, String mes, boolean estado) {
         this.idMes = idMes;
         this.mes = mes;
         this.estado = estado;
     }
 
-    public Integer getIdMes() {
+    public Long getIdMes() {
         return idMes;
     }
 
-    public void setIdMes(Integer idMes) {
+    public void setIdMes(Long idMes) {
         this.idMes = idMes;
     }
 
@@ -86,11 +85,11 @@ public class Mes implements Serializable {
         this.mes = mes;
     }
 
-    public byte[] getEstado() {
+    public boolean getEstado() {
         return estado;
     }
 
-    public void setEstado(byte[] estado) {
+    public void setEstado(boolean estado) {
         this.estado = estado;
     }
 

@@ -15,7 +15,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -33,42 +32,42 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "TipoAsociacion.findAll", query = "SELECT t FROM TipoAsociacion t"),
     @NamedQuery(name = "TipoAsociacion.findByIdTipoAsociacion", query = "SELECT t FROM TipoAsociacion t WHERE t.idTipoAsociacion = :idTipoAsociacion"),
-    @NamedQuery(name = "TipoAsociacion.findByNombre", query = "SELECT t FROM TipoAsociacion t WHERE t.nombre = :nombre")})
+    @NamedQuery(name = "TipoAsociacion.findByNombre", query = "SELECT t FROM TipoAsociacion t WHERE t.nombre = :nombre"),
+    @NamedQuery(name = "TipoAsociacion.findByEstado", query = "SELECT t FROM TipoAsociacion t WHERE t.estado = :estado")})
 public class TipoAsociacion implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "ID_TIPO_ASOCIACION")
-    private Integer idTipoAsociacion;
+    private Long idTipoAsociacion;
     @Basic(optional = false)
     @Column(name = "NOMBRE")
     private String nombre;
     @Basic(optional = false)
-    @Lob
     @Column(name = "ESTADO")
-    private byte[] estado;
+    private boolean estado;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idTipoAsociacion")
     private Collection<Asociacion> asociacionCollection;
 
     public TipoAsociacion() {
     }
 
-    public TipoAsociacion(Integer idTipoAsociacion) {
+    public TipoAsociacion(Long idTipoAsociacion) {
         this.idTipoAsociacion = idTipoAsociacion;
     }
 
-    public TipoAsociacion(Integer idTipoAsociacion, String nombre, byte[] estado) {
+    public TipoAsociacion(Long idTipoAsociacion, String nombre, boolean estado) {
         this.idTipoAsociacion = idTipoAsociacion;
         this.nombre = nombre;
         this.estado = estado;
     }
 
-    public Integer getIdTipoAsociacion() {
+    public Long getIdTipoAsociacion() {
         return idTipoAsociacion;
     }
 
-    public void setIdTipoAsociacion(Integer idTipoAsociacion) {
+    public void setIdTipoAsociacion(Long idTipoAsociacion) {
         this.idTipoAsociacion = idTipoAsociacion;
     }
 
@@ -80,11 +79,11 @@ public class TipoAsociacion implements Serializable {
         this.nombre = nombre;
     }
 
-    public byte[] getEstado() {
+    public boolean getEstado() {
         return estado;
     }
 
-    public void setEstado(byte[] estado) {
+    public void setEstado(boolean estado) {
         this.estado = estado;
     }
 

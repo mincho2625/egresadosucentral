@@ -16,7 +16,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -35,21 +34,21 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Programa.findAll", query = "SELECT p FROM Programa p"),
     @NamedQuery(name = "Programa.findByIdPrograma", query = "SELECT p FROM Programa p WHERE p.idPrograma = :idPrograma"),
-    @NamedQuery(name = "Programa.findByNombre", query = "SELECT p FROM Programa p WHERE p.nombre = :nombre")})
+    @NamedQuery(name = "Programa.findByNombre", query = "SELECT p FROM Programa p WHERE p.nombre = :nombre"),
+    @NamedQuery(name = "Programa.findByEstado", query = "SELECT p FROM Programa p WHERE p.estado = :estado")})
 public class Programa implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "ID_PROGRAMA")
-    private Integer idPrograma;
+    private Long idPrograma;
     @Basic(optional = false)
     @Column(name = "NOMBRE")
     private String nombre;
     @Basic(optional = false)
-    @Lob
     @Column(name = "ESTADO")
-    private byte[] estado;
+    private boolean estado;
     @JoinColumn(name = "ID_FACULTAD", referencedColumnName = "ID_FACULTAD")
     @ManyToOne(optional = false)
     private Facultad idFacultad;
@@ -59,21 +58,21 @@ public class Programa implements Serializable {
     public Programa() {
     }
 
-    public Programa(Integer idPrograma) {
+    public Programa(Long idPrograma) {
         this.idPrograma = idPrograma;
     }
 
-    public Programa(Integer idPrograma, String nombre, byte[] estado) {
+    public Programa(Long idPrograma, String nombre, boolean estado) {
         this.idPrograma = idPrograma;
         this.nombre = nombre;
         this.estado = estado;
     }
 
-    public Integer getIdPrograma() {
+    public Long getIdPrograma() {
         return idPrograma;
     }
 
-    public void setIdPrograma(Integer idPrograma) {
+    public void setIdPrograma(Long idPrograma) {
         this.idPrograma = idPrograma;
     }
 
@@ -85,11 +84,11 @@ public class Programa implements Serializable {
         this.nombre = nombre;
     }
 
-    public byte[] getEstado() {
+    public boolean getEstado() {
         return estado;
     }
 
-    public void setEstado(byte[] estado) {
+    public void setEstado(boolean estado) {
         this.estado = estado;
     }
 

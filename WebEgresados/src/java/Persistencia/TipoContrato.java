@@ -15,7 +15,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -33,42 +32,42 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "TipoContrato.findAll", query = "SELECT t FROM TipoContrato t"),
     @NamedQuery(name = "TipoContrato.findByIdTipoContrato", query = "SELECT t FROM TipoContrato t WHERE t.idTipoContrato = :idTipoContrato"),
-    @NamedQuery(name = "TipoContrato.findByNombre", query = "SELECT t FROM TipoContrato t WHERE t.nombre = :nombre")})
+    @NamedQuery(name = "TipoContrato.findByNombre", query = "SELECT t FROM TipoContrato t WHERE t.nombre = :nombre"),
+    @NamedQuery(name = "TipoContrato.findByEstado", query = "SELECT t FROM TipoContrato t WHERE t.estado = :estado")})
 public class TipoContrato implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "ID_TIPO_CONTRATO")
-    private Integer idTipoContrato;
+    private Long idTipoContrato;
     @Basic(optional = false)
     @Column(name = "NOMBRE")
     private String nombre;
     @Basic(optional = false)
-    @Lob
     @Column(name = "ESTADO")
-    private byte[] estado;
+    private boolean estado;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idTipoContrato")
     private Collection<ExperienciaLaboral> experienciaLaboralCollection;
 
     public TipoContrato() {
     }
 
-    public TipoContrato(Integer idTipoContrato) {
+    public TipoContrato(Long idTipoContrato) {
         this.idTipoContrato = idTipoContrato;
     }
 
-    public TipoContrato(Integer idTipoContrato, String nombre, byte[] estado) {
+    public TipoContrato(Long idTipoContrato, String nombre, boolean estado) {
         this.idTipoContrato = idTipoContrato;
         this.nombre = nombre;
         this.estado = estado;
     }
 
-    public Integer getIdTipoContrato() {
+    public Long getIdTipoContrato() {
         return idTipoContrato;
     }
 
-    public void setIdTipoContrato(Integer idTipoContrato) {
+    public void setIdTipoContrato(Long idTipoContrato) {
         this.idTipoContrato = idTipoContrato;
     }
 
@@ -80,11 +79,11 @@ public class TipoContrato implements Serializable {
         this.nombre = nombre;
     }
 
-    public byte[] getEstado() {
+    public boolean getEstado() {
         return estado;
     }
 
-    public void setEstado(byte[] estado) {
+    public void setEstado(boolean estado) {
         this.estado = estado;
     }
 

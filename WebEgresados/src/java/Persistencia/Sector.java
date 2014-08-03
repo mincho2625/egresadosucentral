@@ -15,7 +15,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -33,42 +32,42 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Sector.findAll", query = "SELECT s FROM Sector s"),
     @NamedQuery(name = "Sector.findByIdSector", query = "SELECT s FROM Sector s WHERE s.idSector = :idSector"),
-    @NamedQuery(name = "Sector.findByNombre", query = "SELECT s FROM Sector s WHERE s.nombre = :nombre")})
+    @NamedQuery(name = "Sector.findByNombre", query = "SELECT s FROM Sector s WHERE s.nombre = :nombre"),
+    @NamedQuery(name = "Sector.findByEstado", query = "SELECT s FROM Sector s WHERE s.estado = :estado")})
 public class Sector implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "ID_SECTOR")
-    private Integer idSector;
+    private Long idSector;
     @Basic(optional = false)
     @Column(name = "NOMBRE")
     private String nombre;
     @Basic(optional = false)
-    @Lob
     @Column(name = "ESTADO")
-    private byte[] estado;
+    private boolean estado;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idSector")
     private Collection<Subsector> subsectorCollection;
 
     public Sector() {
     }
 
-    public Sector(Integer idSector) {
+    public Sector(Long idSector) {
         this.idSector = idSector;
     }
 
-    public Sector(Integer idSector, String nombre, byte[] estado) {
+    public Sector(Long idSector, String nombre, boolean estado) {
         this.idSector = idSector;
         this.nombre = nombre;
         this.estado = estado;
     }
 
-    public Integer getIdSector() {
+    public Long getIdSector() {
         return idSector;
     }
 
-    public void setIdSector(Integer idSector) {
+    public void setIdSector(Long idSector) {
         this.idSector = idSector;
     }
 
@@ -80,11 +79,11 @@ public class Sector implements Serializable {
         this.nombre = nombre;
     }
 
-    public byte[] getEstado() {
+    public boolean getEstado() {
         return estado;
     }
 
-    public void setEstado(byte[] estado) {
+    public void setEstado(boolean estado) {
         this.estado = estado;
     }
 

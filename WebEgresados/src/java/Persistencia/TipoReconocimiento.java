@@ -15,7 +15,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -33,42 +32,42 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "TipoReconocimiento.findAll", query = "SELECT t FROM TipoReconocimiento t"),
     @NamedQuery(name = "TipoReconocimiento.findByIdTipoReconocimiento", query = "SELECT t FROM TipoReconocimiento t WHERE t.idTipoReconocimiento = :idTipoReconocimiento"),
-    @NamedQuery(name = "TipoReconocimiento.findByNombre", query = "SELECT t FROM TipoReconocimiento t WHERE t.nombre = :nombre")})
+    @NamedQuery(name = "TipoReconocimiento.findByNombre", query = "SELECT t FROM TipoReconocimiento t WHERE t.nombre = :nombre"),
+    @NamedQuery(name = "TipoReconocimiento.findByEstado", query = "SELECT t FROM TipoReconocimiento t WHERE t.estado = :estado")})
 public class TipoReconocimiento implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "ID_TIPO_RECONOCIMIENTO")
-    private Integer idTipoReconocimiento;
+    private Long idTipoReconocimiento;
     @Basic(optional = false)
     @Column(name = "NOMBRE")
     private String nombre;
     @Basic(optional = false)
-    @Lob
     @Column(name = "ESTADO")
-    private byte[] estado;
+    private boolean estado;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idTipoReconocimiento")
     private Collection<Reconocimiento> reconocimientoCollection;
 
     public TipoReconocimiento() {
     }
 
-    public TipoReconocimiento(Integer idTipoReconocimiento) {
+    public TipoReconocimiento(Long idTipoReconocimiento) {
         this.idTipoReconocimiento = idTipoReconocimiento;
     }
 
-    public TipoReconocimiento(Integer idTipoReconocimiento, String nombre, byte[] estado) {
+    public TipoReconocimiento(Long idTipoReconocimiento, String nombre, boolean estado) {
         this.idTipoReconocimiento = idTipoReconocimiento;
         this.nombre = nombre;
         this.estado = estado;
     }
 
-    public Integer getIdTipoReconocimiento() {
+    public Long getIdTipoReconocimiento() {
         return idTipoReconocimiento;
     }
 
-    public void setIdTipoReconocimiento(Integer idTipoReconocimiento) {
+    public void setIdTipoReconocimiento(Long idTipoReconocimiento) {
         this.idTipoReconocimiento = idTipoReconocimiento;
     }
 
@@ -80,11 +79,11 @@ public class TipoReconocimiento implements Serializable {
         this.nombre = nombre;
     }
 
-    public byte[] getEstado() {
+    public boolean getEstado() {
         return estado;
     }
 
-    public void setEstado(byte[] estado) {
+    public void setEstado(boolean estado) {
         this.estado = estado;
     }
 

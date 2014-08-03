@@ -15,7 +15,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -33,42 +32,42 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "TipoActividad.findAll", query = "SELECT t FROM TipoActividad t"),
     @NamedQuery(name = "TipoActividad.findByIdTipoActividad", query = "SELECT t FROM TipoActividad t WHERE t.idTipoActividad = :idTipoActividad"),
-    @NamedQuery(name = "TipoActividad.findByNombre", query = "SELECT t FROM TipoActividad t WHERE t.nombre = :nombre")})
+    @NamedQuery(name = "TipoActividad.findByNombre", query = "SELECT t FROM TipoActividad t WHERE t.nombre = :nombre"),
+    @NamedQuery(name = "TipoActividad.findByEstado", query = "SELECT t FROM TipoActividad t WHERE t.estado = :estado")})
 public class TipoActividad implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "ID_TIPO_ACTIVIDAD")
-    private Integer idTipoActividad;
+    private Long idTipoActividad;
     @Basic(optional = false)
     @Column(name = "NOMBRE")
     private String nombre;
     @Basic(optional = false)
-    @Lob
     @Column(name = "ESTADO")
-    private byte[] estado;
+    private boolean estado;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idTipoActividad")
     private Collection<Aficiones> aficionesCollection;
 
     public TipoActividad() {
     }
 
-    public TipoActividad(Integer idTipoActividad) {
+    public TipoActividad(Long idTipoActividad) {
         this.idTipoActividad = idTipoActividad;
     }
 
-    public TipoActividad(Integer idTipoActividad, String nombre, byte[] estado) {
+    public TipoActividad(Long idTipoActividad, String nombre, boolean estado) {
         this.idTipoActividad = idTipoActividad;
         this.nombre = nombre;
         this.estado = estado;
     }
 
-    public Integer getIdTipoActividad() {
+    public Long getIdTipoActividad() {
         return idTipoActividad;
     }
 
-    public void setIdTipoActividad(Integer idTipoActividad) {
+    public void setIdTipoActividad(Long idTipoActividad) {
         this.idTipoActividad = idTipoActividad;
     }
 
@@ -80,11 +79,11 @@ public class TipoActividad implements Serializable {
         this.nombre = nombre;
     }
 
-    public byte[] getEstado() {
+    public boolean getEstado() {
         return estado;
     }
 
-    public void setEstado(byte[] estado) {
+    public void setEstado(boolean estado) {
         this.estado = estado;
     }
 

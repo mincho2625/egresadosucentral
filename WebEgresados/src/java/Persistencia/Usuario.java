@@ -7,6 +7,7 @@
 package Persistencia;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -18,9 +19,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -35,14 +37,15 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Usuario.findByNombre", query = "SELECT u FROM Usuario u WHERE u.nombre = :nombre"),
     @NamedQuery(name = "Usuario.findByContrasenia", query = "SELECT u FROM Usuario u WHERE u.contrasenia = :contrasenia"),
     @NamedQuery(name = "Usuario.findByCorreoInstitucional", query = "SELECT u FROM Usuario u WHERE u.correoInstitucional = :correoInstitucional"),
-    @NamedQuery(name = "Usuario.findByRespuestaSeguridad", query = "SELECT u FROM Usuario u WHERE u.respuestaSeguridad = :respuestaSeguridad")})
+    @NamedQuery(name = "Usuario.findByRespuestaSeguridad", query = "SELECT u FROM Usuario u WHERE u.respuestaSeguridad = :respuestaSeguridad"),
+    @NamedQuery(name = "Usuario.findByEstado", query = "SELECT u FROM Usuario u WHERE u.estado = :estado")})
 public class Usuario implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "ID_USUARIO")
-    private Integer idUsuario;
+    private Long idUsuario;
     @Basic(optional = false)
     @Column(name = "NOMBRE")
     private String nombre;
@@ -55,32 +58,36 @@ public class Usuario implements Serializable {
     @Basic(optional = false)
     @Column(name = "RESPUESTA_SEGURIDAD")
     private String respuestaSeguridad;
+    @Basic(optional = false)
+    @Column(name = "ESTADO")
+    private boolean estado;
     @JoinColumn(name = "ID_PREGUNTA_SEGURIDAD", referencedColumnName = "ID_PREGUNTA_SEGURIDAD")
     @ManyToOne(optional = false)
     private PreguntaSeguridad idPreguntaSeguridad;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "usuario")
-    private Egresado egresado;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUsuario")
+    private Collection<Egresado> egresadoCollection;
 
     public Usuario() {
     }
 
-    public Usuario(Integer idUsuario) {
+    public Usuario(Long idUsuario) {
         this.idUsuario = idUsuario;
     }
 
-    public Usuario(Integer idUsuario, String nombre, String contrasenia, String correoInstitucional, String respuestaSeguridad) {
+    public Usuario(Long idUsuario, String nombre, String contrasenia, String correoInstitucional, String respuestaSeguridad, boolean estado) {
         this.idUsuario = idUsuario;
         this.nombre = nombre;
         this.contrasenia = contrasenia;
         this.correoInstitucional = correoInstitucional;
         this.respuestaSeguridad = respuestaSeguridad;
+        this.estado = estado;
     }
 
-    public Integer getIdUsuario() {
+    public Long getIdUsuario() {
         return idUsuario;
     }
 
-    public void setIdUsuario(Integer idUsuario) {
+    public void setIdUsuario(Long idUsuario) {
         this.idUsuario = idUsuario;
     }
 
@@ -116,6 +123,14 @@ public class Usuario implements Serializable {
         this.respuestaSeguridad = respuestaSeguridad;
     }
 
+    public boolean getEstado() {
+        return estado;
+    }
+
+    public void setEstado(boolean estado) {
+        this.estado = estado;
+    }
+
     public PreguntaSeguridad getIdPreguntaSeguridad() {
         return idPreguntaSeguridad;
     }
@@ -124,12 +139,13 @@ public class Usuario implements Serializable {
         this.idPreguntaSeguridad = idPreguntaSeguridad;
     }
 
-    public Egresado getEgresado() {
-        return egresado;
+    @XmlTransient
+    public Collection<Egresado> getEgresadoCollection() {
+        return egresadoCollection;
     }
 
-    public void setEgresado(Egresado egresado) {
-        this.egresado = egresado;
+    public void setEgresadoCollection(Collection<Egresado> egresadoCollection) {
+        this.egresadoCollection = egresadoCollection;
     }
 
     @Override

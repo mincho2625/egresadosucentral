@@ -15,7 +15,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -33,42 +32,42 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "NivelEstudios.findAll", query = "SELECT n FROM NivelEstudios n"),
     @NamedQuery(name = "NivelEstudios.findByIdNivelEstudios", query = "SELECT n FROM NivelEstudios n WHERE n.idNivelEstudios = :idNivelEstudios"),
-    @NamedQuery(name = "NivelEstudios.findByNombre", query = "SELECT n FROM NivelEstudios n WHERE n.nombre = :nombre")})
+    @NamedQuery(name = "NivelEstudios.findByNombre", query = "SELECT n FROM NivelEstudios n WHERE n.nombre = :nombre"),
+    @NamedQuery(name = "NivelEstudios.findByEstado", query = "SELECT n FROM NivelEstudios n WHERE n.estado = :estado")})
 public class NivelEstudios implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "ID_NIVEL_ESTUDIOS")
-    private Integer idNivelEstudios;
+    private Long idNivelEstudios;
     @Basic(optional = false)
     @Column(name = "NOMBRE")
     private String nombre;
     @Basic(optional = false)
-    @Lob
     @Column(name = "ESTADO")
-    private byte[] estado;
+    private boolean estado;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idNivelEstudios")
     private Collection<EducacionFormal> educacionFormalCollection;
 
     public NivelEstudios() {
     }
 
-    public NivelEstudios(Integer idNivelEstudios) {
+    public NivelEstudios(Long idNivelEstudios) {
         this.idNivelEstudios = idNivelEstudios;
     }
 
-    public NivelEstudios(Integer idNivelEstudios, String nombre, byte[] estado) {
+    public NivelEstudios(Long idNivelEstudios, String nombre, boolean estado) {
         this.idNivelEstudios = idNivelEstudios;
         this.nombre = nombre;
         this.estado = estado;
     }
 
-    public Integer getIdNivelEstudios() {
+    public Long getIdNivelEstudios() {
         return idNivelEstudios;
     }
 
-    public void setIdNivelEstudios(Integer idNivelEstudios) {
+    public void setIdNivelEstudios(Long idNivelEstudios) {
         this.idNivelEstudios = idNivelEstudios;
     }
 
@@ -80,11 +79,11 @@ public class NivelEstudios implements Serializable {
         this.nombre = nombre;
     }
 
-    public byte[] getEstado() {
+    public boolean getEstado() {
         return estado;
     }
 
-    public void setEstado(byte[] estado) {
+    public void setEstado(boolean estado) {
         this.estado = estado;
     }
 

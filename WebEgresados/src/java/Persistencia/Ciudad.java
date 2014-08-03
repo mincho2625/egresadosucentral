@@ -16,7 +16,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -36,21 +35,20 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Ciudad.findAll", query = "SELECT c FROM Ciudad c"),
     @NamedQuery(name = "Ciudad.findByIdCiudad", query = "SELECT c FROM Ciudad c WHERE c.idCiudad = :idCiudad"),
     @NamedQuery(name = "Ciudad.findByNombre", query = "SELECT c FROM Ciudad c WHERE c.nombre = :nombre"),
-    @NamedQuery(name = "Ciudad.findByIdDepartamento", query = "SELECT c FROM Ciudad c WHERE c.idDepartamento = :idDepartamento")})
+    @NamedQuery(name = "Ciudad.findByEstado", query = "SELECT c FROM Ciudad c WHERE c.estado = :estado")})
 public class Ciudad implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "ID_CIUDAD")
-    private Integer idCiudad;
+    private Long idCiudad;
     @Basic(optional = false)
     @Column(name = "NOMBRE")
     private String nombre;
     @Basic(optional = false)
-    @Lob
     @Column(name = "ESTADO")
-    private byte[] estado;
+    private boolean estado;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCiudadResidencia")
     private Collection<Residencia> residenciaCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCiudad")
@@ -70,21 +68,21 @@ public class Ciudad implements Serializable {
     public Ciudad() {
     }
 
-    public Ciudad(Integer idCiudad) {
+    public Ciudad(Long idCiudad) {
         this.idCiudad = idCiudad;
     }
 
-    public Ciudad(Integer idCiudad, String nombre, byte[] estado) {
+    public Ciudad(Long idCiudad, String nombre, boolean estado) {
         this.idCiudad = idCiudad;
         this.nombre = nombre;
         this.estado = estado;
     }
 
-    public Integer getIdCiudad() {
+    public Long getIdCiudad() {
         return idCiudad;
     }
 
-    public void setIdCiudad(Integer idCiudad) {
+    public void setIdCiudad(Long idCiudad) {
         this.idCiudad = idCiudad;
     }
 
@@ -96,11 +94,11 @@ public class Ciudad implements Serializable {
         this.nombre = nombre;
     }
 
-    public byte[] getEstado() {
+    public boolean getEstado() {
         return estado;
     }
 
-    public void setEstado(byte[] estado) {
+    public void setEstado(boolean estado) {
         this.estado = estado;
     }
 

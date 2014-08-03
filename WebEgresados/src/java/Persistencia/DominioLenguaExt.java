@@ -15,7 +15,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -33,42 +32,42 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "DominioLenguaExt.findAll", query = "SELECT d FROM DominioLenguaExt d"),
     @NamedQuery(name = "DominioLenguaExt.findByIdDominioLenguaExt", query = "SELECT d FROM DominioLenguaExt d WHERE d.idDominioLenguaExt = :idDominioLenguaExt"),
-    @NamedQuery(name = "DominioLenguaExt.findByDominioLenguaExt", query = "SELECT d FROM DominioLenguaExt d WHERE d.dominioLenguaExt = :dominioLenguaExt")})
+    @NamedQuery(name = "DominioLenguaExt.findByDominioLenguaExt", query = "SELECT d FROM DominioLenguaExt d WHERE d.dominioLenguaExt = :dominioLenguaExt"),
+    @NamedQuery(name = "DominioLenguaExt.findByEstado", query = "SELECT d FROM DominioLenguaExt d WHERE d.estado = :estado")})
 public class DominioLenguaExt implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "ID_DOMINIO_LENGUA_EXT")
-    private Integer idDominioLenguaExt;
+    private Long idDominioLenguaExt;
     @Basic(optional = false)
     @Column(name = "DOMINIO_LENGUA_EXT")
     private String dominioLenguaExt;
     @Basic(optional = false)
-    @Lob
     @Column(name = "ESTADO")
-    private byte[] estado;
+    private boolean estado;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idDominio")
     private Collection<LenguaExtranjera> lenguaExtranjeraCollection;
 
     public DominioLenguaExt() {
     }
 
-    public DominioLenguaExt(Integer idDominioLenguaExt) {
+    public DominioLenguaExt(Long idDominioLenguaExt) {
         this.idDominioLenguaExt = idDominioLenguaExt;
     }
 
-    public DominioLenguaExt(Integer idDominioLenguaExt, String dominioLenguaExt, byte[] estado) {
+    public DominioLenguaExt(Long idDominioLenguaExt, String dominioLenguaExt, boolean estado) {
         this.idDominioLenguaExt = idDominioLenguaExt;
         this.dominioLenguaExt = dominioLenguaExt;
         this.estado = estado;
     }
 
-    public Integer getIdDominioLenguaExt() {
+    public Long getIdDominioLenguaExt() {
         return idDominioLenguaExt;
     }
 
-    public void setIdDominioLenguaExt(Integer idDominioLenguaExt) {
+    public void setIdDominioLenguaExt(Long idDominioLenguaExt) {
         this.idDominioLenguaExt = idDominioLenguaExt;
     }
 
@@ -80,11 +79,11 @@ public class DominioLenguaExt implements Serializable {
         this.dominioLenguaExt = dominioLenguaExt;
     }
 
-    public byte[] getEstado() {
+    public boolean getEstado() {
         return estado;
     }
 
-    public void setEstado(byte[] estado) {
+    public void setEstado(boolean estado) {
         this.estado = estado;
     }
 

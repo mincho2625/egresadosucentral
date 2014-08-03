@@ -15,7 +15,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -34,6 +33,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "EgresadoRedSocial.findAll", query = "SELECT e FROM EgresadoRedSocial e"),
     @NamedQuery(name = "EgresadoRedSocial.findByIdEgresadoRedSocial", query = "SELECT e FROM EgresadoRedSocial e WHERE e.idEgresadoRedSocial = :idEgresadoRedSocial"),
+    @NamedQuery(name = "EgresadoRedSocial.findByEstado", query = "SELECT e FROM EgresadoRedSocial e WHERE e.estado = :estado"),
     @NamedQuery(name = "EgresadoRedSocial.findByUrl", query = "SELECT e FROM EgresadoRedSocial e WHERE e.url = :url"),
     @NamedQuery(name = "EgresadoRedSocial.findByFechaRegistro", query = "SELECT e FROM EgresadoRedSocial e WHERE e.fechaRegistro = :fechaRegistro")})
 public class EgresadoRedSocial implements Serializable {
@@ -42,11 +42,10 @@ public class EgresadoRedSocial implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "ID_EGRESADO_RED_SOCIAL")
-    private Integer idEgresadoRedSocial;
+    private Long idEgresadoRedSocial;
     @Basic(optional = false)
-    @Lob
     @Column(name = "ESTADO")
-    private byte[] estado;
+    private boolean estado;
     @Basic(optional = false)
     @Column(name = "URL")
     private String url;
@@ -64,30 +63,30 @@ public class EgresadoRedSocial implements Serializable {
     public EgresadoRedSocial() {
     }
 
-    public EgresadoRedSocial(Integer idEgresadoRedSocial) {
+    public EgresadoRedSocial(Long idEgresadoRedSocial) {
         this.idEgresadoRedSocial = idEgresadoRedSocial;
     }
 
-    public EgresadoRedSocial(Integer idEgresadoRedSocial, byte[] estado, String url, Date fechaRegistro) {
+    public EgresadoRedSocial(Long idEgresadoRedSocial, boolean estado, String url, Date fechaRegistro) {
         this.idEgresadoRedSocial = idEgresadoRedSocial;
         this.estado = estado;
         this.url = url;
         this.fechaRegistro = fechaRegistro;
     }
 
-    public Integer getIdEgresadoRedSocial() {
+    public Long getIdEgresadoRedSocial() {
         return idEgresadoRedSocial;
     }
 
-    public void setIdEgresadoRedSocial(Integer idEgresadoRedSocial) {
+    public void setIdEgresadoRedSocial(Long idEgresadoRedSocial) {
         this.idEgresadoRedSocial = idEgresadoRedSocial;
     }
 
-    public byte[] getEstado() {
+    public boolean getEstado() {
         return estado;
     }
 
-    public void setEstado(byte[] estado) {
+    public void setEstado(boolean estado) {
         this.estado = estado;
     }
 

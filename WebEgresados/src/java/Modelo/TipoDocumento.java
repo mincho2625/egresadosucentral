@@ -7,20 +7,20 @@ package Modelo;
  */
 public class TipoDocumento {
 
-	private int idTipoDocumento;
-	private String nombre;
+    private long idTipoDocumento;
+    private String nombre;
 
     /**
      * @return the idTipoDocumento
      */
-    public int getIdTipoDocumento() {
+    public long getIdTipoDocumento() {
         return idTipoDocumento;
     }
 
     /**
      * @param idTipoDocumento the idTipoDocumento to set
      */
-    public void setIdTipoDocumento(int idTipoDocumento) {
+    public void setIdTipoDocumento(long idTipoDocumento) {
         this.idTipoDocumento = idTipoDocumento;
     }
 

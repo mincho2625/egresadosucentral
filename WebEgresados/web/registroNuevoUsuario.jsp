@@ -1,24 +1,27 @@
 <!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@taglib uri="/struts-tags" prefix="s"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@taglib uri="/struts-dojo-tags" prefix="d"%>
+<%@taglib uri="/struts-jquery-tags" prefix="jq" %>
 <html lang="es">
     <head>
         <title>Formulario Principal Nuevos</title>
         <meta charset="utf-8"/>
         <link rel="stylesheet" href="estilo.css">
-        <d:head />
-    </head>
+        <jq:head></jq:head>
+        </head>
 
-    <body>
-        <div id="cabecera"><img src="imagenes/logosimbolo-ucentral-v1-large.png">
-        </div>
+        <body>
+            <div id="cabecera"><img src="imagenes/logosimbolo-ucentral-v1-large.png">
+            </div>
 
-        <div id="Tabla" align="center">
+            <div id="Tabla" align="center">
             <s:form action="crearEgresadoRegistro.action" id="formRegistro"> <br>
 
                 <table cellpadding="2" cellspacing="12">
                     <caption>REGISTRO EN EL SISTEMA</caption>
+                    <tr>
+                        
+                    </tr>
                     <tr>
                         <td class="tduno">Primer Apellido:
                         </td>
@@ -42,13 +45,19 @@
                         </td>
                     </tr>
                     <tr>
-                        <td><d:datetimepicker name="fechaNacimiento"/><br>
-                        </td>
-                        <td><s:number name="numeroDocumento"/><br>
-                        </td>
-                        <td><s:date name="fechaExpedicion"/><br>
-                        </td>
                         <td>
+                            <jq:datepicker name="fechaNacimiento" changeMonth="true" changeYear="true" showButtonPanel="true"></jq:datepicker>
+                                <br>
+                            </td>
+                            <td>
+                            <s:textfield name="numeroDocumento"></s:textfield>
+                                <br>
+                            </td>
+                            <td>
+                            <jq:datepicker name="fechaExpedicion" changeMonth="true" changeYear="true" showButtonPanel="true"></jq:datepicker>
+                                <br>
+                            </td>
+                            <td>
                             <s:url var="refrescarPaisesURL" action="refrescarPaises"></s:url>
 
                             </td>
@@ -88,8 +97,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td class="tduno">Departamento
-                            Nacimiento:<br>
+                        <td class="tduno">Departamento Nacimiento:<br>
                         </td>
                         <td class="tduno">Ciudad Nacimiento:<br>
                         </td>
@@ -99,7 +107,16 @@
                         </td>
                     </tr>
                     <tr>
-
+                        <td>
+                            <s:select
+                                id="ciudadNacimiento"
+                                name="ciudadNacimiento"
+                                list="listaCiudades"
+                                listKey="idCiudad"
+                                listValue="nombre"
+                                headerKey="-1"
+                                headerValue="Seleccione Ciudad"/>
+                        </td>
                         <td>
                             <s:select name="genero" list="listaGeneros" listKey="idGenero" listValue="nombre" headerValue="Genero"/>
                             <br>

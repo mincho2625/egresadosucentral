@@ -11,20 +11,20 @@ package Modelo;
  * @author YURY
  */
 public class PreguntaSeguridad {
-    private int idPreguntaSeguridad;
+    private long idPreguntaSeguridad;
     private String preguntaSeguridad;
 
     /**
      * @return the idPreguntaSeguridad
      */
-    public int getIdPreguntaSeguridad() {
+    public long getIdPreguntaSeguridad() {
         return idPreguntaSeguridad;
     }
 
     /**
      * @param idPreguntaSeguridad the idPreguntaSeguridad to set
      */
-    public void setIdPreguntaSeguridad(int idPreguntaSeguridad) {
+    public void setIdPreguntaSeguridad(long idPreguntaSeguridad) {
         this.idPreguntaSeguridad = idPreguntaSeguridad;
     }
 

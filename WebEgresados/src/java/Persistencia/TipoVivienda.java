@@ -15,7 +15,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -33,42 +32,42 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "TipoVivienda.findAll", query = "SELECT t FROM TipoVivienda t"),
     @NamedQuery(name = "TipoVivienda.findByIdTipoVivienda", query = "SELECT t FROM TipoVivienda t WHERE t.idTipoVivienda = :idTipoVivienda"),
-    @NamedQuery(name = "TipoVivienda.findByNombre", query = "SELECT t FROM TipoVivienda t WHERE t.nombre = :nombre")})
+    @NamedQuery(name = "TipoVivienda.findByNombre", query = "SELECT t FROM TipoVivienda t WHERE t.nombre = :nombre"),
+    @NamedQuery(name = "TipoVivienda.findByEstado", query = "SELECT t FROM TipoVivienda t WHERE t.estado = :estado")})
 public class TipoVivienda implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "ID_TIPO_VIVIENDA")
-    private Integer idTipoVivienda;
+    private Long idTipoVivienda;
     @Basic(optional = false)
     @Column(name = "NOMBRE")
     private String nombre;
     @Basic(optional = false)
-    @Lob
     @Column(name = "ESTADO")
-    private byte[] estado;
+    private boolean estado;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idTipoVivienda")
     private Collection<Residencia> residenciaCollection;
 
     public TipoVivienda() {
     }
 
-    public TipoVivienda(Integer idTipoVivienda) {
+    public TipoVivienda(Long idTipoVivienda) {
         this.idTipoVivienda = idTipoVivienda;
     }
 
-    public TipoVivienda(Integer idTipoVivienda, String nombre, byte[] estado) {
+    public TipoVivienda(Long idTipoVivienda, String nombre, boolean estado) {
         this.idTipoVivienda = idTipoVivienda;
         this.nombre = nombre;
         this.estado = estado;
     }
 
-    public Integer getIdTipoVivienda() {
+    public Long getIdTipoVivienda() {
         return idTipoVivienda;
     }
 
-    public void setIdTipoVivienda(Integer idTipoVivienda) {
+    public void setIdTipoVivienda(Long idTipoVivienda) {
         this.idTipoVivienda = idTipoVivienda;
     }
 
@@ -80,11 +79,11 @@ public class TipoVivienda implements Serializable {
         this.nombre = nombre;
     }
 
-    public byte[] getEstado() {
+    public boolean getEstado() {
         return estado;
     }
 
-    public void setEstado(byte[] estado) {
+    public void setEstado(boolean estado) {
         this.estado = estado;
     }
 

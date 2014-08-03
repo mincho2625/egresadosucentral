@@ -1,6 +1,5 @@
 package Modelo;
 
-
 /**
  * @author YURY
  * @version 1.0
@@ -8,20 +7,20 @@ package Modelo;
  */
 public class Departamento {
 
-	private int idDepartamento;
-	private String nombre;
+    private long idDepartamento;
+    private String nombre;
 
     /**
      * @return the idDepartamento
      */
-    public int getIdDepartamento() {
+    public long getIdDepartamento() {
         return idDepartamento;
     }
 
     /**
      * @param idDepartamento the idDepartamento to set
      */
-    public void setIdDepartamento(int idDepartamento) {
+    public void setIdDepartamento(long idDepartamento) {
         this.idDepartamento = idDepartamento;
     }
 
@@ -38,4 +37,5 @@ public class Departamento {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
+
 }

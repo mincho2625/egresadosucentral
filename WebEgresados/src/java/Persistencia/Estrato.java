@@ -15,7 +15,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -34,14 +33,15 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Estrato.findAll", query = "SELECT e FROM Estrato e"),
     @NamedQuery(name = "Estrato.findByIdEstrato", query = "SELECT e FROM Estrato e WHERE e.idEstrato = :idEstrato"),
     @NamedQuery(name = "Estrato.findByEstratoNumero", query = "SELECT e FROM Estrato e WHERE e.estratoNumero = :estratoNumero"),
-    @NamedQuery(name = "Estrato.findByEstratoLetras", query = "SELECT e FROM Estrato e WHERE e.estratoLetras = :estratoLetras")})
+    @NamedQuery(name = "Estrato.findByEstratoLetras", query = "SELECT e FROM Estrato e WHERE e.estratoLetras = :estratoLetras"),
+    @NamedQuery(name = "Estrato.findByEstado", query = "SELECT e FROM Estrato e WHERE e.estado = :estado")})
 public class Estrato implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "ID_ESTRATO")
-    private Integer idEstrato;
+    private Long idEstrato;
     @Basic(optional = false)
     @Column(name = "ESTRATO_NUMERO")
     private int estratoNumero;
@@ -49,31 +49,30 @@ public class Estrato implements Serializable {
     @Column(name = "ESTRATO_LETRAS")
     private String estratoLetras;
     @Basic(optional = false)
-    @Lob
     @Column(name = "ESTADO")
-    private byte[] estado;
+    private boolean estado;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idEstrato")
     private Collection<Residencia> residenciaCollection;
 
     public Estrato() {
     }
 
-    public Estrato(Integer idEstrato) {
+    public Estrato(Long idEstrato) {
         this.idEstrato = idEstrato;
     }
 
-    public Estrato(Integer idEstrato, int estratoNumero, String estratoLetras, byte[] estado) {
+    public Estrato(Long idEstrato, int estratoNumero, String estratoLetras, boolean estado) {
         this.idEstrato = idEstrato;
         this.estratoNumero = estratoNumero;
         this.estratoLetras = estratoLetras;
         this.estado = estado;
     }
 
-    public Integer getIdEstrato() {
+    public Long getIdEstrato() {
         return idEstrato;
     }
 
-    public void setIdEstrato(Integer idEstrato) {
+    public void setIdEstrato(Long idEstrato) {
         this.idEstrato = idEstrato;
     }
 
@@ -93,11 +92,11 @@ public class Estrato implements Serializable {
         this.estratoLetras = estratoLetras;
     }
 
-    public byte[] getEstado() {
+    public boolean getEstado() {
         return estado;
     }
 
-    public void setEstado(byte[] estado) {
+    public void setEstado(boolean estado) {
         this.estado = estado;
     }
 

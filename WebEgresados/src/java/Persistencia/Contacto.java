@@ -15,7 +15,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -35,18 +34,15 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Contacto.findAll", query = "SELECT c FROM Contacto c"),
     @NamedQuery(name = "Contacto.findByIdContacto", query = "SELECT c FROM Contacto c WHERE c.idContacto = :idContacto"),
     @NamedQuery(name = "Contacto.findByDescripci\u00f3n", query = "SELECT c FROM Contacto c WHERE c.descripci\u00f3n = :descripci\u00f3n"),
-    @NamedQuery(name = "Contacto.findByFechaRegistro", query = "SELECT c FROM Contacto c WHERE c.fechaRegistro = :fechaRegistro")})
+    @NamedQuery(name = "Contacto.findByFechaRegistro", query = "SELECT c FROM Contacto c WHERE c.fechaRegistro = :fechaRegistro"),
+    @NamedQuery(name = "Contacto.findByEstado", query = "SELECT c FROM Contacto c WHERE c.estado = :estado")})
 public class Contacto implements Serializable {
     private static final long serialVersionUID = 1L;
-    @Basic(optional = false)
-    @Lob
-    @Column(name = "ESTADO")
-    private byte[] estado;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "ID_CONTACTO")
-    private Integer idContacto;
+    private Long idContacto;
     @Basic(optional = false)
     @Column(name = "DESCRIPCI\u00d3N")
     private String descripción;
@@ -54,6 +50,9 @@ public class Contacto implements Serializable {
     @Column(name = "FECHA_REGISTRO")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaRegistro;
+    @Basic(optional = false)
+    @Column(name = "ESTADO")
+    private boolean estado;
     @JoinColumn(name = "ID_TIPO_CONTACTO", referencedColumnName = "ID_TIPO_CONTACTO")
     @ManyToOne(optional = false)
     private TipoContacto idTipoContacto;
@@ -64,30 +63,22 @@ public class Contacto implements Serializable {
     public Contacto() {
     }
 
-    public Contacto(Integer idContacto) {
+    public Contacto(Long idContacto) {
         this.idContacto = idContacto;
     }
 
-    public Contacto(Integer idContacto, byte[] estado, String descripción, Date fechaRegistro) {
+    public Contacto(Long idContacto, String descripción, Date fechaRegistro, boolean estado) {
         this.idContacto = idContacto;
-        this.estado = estado;
         this.descripción = descripción;
         this.fechaRegistro = fechaRegistro;
-    }
-
-    public byte[] getEstado() {
-        return estado;
-    }
-
-    public void setEstado(byte[] estado) {
         this.estado = estado;
     }
 
-    public Integer getIdContacto() {
+    public Long getIdContacto() {
         return idContacto;
     }
 
-    public void setIdContacto(Integer idContacto) {
+    public void setIdContacto(Long idContacto) {
         this.idContacto = idContacto;
     }
 
@@ -105,6 +96,14 @@ public class Contacto implements Serializable {
 
     public void setFechaRegistro(Date fechaRegistro) {
         this.fechaRegistro = fechaRegistro;
+    }
+
+    public boolean getEstado() {
+        return estado;
+    }
+
+    public void setEstado(boolean estado) {
+        this.estado = estado;
     }
 
     public TipoContacto getIdTipoContacto() {

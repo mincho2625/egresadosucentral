@@ -15,7 +15,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -33,42 +32,42 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "TipoTenenciaVivienda.findAll", query = "SELECT t FROM TipoTenenciaVivienda t"),
     @NamedQuery(name = "TipoTenenciaVivienda.findByIdTipoTenenciaVivienda", query = "SELECT t FROM TipoTenenciaVivienda t WHERE t.idTipoTenenciaVivienda = :idTipoTenenciaVivienda"),
-    @NamedQuery(name = "TipoTenenciaVivienda.findByNombre", query = "SELECT t FROM TipoTenenciaVivienda t WHERE t.nombre = :nombre")})
+    @NamedQuery(name = "TipoTenenciaVivienda.findByNombre", query = "SELECT t FROM TipoTenenciaVivienda t WHERE t.nombre = :nombre"),
+    @NamedQuery(name = "TipoTenenciaVivienda.findByEstado", query = "SELECT t FROM TipoTenenciaVivienda t WHERE t.estado = :estado")})
 public class TipoTenenciaVivienda implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "ID_TIPO_TENENCIA_VIVIENDA")
-    private Integer idTipoTenenciaVivienda;
+    private Long idTipoTenenciaVivienda;
     @Basic(optional = false)
     @Column(name = "NOMBRE")
     private String nombre;
     @Basic(optional = false)
-    @Lob
     @Column(name = "ESTADO")
-    private byte[] estado;
+    private boolean estado;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idTipoTenenciaVivienda")
     private Collection<Residencia> residenciaCollection;
 
     public TipoTenenciaVivienda() {
     }
 
-    public TipoTenenciaVivienda(Integer idTipoTenenciaVivienda) {
+    public TipoTenenciaVivienda(Long idTipoTenenciaVivienda) {
         this.idTipoTenenciaVivienda = idTipoTenenciaVivienda;
     }
 
-    public TipoTenenciaVivienda(Integer idTipoTenenciaVivienda, String nombre, byte[] estado) {
+    public TipoTenenciaVivienda(Long idTipoTenenciaVivienda, String nombre, boolean estado) {
         this.idTipoTenenciaVivienda = idTipoTenenciaVivienda;
         this.nombre = nombre;
         this.estado = estado;
     }
 
-    public Integer getIdTipoTenenciaVivienda() {
+    public Long getIdTipoTenenciaVivienda() {
         return idTipoTenenciaVivienda;
     }
 
-    public void setIdTipoTenenciaVivienda(Integer idTipoTenenciaVivienda) {
+    public void setIdTipoTenenciaVivienda(Long idTipoTenenciaVivienda) {
         this.idTipoTenenciaVivienda = idTipoTenenciaVivienda;
     }
 
@@ -80,11 +79,11 @@ public class TipoTenenciaVivienda implements Serializable {
         this.nombre = nombre;
     }
 
-    public byte[] getEstado() {
+    public boolean getEstado() {
         return estado;
     }
 
-    public void setEstado(byte[] estado) {
+    public void setEstado(boolean estado) {
         this.estado = estado;
     }
 

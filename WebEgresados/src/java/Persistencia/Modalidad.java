@@ -15,7 +15,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -33,42 +32,42 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Modalidad.findAll", query = "SELECT m FROM Modalidad m"),
     @NamedQuery(name = "Modalidad.findByIdModalidad", query = "SELECT m FROM Modalidad m WHERE m.idModalidad = :idModalidad"),
-    @NamedQuery(name = "Modalidad.findByNombre", query = "SELECT m FROM Modalidad m WHERE m.nombre = :nombre")})
+    @NamedQuery(name = "Modalidad.findByNombre", query = "SELECT m FROM Modalidad m WHERE m.nombre = :nombre"),
+    @NamedQuery(name = "Modalidad.findByEstado", query = "SELECT m FROM Modalidad m WHERE m.estado = :estado")})
 public class Modalidad implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "ID_MODALIDAD")
-    private Integer idModalidad;
+    private Long idModalidad;
     @Basic(optional = false)
     @Column(name = "NOMBRE")
     private String nombre;
     @Basic(optional = false)
-    @Lob
     @Column(name = "ESTADO")
-    private byte[] estado;
+    private boolean estado;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idModalidad")
     private Collection<Educacion> educacionCollection;
 
     public Modalidad() {
     }
 
-    public Modalidad(Integer idModalidad) {
+    public Modalidad(Long idModalidad) {
         this.idModalidad = idModalidad;
     }
 
-    public Modalidad(Integer idModalidad, String nombre, byte[] estado) {
+    public Modalidad(Long idModalidad, String nombre, boolean estado) {
         this.idModalidad = idModalidad;
         this.nombre = nombre;
         this.estado = estado;
     }
 
-    public Integer getIdModalidad() {
+    public Long getIdModalidad() {
         return idModalidad;
     }
 
-    public void setIdModalidad(Integer idModalidad) {
+    public void setIdModalidad(Long idModalidad) {
         this.idModalidad = idModalidad;
     }
 
@@ -80,11 +79,11 @@ public class Modalidad implements Serializable {
         this.nombre = nombre;
     }
 
-    public byte[] getEstado() {
+    public boolean getEstado() {
         return estado;
     }
 
-    public void setEstado(byte[] estado) {
+    public void setEstado(boolean estado) {
         this.estado = estado;
     }
 

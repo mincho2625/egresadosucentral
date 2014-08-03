@@ -7,20 +7,20 @@ package Modelo;
  */
 public class EstadoCivil {
 
-	private int idEstadoCivil;
-	private String nombre;
+    private long idEstadoCivil;
+    private String nombre;
 
     /**
      * @return the idEstadoCivil
      */
-    public int getIdEstadoCivil() {
+    public long getIdEstadoCivil() {
         return idEstadoCivil;
     }
 
     /**
      * @param idEstadoCivil the idEstadoCivil to set
      */
-    public void setIdEstadoCivil(int idEstadoCivil) {
+    public void setIdEstadoCivil(long idEstadoCivil) {
         this.idEstadoCivil = idEstadoCivil;
     }
 
@@ -37,5 +37,4 @@ public class EstadoCivil {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-
 }

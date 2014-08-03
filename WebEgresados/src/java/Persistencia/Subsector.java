@@ -16,7 +16,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -35,21 +34,21 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Subsector.findAll", query = "SELECT s FROM Subsector s"),
     @NamedQuery(name = "Subsector.findByIdSubsector", query = "SELECT s FROM Subsector s WHERE s.idSubsector = :idSubsector"),
-    @NamedQuery(name = "Subsector.findByNombre", query = "SELECT s FROM Subsector s WHERE s.nombre = :nombre")})
+    @NamedQuery(name = "Subsector.findByNombre", query = "SELECT s FROM Subsector s WHERE s.nombre = :nombre"),
+    @NamedQuery(name = "Subsector.findByEstado", query = "SELECT s FROM Subsector s WHERE s.estado = :estado")})
 public class Subsector implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "ID_SUBSECTOR")
-    private Integer idSubsector;
+    private Long idSubsector;
     @Basic(optional = false)
     @Column(name = "NOMBRE")
     private String nombre;
     @Basic(optional = false)
-    @Lob
     @Column(name = "ESTADO")
-    private byte[] estado;
+    private boolean estado;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idSubsector")
     private Collection<ExperienciaLaboral> experienciaLaboralCollection;
     @JoinColumn(name = "ID_SECTOR", referencedColumnName = "ID_SECTOR")
@@ -59,21 +58,21 @@ public class Subsector implements Serializable {
     public Subsector() {
     }
 
-    public Subsector(Integer idSubsector) {
+    public Subsector(Long idSubsector) {
         this.idSubsector = idSubsector;
     }
 
-    public Subsector(Integer idSubsector, String nombre, byte[] estado) {
+    public Subsector(Long idSubsector, String nombre, boolean estado) {
         this.idSubsector = idSubsector;
         this.nombre = nombre;
         this.estado = estado;
     }
 
-    public Integer getIdSubsector() {
+    public Long getIdSubsector() {
         return idSubsector;
     }
 
-    public void setIdSubsector(Integer idSubsector) {
+    public void setIdSubsector(Long idSubsector) {
         this.idSubsector = idSubsector;
     }
 
@@ -85,11 +84,11 @@ public class Subsector implements Serializable {
         this.nombre = nombre;
     }
 
-    public byte[] getEstado() {
+    public boolean getEstado() {
         return estado;
     }
 
-    public void setEstado(byte[] estado) {
+    public void setEstado(boolean estado) {
         this.estado = estado;
     }
 

@@ -13,7 +13,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -31,14 +30,15 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Parametro.findByIdParametro", query = "SELECT p FROM Parametro p WHERE p.idParametro = :idParametro"),
     @NamedQuery(name = "Parametro.findByNombre", query = "SELECT p FROM Parametro p WHERE p.nombre = :nombre"),
     @NamedQuery(name = "Parametro.findByValor", query = "SELECT p FROM Parametro p WHERE p.valor = :valor"),
-    @NamedQuery(name = "Parametro.findByDescripcion", query = "SELECT p FROM Parametro p WHERE p.descripcion = :descripcion")})
+    @NamedQuery(name = "Parametro.findByDescripcion", query = "SELECT p FROM Parametro p WHERE p.descripcion = :descripcion"),
+    @NamedQuery(name = "Parametro.findByEstado", query = "SELECT p FROM Parametro p WHERE p.estado = :estado")})
 public class Parametro implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "ID_PARAMETRO")
-    private Integer idParametro;
+    private Long idParametro;
     @Basic(optional = false)
     @Column(name = "NOMBRE")
     private String nombre;
@@ -47,28 +47,29 @@ public class Parametro implements Serializable {
     private String valor;
     @Column(name = "DESCRIPCION")
     private String descripcion;
-    @Lob
+    @Basic(optional = false)
     @Column(name = "ESTADO")
-    private byte[] estado;
+    private boolean estado;
 
     public Parametro() {
     }
 
-    public Parametro(Integer idParametro) {
+    public Parametro(Long idParametro) {
         this.idParametro = idParametro;
     }
 
-    public Parametro(Integer idParametro, String nombre, String valor) {
+    public Parametro(Long idParametro, String nombre, String valor, boolean estado) {
         this.idParametro = idParametro;
         this.nombre = nombre;
         this.valor = valor;
+        this.estado = estado;
     }
 
-    public Integer getIdParametro() {
+    public Long getIdParametro() {
         return idParametro;
     }
 
-    public void setIdParametro(Integer idParametro) {
+    public void setIdParametro(Long idParametro) {
         this.idParametro = idParametro;
     }
 
@@ -96,11 +97,11 @@ public class Parametro implements Serializable {
         this.descripcion = descripcion;
     }
 
-    public byte[] getEstado() {
+    public boolean getEstado() {
         return estado;
     }
 
-    public void setEstado(byte[] estado) {
+    public void setEstado(boolean estado) {
         this.estado = estado;
     }
 

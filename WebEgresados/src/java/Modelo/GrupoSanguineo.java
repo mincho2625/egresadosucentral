@@ -7,20 +7,20 @@ package Modelo;
  */
 public class GrupoSanguineo {
 
-	private int idGrupoSanguineo;
-	private String nombre;
+    private long idGrupoSanguineo;
+    private String nombre;
 
     /**
      * @return the idGrupoSanguineo
      */
-    public int getIdGrupoSanguineo() {
+    public long getIdGrupoSanguineo() {
         return idGrupoSanguineo;
     }
 
     /**
      * @param idGrupoSanguineo the idGrupoSanguineo to set
      */
-    public void setIdGrupoSanguineo(int idGrupoSanguineo) {
+    public void setIdGrupoSanguineo(long idGrupoSanguineo) {
         this.idGrupoSanguineo = idGrupoSanguineo;
     }
 

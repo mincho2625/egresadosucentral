@@ -31,13 +31,14 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "EducacionNoFormal.findByIdEducacion", query = "SELECT e FROM EducacionNoFormal e WHERE e.idEducacion = :idEducacion"),
     @NamedQuery(name = "EducacionNoFormal.findByOtroTipoEdNoFormal", query = "SELECT e FROM EducacionNoFormal e WHERE e.otroTipoEdNoFormal = :otroTipoEdNoFormal"),
     @NamedQuery(name = "EducacionNoFormal.findByTitulo", query = "SELECT e FROM EducacionNoFormal e WHERE e.titulo = :titulo"),
-    @NamedQuery(name = "EducacionNoFormal.findByDescripcion", query = "SELECT e FROM EducacionNoFormal e WHERE e.descripcion = :descripcion")})
+    @NamedQuery(name = "EducacionNoFormal.findByDescripcion", query = "SELECT e FROM EducacionNoFormal e WHERE e.descripcion = :descripcion"),
+    @NamedQuery(name = "EducacionNoFormal.findByEstado", query = "SELECT e FROM EducacionNoFormal e WHERE e.estado = :estado")})
 public class EducacionNoFormal implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
     @Column(name = "ID_EDUCACION")
-    private Integer idEducacion;
+    private Long idEducacion;
     @Column(name = "OTRO_TIPO_ED_NO_FORMAL")
     private String otroTipoEdNoFormal;
     @Basic(optional = false)
@@ -45,6 +46,9 @@ public class EducacionNoFormal implements Serializable {
     private String titulo;
     @Column(name = "DESCRIPCION")
     private String descripcion;
+    @Basic(optional = false)
+    @Column(name = "ESTADO")
+    private boolean estado;
     @JoinColumn(name = "ID_EDUCACION", referencedColumnName = "ID_EDUCACION", insertable = false, updatable = false)
     @OneToOne(optional = false)
     private Educacion educacion;
@@ -58,20 +62,21 @@ public class EducacionNoFormal implements Serializable {
     public EducacionNoFormal() {
     }
 
-    public EducacionNoFormal(Integer idEducacion) {
+    public EducacionNoFormal(Long idEducacion) {
         this.idEducacion = idEducacion;
     }
 
-    public EducacionNoFormal(Integer idEducacion, String titulo) {
+    public EducacionNoFormal(Long idEducacion, String titulo, boolean estado) {
         this.idEducacion = idEducacion;
         this.titulo = titulo;
+        this.estado = estado;
     }
 
-    public Integer getIdEducacion() {
+    public Long getIdEducacion() {
         return idEducacion;
     }
 
-    public void setIdEducacion(Integer idEducacion) {
+    public void setIdEducacion(Long idEducacion) {
         this.idEducacion = idEducacion;
     }
 
@@ -97,6 +102,14 @@ public class EducacionNoFormal implements Serializable {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+    }
+
+    public boolean getEstado() {
+        return estado;
+    }
+
+    public void setEstado(boolean estado) {
+        this.estado = estado;
     }
 
     public Educacion getEducacion() {

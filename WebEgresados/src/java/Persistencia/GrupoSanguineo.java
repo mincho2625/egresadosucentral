@@ -32,37 +32,42 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "GrupoSanguineo.findAll", query = "SELECT g FROM GrupoSanguineo g"),
     @NamedQuery(name = "GrupoSanguineo.findByIdGrupoSanguineo", query = "SELECT g FROM GrupoSanguineo g WHERE g.idGrupoSanguineo = :idGrupoSanguineo"),
-    @NamedQuery(name = "GrupoSanguineo.findByGrupoSanguineo", query = "SELECT g FROM GrupoSanguineo g WHERE g.grupoSanguineo = :grupoSanguineo")})
+    @NamedQuery(name = "GrupoSanguineo.findByGrupoSanguineo", query = "SELECT g FROM GrupoSanguineo g WHERE g.grupoSanguineo = :grupoSanguineo"),
+    @NamedQuery(name = "GrupoSanguineo.findByEstado", query = "SELECT g FROM GrupoSanguineo g WHERE g.estado = :estado")})
 public class GrupoSanguineo implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "ID_GRUPO_SANGUINEO")
-    private Integer idGrupoSanguineo;
+    private Long idGrupoSanguineo;
     @Basic(optional = false)
     @Column(name = "GRUPO_SANGUINEO")
     private String grupoSanguineo;
+    @Basic(optional = false)
+    @Column(name = "ESTADO")
+    private boolean estado;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idGrupoSanguineo")
     private Collection<Egresado> egresadoCollection;
 
     public GrupoSanguineo() {
     }
 
-    public GrupoSanguineo(Integer idGrupoSanguineo) {
+    public GrupoSanguineo(Long idGrupoSanguineo) {
         this.idGrupoSanguineo = idGrupoSanguineo;
     }
 
-    public GrupoSanguineo(Integer idGrupoSanguineo, String grupoSanguineo) {
+    public GrupoSanguineo(Long idGrupoSanguineo, String grupoSanguineo, boolean estado) {
         this.idGrupoSanguineo = idGrupoSanguineo;
         this.grupoSanguineo = grupoSanguineo;
+        this.estado = estado;
     }
 
-    public Integer getIdGrupoSanguineo() {
+    public Long getIdGrupoSanguineo() {
         return idGrupoSanguineo;
     }
 
-    public void setIdGrupoSanguineo(Integer idGrupoSanguineo) {
+    public void setIdGrupoSanguineo(Long idGrupoSanguineo) {
         this.idGrupoSanguineo = idGrupoSanguineo;
     }
 
@@ -72,6 +77,14 @@ public class GrupoSanguineo implements Serializable {
 
     public void setGrupoSanguineo(String grupoSanguineo) {
         this.grupoSanguineo = grupoSanguineo;
+    }
+
+    public boolean getEstado() {
+        return estado;
+    }
+
+    public void setEstado(boolean estado) {
+        this.estado = estado;
     }
 
     @XmlTransient

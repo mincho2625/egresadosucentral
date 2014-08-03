@@ -32,37 +32,42 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "EstadoCivil.findAll", query = "SELECT e FROM EstadoCivil e"),
     @NamedQuery(name = "EstadoCivil.findByIdEstadoCivil", query = "SELECT e FROM EstadoCivil e WHERE e.idEstadoCivil = :idEstadoCivil"),
-    @NamedQuery(name = "EstadoCivil.findByEstadoCivil", query = "SELECT e FROM EstadoCivil e WHERE e.estadoCivil = :estadoCivil")})
+    @NamedQuery(name = "EstadoCivil.findByEstadoCivil", query = "SELECT e FROM EstadoCivil e WHERE e.estadoCivil = :estadoCivil"),
+    @NamedQuery(name = "EstadoCivil.findByEstado", query = "SELECT e FROM EstadoCivil e WHERE e.estado = :estado")})
 public class EstadoCivil implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "ID_ESTADO_CIVIL")
-    private Integer idEstadoCivil;
+    private Long idEstadoCivil;
     @Basic(optional = false)
     @Column(name = "ESTADO_CIVIL")
     private String estadoCivil;
+    @Basic(optional = false)
+    @Column(name = "ESTADO")
+    private boolean estado;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idEstadoCivil")
     private Collection<Egresado> egresadoCollection;
 
     public EstadoCivil() {
     }
 
-    public EstadoCivil(Integer idEstadoCivil) {
+    public EstadoCivil(Long idEstadoCivil) {
         this.idEstadoCivil = idEstadoCivil;
     }
 
-    public EstadoCivil(Integer idEstadoCivil, String estadoCivil) {
+    public EstadoCivil(Long idEstadoCivil, String estadoCivil, boolean estado) {
         this.idEstadoCivil = idEstadoCivil;
         this.estadoCivil = estadoCivil;
+        this.estado = estado;
     }
 
-    public Integer getIdEstadoCivil() {
+    public Long getIdEstadoCivil() {
         return idEstadoCivil;
     }
 
-    public void setIdEstadoCivil(Integer idEstadoCivil) {
+    public void setIdEstadoCivil(Long idEstadoCivil) {
         this.idEstadoCivil = idEstadoCivil;
     }
 
@@ -72,6 +77,14 @@ public class EstadoCivil implements Serializable {
 
     public void setEstadoCivil(String estadoCivil) {
         this.estadoCivil = estadoCivil;
+    }
+
+    public boolean getEstado() {
+        return estado;
+    }
+
+    public void setEstado(boolean estado) {
+        this.estado = estado;
     }
 
     @XmlTransient

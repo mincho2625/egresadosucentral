@@ -18,41 +18,41 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class EgresadoRespuestaPK implements Serializable {
     @Basic(optional = false)
-    @Column(name = "ID_EGRESADO")
-    private int idEgresado;
-    @Basic(optional = false)
     @Column(name = "ID_RESPUESTA")
-    private int idRespuesta;
+    private long idRespuesta;
+    @Basic(optional = false)
+    @Column(name = "ID_EGRESADO")
+    private long idEgresado;
 
     public EgresadoRespuestaPK() {
     }
 
-    public EgresadoRespuestaPK(int idEgresado, int idRespuesta) {
-        this.idEgresado = idEgresado;
+    public EgresadoRespuestaPK(long idRespuesta, long idEgresado) {
         this.idRespuesta = idRespuesta;
-    }
-
-    public int getIdEgresado() {
-        return idEgresado;
-    }
-
-    public void setIdEgresado(int idEgresado) {
         this.idEgresado = idEgresado;
     }
 
-    public int getIdRespuesta() {
+    public long getIdRespuesta() {
         return idRespuesta;
     }
 
-    public void setIdRespuesta(int idRespuesta) {
+    public void setIdRespuesta(long idRespuesta) {
         this.idRespuesta = idRespuesta;
+    }
+
+    public long getIdEgresado() {
+        return idEgresado;
+    }
+
+    public void setIdEgresado(long idEgresado) {
+        this.idEgresado = idEgresado;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (int) idEgresado;
         hash += (int) idRespuesta;
+        hash += (int) idEgresado;
         return hash;
     }
 
@@ -63,10 +63,10 @@ public class EgresadoRespuestaPK implements Serializable {
             return false;
         }
         EgresadoRespuestaPK other = (EgresadoRespuestaPK) object;
-        if (this.idEgresado != other.idEgresado) {
+        if (this.idRespuesta != other.idRespuesta) {
             return false;
         }
-        if (this.idRespuesta != other.idRespuesta) {
+        if (this.idEgresado != other.idEgresado) {
             return false;
         }
         return true;
@@ -74,7 +74,7 @@ public class EgresadoRespuestaPK implements Serializable {
 
     @Override
     public String toString() {
-        return "Persistencia.EgresadoRespuestaPK[ idEgresado=" + idEgresado + ", idRespuesta=" + idRespuesta + " ]";
+        return "Persistencia.EgresadoRespuestaPK[ idRespuesta=" + idRespuesta + ", idEgresado=" + idEgresado + " ]";
     }
     
 }

@@ -37,7 +37,7 @@ public class LenguaExtranjera implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "ID_EDUCACION")
-    private Integer idEducacion;
+    private Long idEducacion;
     @JoinColumn(name = "ID_EDUCACION", referencedColumnName = "ID_EDUCACION", insertable = false, updatable = false)
     @OneToOne(optional = false)
     private Educacion educacion;
@@ -51,15 +51,15 @@ public class LenguaExtranjera implements Serializable {
     public LenguaExtranjera() {
     }
 
-    public LenguaExtranjera(Integer idEducacion) {
+    public LenguaExtranjera(Long idEducacion) {
         this.idEducacion = idEducacion;
     }
 
-    public Integer getIdEducacion() {
+    public Long getIdEducacion() {
         return idEducacion;
     }
 
-    public void setIdEducacion(Integer idEducacion) {
+    public void setIdEducacion(Long idEducacion) {
         this.idEducacion = idEducacion;
     }
 

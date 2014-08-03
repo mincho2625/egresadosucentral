@@ -13,21 +13,20 @@ public class Egresado extends Usuario {
     private Date fechaNacimiento;
     private Date fechaUltimaAct;
     private byte[] foto;
-    private int idEgresado;
     private String nombres;
     private String numeroDocumento;
     private String primerApellido;
     private String segundoApellido;
-    private int ciudadNacimiento;
-    private int ciudadExpedicion;
-    private int estadoCivil;
-    private int grupoSanguineo;
-    private int genero;
-    private int tipoDocumento;
+    private long ciudadNacimiento;
+    private long ciudadExpedicion;
+    private long estadoCivil;
+    private long grupoSanguineo;
+    private long genero;
+    private long tipoDocumento;
+    private long idEgresado;
     
     public Egresado()
     {
-        fechaExpedicion = new Date();
     }
 
     /**
@@ -82,22 +81,8 @@ public class Egresado extends Usuario {
     /**
      * @param foto the foto to set
      */
-   public void setFoto(byte[] foto) {
+    public void setFoto(byte[] foto) {
         this.foto = foto;
-    }
-
-    /**
-     * @return the idEgresado
-     */
-    public int getIdEgresado() {
-        return idEgresado;
-    }
-
-    /**
-     * @param idEgresado the idEgresado to set
-     */
-    public void setIdEgresado(int idEgresado) {
-        this.idEgresado = idEgresado;
     }
 
     /**
@@ -157,86 +142,100 @@ public class Egresado extends Usuario {
     }
 
     /**
-     * @return the estadoCivil
-     */
-    public int getEstadoCivil() {
-        return estadoCivil;
-    }
-
-    /**
-     * @param estadoCivil the estadoCivil to set
-     */
-    public void setEstadoCivil(int estadoCivil) {
-        this.estadoCivil = estadoCivil;
-    }
-
-    /**
-     * @return the grupoSanguineo
-     */
-    public int getGrupoSanguineo() {
-        return grupoSanguineo;
-    }
-
-    /**
-     * @param grupoSanguineo the grupoSanguineo to set
-     */
-    public void setGrupoSanguineo(int grupoSanguineo) {
-        this.grupoSanguineo = grupoSanguineo;
-    }
-
-    /**
-     * @return the genero
-     */
-    public int getGenero() {
-        return genero;
-    }
-
-    /**
-     * @param genero the genero to set
-     */
-    public void setGenero(int genero) {
-        this.genero = genero;
-    }
-
-    /**
-     * @return the tipoDocumento
-     */
-    public int getTipoDocumento() {
-        return tipoDocumento;
-    }
-
-    /**
-     * @param tipoDocumento the tipoDocumento to set
-     */
-    public void setTipoDocumento(int tipoDocumento) {
-        this.tipoDocumento = tipoDocumento;
-    }
-
-    /**
      * @return the ciudadNacimiento
      */
-    public int getCiudadNacimiento() {
+    public long getCiudadNacimiento() {
         return ciudadNacimiento;
     }
 
     /**
      * @param ciudadNacimiento the ciudadNacimiento to set
      */
-    public void setCiudadNacimiento(int ciudadNacimiento) {
+    public void setCiudadNacimiento(long ciudadNacimiento) {
         this.ciudadNacimiento = ciudadNacimiento;
     }
 
     /**
      * @return the ciudadExpedicion
      */
-    public int getCiudadExpedicion() {
+    public long getCiudadExpedicion() {
         return ciudadExpedicion;
     }
 
     /**
      * @param ciudadExpedicion the ciudadExpedicion to set
      */
-    public void setCiudadExpedicion(int ciudadExpedicion) {
+    public void setCiudadExpedicion(long ciudadExpedicion) {
         this.ciudadExpedicion = ciudadExpedicion;
+    }
+
+    /**
+     * @return the estadoCivil
+     */
+    public long getEstadoCivil() {
+        return estadoCivil;
+    }
+
+    /**
+     * @param estadoCivil the estadoCivil to set
+     */
+    public void setEstadoCivil(long estadoCivil) {
+        this.estadoCivil = estadoCivil;
+    }
+
+    /**
+     * @return the grupoSanguineo
+     */
+    public long getGrupoSanguineo() {
+        return grupoSanguineo;
+    }
+
+    /**
+     * @param grupoSanguineo the grupoSanguineo to set
+     */
+    public void setGrupoSanguineo(long grupoSanguineo) {
+        this.grupoSanguineo = grupoSanguineo;
+    }
+
+    /**
+     * @return the genero
+     */
+    public long getGenero() {
+        return genero;
+    }
+
+    /**
+     * @param genero the genero to set
+     */
+    public void setGenero(long genero) {
+        this.genero = genero;
+    }
+
+    /**
+     * @return the tipoDocumento
+     */
+    public long getTipoDocumento() {
+        return tipoDocumento;
+    }
+
+    /**
+     * @param tipoDocumento the tipoDocumento to set
+     */
+    public void setTipoDocumento(long tipoDocumento) {
+        this.tipoDocumento = tipoDocumento;
+    }
+
+    /**
+     * @return the idEgresado
+     */
+    public long getIdEgresado() {
+        return idEgresado;
+    }
+
+    /**
+     * @param idEgresado the idEgresado to set
+     */
+    public void setIdEgresado(long idEgresado) {
+        this.idEgresado = idEgresado;
     }
 }

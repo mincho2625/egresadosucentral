@@ -15,7 +15,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -33,42 +32,42 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Institucion.findAll", query = "SELECT i FROM Institucion i"),
     @NamedQuery(name = "Institucion.findByIdInstitucion", query = "SELECT i FROM Institucion i WHERE i.idInstitucion = :idInstitucion"),
-    @NamedQuery(name = "Institucion.findByNombre", query = "SELECT i FROM Institucion i WHERE i.nombre = :nombre")})
+    @NamedQuery(name = "Institucion.findByNombre", query = "SELECT i FROM Institucion i WHERE i.nombre = :nombre"),
+    @NamedQuery(name = "Institucion.findByEstado", query = "SELECT i FROM Institucion i WHERE i.estado = :estado")})
 public class Institucion implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "ID_INSTITUCION")
-    private Integer idInstitucion;
+    private Long idInstitucion;
     @Basic(optional = false)
     @Column(name = "NOMBRE")
     private String nombre;
     @Basic(optional = false)
-    @Lob
     @Column(name = "ESTADO")
-    private byte[] estado;
+    private boolean estado;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idInstitucion")
     private Collection<Educacion> educacionCollection;
 
     public Institucion() {
     }
 
-    public Institucion(Integer idInstitucion) {
+    public Institucion(Long idInstitucion) {
         this.idInstitucion = idInstitucion;
     }
 
-    public Institucion(Integer idInstitucion, String nombre, byte[] estado) {
+    public Institucion(Long idInstitucion, String nombre, boolean estado) {
         this.idInstitucion = idInstitucion;
         this.nombre = nombre;
         this.estado = estado;
     }
 
-    public Integer getIdInstitucion() {
+    public Long getIdInstitucion() {
         return idInstitucion;
     }
 
-    public void setIdInstitucion(Integer idInstitucion) {
+    public void setIdInstitucion(Long idInstitucion) {
         this.idInstitucion = idInstitucion;
     }
 
@@ -80,11 +79,11 @@ public class Institucion implements Serializable {
         this.nombre = nombre;
     }
 
-    public byte[] getEstado() {
+    public boolean getEstado() {
         return estado;
     }
 
-    public void setEstado(byte[] estado) {
+    public void setEstado(boolean estado) {
         this.estado = estado;
     }
 

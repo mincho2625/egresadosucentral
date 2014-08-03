@@ -15,7 +15,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -33,42 +32,42 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "NivelCargo.findAll", query = "SELECT n FROM NivelCargo n"),
     @NamedQuery(name = "NivelCargo.findByIdNivelCargo", query = "SELECT n FROM NivelCargo n WHERE n.idNivelCargo = :idNivelCargo"),
-    @NamedQuery(name = "NivelCargo.findByNombre", query = "SELECT n FROM NivelCargo n WHERE n.nombre = :nombre")})
+    @NamedQuery(name = "NivelCargo.findByNombre", query = "SELECT n FROM NivelCargo n WHERE n.nombre = :nombre"),
+    @NamedQuery(name = "NivelCargo.findByEstado", query = "SELECT n FROM NivelCargo n WHERE n.estado = :estado")})
 public class NivelCargo implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "ID_NIVEL_CARGO")
-    private Integer idNivelCargo;
+    private Long idNivelCargo;
     @Basic(optional = false)
     @Column(name = "NOMBRE")
     private String nombre;
     @Basic(optional = false)
-    @Lob
     @Column(name = "ESTADO")
-    private byte[] estado;
+    private boolean estado;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idNivelCargo")
     private Collection<ExperienciaLaboral> experienciaLaboralCollection;
 
     public NivelCargo() {
     }
 
-    public NivelCargo(Integer idNivelCargo) {
+    public NivelCargo(Long idNivelCargo) {
         this.idNivelCargo = idNivelCargo;
     }
 
-    public NivelCargo(Integer idNivelCargo, String nombre, byte[] estado) {
+    public NivelCargo(Long idNivelCargo, String nombre, boolean estado) {
         this.idNivelCargo = idNivelCargo;
         this.nombre = nombre;
         this.estado = estado;
     }
 
-    public Integer getIdNivelCargo() {
+    public Long getIdNivelCargo() {
         return idNivelCargo;
     }
 
-    public void setIdNivelCargo(Integer idNivelCargo) {
+    public void setIdNivelCargo(Long idNivelCargo) {
         this.idNivelCargo = idNivelCargo;
     }
 
@@ -80,11 +79,11 @@ public class NivelCargo implements Serializable {
         this.nombre = nombre;
     }
 
-    public byte[] getEstado() {
+    public boolean getEstado() {
         return estado;
     }
 
-    public void setEstado(byte[] estado) {
+    public void setEstado(boolean estado) {
         this.estado = estado;
     }
 

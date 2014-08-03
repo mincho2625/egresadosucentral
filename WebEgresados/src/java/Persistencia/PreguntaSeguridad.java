@@ -32,37 +32,42 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "PreguntaSeguridad.findAll", query = "SELECT p FROM PreguntaSeguridad p"),
     @NamedQuery(name = "PreguntaSeguridad.findByIdPreguntaSeguridad", query = "SELECT p FROM PreguntaSeguridad p WHERE p.idPreguntaSeguridad = :idPreguntaSeguridad"),
-    @NamedQuery(name = "PreguntaSeguridad.findByPregunta", query = "SELECT p FROM PreguntaSeguridad p WHERE p.pregunta = :pregunta")})
+    @NamedQuery(name = "PreguntaSeguridad.findByPregunta", query = "SELECT p FROM PreguntaSeguridad p WHERE p.pregunta = :pregunta"),
+    @NamedQuery(name = "PreguntaSeguridad.findByEstado", query = "SELECT p FROM PreguntaSeguridad p WHERE p.estado = :estado")})
 public class PreguntaSeguridad implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "ID_PREGUNTA_SEGURIDAD")
-    private Integer idPreguntaSeguridad;
+    private Long idPreguntaSeguridad;
     @Basic(optional = false)
     @Column(name = "PREGUNTA")
     private String pregunta;
+    @Basic(optional = false)
+    @Column(name = "ESTADO")
+    private boolean estado;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idPreguntaSeguridad")
     private Collection<Usuario> usuarioCollection;
 
     public PreguntaSeguridad() {
     }
 
-    public PreguntaSeguridad(Integer idPreguntaSeguridad) {
+    public PreguntaSeguridad(Long idPreguntaSeguridad) {
         this.idPreguntaSeguridad = idPreguntaSeguridad;
     }
 
-    public PreguntaSeguridad(Integer idPreguntaSeguridad, String pregunta) {
+    public PreguntaSeguridad(Long idPreguntaSeguridad, String pregunta, boolean estado) {
         this.idPreguntaSeguridad = idPreguntaSeguridad;
         this.pregunta = pregunta;
+        this.estado = estado;
     }
 
-    public Integer getIdPreguntaSeguridad() {
+    public Long getIdPreguntaSeguridad() {
         return idPreguntaSeguridad;
     }
 
-    public void setIdPreguntaSeguridad(Integer idPreguntaSeguridad) {
+    public void setIdPreguntaSeguridad(Long idPreguntaSeguridad) {
         this.idPreguntaSeguridad = idPreguntaSeguridad;
     }
 
@@ -72,6 +77,14 @@ public class PreguntaSeguridad implements Serializable {
 
     public void setPregunta(String pregunta) {
         this.pregunta = pregunta;
+    }
+
+    public boolean getEstado() {
+        return estado;
+    }
+
+    public void setEstado(boolean estado) {
+        this.estado = estado;
     }
 
     @XmlTransient

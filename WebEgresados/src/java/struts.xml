@@ -3,18 +3,24 @@
     "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
     "http://struts.apache.org/dtds/struts-2.0.dtd">
 
-<struts>
+<struts>    
     <constant name="struts.devMode" value="true" />
     <constant name="struts.configuration.xml.reload" value="true" />
     
     <package name="egresados" extends="struts-default">
+        
         <action name="*Registro" method="{1}" class="Controlador.RegistroAction">
-            <result name="populate">/registroSistema.jsp</result>
-            <result name="input">/registroSistema.jsp</result>
-            <result name="success">/informacionPersonal.jsp</result>
+            <result name="nuevo">/registroNuevoUsuario.jsp</result>
+            <result name="actual">/registroSistema.jsp</result>
+            
+            <result name="successNuevo">/informacionPersonal.jsp</result>
+            <result name="successActual">/informacionPersonal.jsp</result>
+            
+            <result name="errorNuevo">/registroNuevoUsuario.jsp</result>
+            <result name="errorActual">/registroSistema.jsp</result>
         </action>
         
-        <action name="Ingreso" method="{1}" class="Controlador.IngresoAction">
+        <action name="*Ingreso" method="{1}" class="Controlador.IngresoAction">
             <result name="success">/index.jsp</result>
             <result name="error">/entrada.jsp</result>
         </action>
