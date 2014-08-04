@@ -6,7 +6,9 @@
 
 package Controlador;
 
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
+import java.util.Map;
 
 /**
  *
@@ -47,8 +49,11 @@ public class IngresoAction extends ActionSupport{
     @Override
     public String execute() throws Exception {
         ControladorUsuario controladorUsuario = new ControladorUsuario();
-        if (controladorUsuario.login(usuario, contrasenia))
+        if (controladorUsuario.login(usuario, contrasenia)) {
+            Map session = ActionContext.getContext().getSession();
+            session.put("usuario", usuario);
             return SUCCESS;
+        }
         else {
             addActionError("Usuario o contraseña incorrectos. Si desea registrarse haga click en Registro");
             return ERROR;

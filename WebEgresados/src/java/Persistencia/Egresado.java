@@ -45,7 +45,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Egresado.findByFechaExpedicion", query = "SELECT e FROM Egresado e WHERE e.fechaExpedicion = :fechaExpedicion"),
     @NamedQuery(name = "Egresado.findByFechaUltimaAct", query = "SELECT e FROM Egresado e WHERE e.fechaUltimaAct = :fechaUltimaAct"),
     @NamedQuery(name = "Egresado.findByAceptaCondiciones", query = "SELECT e FROM Egresado e WHERE e.aceptaCondiciones = :aceptaCondiciones"),
-    @NamedQuery(name = "Egresado.findByIdEgresado", query = "SELECT e FROM Egresado e WHERE e.idEgresado = :idEgresado")})
+    @NamedQuery(name = "Egresado.findByIdEgresado", query = "SELECT e FROM Egresado e WHERE e.idEgresado = :idEgresado"),
+    @NamedQuery(name = "Egresado.findByNombreUsuario", query = "SELECT e FROM Egresado e join Usuario u WHERE u.nombre = :nombreUsuario")})
 public class Egresado implements Serializable {
     private static final long serialVersionUID = 1L;
     @Basic(optional = false)
