@@ -13,6 +13,7 @@ import Modelo.Genero;
 import Modelo.GrupoSanguineo;
 import Modelo.Pais;
 import Modelo.PreguntaSeguridad;
+import Modelo.TipoContacto;
 import Modelo.TipoDocumento;
 
 /**

@@ -13,6 +13,7 @@ import Modelo.EstadoCivil;
 import Modelo.Genero;
 import Modelo.GrupoSanguineo;
 import Modelo.Pais;
+import Modelo.TipoContacto;
 import Modelo.TipoDocumento;
 import java.util.ArrayList;
 
@@ -28,7 +29,8 @@ public final class Listas {
     private ArrayList<GrupoSanguineo> listaGruposSanguineos;
     private ArrayList<Genero> listaGeneros;
     private ArrayList<EstadoCivil> listaEstadosCiviles;
-    
+    private ArrayList<TipoContacto> listaTiposContacto;
+
     private Listas()
     {
         ControladorListas cl = new ControladorListas();
@@ -39,6 +41,7 @@ public final class Listas {
         setListaGeneros(cl.obtenerGeneros());
         setListaGruposSanguineos(cl.obtenerGruposSanguineos());
         setListaTiposDocumento(cl.obtenerTiposDocumento());
+        setListaTiposContacto(cl.obtenerTiposContacto());
     }
     
     private static Listas listas;
@@ -147,5 +150,13 @@ public final class Listas {
      */
     public void setListaEstadosCiviles(ArrayList<EstadoCivil> listaEstadosCiviles) {
         this.listaEstadosCiviles = listaEstadosCiviles;
+    }
+    
+    public ArrayList<TipoContacto> getListaTiposContacto() {
+        return listaTiposContacto;
+    }
+
+    public void setListaTiposContacto(ArrayList<TipoContacto> listaTiposContacto) {
+        this.listaTiposContacto = listaTiposContacto;
     }
 }

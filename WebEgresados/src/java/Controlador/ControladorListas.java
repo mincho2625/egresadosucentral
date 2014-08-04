@@ -7,6 +7,7 @@ import Modelo.Genero;
 import Modelo.GrupoSanguineo;
 import Modelo.Pais;
 import Modelo.PreguntaSeguridad;
+import Modelo.TipoContacto;
 import Modelo.TipoDocumento;
 import Util.ConvertidosObjetos;
 import java.util.ArrayList;
@@ -163,4 +164,20 @@ public class ControladorListas {
 
         return listaPreguntasSeguridad;
     }
+    
+    public ArrayList<TipoContacto> obtenerTiposContacto() {
+        ArrayList<TipoContacto> listaTiposContacto = new ArrayList<>();
+
+        EntityManager em = emf.createEntityManager();
+        Query query = em.createNamedQuery("TipoContacto.findAll");
+        
+        List<Persistencia.TipoContacto> lista = query.getResultList();
+        for (Persistencia.TipoContacto tc: lista) {
+            listaTiposContacto.add(convertidosObjetos.convertirTipoContacto(tc));
+        }
+
+        return listaTiposContacto;
+    }
+    
+    
 }
