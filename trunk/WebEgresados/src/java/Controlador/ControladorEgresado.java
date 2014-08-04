@@ -1,8 +1,12 @@
 package Controlador;
 
+import Modelo.Contacto;
 import Modelo.Egresado;
+import Util.ConvertidosObjetos;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -15,14 +19,15 @@ import javax.persistence.Query;
  */
 public class ControladorEgresado {
 
-    private int idEgresado;
+    private String nombreUsuario;
     private final EntityManagerFactory emf = Persistence.createEntityManagerFactory("WebEgresadosPU");
+    private final ConvertidosObjetos convertidosObjetos = new ConvertidosObjetos();
 
     public ControladorEgresado() {
     }
 
-    public ControladorEgresado(int idEgresado) {
-        this.idEgresado = idEgresado;
+    public ControladorEgresado(String nombreUsuario) {
+        this.nombreUsuario = nombreUsuario;
     }
 
     public void obtenerDatosAdicionales() {
@@ -45,8 +50,8 @@ public class ControladorEgresado {
         Egresado egresado;
 
         EntityManager em = emf.createEntityManager();
-        Query query = em.createNamedQuery("Egresado.findByIdEgresado");
-        query.setParameter("idEgresado", idEgresado);
+        Query query = em.createNamedQuery("Egresado.findByNombreUsuario");
+        query.setParameter("nombreUsuario", nombreUsuario);
         Persistencia.Egresado e = (Persistencia.Egresado) query.getSingleResult();
         if (e != null) {
             egresado = new Egresado();
@@ -73,8 +78,17 @@ public class ControladorEgresado {
         return egresado;
     }
 
-    public void obtenerInformacionPersonal() {
-
+    public ArrayList<Contacto> obtenerDatosUbicacion() {
+        ArrayList<Contacto> listaContactos = new ArrayList<>();
+        EntityManager em = emf.createEntityManager();
+        
+        Query query = em.createNamedQuery("Contacto.findAll");
+        List<Persistencia.Contacto> lista = query.getResultList();
+        for (Persistencia.Contacto c : lista) {
+            listaContactos.add(convertidosObjetos.convertirContacto(c));
+        }
+        
+        return listaContactos;
     }
 
     public void actualizarDatosAdicionales() {

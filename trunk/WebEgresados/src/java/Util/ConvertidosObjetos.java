@@ -6,6 +6,7 @@
 package Util;
 
 import Modelo.Ciudad;
+import Modelo.Contacto;
 import Modelo.Departamento;
 import Modelo.EstadoCivil;
 import Modelo.Genero;
@@ -80,5 +81,18 @@ public class ConvertidosObjetos {
         preguntaSeguridad.setIdPreguntaSeguridad(ps.getIdPreguntaSeguridad());
         preguntaSeguridad.setPreguntaSeguridad(ps.getPregunta());
         return preguntaSeguridad;
+    }
+    
+    public Contacto convertirContacto(Persistencia.Contacto c)
+    {
+        Contacto contacto = new Contacto();
+        contacto.setDescripcion(c.getDescripción());
+        contacto.setEstado(c.getEstado());
+        contacto.setFechaRegistro(c.getFechaRegistro());
+        contacto.setIdContacto(c.getIdContacto());
+        contacto.setIdEgresado(c.getIdEgresado().getIdEgresado());
+        contacto.setIdTipoContacto(c.getIdTipoContacto().getIdTipoContacto());
+        
+        return contacto;
     }
 }

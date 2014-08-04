@@ -14,9 +14,11 @@ import Modelo.GrupoSanguineo;
 import Modelo.Pais;
 import Modelo.PreguntaSeguridad;
 import Modelo.TipoDocumento;
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 import java.util.ArrayList;
+import java.util.Map;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Actions;
 import org.apache.struts2.convention.annotation.Result;
@@ -27,7 +29,7 @@ import org.apache.struts2.convention.annotation.Result;
  */
 public class RegistroAction extends ActionSupport implements ModelDriven<Egresado> {
 
-    private Egresado egresado = new Egresado();
+    private Egresado egresado;
     private ArrayList<Pais> listaPaises;
     private ArrayList<Departamento> listaDepartamentos;
     private ArrayList<Ciudad> listaCiudades;
@@ -152,7 +154,7 @@ public class RegistroAction extends ActionSupport implements ModelDriven<Egresad
     public void setListaEstadosCiviles(ArrayList<EstadoCivil> listaEstadosCiviles) {
         this.listaEstadosCiviles = listaEstadosCiviles;
     }
-    
+
     /**
      * @return the listaPreguntas
      */
@@ -267,7 +269,9 @@ public class RegistroAction extends ActionSupport implements ModelDriven<Egresad
     }
 
     public String obtenerEgresado() {
-        ControladorEgresado controladorEgresado = new ControladorEgresado(1);
+        Map session = ActionContext.getContext().getSession();
+        String usuario = (String) session.get("usuario");
+        ControladorEgresado controladorEgresado = new ControladorEgresado(usuario);
         setEgresado(controladorEgresado.obtenerInformacionBasica());
         desplegar();
 
@@ -276,9 +280,9 @@ public class RegistroAction extends ActionSupport implements ModelDriven<Egresad
 
     public String crearEgresado() {
         if (terminos) {
-            if (egresado.getClave().equals(confirmacionClave)) {
+            if (getEgresado().getClave().equals(confirmacionClave)) {
                 ControladorEgresado controladorEgresado = new ControladorEgresado();
-                controladorEgresado.actualizarInformacionBasica(egresado);
+                controladorEgresado.actualizarInformacionBasica(getEgresado());
                 return "successNuevo";
             } else {
                 addActionError("La confirmación de contraseña es incorrecta");
@@ -287,6 +291,17 @@ public class RegistroAction extends ActionSupport implements ModelDriven<Egresad
         } else {
             addActionError("Debe aceptar términos y condiciones");
             return "errorNuevo";
+        }
+    }
+
+    public String actualizarEgresado() {
+        if (terminos) {
+            ControladorEgresado controladorEgresado = new ControladorEgresado();
+            controladorEgresado.actualizarInformacionBasica(getEgresado());
+            return "successActual";
+        } else {
+            addActionError("Debe aceptar términos y condiciones");
+            return "errorActual";
         }
     }
 }
