@@ -27,5 +27,11 @@
         <action name="*Ubicacion" method="{1}" class="Controlador.UbicacionAction">
             <result name="success">/datosUbicacionTabla.jsp</result>
         </action>
+        
+        <action name="*DatosUbicacion" method="{1}" class="Controlador.DatosUbicacionAction">
+            <result name="desplegar">/datosUbicacion.jsp</result>
+            <result name="input">/datosUbicacion.jsp</result>
+            <result name="success">/experienciaLaboralTabla.jsp</result>
+        </action>
     </package>
 </struts>

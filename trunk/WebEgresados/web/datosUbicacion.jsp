@@ -1,3 +1,5 @@
+<%@taglib uri="/struts-tags" prefix="s"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <html lang="es"><head><title>Datos de Ubicacion</title>
 
@@ -19,12 +21,9 @@
                     </tr>
                     <tr>
                         <td colspan="2">
-                            <select name="tipoCont">
-                                <option>Seleccione</option>
-                            </select>
+                            <s:select name="tipoContacto" list="listaTiposContacto" listKey="idTipoContacto" listValue="nombre" headerValue="Seleccione Tipo Contacto"/>
                         </td>
-                        <td colspan="2"><input name="descrUbic">
-                        </td>
+                        <td colspan="2"><s:textfield name="descrUbic"/></td>
                     </tr>
                     <tr>
                         <td colspan="2"></td>
