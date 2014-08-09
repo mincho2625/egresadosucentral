@@ -88,7 +88,7 @@ public class ControladorEgresado {
         Map<Long, Contacto> listaContactos = new HashMap<Long, Contacto>();
         
         for (Persistencia.Contacto c : this.e.getContactoCollection()) {
-            listaContactos.put(c.getIdContacto(), convertidosObjetos.convertirContacto(c));
+            if (c.getEstado()) listaContactos.put(c.getIdContacto(), convertidosObjetos.convertirContacto(c));
         }
 
         return listaContactos;
