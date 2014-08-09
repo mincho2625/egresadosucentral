@@ -13,19 +13,22 @@
             <result name="error">/entrada.jsp</result>
         </action>
         
+        <action name="*Ubicacion" method="{1}" class="Controlador.UbicacionAction">
+            <result name="success">/datosUbicacionTabla.jsp</result>
+        </action>
+        
         <action name="*Registro" method="{1}" class="Controlador.RegistroAction">
             <result name="nuevo">/registroNuevoUsuario.jsp</result>
             <result name="actual">/registroSistema.jsp</result>
             
             <result name="successNuevo">/informacionPersonal.jsp</result>
-            <result name="successActual">/datosUbicacionTabla.jsp</result>
+            <result name="successActual" type="chain">
+                <param name="actionName">Ubicacion</param>
+                <param name="method">obtenerLista</param>
+            </result>
             
             <result name="errorNuevo">/registroNuevoUsuario.jsp</result>
             <result name="errorActual">/registroSistema.jsp</result>
-        </action>
-        
-        <action name="*Ubicacion" method="{1}" class="Controlador.UbicacionAction">
-            <result name="success">/datosUbicacionTabla.jsp</result>
         </action>
     </package>
 </struts>

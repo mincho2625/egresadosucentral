@@ -26,11 +26,17 @@
                             <td class="tdtres"><s:property value="descripcion"></s:property><br>
                             </td>
                             <td class="tdtres">
-                            <s:url id="editar" action="editarUbicacion.action">
+                            <s:url id="editarURL" action="editarUbicacion.action">
                                 <s:param name="idContacto" value="%{idContacto}"></s:param>
                             </s:url>
-                            <s:a href="%{editar}">
+                            <s:a href="%{editarURL}">
                                 <img style="width: 20px; height: 19px;" title="Editar" alt="Editar" src="imagenes/Icono_de_editar.png" align="top"><br>
+                            </s:a>
+                            <s:url id="borrarURL" action="borrarUbicacion.action">
+                                <s:param name="idContacto" value="%{idContacto}"></s:param>
+                            </s:url>
+                            <s:a href="%{borrarURL}">
+                                <img style="width: 20px; height: 19px;" title="Borrar" alt="Borrar" src="imagenes/Icono_de_editar.png" align="top"><br>
                             </s:a>
                         </td>
                     </tr>
@@ -53,30 +59,32 @@
         <div id="contenido">
             <s:if test="editar">
                 <s:form action="guardarUbicacion.action">
-                    <s:hidden name="idContacto"></s:hidden>
-                    <table>
-                        <tr>
-                            <td>
-                                Tipo Contacto
-                            </td>
-                            <td>
-                                <s:select name="idTipoContacto" list="listaTiposContacto" listKey="idTipoContacto" listValue="nombre"></s:select>
-                                </td>
+                    <s:push value="contacto">
+                        <s:hidden name="idContacto"></s:hidden>
+                            <table>
+                                <tr>
+                                    <td>
+                                        Tipo Contacto
+                                    </td>
+                                    <td>
+                                    <s:select name="idTipoContacto" list="listaTiposContacto" listKey="idTipoContacto" listValue="nombre"></s:select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Descripción
+                                    </td>
+                                    <td>
+                                    <s:textfield name="descripcion"></s:textfield>
+                                    </td>
+                                </tr>
+                                <tr>
+                                <s:submit cssClass="positive">
+                                <img src="imagenes/btnGuardar.png" alt=""/>Guardar<br>
+                            </s:submit>
                             </tr>
-                            <tr>
-                                <td>
-                                    Descripción
-                                </td>
-                                <td>
-                                <s:textfield name="descripcion"></s:textfield>
-                                </td>
-                            </tr>
-                            <tr>
-                            <s:submit cssClass="positive">
-                            <img src="imagenes/btnGuardar.png" alt=""/>Guardar<br>
-                        </s:submit>
-                        </tr>
-                    </table>
+                        </table>
+                    </s:push>
                 </s:form>
             </s:if>
         </div>

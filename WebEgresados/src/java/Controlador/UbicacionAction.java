@@ -40,6 +40,20 @@ public class UbicacionAction extends ActionSupport implements ModelDriven<Contac
     }
     
     /**
+     * @return the contacto
+     */
+    public Contacto getContacto() {
+        return contacto;
+    }
+
+    /**
+     * @param contacto the contacto to set
+     */
+    public void setContacto(Contacto contacto) {
+        this.contacto = contacto;
+    }
+    
+    /**
      * @return the listaContactos
      */
     public Collection<Contacto> getListaContactos() {
@@ -83,9 +97,9 @@ public class UbicacionAction extends ActionSupport implements ModelDriven<Contac
     
     public String guardar()
     {
-        contacto.setFechaRegistro(Date.valueOf(LocalDate.now()));
-        contacto.setEstado(true);
-        controladorEgresado.actualizarDatosUbicacion(contacto);
+        getContacto().setFechaRegistro(Date.valueOf(LocalDate.now()));
+        getContacto().setEstado(true);
+        controladorEgresado.actualizarDatosUbicacion(getContacto());
         obtenerLista();
         this.editar = false;
         return SUCCESS;
@@ -100,6 +114,12 @@ public class UbicacionAction extends ActionSupport implements ModelDriven<Contac
     
     public String borrar()
     {
+        HttpServletRequest request = (HttpServletRequest) ActionContext.getContext().get(ServletActionContext.HTTP_REQUEST);
+        this.setContacto(this.listaContactos.get(Long.parseLong( request.getParameter("idContacto"))));
+        this.contacto.setEstado(false);
+        this.controladorEgresado.actualizarDatosUbicacion(contacto);
+        this.obtenerLista();
+        this.editar = false;
         return SUCCESS;
     }
     
@@ -107,7 +127,7 @@ public class UbicacionAction extends ActionSupport implements ModelDriven<Contac
     {
         HttpServletRequest request = (HttpServletRequest) ActionContext.getContext().get(ServletActionContext.HTTP_REQUEST);
         this.desplegar();
-        this.contacto = this.listaContactos.get(Long.parseLong( request.getParameter("idContacto")));
+        this.setContacto(this.listaContactos.get(Long.parseLong( request.getParameter("idContacto"))));
         return SUCCESS;
     }
     
@@ -121,6 +141,6 @@ public class UbicacionAction extends ActionSupport implements ModelDriven<Contac
     
     @Override
     public Contacto getModel() {
-        return contacto;
+        return getContacto();
     }
 }
