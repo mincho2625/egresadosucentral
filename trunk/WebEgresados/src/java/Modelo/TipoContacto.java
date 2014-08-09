@@ -1,16 +1,15 @@
 package Modelo;
 
-
 public class TipoContacto {
 
-	private int idTipoContacto;
-	private String nombre;
+    private long idTipoContacto;
+    private String nombre;
 
-    public int getIdTipoContacto() {
+    public long getIdTipoContacto() {
         return idTipoContacto;
     }
 
-    public void setIdTipoContacto(int idTipoContacto) {
+    public void setIdTipoContacto(long idTipoContacto) {
         this.idTipoContacto = idTipoContacto;
     }
 

@@ -29,7 +29,7 @@ import org.apache.struts2.convention.annotation.Result;
  */
 public class RegistroAction extends ActionSupport implements ModelDriven<Egresado> {
 
-    private Egresado egresado;
+    private Egresado egresado = new Egresado();
     private ArrayList<Pais> listaPaises;
     private ArrayList<Departamento> listaDepartamentos;
     private ArrayList<Ciudad> listaCiudades;
@@ -42,6 +42,17 @@ public class RegistroAction extends ActionSupport implements ModelDriven<Egresad
     private int idDepartamento;
     private String confirmacionClave;
     private boolean terminos;
+    private ControladorEgresado controladorEgresado;
+
+    public RegistroAction() {
+        Map session = ActionContext.getContext().getSession();
+        if (session.containsKey("usuario")) {
+            String usuario = (String) session.get("usuario");
+            controladorEgresado = new ControladorEgresado(usuario);
+        } else {
+            controladorEgresado = new ControladorEgresado();
+        }
+    }
 
     /**
      * @return the egresado
@@ -241,7 +252,7 @@ public class RegistroAction extends ActionSupport implements ModelDriven<Egresad
         setListaTiposDocumento(cl.obtenerTiposDocumento());
         setListaPreguntas(cl.obtenerPreguntasSeguridad());
 
-        return "populate";
+        return "nuevo";
     }
 
     @Actions({
@@ -261,13 +272,6 @@ public class RegistroAction extends ActionSupport implements ModelDriven<Egresad
         return "populate";
     }
 
-    public String nuevoEgresado() {
-        setEgresado(new Egresado());
-        desplegar();
-
-        return "nuevo";
-    }
-
     public String obtenerEgresado() {
         Map session = ActionContext.getContext().getSession();
         String usuario = (String) session.get("usuario");
@@ -282,7 +286,7 @@ public class RegistroAction extends ActionSupport implements ModelDriven<Egresad
         if (terminos) {
             if (getEgresado().getClave().equals(confirmacionClave)) {
                 ControladorEgresado controladorEgresado = new ControladorEgresado();
-                controladorEgresado.actualizarInformacionBasica(getEgresado());
+                controladorEgresado.crearEgresado(getEgresado());
                 return "successNuevo";
             } else {
                 addActionError("La confirmación de contraseña es incorrecta");
