@@ -18,7 +18,7 @@
             <result name="actual">/registroSistema.jsp</result>
             
             <result name="successNuevo">/informacionPersonal.jsp</result>
-            <result name="successActual">/informacionPersonal.jsp</result>
+            <result name="successActual">/datosUbicacionTabla.jsp</result>
             
             <result name="errorNuevo">/registroNuevoUsuario.jsp</result>
             <result name="errorActual">/registroSistema.jsp</result>
@@ -26,6 +26,7 @@
         
         <action name="*Ubicacion" method="{1}" class="Controlador.UbicacionAction">
             <result name="success">/datosUbicacionTabla.jsp</result>
+            <result name="nuevo">/datosUbicacionTabla.jsp</result>
         </action>
         
         <action name="*DatosUbicacion" method="{1}" class="Controlador.DatosUbicacionAction">

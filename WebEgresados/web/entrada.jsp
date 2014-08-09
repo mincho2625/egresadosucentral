@@ -39,7 +39,7 @@
                                 <tr>
                                 <div class="errors">
                                     <s:actionerror />
-                                    <s:a href="nuevoEgresadoRegistro.action">Registro</s:a>
+                                    <s:a href="desplegarRegistro.action">Registro</s:a>
                                     </div>
                                     </tr>
                             </s:if>

@@ -96,4 +96,13 @@ public class ConvertidosObjetos {
         
         return contacto;
     }
+    
+    public TipoContacto convertirTipoContacto(Persistencia.TipoContacto tc)
+    {
+        TipoContacto tipoContacto = new TipoContacto();
+        tipoContacto.setIdTipoContacto(tc.getIdTipoContacto());
+        tipoContacto.setNombre(tc.getNombre());
+        
+        return tipoContacto;
+    }
 }
