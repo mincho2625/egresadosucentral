@@ -6,6 +6,8 @@ import Util.ConvertidosObjetos;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -82,11 +84,11 @@ public class ControladorEgresado {
         return egresado;
     }
 
-    public ArrayList<Contacto> obtenerDatosUbicacion() {
-        ArrayList<Contacto> listaContactos = new ArrayList<>();
-
+    public Map<Long, Contacto> obtenerDatosUbicacion() {
+        Map<Long, Contacto> listaContactos = new HashMap<Long, Contacto>();
+        
         for (Persistencia.Contacto c : this.e.getContactoCollection()) {
-            listaContactos.add(convertidosObjetos.convertirContacto(c));
+            listaContactos.put(c.getIdContacto(), convertidosObjetos.convertirContacto(c));
         }
 
         return listaContactos;
@@ -200,5 +202,10 @@ public class ControladorEgresado {
         em.getTransaction().commit();
 
         return true;
+    }
+    
+    public void refrescar()
+    {
+        em.refresh(e);
     }
 }

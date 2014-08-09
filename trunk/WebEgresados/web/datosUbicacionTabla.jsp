@@ -26,7 +26,7 @@
                             <td class="tdtres"><s:property value="descripcion"></s:property><br>
                             </td>
                             <td class="tdtres">
-                            <s:url id="editar" action="editar">
+                            <s:url id="editar" action="editarUbicacion.action">
                                 <s:param name="idContacto" value="%{idContacto}"></s:param>
                             </s:url>
                             <s:a href="%{editar}">
@@ -51,7 +51,7 @@
         </div>
 
         <div id="contenido">
-            <s:if test="nuevo">
+            <s:if test="editar">
                 <s:form action="guardarUbicacion.action">
                     <s:hidden name="idContacto"></s:hidden>
                     <table>
