@@ -14,7 +14,11 @@ import com.opensymphony.xwork2.ModelDriven;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
+import org.apache.struts2.ServletActionContext;
 
 /**
  *
@@ -22,8 +26,8 @@ import java.util.Map;
  */
 public class UbicacionAction extends ActionSupport implements ModelDriven<Contacto> {
     private Contacto contacto = new Contacto();
-    private boolean nuevo = false;
-    private ArrayList<Contacto> listaContactos = new ArrayList<>();
+    private boolean editar = false;
+    private Map<Long, Contacto> listaContactos = new HashMap<Long, Contacto>();
     private ArrayList<TipoContacto> listaTiposContacto;
     private ControladorEgresado controladorEgresado;
     private ControladorListas controladorListas = new ControladorListas();
@@ -38,14 +42,14 @@ public class UbicacionAction extends ActionSupport implements ModelDriven<Contac
     /**
      * @return the listaContactos
      */
-    public ArrayList<Contacto> getListaContactos() {
-        return listaContactos;
+    public Collection<Contacto> getListaContactos() {
+        return listaContactos.values();
     }
 
     /**
      * @param listaContactos the listaContactos to set
      */
-    public void setListaContactos(ArrayList<Contacto> listaContactos) {
+    public void setListaContactos(Map<Long, Contacto> listaContactos) {
         this.listaContactos = listaContactos;
     }
     
@@ -64,17 +68,17 @@ public class UbicacionAction extends ActionSupport implements ModelDriven<Contac
     }
     
     /**
-     * @return the nuevo
+     * @return the editar
      */
-    public boolean isNuevo() {
-        return nuevo;
+    public boolean isEditar() {
+        return editar;
     }
 
     /**
-     * @param nuevo the nuevo to set
+     * @param editar the editar to set
      */
-    public void setNuevo(boolean nuevo) {
-        this.nuevo = nuevo;
+    public void setEditar(boolean editar) {
+        this.editar = editar;
     }
     
     public String guardar()
@@ -83,12 +87,13 @@ public class UbicacionAction extends ActionSupport implements ModelDriven<Contac
         contacto.setEstado(true);
         controladorEgresado.actualizarDatosUbicacion(contacto);
         obtenerLista();
-        desplegar();
+        this.editar = false;
         return SUCCESS;
     }
     
     public String obtenerLista()
     {
+        controladorEgresado.refrescar();
         setListaContactos(controladorEgresado.obtenerDatosUbicacion());
         return SUCCESS;
     }
@@ -100,13 +105,17 @@ public class UbicacionAction extends ActionSupport implements ModelDriven<Contac
     
     public String editar()
     {
+        HttpServletRequest request = (HttpServletRequest) ActionContext.getContext().get(ServletActionContext.HTTP_REQUEST);
+        this.desplegar();
+        this.contacto = this.listaContactos.get(Long.parseLong( request.getParameter("idContacto")));
         return SUCCESS;
     }
     
     public String desplegar()
     {
+        this.obtenerLista();
         this.setListaTiposContacto(controladorListas.obtenerTiposContacto());
-        this.nuevo = true;
+        this.editar = true;
         return SUCCESS;
     }
     

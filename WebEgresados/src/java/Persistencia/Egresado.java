@@ -273,10 +273,6 @@ public class Egresado implements Serializable {
         return contactoCollection;
     }
 
-    public void addContacto(Contacto contacto) {
-        this.contactoCollection.add(contacto);
-    }
-
     @XmlTransient
     public Collection<EgresadoRedSocial> getEgresadoRedSocialCollection() {
         return egresadoRedSocialCollection;
