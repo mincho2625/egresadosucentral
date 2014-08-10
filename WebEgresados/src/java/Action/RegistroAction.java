@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Controlador;
+package Action;
 
+import Controlador.ControladorEgresado;
+import Controlador.ControladorListas;
 import Modelo.Ciudad;
 import Modelo.Departamento;
 import Modelo.Egresado;

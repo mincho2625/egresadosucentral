@@ -4,8 +4,10 @@
  * and open the template in the editor.
  */
 
-package Controlador;
+package Action;
 
+import Controlador.ControladorEgresado;
+import Controlador.ControladorListas;
 import Modelo.Contacto;
 import Modelo.TipoContacto;
 import com.opensymphony.xwork2.ActionContext;
@@ -98,7 +100,6 @@ public class UbicacionAction extends ActionSupport implements ModelDriven<Contac
     public String guardar()
     {
         getContacto().setFechaRegistro(Date.valueOf(LocalDate.now()));
-        getContacto().setEstado(true);
         controladorEgresado.actualizarDatosUbicacion(getContacto());
         obtenerLista();
         this.editar = false;
@@ -115,9 +116,7 @@ public class UbicacionAction extends ActionSupport implements ModelDriven<Contac
     public String borrar()
     {
         HttpServletRequest request = (HttpServletRequest) ActionContext.getContext().get(ServletActionContext.HTTP_REQUEST);
-        this.setContacto(this.listaContactos.get(Long.parseLong( request.getParameter("idContacto"))));
-        this.contacto.setEstado(false);
-        this.controladorEgresado.actualizarDatosUbicacion(contacto);
+        this.controladorEgresado.borrarDatosUbicacion(Long.parseLong( request.getParameter("idContacto")));
         this.obtenerLista();
         this.editar = false;
         return SUCCESS;

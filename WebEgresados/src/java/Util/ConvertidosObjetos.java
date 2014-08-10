@@ -8,11 +8,13 @@ package Util;
 import Modelo.Ciudad;
 import Modelo.Contacto;
 import Modelo.Departamento;
+import Modelo.EgresadoRedSocial;
 import Modelo.EstadoCivil;
 import Modelo.Genero;
 import Modelo.GrupoSanguineo;
 import Modelo.Pais;
 import Modelo.PreguntaSeguridad;
+import Modelo.RedSocial;
 import Modelo.TipoContacto;
 import Modelo.TipoDocumento;
 
@@ -88,7 +90,6 @@ public class ConvertidosObjetos {
     {
         Contacto contacto = new Contacto();
         contacto.setDescripcion(c.getDescripción());
-        contacto.setEstado(c.getEstado());
         contacto.setFechaRegistro(c.getFechaRegistro());
         contacto.setIdContacto(c.getIdContacto());
         contacto.setIdEgresado(c.getIdEgresado().getIdEgresado());
@@ -104,5 +105,25 @@ public class ConvertidosObjetos {
         tipoContacto.setNombre(tc.getNombre());
         
         return tipoContacto;
+    }
+    
+    public EgresadoRedSocial convertirEgresadoRedSocial(Persistencia.EgresadoRedSocial ers)
+    {
+        EgresadoRedSocial egresadoRedSocial = new EgresadoRedSocial();
+        egresadoRedSocial.setIdEgresado(ers.getIdEgresado().getIdEgresado());
+        egresadoRedSocial.setIdEgresadoRedSocial(ers.getIdEgresadoRedSocial());
+        egresadoRedSocial.setIdRedSocial(ers.getIdRedSocial().getIdRedSocial());
+        egresadoRedSocial.setUrl(ers.getUrl());
+        
+        return egresadoRedSocial;
+    }
+    
+    public RedSocial convertirRedSocial(Persistencia.RedSocial rs)
+    {
+        RedSocial redSocial = new RedSocial();
+        redSocial.setIdRedSocial(rs.getIdRedSocial());
+        redSocial.setNombre(rs.getNombre());
+        
+        return redSocial;
     }
 }
