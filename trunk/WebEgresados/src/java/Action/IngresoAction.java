@@ -4,8 +4,9 @@
  * and open the template in the editor.
  */
 
-package Controlador;
+package Action;
 
+import Controlador.ControladorUsuario;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import java.util.Map;

@@ -17,7 +17,6 @@ public class Contacto {
     private long idTipoContacto;
     private String descripcion;
     private Date fechaRegistro;
-    private boolean estado;
     private long idEgresado;
 
     /**
@@ -74,20 +73,6 @@ public class Contacto {
      */
     public void setFechaRegistro(Date fechaRegistro) {
         this.fechaRegistro = fechaRegistro;
-    }
-
-    /**
-     * @return the estado
-     */
-    public boolean isEstado() {
-        return estado;
-    }
-
-    /**
-     * @param estado the estado to set
-     */
-    public void setEstado(boolean estado) {
-        this.estado = estado;
     }
 
     /**

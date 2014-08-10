@@ -2,10 +2,11 @@ package Controlador;
 
 import Modelo.Contacto;
 import Modelo.Egresado;
+import Modelo.EgresadoRedSocial;
 import Util.ConvertidosObjetos;
 import java.sql.Date;
+import java.time.Instant;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import javax.persistence.EntityManager;
@@ -38,22 +39,6 @@ public class ControladorEgresado {
         Query query = em.createNamedQuery("Egresado.findByNombreUsuario");
         query.setParameter("nombreUsuario", nombreUsuario);
         e = (Persistencia.Egresado) query.getSingleResult();
-    }
-
-    public void obtenerDatosAdicionales() {
-
-    }
-
-    public void obtenerEducacionFormal() {
-
-    }
-
-    public void obtenerEducacionNoFormal() {
-
-    }
-
-    public void obtenerExperienciaLaboral() {
-
     }
 
     public Egresado obtenerInformacionBasica() {
@@ -93,17 +78,16 @@ public class ControladorEgresado {
 
         return listaContactos;
     }
-
-    public void actualizarDatosAdicionales() {
-    }
-
-    public void actualizarEducacionFormal() {
-    }
-
-    public void actualizarEducacionNoFormal() {
-    }
-
-    public void actualizarExperienciaLaboral() {
+    
+    public Map<Long, EgresadoRedSocial> obtenerDatosRedesSociales()
+    {
+        Map<Long, EgresadoRedSocial> listaRedesSociales = new HashMap<>();        
+        for (Persistencia.EgresadoRedSocial ers : this.e.getEgresadoRedSocialCollection()) {
+            if (ers.getEstado())
+                listaRedesSociales.put(ers.getIdEgresadoRedSocial(), convertidosObjetos.convertirEgresadoRedSocial(ers));
+        }
+        
+        return listaRedesSociales;
     }
 
     public boolean crearEgresado(Egresado egresado) {
@@ -201,6 +185,53 @@ public class ControladorEgresado {
         em.persist(c);
         em.getTransaction().commit();
 
+        return true;
+    }
+    
+    public boolean actualizarDatosRedSocial(EgresadoRedSocial egresadoRedSocial)
+    {
+        if (egresadoRedSocial == null)
+            return false;
+        
+        em.getTransaction().begin();
+        
+        Persistencia.EgresadoRedSocial ers;
+        if (egresadoRedSocial.getIdEgresadoRedSocial() > 0)
+            ers = em.getReference(Persistencia.EgresadoRedSocial.class, egresadoRedSocial.getIdEgresadoRedSocial());
+        else
+            ers = new Persistencia.EgresadoRedSocial();
+        
+        ers.setEstado(true);
+        ers.setFechaRegistro(Date.valueOf(LocalDate.now()));
+        ers.setIdEgresado(e);
+        ers.setIdRedSocial(em.getReference(Persistencia.RedSocial.class, egresadoRedSocial.getIdRedSocial()));
+        ers.setUrl(egresadoRedSocial.getUrl());
+        
+        em.persist(ers);
+        em.getTransaction().commit();
+        
+        return true;
+    }
+    
+    public boolean borrarDatosUbicacion(long idContacto)
+    {
+        em.getTransaction().begin();
+        Persistencia.Contacto c = em.getReference(Persistencia.Contacto.class, idContacto);
+        c.setEstado(false);
+        em.persist(c);
+        em.getTransaction().commit();
+        
+        return true;
+    }
+    
+    public boolean borrarDatosRedSocial(long idEgresadoRedSocial)
+    {
+        em.getTransaction().begin();
+        Persistencia.EgresadoRedSocial ers = em.getReference(Persistencia.EgresadoRedSocial.class, idEgresadoRedSocial);
+        ers.setEstado(false);
+        em.persist(ers);
+        em.getTransaction().commit();
+        
         return true;
     }
     
