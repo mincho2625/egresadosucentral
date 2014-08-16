@@ -16,6 +16,7 @@ import java.util.ArrayList;
  * @author YURY
  */
 public class EgresadoRedSocialAction extends CrudAction<EgresadoRedSocial>{
+    //Esta lista es de tipos de redes sociales: facebook, twiter, etc.
     private ArrayList<RedSocial> listaRedesSociales;
     private ControladorListas controladorListas = new ControladorListas();
 

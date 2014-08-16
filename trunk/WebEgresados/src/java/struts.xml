@@ -21,6 +21,10 @@
             <result name="success">/redesSocialesTabla.jsp</result>
         </action>
         
+        <action name="*ExperienciaLaboral" method="{1}" class="Action.ExperienciaLaboralAction">
+            <result name="success">/experienciaLaboral.jsp</result>
+        </action>
+        
         <action name="*Residencia" method="{1}" class="Action.ResidenciaAction">
             <result name="success">/datosResidenciaTabla.jsp</result>
         </action>
