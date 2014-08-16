@@ -12,7 +12,7 @@ package Modelo;
  */
 public class Mes {
     private long idMes;
-    private String nombre;
+    private String mes;
 
     /**
      * @return the idMes
@@ -29,16 +29,16 @@ public class Mes {
     }
 
     /**
-     * @return the nombre
+     * @return the mes
      */
-    public String getNombre() {
-        return nombre;
+    public String getMes() {
+        return mes;
     }
 
     /**
-     * @param nombre the nombre to set
+     * @param mes the mes to set
      */
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setMes(String mes) {
+        this.mes = mes;
     }
 }

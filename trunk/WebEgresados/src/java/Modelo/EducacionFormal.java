@@ -10,25 +10,10 @@ package Modelo;
  *
  * @author YURY
  */
-public class EducacionFormal {
-    private Educacion idEducacion;
+public class EducacionFormal extends Educacion {
     private Long idPrograma;
     private Long idJornada;
     private Long idNivelEstudios;
-
-    /**
-     * @return the idEducacion
-     */
-    public Educacion getIdEducacion() {
-        return idEducacion;
-    }
-
-    /**
-     * @param idEducacion the idEducacion to set
-     */
-    public void setIdEducacion(Educacion idEducacion) {
-        this.idEducacion = idEducacion;
-    }
 
     /**
      * @return the idPrograma

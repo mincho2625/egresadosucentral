@@ -1,13 +1,13 @@
 package Controlador;
 
 import Modelo.Contacto;
+import Modelo.Educacion;
+import Modelo.EducacionFormal;
 import Modelo.Egresado;
 import Modelo.EgresadoRedSocial;
 import Modelo.Residencia;
 import Util.ConvertidorObjetos;
-import java.lang.reflect.InvocationTargetException;
 import java.sql.Date;
-import java.time.Instant;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
@@ -115,6 +115,19 @@ public class ControladorEgresado {
         }
         
         return listaResidencia;
+    }
+    
+    public Map<Long, Modelo.Educacion> consultarEducacionFormal()
+    {
+        Map<Long, Modelo.Educacion> listaEducacionFormal = new HashMap<>();
+        ConvertidorObjetos<Persistencia.EducacionFormal, Modelo.Educacion> co = new ConvertidorObjetos<>(Modelo.Educacion.class.getName());
+        
+        for (Persistencia.Educacion ers : this.e.getEducacionCollection()) {
+            if (ers.getEstado() && ers.getEducacionFormal() != null)
+                listaEducacionFormal.put(ers.getIdEducacion(), co.convertir(ers.getEducacionFormal()));
+        }
+        
+        return listaEducacionFormal;
     }
 
     public boolean crearEgresado(Egresado egresado) {
@@ -267,6 +280,51 @@ public class ControladorEgresado {
         em.persist(r);
         em.getTransaction().commit();
         
+        return true;
+    }
+    
+    public boolean actualizarDatosEducacion(Educacion educacion)
+    {
+        if (educacion == null)
+            return false;
+        
+        Persistencia.Educacion ed;
+        if (educacion.getIdEducacion() > 0)
+            ed = em.getReference(Persistencia.Educacion.class, educacion.getIdEducacion());
+        else
+            ed = new Persistencia.Educacion();
+        
+        ed.setAnioFinalizacion(educacion.getAnioFinalizacion());
+        ed.setAnioInicio(educacion.getAnioInicio());
+        ed.setEstado(true);
+        ed.setFechaActEstado(Date.valueOf(LocalDate.now()));
+        ed.setIdAreaEstudios(em.getReference(Persistencia.AreaEstudios.class, 1));
+        ed.setIdCiudad(em.getReference(Persistencia.Ciudad.class, 1));
+        ed.setIdEgresado(e);
+        ed.setIdEstadoEducacion(em.getReference(Persistencia.EstadoEducacion.class, educacion.getIdEstadoEducacion()));
+        ed.setIdInstitucion(em.getReference(Persistencia.Institucion.class, 1));
+        ed.setIdMesFinalizacion(em.getReference(Persistencia.Mes.class, educacion.getIdMesFinalizacion()));
+        ed.setIdMesInicio(em.getReference(Persistencia.Mes.class, educacion.getIdMesInicio()));
+        ed.setIdModalidad(em.getReference(Persistencia.Modalidad.class, 1));
+                
+        if (educacion.getClass().getSimpleName().equals("EducacionFormal"))
+        {
+            EducacionFormal educacionFormal = (EducacionFormal)educacion;
+            
+            Persistencia.EducacionFormal ef;
+            if (ed.getEducacionFormal() != null)
+                ef = ed.getEducacionFormal();
+            else
+                ef = new Persistencia.EducacionFormal();
+            
+            ef.setEducacion(ed);
+            ef.setIdJornada(em.getReference(Persistencia.Jornada.class, educacionFormal.getIdJornada()));
+            ef.setIdNivelEstudios(em.getReference(Persistencia.NivelEstudios.class, educacionFormal.getIdNivelEstudios()));
+            ef.setIdPrograma(em.getReference(Persistencia.Programa.class, educacionFormal.getIdPrograma()));
+            em.persist(ef);
+        }
+        
+        em.getTransaction().commit();
         return true;
     }
     
