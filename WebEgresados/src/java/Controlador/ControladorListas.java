@@ -258,48 +258,128 @@ public class ControladorListas {
     private ArrayList<Mes> consultarMeses()
     {
         ArrayList<Mes> listaMeses = new ArrayList<>();
+        ConvertidorObjetos<Persistencia.Mes, Modelo.Mes> co = new ConvertidorObjetos<>(Modelo.Mes.class.getName());
+        
+        EntityManager em = emf.createEntityManager();
+        Query query = em.createNamedQuery("Mes.findAll");
+        
+        List<Persistencia.Mes> lista = query.getResultList();
+        for (Persistencia.Mes tc: lista) {
+            listaMeses.add(co.convertir(tc));
+        }
+        
         return listaMeses;
     }
     
     private ArrayList<EstadoEducacion> consultarEstadosEducacion()
     {
         ArrayList<EstadoEducacion> listaEstadosEducacion = new ArrayList<>();
+        ConvertidorObjetos<Persistencia.EstadoEducacion, Modelo.EstadoEducacion> co = new ConvertidorObjetos<>(Modelo.EstadoEducacion.class.getName());
+        
+        EntityManager em = emf.createEntityManager();
+        Query query = em.createNamedQuery("EstadoEducacion.findAll");
+        
+        List<Persistencia.EstadoEducacion> lista = query.getResultList();
+        for (Persistencia.EstadoEducacion tc: lista) {
+            listaEstadosEducacion.add(co.convertir(tc));
+        }
+        
         return listaEstadosEducacion;
     }
     
     private ArrayList<AreaEstudios> consultarAreasEstudios()
     {
-        ArrayList<AreaEstudios> lista = new ArrayList<>();
-        return lista;
+        ArrayList<AreaEstudios> listaAreasEstudios = new ArrayList<>();
+        ConvertidorObjetos<Persistencia.AreaEstudios, Modelo.AreaEstudios> co = new ConvertidorObjetos<>(Modelo.AreaEstudios.class.getName());
+        
+        EntityManager em = emf.createEntityManager();
+        Query query = em.createNamedQuery("AreaEstudios.findAll");
+        
+        List<Persistencia.AreaEstudios> lista = query.getResultList();
+        for (Persistencia.AreaEstudios tc: lista) {
+            listaAreasEstudios.add(co.convertir(tc));
+        }
+        
+        return listaAreasEstudios;
     }
     
     private ArrayList<Modalidad> consultarModalidades()
     {
-        ArrayList<Modalidad> lista = new ArrayList<>();
-        return lista;
+        ArrayList<Modalidad> listaModalidades = new ArrayList<>();
+        ConvertidorObjetos<Persistencia.Modalidad, Modelo.Modalidad> co = new ConvertidorObjetos<>(Modelo.Modalidad.class.getName());
+        
+        EntityManager em = emf.createEntityManager();
+        Query query = em.createNamedQuery("Modalidad.findAll");
+        
+        List<Persistencia.Modalidad> lista = query.getResultList();
+        for (Persistencia.Modalidad tc: lista) {
+            listaModalidades.add(co.convertir(tc));
+        }
+        
+        return listaModalidades;
     }
     
     private ArrayList<Institucion> consultarInstituciones()
     {
-        ArrayList<Institucion> lista = new ArrayList<>();
-        return lista;
+        ArrayList<Institucion> listaInstituciones = new ArrayList<>();
+        ConvertidorObjetos<Persistencia.Institucion, Modelo.Institucion> co = new ConvertidorObjetos<>(Modelo.Institucion.class.getName());
+        
+        EntityManager em = emf.createEntityManager();
+        Query query = em.createNamedQuery("Institucion.findAll");
+        
+        List<Persistencia.Institucion> lista = query.getResultList();
+        for (Persistencia.Institucion tc: lista) {
+            listaInstituciones.add(co.convertir(tc));
+        }
+        
+        return listaInstituciones;
     }
     
     private ArrayList<Programa> consultarProgramas()
     {
-        ArrayList<Programa> lista = new ArrayList<>();
-        return lista;
+        ArrayList<Programa> listaProgramas = new ArrayList<>();
+        ConvertidorObjetos<Persistencia.Programa, Modelo.Programa> co = new ConvertidorObjetos<>(Modelo.Programa.class.getName());
+        
+        EntityManager em = emf.createEntityManager();
+        Query query = em.createNamedQuery("Programa.findAll");
+        
+        List<Persistencia.Programa> lista = query.getResultList();
+        for (Persistencia.Programa tc: lista) {
+            listaProgramas.add(co.convertir(tc));
+        }
+        
+        return listaProgramas;
     }
     
     private ArrayList<Jornada> consultarJornadas()
     {
-        ArrayList<Jornada> lista = new ArrayList<>();
-        return lista;
+        ArrayList<Jornada> listaJornadas = new ArrayList<>();
+        ConvertidorObjetos<Persistencia.Jornada, Modelo.Jornada> co = new ConvertidorObjetos<>(Modelo.Jornada.class.getName());
+        
+        EntityManager em = emf.createEntityManager();
+        Query query = em.createNamedQuery("Jornada.findAll");
+        
+        List<Persistencia.Jornada> lista = query.getResultList();
+        for (Persistencia.Jornada tc: lista) {
+            listaJornadas.add(co.convertir(tc));
+        }
+        
+        return listaJornadas;
     }
     
     private ArrayList<NivelEstudios> consultarNivelesEstudios()
     {
-        ArrayList<NivelEstudios> lista = new ArrayList<>();
-        return lista;
+        ArrayList<NivelEstudios> listaNivelesEstudios = new ArrayList<>();
+        ConvertidorObjetos<Persistencia.NivelEstudios, Modelo.NivelEstudios> co = new ConvertidorObjetos<>(Modelo.NivelEstudios.class.getName());
+        
+        EntityManager em = emf.createEntityManager();
+        Query query = em.createNamedQuery("NivelEstudios.findAll");
+        
+        List<Persistencia.NivelEstudios> lista = query.getResultList();
+        for (Persistencia.NivelEstudios tc: lista) {
+            listaNivelesEstudios.add(co.convertir(tc));
+        }
+        
+        return listaNivelesEstudios;
     }
 }
