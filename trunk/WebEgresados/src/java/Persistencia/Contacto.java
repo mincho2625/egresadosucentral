@@ -33,7 +33,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Contacto.findAll", query = "SELECT c FROM Contacto c"),
     @NamedQuery(name = "Contacto.findByIdContacto", query = "SELECT c FROM Contacto c WHERE c.idContacto = :idContacto"),
-    @NamedQuery(name = "Contacto.findByDescripci\u00f3n", query = "SELECT c FROM Contacto c WHERE c.descripci\u00f3n = :descripci\u00f3n"),
+    @NamedQuery(name = "Contacto.findByDescripcion", query = "SELECT c FROM Contacto c WHERE c.descripcion = :descripcion"),
     @NamedQuery(name = "Contacto.findByFechaRegistro", query = "SELECT c FROM Contacto c WHERE c.fechaRegistro = :fechaRegistro"),
     @NamedQuery(name = "Contacto.findByEstado", query = "SELECT c FROM Contacto c WHERE c.estado = :estado")})
 public class Contacto implements Serializable {
@@ -44,8 +44,8 @@ public class Contacto implements Serializable {
     @Column(name = "ID_CONTACTO")
     private Long idContacto;
     @Basic(optional = false)
-    @Column(name = "DESCRIPCI\u00d3N")
-    private String descripción;
+    @Column(name = "DESCRIPCION")
+    private String descripcion;
     @Basic(optional = false)
     @Column(name = "FECHA_REGISTRO")
     @Temporal(TemporalType.TIMESTAMP)
@@ -67,9 +67,9 @@ public class Contacto implements Serializable {
         this.idContacto = idContacto;
     }
 
-    public Contacto(Long idContacto, String descripción, Date fechaRegistro, boolean estado) {
+    public Contacto(Long idContacto, String descripcion, Date fechaRegistro, boolean estado) {
         this.idContacto = idContacto;
-        this.descripción = descripción;
+        this.descripcion = descripcion;
         this.fechaRegistro = fechaRegistro;
         this.estado = estado;
     }
@@ -82,12 +82,12 @@ public class Contacto implements Serializable {
         this.idContacto = idContacto;
     }
 
-    public String getDescripción() {
-        return descripción;
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public void setDescripción(String descripción) {
-        this.descripción = descripción;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
     public Date getFechaRegistro() {

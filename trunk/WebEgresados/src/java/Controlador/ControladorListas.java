@@ -3,13 +3,17 @@ package Controlador;
 import Modelo.Ciudad;
 import Modelo.Departamento;
 import Modelo.EstadoCivil;
+import Modelo.Estrato;
 import Modelo.Genero;
 import Modelo.GrupoSanguineo;
 import Modelo.Pais;
 import Modelo.PreguntaSeguridad;
+import Modelo.RedSocial;
 import Modelo.TipoContacto;
 import Modelo.TipoDocumento;
-import Util.ConvertidosObjetos;
+import Modelo.TipoTenenciaVivienda;
+import Modelo.TipoVivienda;
+import Util.ConvertidorObjetos;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -25,7 +29,7 @@ import javax.persistence.Query;
 public class ControladorListas {
 
     private final EntityManagerFactory emf = Persistence.createEntityManagerFactory("WebEgresadosPU");
-    private final ConvertidosObjetos convertidosObjetos = new ConvertidosObjetos();
+    private final ConvertidorObjetos convertidorObjetos = new ConvertidorObjetos();
 
     public ArrayList<Ciudad> obtenerCiudades() {
         ArrayList<Ciudad> listaCiudades = new ArrayList<>();
@@ -35,7 +39,7 @@ public class ControladorListas {
         Query query = em.createNamedQuery("Ciudad.findAll");
         List<Persistencia.Ciudad> lista = query.getResultList();
         for (Persistencia.Ciudad c : lista) {
-            listaCiudades.add(convertidosObjetos.convertirCiudad(c));
+            listaCiudades.add(convertidorObjetos.convertirCiudad(c));
         }
 
         return listaCiudades;
@@ -55,7 +59,7 @@ public class ControladorListas {
         query.setParameter("idDepartamento", em.getReference(Persistencia.Departamento.class, idDepartamento));
         List<Persistencia.Ciudad> lista = query.getResultList();
         for (Persistencia.Ciudad c : lista) {
-            listaCiudades.add(convertidosObjetos.convertirCiudad(c));
+            listaCiudades.add(convertidorObjetos.convertirCiudad(c));
         }
 
         return listaCiudades;
@@ -74,7 +78,7 @@ public class ControladorListas {
         query.setParameter("idPais", em.getReference(Persistencia.Pais.class, idPais));
         List<Persistencia.Departamento> lista = query.getResultList();
         for (Persistencia.Departamento d: lista) {
-            listaDepartamentos.add(convertidosObjetos.convertirDepartamento(d));
+            listaDepartamentos.add(convertidorObjetos.convertirDepartamento(d));
         }
 
         return listaDepartamentos;
@@ -88,7 +92,7 @@ public class ControladorListas {
         
         List<Persistencia.EstadoCivil> lista = query.getResultList();
         for (Persistencia.EstadoCivil e: lista) {
-            listaEstadosCiviles.add(convertidosObjetos.convertirEstadoCivil(e));
+            listaEstadosCiviles.add(convertidorObjetos.convertirEstadoCivil(e));
         }
 
         return listaEstadosCiviles;
@@ -102,7 +106,7 @@ public class ControladorListas {
         
         List<Persistencia.Genero> lista = query.getResultList();
         for (Persistencia.Genero g: lista) {
-            listaGeneros.add(convertidosObjetos.convertirGenero(g));
+            listaGeneros.add(convertidorObjetos.convertirGenero(g));
         }
 
         return listaGeneros;
@@ -116,7 +120,7 @@ public class ControladorListas {
         
         List<Persistencia.GrupoSanguineo> lista = query.getResultList();
         for (Persistencia.GrupoSanguineo g: lista) {
-            listaGruposSanguineos.add(convertidosObjetos.convertirGrupoSanguineo(g));
+            listaGruposSanguineos.add(convertidorObjetos.convertirGrupoSanguineo(g));
         }
 
         return listaGruposSanguineos;
@@ -130,7 +134,7 @@ public class ControladorListas {
         
         List<Persistencia.Pais> lista = query.getResultList();
         for (Persistencia.Pais p: lista) {
-            listaPaises.add(convertidosObjetos.convertirPais(p));
+            listaPaises.add(convertidorObjetos.convertirPais(p));
         }
 
         return listaPaises;
@@ -144,7 +148,7 @@ public class ControladorListas {
         
         List<Persistencia.TipoDocumento> lista = query.getResultList();
         for (Persistencia.TipoDocumento td: lista) {
-            listaTiposDocumento.add(convertidosObjetos.convertirTipoDocumento(td));
+            listaTiposDocumento.add(convertidorObjetos.convertirTipoDocumento(td));
         }
 
         return listaTiposDocumento;
@@ -159,7 +163,7 @@ public class ControladorListas {
         
         List<Persistencia.PreguntaSeguridad> lista = query.getResultList();
         for (Persistencia.PreguntaSeguridad ps: lista) {
-            listaPreguntasSeguridad.add(convertidosObjetos.convertirPreguntaSeguridad(ps));
+            listaPreguntasSeguridad.add(convertidorObjetos.convertirPreguntaSeguridad(ps));
         }
 
         return listaPreguntasSeguridad;
@@ -173,11 +177,73 @@ public class ControladorListas {
         
         List<Persistencia.TipoContacto> lista = query.getResultList();
         for (Persistencia.TipoContacto tc: lista) {
-            listaTiposContacto.add(convertidosObjetos.convertirTipoContacto(tc));
+            listaTiposContacto.add(convertidorObjetos.convertirTipoContacto(tc));
         }
 
         return listaTiposContacto;
     }
     
+    public ArrayList<RedSocial> consultarRedesSociales()
+    {
+        ArrayList<RedSocial> listaRedSocial = new ArrayList<>();
+        ConvertidorObjetos<Persistencia.RedSocial, Modelo.RedSocial> co = new ConvertidorObjetos<>(Modelo.RedSocial.class.getName());
+        
+        EntityManager em = emf.createEntityManager();
+        Query query = em.createNamedQuery("RedSocial.findAll");
+        
+        List<Persistencia.RedSocial> lista = query.getResultList();
+        for (Persistencia.RedSocial tc: lista) {
+            listaRedSocial.add(co.convertir(tc));
+        }
+        
+        return listaRedSocial;
+    }
     
+    public ArrayList<TipoVivienda> consultarTiposVivienda()
+    {
+        ArrayList<TipoVivienda> listaTipoVivienda = new ArrayList<>();
+        ConvertidorObjetos<Persistencia.TipoVivienda, Modelo.TipoVivienda> co = new ConvertidorObjetos<>(Modelo.TipoVivienda.class.getName());
+        
+        EntityManager em = emf.createEntityManager();
+        Query query = em.createNamedQuery("TipoVivienda.findAll");
+        
+        List<Persistencia.TipoVivienda> lista = query.getResultList();
+        for (Persistencia.TipoVivienda tc: lista) {
+            listaTipoVivienda.add(co.convertir(tc));
+        }
+        
+        return listaTipoVivienda;
+    }
+    
+    public ArrayList<TipoTenenciaVivienda> consultarTiposTenenciaVivienda()
+    {
+        ArrayList<TipoTenenciaVivienda> listaTipoTenenciaVivienda = new ArrayList<>();
+        ConvertidorObjetos<Persistencia.TipoTenenciaVivienda, Modelo.TipoTenenciaVivienda> co = new ConvertidorObjetos<>(Modelo.TipoTenenciaVivienda.class.getName());
+        
+        EntityManager em = emf.createEntityManager();
+        Query query = em.createNamedQuery("TipoTenenciaVivienda.findAll");
+        
+        List<Persistencia.TipoTenenciaVivienda> lista = query.getResultList();
+        for (Persistencia.TipoTenenciaVivienda tc: lista) {
+            listaTipoTenenciaVivienda.add(co.convertir(tc));
+        }
+        
+        return listaTipoTenenciaVivienda;
+    }
+    
+    public ArrayList<Estrato> consultarEstratos()
+    {
+        ArrayList<Estrato> listaEstratos = new ArrayList<>();
+        ConvertidorObjetos<Persistencia.Estrato, Modelo.Estrato> co = new ConvertidorObjetos<>(Modelo.Estrato.class.getName());
+        
+        EntityManager em = emf.createEntityManager();
+        Query query = em.createNamedQuery("Estrato.findAll");
+        
+        List<Persistencia.Estrato> lista = query.getResultList();
+        for (Persistencia.Estrato tc: lista) {
+            listaEstratos.add(co.convertir(tc));
+        }
+        
+        return listaEstratos;
+    }
 }

@@ -19,7 +19,7 @@
                     </td>
                 </tr>
 
-                <s:iterator value="listaContactos" status="contacto">
+                <s:iterator value="listaObjetos" status="contacto">
                     <tr>
                         <td class="tdtres"><s:property value="idTipoContacto"></s:property><br>
                             </td>
@@ -27,13 +27,13 @@
                             </td>
                             <td class="tdtres">
                             <s:url id="editarURL" action="editarUbicacion.action">
-                                <s:param name="idContacto" value="%{idContacto}"></s:param>
+                                <s:param name="idObjeto" value="%{idContacto}"></s:param>
                             </s:url>
                             <s:a href="%{editarURL}">
                                 <img style="width: 20px; height: 19px;" title="Editar" alt="Editar" src="imagenes/Icono_de_editar.png" align="top"><br>
                             </s:a>
                             <s:url id="borrarURL" action="borrarUbicacion.action">
-                                <s:param name="idContacto" value="%{idContacto}"></s:param>
+                                <s:param name="idObjeto" value="%{idContacto}"></s:param>
                             </s:url>
                             <s:a href="%{borrarURL}">
                                 <img style="width: 20px; height: 19px;" title="Borrar" alt="Borrar" src="imagenes/Icono_de_editar.png" align="top"><br>
@@ -59,7 +59,7 @@
         <div id="contenido">
             <s:if test="editar">
                 <s:form action="guardarUbicacion.action">
-                    <s:push value="contacto">
+                    <s:push value="objeto">
                         <s:hidden name="idContacto"></s:hidden>
                             <table>
                                 <tr>

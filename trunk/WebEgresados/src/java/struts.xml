@@ -17,6 +17,14 @@
             <result name="success">/datosUbicacionTabla.jsp</result>
         </action>
         
+        <action name="*EgresadoRedSocial" method="{1}" class="Action.EgresadoRedSocialAction">
+            <result name="success">/redesSocialesTabla.jsp</result>
+        </action>
+        
+        <action name="*Residencia" method="{1}" class="Action.ResidenciaAction">
+            <result name="success">/datosResidenciaTabla.jsp</result>
+        </action>
+        
         <action name="*Registro" method="{1}" class="Action.RegistroAction">
             <result name="nuevo">/registroNuevoUsuario.jsp</result>
             <result name="actual">/registroSistema.jsp</result>
