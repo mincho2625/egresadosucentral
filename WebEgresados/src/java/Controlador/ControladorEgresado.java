@@ -256,7 +256,8 @@ public class ControladorEgresado {
         r.setConexionInternet(residencia.isConexionInternet());
         r.setDireccion(residencia.getDireccion());
         r.setEstado(residencia.isEstado());
-        r.setFechaRegistro(residencia.getFechaRegistro());
+        r.setFechaRegistro(Date.valueOf(LocalDate.now()));
+        r.setEstado(true);
         r.setIdCiudadResidencia(em.getReference(Persistencia.Ciudad.class, residencia.getIdCiudadResidencia()));
         r.setIdEgresado(e);
         r.setIdEstrato(em.getReference(Persistencia.Estrato.class, residencia.getIdEstrato()));

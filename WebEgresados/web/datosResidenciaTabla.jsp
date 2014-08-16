@@ -111,7 +111,7 @@
                                         Estrato
                                     </td>
                                     <td>
-                                    <s:select name="idEstrato" list="listaEstratos" listKey="idEstrato" listValue="estrato_letras"></s:select>
+                                    <s:select name="idEstrato" list="listaEstratos" listKey="idEstrato" listValue="estratoLetras"></s:select>
                                     </td>
                                 </tr>
                                 <tr>

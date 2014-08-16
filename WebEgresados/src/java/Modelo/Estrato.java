@@ -12,7 +12,7 @@ package Modelo;
  */
 public class Estrato {
     private long idEstrato;
-    private String estrato_letras;
+    private String estratoLetras;
 
     /**
      * @return the idEstrato
@@ -29,16 +29,16 @@ public class Estrato {
     }
 
     /**
-     * @return the estrato_letras
+     * @return the estratoLetras
      */
-    public String getEstrato_letras() {
-        return estrato_letras;
+    public String getEstratoLetras() {
+        return estratoLetras;
     }
 
     /**
-     * @param estrato_letras the estrato_letras to set
+     * @param estratoLetras the estratoLetras to set
      */
-    public void setEstrato_letras(String estrato_letras) {
-        this.estrato_letras = estrato_letras;
+    public void setEstratoLetras(String estratoLetras) {
+        this.estratoLetras = estratoLetras;
     }
 }
