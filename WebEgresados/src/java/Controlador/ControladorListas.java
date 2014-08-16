@@ -23,12 +23,12 @@ import Modelo.TipoTenenciaVivienda;
 import Modelo.TipoVivienda;
 import Persistencia.AreaEmpresa;
 import Persistencia.CargoEquivalente;
-import Persistencia.ExperienciaLaboral;
 import Persistencia.NivelCargo;
 import Persistencia.RangoSalarial;
 import Persistencia.Subsector;
 import Persistencia.TipoContrato;
 import Util.ConvertidorObjetos;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -390,7 +390,7 @@ public class ControladorListas {
 
         return listaEstadosEducacion;
     }
-
+    
     private ArrayList<AreaEstudios> consultarAreasEstudios() {
         ArrayList<AreaEstudios> listaAreasEstudios = new ArrayList<>();
         ConvertidorObjetos<Persistencia.AreaEstudios, Modelo.AreaEstudios> co = new ConvertidorObjetos<>(Modelo.AreaEstudios.class.getName());
@@ -479,5 +479,14 @@ public class ControladorListas {
         }
 
         return listaNivelesEstudios;
+    }
+    
+    public ArrayList<Integer> consultarAnios()
+    {
+        ArrayList<Integer> listaAnios = new ArrayList<>();
+        for (int i = 1990; i < LocalDate.now().getYear(); i++) {
+            listaAnios.add(i);
+        }
+        return listaAnios;
     }
 }
