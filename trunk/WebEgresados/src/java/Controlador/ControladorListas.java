@@ -1,13 +1,21 @@
 package Controlador;
 
+import Modelo.AreaEstudios;
 import Modelo.Ciudad;
 import Modelo.Departamento;
 import Modelo.EstadoCivil;
+import Modelo.EstadoEducacion;
 import Modelo.Estrato;
 import Modelo.Genero;
 import Modelo.GrupoSanguineo;
+import Modelo.Institucion;
+import Modelo.Jornada;
+import Modelo.Mes;
+import Modelo.Modalidad;
+import Modelo.NivelEstudios;
 import Modelo.Pais;
 import Modelo.PreguntaSeguridad;
+import Modelo.Programa;
 import Modelo.RedSocial;
 import Modelo.TipoContacto;
 import Modelo.TipoDocumento;
@@ -245,5 +253,53 @@ public class ControladorListas {
         }
         
         return listaEstratos;
+    }
+    
+    private ArrayList<Mes> consultarMeses()
+    {
+        ArrayList<Mes> listaMeses = new ArrayList<>();
+        return listaMeses;
+    }
+    
+    private ArrayList<EstadoEducacion> consultarEstadosEducacion()
+    {
+        ArrayList<EstadoEducacion> listaEstadosEducacion = new ArrayList<>();
+        return listaEstadosEducacion;
+    }
+    
+    private ArrayList<AreaEstudios> consultarAreasEstudios()
+    {
+        ArrayList<AreaEstudios> lista = new ArrayList<>();
+        return lista;
+    }
+    
+    private ArrayList<Modalidad> consultarModalidades()
+    {
+        ArrayList<Modalidad> lista = new ArrayList<>();
+        return lista;
+    }
+    
+    private ArrayList<Institucion> consultarInstituciones()
+    {
+        ArrayList<Institucion> lista = new ArrayList<>();
+        return lista;
+    }
+    
+    private ArrayList<Programa> consultarProgramas()
+    {
+        ArrayList<Programa> lista = new ArrayList<>();
+        return lista;
+    }
+    
+    private ArrayList<Jornada> consultarJornadas()
+    {
+        ArrayList<Jornada> lista = new ArrayList<>();
+        return lista;
+    }
+    
+    private ArrayList<NivelEstudios> consultarNivelesEstudios()
+    {
+        ArrayList<NivelEstudios> lista = new ArrayList<>();
+        return lista;
     }
 }
