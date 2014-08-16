@@ -26,11 +26,11 @@
                         </ul>
                     </li>
                     
-                    <a href="experienciaLaboral.jsp" target="contenido"><li>Experiecia Laboral</li></a>
+                    <a href="obtenerListaExperienciaLaboral.action" target="contenido"><li>Experiecia Laboral</li></a>
                                        
                     <li>Educacion Formal
                         <ul>
-                            <a href="datosAcademicosUcentralTabla.jsp" target="contenido"><li>Datos Academicos Ucentral</li></a>
+                            <a href="obtenerListaEducacionFormal.action" target="contenido"><li>Datos Academicos Ucentral</li></a>
                             <a href="informacionAcademicaOtrasTabla.jsp" target="contenido"><li>Informacion Academica Otras Instituciones</li></a>
                         </ul>
                     </li>

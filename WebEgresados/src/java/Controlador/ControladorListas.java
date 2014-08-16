@@ -361,7 +361,7 @@ public class ControladorListas {
         return listaMes;
     }
 
-    private ArrayList<Mes> consultarMeses() {
+    public ArrayList<Mes> consultarMeses() {
         ArrayList<Mes> listaMeses = new ArrayList<>();
         ConvertidorObjetos<Persistencia.Mes, Modelo.Mes> co = new ConvertidorObjetos<>(Modelo.Mes.class.getName());
 
@@ -376,7 +376,7 @@ public class ControladorListas {
         return listaMeses;
     }
 
-    private ArrayList<EstadoEducacion> consultarEstadosEducacion() {
+    public ArrayList<EstadoEducacion> consultarEstadosEducacion() {
         ArrayList<EstadoEducacion> listaEstadosEducacion = new ArrayList<>();
         ConvertidorObjetos<Persistencia.EstadoEducacion, Modelo.EstadoEducacion> co = new ConvertidorObjetos<>(Modelo.EstadoEducacion.class.getName());
 
@@ -391,7 +391,7 @@ public class ControladorListas {
         return listaEstadosEducacion;
     }
     
-    private ArrayList<AreaEstudios> consultarAreasEstudios() {
+    public ArrayList<AreaEstudios> consultarAreasEstudios() {
         ArrayList<AreaEstudios> listaAreasEstudios = new ArrayList<>();
         ConvertidorObjetos<Persistencia.AreaEstudios, Modelo.AreaEstudios> co = new ConvertidorObjetos<>(Modelo.AreaEstudios.class.getName());
 
@@ -406,7 +406,7 @@ public class ControladorListas {
         return listaAreasEstudios;
     }
 
-    private ArrayList<Modalidad> consultarModalidades() {
+    public ArrayList<Modalidad> consultarModalidades() {
         ArrayList<Modalidad> listaModalidades = new ArrayList<>();
         ConvertidorObjetos<Persistencia.Modalidad, Modelo.Modalidad> co = new ConvertidorObjetos<>(Modelo.Modalidad.class.getName());
 
@@ -421,7 +421,7 @@ public class ControladorListas {
         return listaModalidades;
     }
 
-    private ArrayList<Institucion> consultarInstituciones() {
+    public ArrayList<Institucion> consultarInstituciones() {
         ArrayList<Institucion> listaInstituciones = new ArrayList<>();
         ConvertidorObjetos<Persistencia.Institucion, Modelo.Institucion> co = new ConvertidorObjetos<>(Modelo.Institucion.class.getName());
 
@@ -436,7 +436,7 @@ public class ControladorListas {
         return listaInstituciones;
     }
 
-    private ArrayList<Programa> consultarProgramas() {
+    public ArrayList<Programa> consultarProgramas() {
         ArrayList<Programa> listaProgramas = new ArrayList<>();
         ConvertidorObjetos<Persistencia.Programa, Modelo.Programa> co = new ConvertidorObjetos<>(Modelo.Programa.class.getName());
 
@@ -451,7 +451,7 @@ public class ControladorListas {
         return listaProgramas;
     }
 
-    private ArrayList<Jornada> consultarJornadas() {
+    public ArrayList<Jornada> consultarJornadas() {
         ArrayList<Jornada> listaJornadas = new ArrayList<>();
         ConvertidorObjetos<Persistencia.Jornada, Modelo.Jornada> co = new ConvertidorObjetos<>(Modelo.Jornada.class.getName());
 
@@ -466,7 +466,7 @@ public class ControladorListas {
         return listaJornadas;
     }
 
-    private ArrayList<NivelEstudios> consultarNivelesEstudios() {
+    public ArrayList<NivelEstudios> consultarNivelesEstudios() {
         ArrayList<NivelEstudios> listaNivelesEstudios = new ArrayList<>();
         ConvertidorObjetos<Persistencia.NivelEstudios, Modelo.NivelEstudios> co = new ConvertidorObjetos<>(Modelo.NivelEstudios.class.getName());
 

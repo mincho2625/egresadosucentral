@@ -29,6 +29,10 @@
             <result name="success">/datosResidenciaTabla.jsp</result>
         </action>
         
+        <action name="*EducacionFormal" method="{1}" class="Action.EducacionFormalAction">
+            <result name="success">/educacionFormal.jsp</result>
+        </action>
+        
         <action name="*Registro" method="{1}" class="Action.RegistroAction">
             <result name="nuevo">/registroNuevoUsuario.jsp</result>
             <result name="actual">/registroSistema.jsp</result>

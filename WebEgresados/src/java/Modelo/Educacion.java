@@ -28,6 +28,7 @@ public class Educacion {
     private String otraInstitucion;
     private boolean estado;
     private Long idEgresado;
+    private String tipo;
 
     /**
      * @return the idEducacion
@@ -237,5 +238,19 @@ public class Educacion {
      */
     public void setIdEgresado(Long idEgresado) {
         this.idEgresado = idEgresado;
+    }
+
+    /**
+     * @return the tipo
+     */
+    public String getTipo() {
+        return tipo;
+    }
+
+    /**
+     * @param tipo the tipo to set
+     */
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 }
