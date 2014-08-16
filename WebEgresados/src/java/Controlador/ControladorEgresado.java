@@ -3,12 +3,16 @@ package Controlador;
 import Modelo.Contacto;
 import Modelo.Egresado;
 import Modelo.EgresadoRedSocial;
-import Util.ConvertidosObjetos;
+import Modelo.Residencia;
+import Util.ConvertidorObjetos;
+import java.lang.reflect.InvocationTargetException;
 import java.sql.Date;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -23,7 +27,7 @@ public class ControladorEgresado {
 
     private String nombreUsuario;
     private final EntityManagerFactory emf = Persistence.createEntityManagerFactory("WebEgresadosPU");
-    private final ConvertidosObjetos convertidosObjetos = new ConvertidosObjetos();
+    private final ConvertidorObjetos convertidorObjetos = new ConvertidorObjetos();
     private EntityManager em;
     private Persistencia.Egresado e;
     
@@ -44,24 +48,26 @@ public class ControladorEgresado {
     public Egresado obtenerInformacionBasica() {
         Egresado egresado;
         if (e != null) {
-            egresado = new Egresado();
-            egresado.setCiudadExpedicion(e.getIdCiudadExpedicion().getIdCiudad());
-            egresado.setCiudadNacimiento(e.getIdCiudadNacimiento().getIdCiudad());
-            egresado.setCorreoInstitucional(e.getIdUsuario().getCorreoInstitucional());
-            egresado.setEstadoCivil(e.getIdEstadoCivil().getIdEstadoCivil());
-            egresado.setFechaExpedicion(e.getFechaExpedicion());
-            egresado.setFechaNacimiento(e.getFechaNacimiento());
-            egresado.setFechaUltimaAct(e.getFechaUltimaAct());
-            egresado.setFoto(e.getFoto());
-            egresado.setGenero(e.getIdGenero().getIdGenero());
-            egresado.setGrupoSanguineo(e.getIdGrupoSanguineo().getIdGrupoSanguineo());
-            egresado.setNombreUsuario(e.getIdUsuario().getNombre());
-            egresado.setNombres(e.getNombres());
-            egresado.setNumeroDocumento(e.getNumeroDocumento());
-            egresado.setPrimerApellido(e.getPrimerApellido());
-            egresado.setSegundoApellido(e.getSegundoApellido());
-            egresado.setTipoDocumento(e.getIdTipoDocumento().getIdTipoDocumento());
-            egresado.setIdEgresado(e.getIdEgresado());
+            ConvertidorObjetos<Persistencia.Egresado, Modelo.Egresado> co = new ConvertidorObjetos<>(Modelo.Egresado.class.getName());
+            egresado = co.convertir(e);
+//            egresado = new Egresado();            
+//            egresado.setCiudadExpedicion(e.getIdCiudadExpedicion().getIdCiudad());
+//            egresado.setCiudadNacimiento(e.getIdCiudadNacimiento().getIdCiudad());
+//            egresado.setCorreoInstitucional(e.getIdUsuario().getCorreoInstitucional());
+//            egresado.setEstadoCivil(e.getIdEstadoCivil().getIdEstadoCivil());
+//            egresado.setFechaExpedicion(e.getFechaExpedicion());
+//            egresado.setFechaNacimiento(e.getFechaNacimiento());
+//            egresado.setFechaUltimaAct(e.getFechaUltimaAct());
+//            egresado.setFoto(e.getFoto());
+//            egresado.setGenero(e.getIdGenero().getIdGenero());
+//            egresado.setGrupoSanguineo(e.getIdGrupoSanguineo().getIdGrupoSanguineo());
+//            egresado.setNombreUsuario(e.getIdUsuario().getNombre());
+//            egresado.setNombres(e.getNombres());
+//            egresado.setNumeroDocumento(e.getNumeroDocumento());
+//            egresado.setPrimerApellido(e.getPrimerApellido());
+//            egresado.setSegundoApellido(e.getSegundoApellido());
+//            egresado.setTipoDocumento(e.getIdTipoDocumento().getIdTipoDocumento());
+//            egresado.setIdEgresado(e.getIdEgresado());
         } else {
             egresado = null;
         }
@@ -70,24 +76,45 @@ public class ControladorEgresado {
     }
 
     public Map<Long, Contacto> obtenerDatosUbicacion() {
-        Map<Long, Contacto> listaContactos = new HashMap<Long, Contacto>();
+        Map<Long, Contacto> listaContactos = new HashMap<>();
+        ConvertidorObjetos<Persistencia.Contacto, Modelo.Contacto> co = new ConvertidorObjetos<>(Modelo.Contacto.class.getName());
         
         for (Persistencia.Contacto c : this.e.getContactoCollection()) {
-            if (c.getEstado()) listaContactos.put(c.getIdContacto(), convertidosObjetos.convertirContacto(c));
+            if (c.getEstado())
+            try {
+                listaContactos.put(c.getIdContacto(), co.convertir(c));
+            } catch (IllegalArgumentException ex) {
+                Logger.getLogger(ControladorEgresado.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
 
         return listaContactos;
     }
     
-    public Map<Long, EgresadoRedSocial> obtenerDatosRedesSociales()
+    public Map<Long, EgresadoRedSocial> consultarDatosRedesSociales()
     {
-        Map<Long, EgresadoRedSocial> listaRedesSociales = new HashMap<>();        
+        Map<Long, EgresadoRedSocial> listaRedesSociales = new HashMap<>();
+        ConvertidorObjetos<Persistencia.EgresadoRedSocial, Modelo.EgresadoRedSocial> co = new ConvertidorObjetos<>(Modelo.EgresadoRedSocial.class.getName());
+        
         for (Persistencia.EgresadoRedSocial ers : this.e.getEgresadoRedSocialCollection()) {
             if (ers.getEstado())
-                listaRedesSociales.put(ers.getIdEgresadoRedSocial(), convertidosObjetos.convertirEgresadoRedSocial(ers));
+                listaRedesSociales.put(ers.getIdEgresadoRedSocial(), co.convertir(ers));
         }
         
         return listaRedesSociales;
+    }
+    
+    public Map<Long, Residencia> consultarDatosResidencia()
+    {
+        Map<Long, Residencia> listaResidencia = new HashMap<>();
+        ConvertidorObjetos<Persistencia.Residencia, Modelo.Residencia> co = new ConvertidorObjetos<>(Modelo.Residencia.class.getName());
+        
+        for (Persistencia.Residencia ers : this.e.getResidenciaCollection()) {
+            if (ers.getEstado())
+                listaResidencia.put(ers.getIdResidencia(), co.convertir(ers));
+        }
+        
+        return listaResidencia;
     }
 
     public boolean crearEgresado(Egresado egresado) {
@@ -176,9 +203,9 @@ public class ControladorEgresado {
             c = new Persistencia.Contacto();
         }
 
-        c.setDescripción(contacto.getDescripcion());
+        c.setDescripcion(contacto.getDescripcion());
         c.setEstado(true);
-        c.setFechaRegistro(contacto.getFechaRegistro());
+        c.setFechaRegistro(Date.valueOf(LocalDate.now()));
         c.setIdTipoContacto(em.getReference(Persistencia.TipoContacto.class, contacto.getIdTipoContacto()));
         c.setIdEgresado(e);
 
@@ -213,6 +240,35 @@ public class ControladorEgresado {
         return true;
     }
     
+    public boolean actualizarDatosResidencia(Residencia residencia)
+    {
+        if (residencia == null)
+            return false;
+        
+        em.getTransaction().begin();
+        Persistencia.Residencia r;
+        if (residencia.getIdResidencia() > 0)
+            r = em.getReference(Persistencia.Residencia.class, residencia.getIdResidencia());
+        else
+            r = new Persistencia.Residencia();
+        
+        r.setComputador(residencia.isComputador());
+        r.setConexionInternet(residencia.isConexionInternet());
+        r.setDireccion(residencia.getDireccion());
+        r.setEstado(residencia.isEstado());
+        r.setFechaRegistro(residencia.getFechaRegistro());
+        r.setIdCiudadResidencia(em.getReference(Persistencia.Ciudad.class, residencia.getIdCiudadResidencia()));
+        r.setIdEgresado(e);
+        r.setIdEstrato(em.getReference(Persistencia.Estrato.class, residencia.getIdEstrato()));
+        r.setIdTipoTenenciaVivienda(em.getReference(Persistencia.TipoTenenciaVivienda.class, residencia.getIdTipoTenenciaVivienda()));
+        r.setIdTipoVivienda(em.getReference(Persistencia.TipoVivienda.class, residencia.getIdTipoVivienda()));
+        
+        em.persist(r);
+        em.getTransaction().commit();
+        
+        return true;
+    }
+    
     public boolean borrarDatosUbicacion(long idContacto)
     {
         em.getTransaction().begin();
@@ -230,6 +286,17 @@ public class ControladorEgresado {
         Persistencia.EgresadoRedSocial ers = em.getReference(Persistencia.EgresadoRedSocial.class, idEgresadoRedSocial);
         ers.setEstado(false);
         em.persist(ers);
+        em.getTransaction().commit();
+        
+        return true;
+    }
+    
+    public boolean borrarDatosResidencia(long idResidencia)
+    {
+        em.getTransaction().begin();
+        Persistencia.Residencia r = em.getReference(Persistencia.Residencia.class, idResidencia);
+        r.setEstado(false);
+        em.persist(r);
         em.getTransaction().commit();
         
         return true;

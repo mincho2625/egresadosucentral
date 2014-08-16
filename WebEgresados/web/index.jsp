@@ -21,8 +21,8 @@
                     <li>Informacion Personal
                         <ul>
                             <a href="obtenerListaUbicacion.action" target="contenido"><li>Datos de Ubicacion</li></a>
-                            <a href="redesSocialesTabla.jsp" target="contenido"><li>Redes Sociales</li></a>
-                            <a href="datosResidenciaTabla.jsp" target="contenido"><li>Datos de Residencia</li></a>
+                            <a href="obtenerListaEgresadoRedSocial.action" target="contenido"><li>Redes Sociales</li></a>
+                            <a href="obtenerListaResidencia.action" target="contenido"><li>Datos de Residencia</li></a>
                         </ul>
                     </li>
                     
