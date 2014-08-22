@@ -79,7 +79,7 @@ public class Convertidor {
             
             for (Method set : destino.getClass().getDeclaredMethods()) {
                 try {
-                    if (esSetter(set.getName())) {
+                    if (esSetter(set.getName()) && !"setIdEgresado".equals(set.getName())) {
                         metodoGet = obtenerMetodoGet(set.getName());
                         valor = invocar(origen, metodoGet);
                         

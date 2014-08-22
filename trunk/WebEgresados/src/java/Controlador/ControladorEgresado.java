@@ -362,16 +362,25 @@ public class ControladorEgresado {
     
     public boolean actualizar(Object objeto, String claseDestino, String idObjeto)
     {
-        if (objeto == null)
-            return false;
+        try {
+            if (objeto == null)
+                return false;
+            
+            em.getTransaction().begin();
+            Convertidor convertidor2 = new Convertidor();
+            Object destino = (Persistencia.Reconocimiento)convertidor2.convertirAPersistencia(objeto, claseDestino, idObjeto);
+            
+            Method metodo = objeto.getClass().getDeclaredMethod("setIdEgresado", Persistencia.Egresado.class);
+            metodo.invoke(objeto, e);
+            
+            em.persist(destino);
+            em.getTransaction().commit();
+            return true;
+        } catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
+            Logger.getLogger(ControladorEgresado.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
-        em.getTransaction().begin();
-        Convertidor convertidor2 = new Convertidor();
-        Object destino = (Persistencia.Reconocimiento)convertidor2.convertirAPersistencia(objeto, claseDestino, idObjeto);
-        
-        em.persist(destino);
-        em.getTransaction().commit();
-        return true;
+        return false;
     }
     
     public boolean borrarDatosUbicacion(long idContacto)
