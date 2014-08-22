@@ -1,14 +1,23 @@
 package Controlador;
 
+import Modelo.Ciudad;
+import Modelo.ClaseReconocimiento;
 import Modelo.Contacto;
 import Modelo.Educacion;
 import Modelo.EducacionFormal;
 import Modelo.Egresado;
 import Modelo.EgresadoRedSocial;
+import Modelo.Reconocimiento;
 import Modelo.Residencia;
+import Modelo.TipoReconocimiento;
+import Util.Convertidor;
 import Util.ConvertidorObjetos;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
@@ -128,6 +137,28 @@ public class ControladorEgresado {
         }
         
         return listaEducacionFormal;
+    }
+    
+    public Map<Long, Object> consultar(String lista, String idObjeto, String claseDestino)
+    {
+        Convertidor convertidor2 = new Convertidor();
+        
+        try {
+            Map<Long, Object> listaObjetos = new HashMap<>();
+            
+            Collection<Object> coleccion = (Collection)convertidor2.invocar(e,lista);
+            for (Object objeto : coleccion) {
+                if ((boolean)convertidor2.invocar(objeto, "getEstado")){                    
+                    listaObjetos.put((Long)convertidor2.invocar(objeto, idObjeto), convertidor2.convertirAModelo(objeto, claseDestino));
+                }
+            }
+            
+            return listaObjetos;
+        } catch (SecurityException | IllegalArgumentException ex) {
+            Logger.getLogger(ControladorEgresado.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return null;
     }
 
     public boolean crearEgresado(Egresado egresado) {
@@ -288,6 +319,7 @@ public class ControladorEgresado {
         if (educacion == null)
             return false;
         
+        em.getTransaction().begin();
         Persistencia.Educacion ed;
         if (educacion.getIdEducacion() > 0)
             ed = em.getReference(Persistencia.Educacion.class, educacion.getIdEducacion());
@@ -324,6 +356,20 @@ public class ControladorEgresado {
             em.persist(ef);
         }
         
+        em.getTransaction().commit();
+        return true;
+    }
+    
+    public boolean actualizar(Object objeto, String claseDestino, String idObjeto)
+    {
+        if (objeto == null)
+            return false;
+        
+        em.getTransaction().begin();
+        Convertidor convertidor2 = new Convertidor();
+        Object destino = (Persistencia.Reconocimiento)convertidor2.convertirAPersistencia(objeto, claseDestino, idObjeto);
+        
+        em.persist(destino);
         em.getTransaction().commit();
         return true;
     }

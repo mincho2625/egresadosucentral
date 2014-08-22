@@ -44,7 +44,7 @@
                     
                     <li>Datos Adicionales
                         <ul>
-                            <a href="distincionesReconocimientoTabla.jsp" target="contenido"><li>Distinciones y Reconocimientos</li></a>
+                            <a href="obtenerListaReconocimiento.action" target="contenido"><li>Distinciones y Reconocimientos</li></a>
                             <a href="asociacionesRedesProfesionalesTabla.jsp" target="contenido"><li>Asociaciones o Redes Profesionales</li></a>
                             <a href="deportesAficionesTabla.jsp" target="contenido"><li>Deportes o Aficiones</li></a>
                         </ul>

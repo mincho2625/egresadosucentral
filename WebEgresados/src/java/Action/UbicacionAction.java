@@ -21,7 +21,7 @@ public class UbicacionAction extends CrudAction<Contacto> {
     
     public UbicacionAction()
     {
-        super("Modelo.Contacto");
+        super(Modelo.Contacto.class.getName());
         this.metodoBorrar = "borrarDatosUbicacion";
         //this.clase = ;
         this.metodoConsultar = "obtenerDatosUbicacion";
@@ -49,5 +49,20 @@ public class UbicacionAction extends CrudAction<Contacto> {
         this.setListaTiposContacto(controladorListas.obtenerTiposContacto());
         this.editar = true;
         return SUCCESS;
+    }
+
+    @Override
+    public void insertarTipos() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void consultarTipos() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void insertarValoresDefecto() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
