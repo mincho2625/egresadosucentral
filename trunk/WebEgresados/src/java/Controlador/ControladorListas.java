@@ -2,6 +2,7 @@ package Controlador;
 
 import Modelo.AreaEstudios;
 import Modelo.Ciudad;
+import Modelo.ClaseReconocimiento;
 import Modelo.Departamento;
 import Modelo.EstadoCivil;
 import Modelo.EstadoEducacion;
@@ -19,6 +20,7 @@ import Modelo.Programa;
 import Modelo.RedSocial;
 import Modelo.TipoContacto;
 import Modelo.TipoDocumento;
+import Modelo.TipoReconocimiento;
 import Modelo.TipoTenenciaVivienda;
 import Modelo.TipoVivienda;
 import Persistencia.AreaEmpresa;
@@ -30,7 +32,9 @@ import Persistencia.TipoContrato;
 import Util.ConvertidorObjetos;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -55,6 +59,20 @@ public class ControladorListas {
         List<Persistencia.Ciudad> lista = query.getResultList();
         for (Persistencia.Ciudad c : lista) {
             listaCiudades.add(convertidorObjetos.convertirCiudad(c));
+        }
+
+        return listaCiudades;
+    }
+    
+    public Map<Long, Ciudad> consultarCiudades() {
+        Map<Long, Ciudad> listaCiudades = new HashMap<>();
+
+        EntityManager em = emf.createEntityManager();
+
+        Query query = em.createNamedQuery("Ciudad.findAll");
+        List<Persistencia.Ciudad> lista = query.getResultList();
+        for (Persistencia.Ciudad c : lista) {
+            listaCiudades.put(c.getIdCiudad(), convertidorObjetos.convertirCiudad(c));
         }
 
         return listaCiudades;
@@ -488,5 +506,39 @@ public class ControladorListas {
             listaAnios.add(i);
         }
         return listaAnios;
+    }
+    
+    public Map<Long, TipoReconocimiento> consultarTiposReconocimiento()
+    {
+        Map<Long, TipoReconocimiento> listaTiposReconocimiento = new HashMap<>();
+        EntityManager em = emf.createEntityManager();
+        Query query = em.createNamedQuery("TipoReconocimiento.findAll");
+        List<Persistencia.TipoReconocimiento> lista = query.getResultList();
+        
+        for (Persistencia.TipoReconocimiento tr : lista) {
+            TipoReconocimiento tipoReconocimiento = new TipoReconocimiento();
+            tipoReconocimiento.setIdTipoReconocimiento(tr.getIdTipoReconocimiento());
+            tipoReconocimiento.setNombre(tr.getNombre());
+            listaTiposReconocimiento.put(tr.getIdTipoReconocimiento(), tipoReconocimiento);
+        }
+        
+        return listaTiposReconocimiento;
+    }
+    
+    public Map<Long, ClaseReconocimiento> consultarClasesReconocimiento()
+    {
+        Map<Long, ClaseReconocimiento> listaClasesReconocimiento = new HashMap<>();
+        EntityManager em = emf.createEntityManager();
+        Query query = em.createNamedQuery("ClaseReconocimiento.findAll");
+        List<Persistencia.ClaseReconocimiento> lista = query.getResultList();
+        
+        for (Persistencia.ClaseReconocimiento cr : lista) {
+            ClaseReconocimiento claseReconocimiento = new ClaseReconocimiento();
+            claseReconocimiento.setIdClaseReconocimiento(cr.getIdClaseReconocimiento());
+            claseReconocimiento.setNombre(cr.getNombre());
+            listaClasesReconocimiento.put(cr.getIdClaseReconocimiento(), claseReconocimiento);
+        }
+        
+        return listaClasesReconocimiento;
     }
 }

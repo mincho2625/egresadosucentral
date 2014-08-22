@@ -101,4 +101,19 @@ public class ResidenciaAction extends CrudAction<Residencia> {
         this.editar = true;
         return SUCCESS;
     }
+
+    @Override
+    public void insertarTipos() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void consultarTipos() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void insertarValoresDefecto() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

@@ -28,14 +28,17 @@ import org.apache.struts2.ServletActionContext;
  * @param <T>
  */
 public abstract class CrudAction<T> extends ActionSupport implements ModelDriven<T> {
-    private T objeto;
     private Map<Long, T> listaObjetos = new HashMap<Long, T>();
     private ControladorEgresado controladorEgresado;
     
+    protected T objeto;
     protected String metodoConsultar;
     protected String metodoActualizar;
     protected String metodoBorrar;
-    protected String clase;
+    protected String coleccion;
+    protected String idObjeto;
+    protected String claseModelo;
+    protected String clasePersistencia;
     protected boolean editar = false;
     
     /**
@@ -68,7 +71,7 @@ public abstract class CrudAction<T> extends ActionSupport implements ModelDriven
     
     public CrudAction(String clase)
     {
-        this.clase = clase;
+        this.claseModelo = clase;
         objeto = (T)instanciar();        
         Map session = ActionContext.getContext().getSession();
         String usuario = (String) session.get("usuario");
@@ -77,15 +80,23 @@ public abstract class CrudAction<T> extends ActionSupport implements ModelDriven
     
     public abstract String desplegar();
     
+    public abstract void insertarTipos();
+    
+    public abstract void consultarTipos();
+    
+    public abstract void insertarValoresDefecto();
+    
     private Object instanciar() {
         try {
-            Class<?> clase = Class.forName(this.clase);
+            Class<?> clase = Class.forName(this.claseModelo);
             if (clase == null) {
                 return null;
             }
             return clase.newInstance();
-        } catch (InstantiationException | IllegalAccessException | ClassNotFoundException ex) {
+        } catch (InstantiationException | IllegalAccessException ex) {
             Logger.getLogger(ConvertidorObjetos.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(CrudAction.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
@@ -103,16 +114,19 @@ public abstract class CrudAction<T> extends ActionSupport implements ModelDriven
     public void setEditar(boolean editar) {
         this.editar = editar;
     }
-    
+
     public String guardar()
     {
         try {
-            Method actualizar = controladorEgresado.getClass().getDeclaredMethod(metodoActualizar, objeto.getClass());
-            actualizar.invoke(controladorEgresado, objeto);
+            insertarTipos();
+            insertarValoresDefecto();
+            controladorEgresado.actualizar(objeto, clasePersistencia, idObjeto);
+//            Method actualizar = controladorEgresado.getClass().getDeclaredMethod(metodoActualizar, objeto.getClass());
+//            actualizar.invoke(controladorEgresado, objeto);
             obtenerLista();
             this.setEditar(false);
             return SUCCESS;
-        } catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
+        } catch (SecurityException | IllegalArgumentException ex) {
             Logger.getLogger(CrudAction.class.getName()).log(Level.SEVERE, null, ex);
         }
         
@@ -123,11 +137,12 @@ public abstract class CrudAction<T> extends ActionSupport implements ModelDriven
     {
         try {
             controladorEgresado.refrescar();
-            Method consultar = controladorEgresado.getClass().getDeclaredMethod(metodoConsultar);            
-            setListaObjetos((Map<Long, T>) consultar.invoke(controladorEgresado));
+            setListaObjetos((Map<Long, T>) controladorEgresado.consultar(coleccion, idObjeto, claseModelo));
+//            Method consultar = controladorEgresado.getClass().getDeclaredMethod(metodoConsultar);            
+//            setListaObjetos((Map<Long, T>) consultar.invoke(controladorEgresado));
             
             return SUCCESS;
-        } catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
+        } catch (SecurityException | IllegalArgumentException ex) {
             Logger.getLogger(CrudAction.class.getName()).log(Level.SEVERE, null, ex);
         }
         
@@ -158,6 +173,7 @@ public abstract class CrudAction<T> extends ActionSupport implements ModelDriven
         HttpServletRequest request = (HttpServletRequest) ActionContext.getContext().get(ServletActionContext.HTTP_REQUEST);
         this.desplegar();
         this.setObjeto(this.listaObjetos.get(Long.parseLong( request.getParameter("idObjeto"))));
+        this.consultarTipos();
         return SUCCESS;
     }
 
