@@ -62,7 +62,9 @@
             </div>
         </div>
 
-        <div id="footer">footer</div>
+        <div id="footer">Sede Centro: carrera 5 n.º 21-38 
+                         Sede Norte: calle 75 n.º 16-03 
+                        Institución de educación superior sujeta a inspección y vigilancia del Ministerio de Educación Nacional</div>
 
     </body>
 

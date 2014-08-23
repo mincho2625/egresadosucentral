@@ -61,7 +61,7 @@
                 <a href="desplegarReconocimiento.action" target="contenido">
                     <button type="submit" class="positive" name="nuevo">
                         <img src="imagenes/btnGuardar.png" alt=""/>
-                        Nuevo
+                        <div class="tduno">Nuevo</div>
                     </button>
                 </a><br>
             </div>
@@ -69,16 +69,19 @@
             <br>
 
         </div>
-
+        
         <div id="contenido">
             <s:if test="editar">
                 <s:form action="guardarReconocimiento.action">
                     <s:push value="objeto">
                         <s:hidden name="idReconocimiento"></s:hidden>
+                        <div class="tdun">Generar Nuevo Registro</div>
+                        <br>
                             <table>
                                 <tr>
                                     <td>
-                                        Tipo Reconocimiento
+                                        <br>
+                                        <div class="tduno">Tipo Reconocimiento</div>
                                     </td>
                                     <td>
                                     <s:select name="tipoReconocimiento" list="listaTiposReconocimiento" listKey="idTipoReconocimiento" listValue="nombre"></s:select>
@@ -86,7 +89,7 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        Clase Reconocimiento
+                                        <div class="tduno">Clase Reconocimiento</div>
                                     </td>
                                     <td>
                                     <s:select name="claseReconocimiento" list="listaClasesReconocimiento" listKey="idClaseReconocimiento" listValue="nombre"></s:select>
@@ -94,7 +97,7 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        Descripción
+                                        <div class="tduno">Descripción</div>
                                     </td>
                                     <td>
                                     <s:textfield name="descripcion"></s:textfield>
@@ -102,7 +105,7 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        Ciudad
+                                        <div class="tduno">Ciudad</div>
                                     </td>
                                     <td>
                                     <s:select name="ciudad" list="listaCiudades" listKey="idCiudad" listValue="nombre"></s:select>
@@ -110,7 +113,7 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        Entidad Otorgante
+                                        <div class="tduno">Entidad Otorgante</div>
                                     </td>
                                     <td>
                                     <s:textfield name="entidadOtorgante"></s:textfield>
@@ -118,16 +121,14 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        Fecha
+                                        <div class="tduno">Fecha</div>
                                     </td>
                                     <td>
                                     <jq:datepicker name="fechaReconocimiento" changeMonth="true" changeYear="true" showButtonPanel="true"></jq:datepicker>
                                     </td>
                                 </tr>
                                 <tr>
-                                <s:submit cssClass="positive">
-                                <img src="imagenes/btnGuardar.png" alt=""/>Guardar<br>
-                            </s:submit>
+                                    <!<s:submit value="Guardar"></s:submit>
                             </tr>
                         </table>
                     </s:push>

@@ -61,10 +61,12 @@
                 <s:form action="guardarEgresadoRedSocial.action">
                     <s:push value="objeto">
                         <s:hidden name="idEgresadoRedSocial"></s:hidden>
+                            <div class="tdun">Generar Nuevo Registro</div>
+                            <br>
                             <table>
                                 <tr>
                                     <td>
-                                        Red Social
+                                        <div class="tduno"> Red Social </div>
                                     </td>
                                     <td>
                                     <s:select name="redSocial" list="listaRedesSociales" listKey="idRedSocial" listValue="nombre"></s:select>
@@ -72,16 +74,16 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        URL
+                                        <div class="tduno"> URL </div>
                                     </td>
                                     <td>
                                     <s:textfield name="url"></s:textfield>
                                     </td>
                                 </tr>
-                                <s:submit cssClass="positive">
-                                <img src="imagenes/btnGuardar.png" alt=""/>Guardar<br>
+                            <s:submit cssClass="positive" value="Guardar">
                             </s:submit>
                             </tr>
+                            
                         </table>
                     </s:push>
                 </s:form>
