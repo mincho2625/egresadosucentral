@@ -12,7 +12,7 @@ package Modelo;
  */
 public class Estrato {
     private long idEstrato;
-    private boolean estratoNumero;
+    private int estratoNumero;
     private String estratoLetras;
     private boolean estado;
 
@@ -33,14 +33,14 @@ public class Estrato {
     /**
      * @return the estratoNumero
      */
-    public boolean isEstratoNumero() {
+    public int getEstratoNumero() {
         return estratoNumero;
     }
 
     /**
      * @param estratoNumero the estratoNumero to set
      */
-    public void setEstratoNumero(boolean estratoNumero) {
+    public void setEstratoNumero(int estratoNumero) {
         this.estratoNumero = estratoNumero;
     }
 

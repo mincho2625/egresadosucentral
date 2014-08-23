@@ -89,7 +89,7 @@
                                         <div class="tduno"> Tipo Vivienda </div>
                                     </td>
                                     <td>
-                                    <s:select name="tipoVivienda" list="listaTiposVivienda" listKey="idtipoVivienda" listValue="nombre"></s:select>
+                                    <s:select name="tipoVivienda" list="listaTiposVivienda" listKey="idTipoVivienda" listValue="nombre"></s:select>
                                     </td>
                                 </tr>
                                 <tr>
@@ -97,7 +97,7 @@
                                         <div class="tduno">Tipo Tenencia Vivienda </div>
                                     </td>
                                     <td>
-                                    <s:select name="tipoTenenciaVivienda" list="listaTiposTenenciaVivienda" listKey="idtipoTenenciaVivienda" listValue="nombre"></s:select>
+                                    <s:select name="tipoTenenciaVivienda" list="listaTiposTenenciaVivienda" listKey="idTipoTenenciaVivienda" listValue="nombre"></s:select>
                                     </td>
                                 </tr>
                                 <tr>
@@ -129,7 +129,7 @@
                                         <div class="tduno"> Tiene acceso a internet </div>
                                     </td>
                                     <td>
-                                    <s:checkbox name="accesoInternet"></s:checkbox>
+                                    <s:checkbox name="conexionInternet"></s:checkbox>
                                     </td>
                                 </tr>
                                 <tr>

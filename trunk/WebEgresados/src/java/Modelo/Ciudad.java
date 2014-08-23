@@ -1,10 +1,13 @@
 package Modelo;
 
+import Util.Equivalencia;
+
 /**
  * @author YURY
  * @version 1.0
  * @created 12-jul-2014 06:37:26 a.m.
  */
+@Equivalencia(nombre = "getIdCiudad")
 public class Ciudad {
 
     private long idCiudad;
