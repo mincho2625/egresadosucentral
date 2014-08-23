@@ -21,7 +21,7 @@
 
                 <s:iterator value="listaObjetos">
                     <tr>
-                        <td class="tdtres"><s:property value="idRedSocial"></s:property><br>
+                        <td class="tdtres"><s:property value="idRedSocial.nombre"></s:property><br>
                             </td>
                             <td class="tdtres"><s:property value="url"></s:property><br>
                             </td>
@@ -67,7 +67,7 @@
                                         Red Social
                                     </td>
                                     <td>
-                                    <s:select name="idRedSocial" list="listaRedesSociales" listKey="idRedSocial" listValue="nombre"></s:select>
+                                    <s:select name="redSocial" list="listaRedesSociales" listKey="idRedSocial" listValue="nombre"></s:select>
                                     </td>
                                 </tr>
                                 <tr>
