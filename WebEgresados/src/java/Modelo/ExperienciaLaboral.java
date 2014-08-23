@@ -5,6 +5,7 @@
  */
 package Modelo;
 
+import Persistencia.Subsector;
 import java.util.Date;
 
 /**

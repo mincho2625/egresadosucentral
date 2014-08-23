@@ -17,6 +17,7 @@ import Modelo.Mes;
 import Modelo.Modalidad;
 import Modelo.NivelEstudios;
 import Modelo.Programa;
+import Modelo.TipoActividad;
 import Modelo.TipoReconocimiento;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -46,6 +47,7 @@ public final class Listas {
     private Map<Long, Jornada> listaJornadas;
     private Map<Long, Programa> listaProgramas;
     private Map<Long, NivelEstudios> listaNivelesEstudios;
+    private Map<Long,TipoActividad> listaActividad;
     private ArrayList<Integer> listaAnios;
     private final EntityManagerFactory emf = Persistence.createEntityManagerFactory("WebEgresadosPU");
 
@@ -267,5 +269,13 @@ public final class Listas {
             listaAnios.add(i);
         }
         return listaAnios;
+    }
+
+    public Map<Long,TipoActividad> getListaActividad() {
+        return listaActividad;
+    }
+
+    public void setListaActividad(Map<Long,TipoActividad> listaActividad) {
+        this.listaActividad = listaActividad;
     }
 }

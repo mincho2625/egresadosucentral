@@ -1,44 +1,128 @@
-
-<html lang="es"><head><title>Asociaciones o Redes Profesionales</title>
-
-        <meta charset="utf-8">
-
-        <link rel="stylesheet" href="estilo.css"></head>
-
+<!DOCTYPE html>
+<%@taglib uri="/struts-tags" prefix="s"%>
+<%@taglib uri="/struts-jquery-tags" prefix="jq" %>
+<html lang="es">
+    <head>
+        <title>Reconocimientos y distinciones</title>
+        <meta charset="utf-8"/>
+        <link rel="stylesheet" href="estilo.css">
+        <jq:head></jq:head>
+    </head>
     <body>
-
         <div id="Tabla" align="center">
+            <table rules="all" >
+                <caption>Aficiones y Deportes </caption>
+                <tr>
+                    <td class="tddos">Tipo Actividad<br>
+                    </td>
+                    <td class="tddos">Lista de Actividades<br>
+                    </td>
+                    <td class="tddos">Fecha<br>
+                    </td>
+                </tr>
 
-            <s:form method="post" action=".jsp" name="f1"> <br>
-
-                <table cellpadding="2" cellspacing="10">
-                    <caption>Guardar/Editar/Eliminar</caption>
+                <s:iterator value="listaObjetos" status="contacto">
                     <tr>
-                        <td class="tduno" colspan="2">Tipo Actividad:</td>
-                        <td class="tduno" colspan="2">Actividad:</td>
-                    </tr>
-                    <tr>
-                        <td colspan="2">
-                            <select name="tipoActividad">
-                                <option>Seleccione</option>
-                            </select>
+                        <td class="tdtres"><s:property value="idTipoActividad.nombre"></s:property><br>
+                            </td>
+                            <td class="tdtres"><s:property value="listaActividades"></s:property><br>
+                            </td>
+                            <td class="tdtres"><s:property value="fechaRegistro"></s:property><br>
+                            </td>
+                            <td class="tdtres">
+                            <s:url id="editarURL" action="editarA.action">
+                                <s:param name="idObjeto" value="%{idReconocimiento}"></s:param>
+                            </s:url>
+                            <s:a href="%{editarURL}">
+                                <img style="width: 20px; height: 19px;" title="Editar" alt="Editar" src="imagenes/Icono_de_editar.png" align="top"><br>
+                            </s:a>
+                            <s:url id="borrarURL" action="borrarReconocimiento.action">
+                                <s:param name="idObjeto" value="%{idReconocimiento}"></s:param>
+                            </s:url>
+                            <s:a href="%{borrarURL}">
+                                <img style="width: 20px; height: 19px;" title="Borrar" alt="Borrar" src="imagenes/Icono_de_editar.png" align="top"><br>
+                            </s:a>
                         </td>
-                        <td colspan="2">
-                            <select name="Actividad">
-                                <option>Seleccione</option>
-                            </select>
-                        </td>                       
                     </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td colspan="2"><input value="Guardar" name="BtnGuardar" type="submit"></td>
-                    </tr>
-                    <br>
-                </table>
-            </s:form>
-        </div>
-        <br>
-        <br>
+                </s:iterator>
+            </table>
+            <br>
+            <div class="buttons">
+                <a href="desplegarAficiones.action" target="contenido">
+                    <button type="submit" class="positive" name="nuevo">
+                        <img src="imagenes/btnGuardar.png" alt=""/>
+                        Nuevo
+                    </button>
+                </a><br>
+            </div>
+            <br>
+            <br>
 
-    </body></html>
+        </div>
+
+        <div id="contenido">
+            <s:if test="editar">
+                <s:form action="guardarReconocimiento.action">
+                    <s:push value="objeto">
+                        <s:hidden name="idReconocimiento"></s:hidden>
+                            <table>
+                                <tr>
+                                    <td>
+                                        Tipo Reconocimiento
+                                    </td>
+                                    <td>
+                                    <s:select name="tipoReconocimiento" list="listaTiposReconocimiento" listKey="idTipoReconocimiento" listValue="nombre"></s:select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Clase Reconocimiento
+                                    </td>
+                                    <td>
+                                    <s:select name="claseReconocimiento" list="listaClasesReconocimiento" listKey="idClaseReconocimiento" listValue="nombre"></s:select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Descripción
+                                    </td>
+                                    <td>
+                                    <s:textfield name="descripcion"></s:textfield>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Ciudad
+                                    </td>
+                                    <td>
+                                    <s:select name="ciudad" list="listaCiudades" listKey="idCiudad" listValue="nombre"></s:select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Entidad Otorgante
+                                    </td>
+                                    <td>
+                                    <s:textfield name="entidadOtorgante"></s:textfield>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Fecha
+                                    </td>
+                                    <td>
+                                    <jq:datepicker name="fechaReconocimiento" changeMonth="true" changeYear="true" showButtonPanel="true"></jq:datepicker>
+                                    </td>
+                                </tr>
+                                <tr>
+                                <s:submit cssClass="positive">
+                                <img src="imagenes/btnGuardar.png" alt=""/>Guardar<br>
+                            </s:submit>
+                            </tr>
+                        </table>
+                    </s:push>
+                </s:form>
+            </s:if>
+        </div>
+    </body>
+</html>

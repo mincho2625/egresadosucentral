@@ -1,84 +1,104 @@
 <!DOCTYPE html>
-
+<%@taglib uri="/struts-tags" prefix="s"%>
+<%@taglib uri="/struts-jquery-tags" prefix="jq" %>
 <html lang="es">
-
     <head>
-        <title>Informacion Personal</title>
+        <title>Reconocimientos y distinciones</title>
         <meta charset="utf-8"/>
-
         <link rel="stylesheet" href="estilo.css">
-
+        <jq:head></jq:head>
     </head>
     <body>
         <div id="Tabla" align="center">
-            <s:form method="post" action=".jsp" name="f1">
-                <table rules="all">
-                    <caption>DEPORTES O AFICIONES</caption>
+            <table rules="all" >
+                <caption>Aficiones y Deportes </caption>
+                <tr>
+                    <td class="tddos">Tipo Actividad<br>
+                    </td>
+                    <td class="tddos">Lista de Actividades<br>
+                    </td>
+                    <td class="tddos">Fecha<br>
+                    </td>
+                </tr>
+
+                <s:iterator value="listaObjetos" status="contacto">
                     <tr>
-                        <td class="tddos">Tipo
-                            Actividad<br>
-                        </td>
-                        <td class="tddos">Actividad<br>
-                        </td>
-                        <td class="tddos">Fecha<br>
-                        </td>
-                        <td class="tddos">Accion<br>
+                        <td class="tdtres"><s:property value="idTipoActividad.nombre"></s:property><br>
+                            </td>
+                            <td class="tdtres"><s:property value="listaActividades"></s:property><br>
+                            </td>
+                            <td class="tdtres"><s:property value="fechaRegistro"></s:property><br>
+                            </td>
+                            <td class="tdtres">
+                            <s:url id="editarURL" action="editarA.action">
+                                <s:param name="idObjeto" value="%{idAficion}"></s:param>
+                            </s:url>
+                            <s:a href="%{editarURL}">
+                                <img style="width: 20px; height: 19px;" title="Editar" alt="Editar" src="imagenes/Icono_de_editar.png" align="top"><br>
+                            </s:a>
+                            <s:url id="borrarURL" action="borrarAficiones.action">
+                                <s:param name="idObjeto" value="%{idAficion}"></s:param>
+                            </s:url>
+                            <s:a href="%{borrarURL}">
+                                <img style="width: 20px; height: 19px;" title="Borrar" alt="Borrar" src="imagenes/Icono_de_editar.png" align="top"><br>
+                            </s:a>
                         </td>
                     </tr>
-                    <tr>
-                        <td class="tdtres"><br>
-                        </td>
-                        <td class="tdtres"><br>
-                        </td>
-                        <td class="tdtres"><br>
-                        </td>
-                        <td class="tdtres"><img
-                                style="width: 20px; height: 19px;" title="Editar" alt="Editar"
-                                src="imagenes/Icono_de_editar.png" align="top"> </td>
-                    </tr>
-                    <tr>
-                        <td class="tdtres"><br>
-                        </td>
-                        <td class="tdtres"><br>
-                        </td>
-                        <td class="tdtres"><br>
-                        </td>
-                        <td class="tdtres"><img
-                                style="width: 20px; height: 19px;" title="Editar" alt="Editar"
-                                src="imagenes/Icono_de_editar.png" align="top"> </td>
-                    </tr>
-                    <tr>
-                        <td class="tdtres"><br>
-                        </td>
-                        <td class="tdtres"><br>
-                        </td>
-                        <td class="tdtres"><br>
-                        </td>
-                        <td class="tdtres"><img
-                                style="width: 20px; height: 19px;" title="Editar" alt="Editar"
-                                src="imagenes/Icono_de_editar.png" align="top"> </td>
-                    </tr>
-                    <tr>
-                        <td class="tdtres"><br>
-                        </td>
-                        <td class="tdtres"><br>
-                        </td>
-                        <td class="tdtres"><br>
-                        </td>
-                        <td class="tdtres"><img
-                                style="width: 20px; height: 19px;" title="Editar" alt="Editar"
-                                src="imagenes/Icono_de_editar.png" align="top"> </td>
-                    </tr>
-                </table>
-                <br>
-                <div class="buttons">
+                </s:iterator>
+            </table>
+            <br>
+            <div class="buttons">
+                <a href="desplegarAficiones.action" target="contenido">
                     <button type="submit" class="positive" name="nuevo">
                         <img src="imagenes/btnGuardar.png" alt=""/>
                         Nuevo
-                    </button><br>
-                </div>
-            </s:form>
-        </table>
-    </div>	
-</body>
+                    </button>
+                </a><br>
+            </div>
+            <br>
+            <br>
+
+        </div>
+
+        <div id="contenido">
+            <s:if test="editar">
+                <s:form action="guardarAficiones.action">
+                    <s:push value="objeto">
+                        <s:hidden name="idAficion"></s:hidden>
+                            <table>
+                                <tr>
+                                    <td>
+                                        Tipo Actividad
+                                    </td>
+                                    <td>
+                                    <s:select name="listaActividad" list="listaActividad" listKey="idTipoActividad" listValue="nombre"></s:select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Nombre 
+                                    </td>
+                                    <td>
+                                    <jq:datepicker name="listaActividades" changeMonth="true" changeYear="true" showButtonPanel="true"></jq:datepicker>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Fecha
+                                    </td>
+                                    <td>
+                                    <jq:datepicker name="fechaRegistro" changeMonth="true" changeYear="true" showButtonPanel="true"></jq:datepicker>
+                                    </td>
+                                </tr>
+                                <tr>
+                                <s:submit cssClass="positive">
+                                <img src="imagenes/btnGuardar.png" alt=""/>Guardar<br>
+                            </s:submit>
+                            </tr>
+                        </table>
+                    </s:push>
+                </s:form>
+            </s:if>
+        </div>
+    </body>
 </html>
