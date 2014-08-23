@@ -7,6 +7,7 @@
 package Util;
 
 import Controlador.ControladorEgresado;
+import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.logging.Level;
@@ -27,7 +28,7 @@ public class Convertidor {
         for (Method set : destino.getClass().getDeclaredMethods()) {
             try {
                 if (esSetter(set.getName())) {
-                    metodoGet = obtenerMetodoGet(set.getName());
+                    metodoGet = obtenerMetodoGetPersistencia(set.getName());
                     valor = invocar(origen, metodoGet);
                     
                     if (valor != null)
@@ -70,8 +71,7 @@ public class Convertidor {
                 try {
                     if (esSetter(set.getName()) && !set.getName().equals("setIdEgresado")
                             && !set.getName().equals(idObjeto)) {
-                        if (set.getName().equals("setEstado")) metodoGet = "isEstado";
-                        else metodoGet = obtenerMetodoGet(set.getName());
+                        metodoGet = obtenerMetodoGetModelo(set);
                         valor = invocar(origen, metodoGet);
                         
                         if (valor != null)
@@ -126,6 +126,12 @@ public class Convertidor {
     
     private Object obtenerId(Object clase, String metodo) {
         try {
+            if (clase.getClass().getDeclaredAnnotations().length > 0)
+            {
+                Annotation id = clase.getClass().getDeclaredAnnotation(Equivalencia.class);
+                if (id != null) metodo = ((Equivalencia)id).nombre();
+            }
+            
             Method get = clase.getClass().getDeclaredMethod(metodo);
             if (get != null) {
                 Class<?> tipo = get.getReturnType();
@@ -142,9 +148,17 @@ public class Convertidor {
         return null;
     }
     
-    private String obtenerMetodoGet(String metodoSet)
+    private String obtenerMetodoGetPersistencia(String metodoSet)
     {
         return metodoSet.replaceFirst("set", "get");
+    }
+    
+    private String obtenerMetodoGetModelo(Method metodoSet)
+    {
+        if (metodoSet.getParameterTypes()[0].equals(Boolean.TYPE))
+            return metodoSet.getName().replaceFirst("set", "is");
+        
+        return metodoSet.getName().replaceFirst("set", "get");
     }
     
     public Object invocar(Object objeto, String nombreMetodo)

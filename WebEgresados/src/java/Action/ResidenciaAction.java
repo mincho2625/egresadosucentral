@@ -168,6 +168,7 @@ public class ResidenciaAction extends CrudAction<Residencia> {
         this.objeto.setIdCiudadResidencia(Listas.obtenerListas().getListaCiudades().get(this.ciudad));
         this.objeto.setIdTipoTenenciaVivienda(Listas.obtenerListas().getListaTiposTenenciaVivienda().get(this.tipoTenenciaVivienda));
         this.objeto.setIdTipoVivienda(Listas.obtenerListas().getListaTiposVivienda().get(this.tipoVivienda));
+        this.objeto.setIdEstrato(Listas.obtenerListas().getListaEstratos().get(this.estrato));
     }
 
     @Override
@@ -175,6 +176,7 @@ public class ResidenciaAction extends CrudAction<Residencia> {
         this.setCiudad(objeto.getIdCiudadResidencia().getIdCiudad());
         this.setTipoTenenciaVivienda(objeto.getIdTipoTenenciaVivienda().getIdTipoTenenciaVivienda());
         this.setTipoVivienda(objeto.getIdTipoVivienda().getIdTipoVivienda());
+        this.setEstrato(objeto.getIdEstrato().getIdEstrato());
     }
 
     @Override
