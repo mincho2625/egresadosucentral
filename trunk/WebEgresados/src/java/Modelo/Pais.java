@@ -11,6 +11,7 @@ public class Pais {
 
     private long idPais;
     private String nombre;
+    private boolean estado;
     private ArrayList<Departamento> listaDepartamentos;
     
     public Pais()
@@ -59,5 +60,19 @@ public class Pais {
         departamento.setIdDepartamento(idDepartamento);
         departamento.setNombre(nombre);
         listaDepartamentos.add(departamento);
+    }
+
+    /**
+     * @return the estado
+     */
+    public boolean isEstado() {
+        return estado;
+    }
+
+    /**
+     * @param estado the estado to set
+     */
+    public void setEstado(boolean estado) {
+        this.estado = estado;
     }
 }

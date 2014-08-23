@@ -11,49 +11,49 @@ package Modelo;
  * @author YURY
  */
 public class EducacionFormal extends Educacion {
-    private Long idPrograma;
-    private Long idJornada;
-    private Long idNivelEstudios;
+    private Programa idPrograma;
+    private Jornada idJornada;
+    private NivelEstudios idNivelEstudios;
 
     /**
      * @return the idPrograma
      */
-    public Long getIdPrograma() {
+    public Programa getIdPrograma() {
         return idPrograma;
     }
 
     /**
      * @param idPrograma the idPrograma to set
      */
-    public void setIdPrograma(Long idPrograma) {
+    public void setIdPrograma(Programa idPrograma) {
         this.idPrograma = idPrograma;
     }
 
     /**
      * @return the idJornada
      */
-    public Long getIdJornada() {
+    public Jornada getIdJornada() {
         return idJornada;
     }
 
     /**
      * @param idJornada the idJornada to set
      */
-    public void setIdJornada(Long idJornada) {
+    public void setIdJornada(Jornada idJornada) {
         this.idJornada = idJornada;
     }
 
     /**
      * @return the idNivelEstudios
      */
-    public Long getIdNivelEstudios() {
+    public NivelEstudios getIdNivelEstudios() {
         return idNivelEstudios;
     }
 
     /**
      * @param idNivelEstudios the idNivelEstudios to set
      */
-    public void setIdNivelEstudios(Long idNivelEstudios) {
+    public void setIdNivelEstudios(NivelEstudios idNivelEstudios) {
         this.idNivelEstudios = idNivelEstudios;
     }
 }

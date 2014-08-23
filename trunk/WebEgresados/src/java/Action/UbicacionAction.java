@@ -6,7 +6,6 @@
 
 package Action;
 
-import Controlador.ControladorListas;
 import Modelo.Contacto;
 import Modelo.TipoContacto;
 import java.util.ArrayList;
@@ -17,15 +16,10 @@ import java.util.ArrayList;
  */
 public class UbicacionAction extends CrudAction<Contacto> {
     private ArrayList<TipoContacto> listaTiposContacto;
-    private ControladorListas controladorListas = new ControladorListas();
     
     public UbicacionAction()
     {
         super(Modelo.Contacto.class.getName());
-        this.metodoBorrar = "borrarDatosUbicacion";
-        //this.clase = ;
-        this.metodoConsultar = "obtenerDatosUbicacion";
-        this.metodoActualizar = "actualizarDatosUbicacion";
     }
     
     /**
@@ -46,7 +40,7 @@ public class UbicacionAction extends CrudAction<Contacto> {
     public String desplegar()
     {
         this.obtenerLista();
-        this.setListaTiposContacto(controladorListas.obtenerTiposContacto());
+//        this.setListaTiposContacto(controladorListas.obtenerTiposContacto());
         this.editar = true;
         return SUCCESS;
     }

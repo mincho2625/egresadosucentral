@@ -15,16 +15,16 @@ import java.util.Date;
 public class Educacion {
     private Long idEducacion;
     private Date fechaActEstado;
-    private Long idMesInicio;
-    private Long idCiudad;
+    private Mes idMesInicio;
+    private Ciudad idCiudad;
     private Date fechaRegistro;
-    private Long idMesFinalizacion;
-    private Long idEstadoEducacion;
-    private Long idAreaEstudios;
-    private Long idModalidad;
+    private Mes idMesFinalizacion;
+    private EstadoEducacion idEstadoEducacion;
+    private AreaEstudios idAreaEstudios;
+    private Modalidad idModalidad;
     private int anioInicio;
     private int anioFinalizacion;
-    private Long idInstitucion;
+    private Institucion idInstitucion;
     private String otraInstitucion;
     private boolean estado;
     private Long idEgresado;
@@ -61,28 +61,28 @@ public class Educacion {
     /**
      * @return the idMesInicio
      */
-    public Long getIdMesInicio() {
+    public Mes getIdMesInicio() {
         return idMesInicio;
     }
 
     /**
      * @param idMesInicio the idMesInicio to set
      */
-    public void setIdMesInicio(Long idMesInicio) {
+    public void setIdMesInicio(Mes idMesInicio) {
         this.idMesInicio = idMesInicio;
     }
 
     /**
      * @return the idCiudad
      */
-    public Long getIdCiudad() {
+    public Ciudad getIdCiudad() {
         return idCiudad;
     }
 
     /**
      * @param idCiudad the idCiudad to set
      */
-    public void setIdCiudad(Long idCiudad) {
+    public void setIdCiudad(Ciudad idCiudad) {
         this.idCiudad = idCiudad;
     }
 
@@ -103,56 +103,56 @@ public class Educacion {
     /**
      * @return the idMesFinalizacion
      */
-    public Long getIdMesFinalizacion() {
+    public Mes getIdMesFinalizacion() {
         return idMesFinalizacion;
     }
 
     /**
      * @param idMesFinalizacion the idMesFinalizacion to set
      */
-    public void setIdMesFinalizacion(Long idMesFinalizacion) {
+    public void setIdMesFinalizacion(Mes idMesFinalizacion) {
         this.idMesFinalizacion = idMesFinalizacion;
     }
 
     /**
      * @return the idEstadoEducacion
      */
-    public Long getIdEstadoEducacion() {
+    public EstadoEducacion getIdEstadoEducacion() {
         return idEstadoEducacion;
     }
 
     /**
      * @param idEstadoEducacion the idEstadoEducacion to set
      */
-    public void setIdEstadoEducacion(Long idEstadoEducacion) {
+    public void setIdEstadoEducacion(EstadoEducacion idEstadoEducacion) {
         this.idEstadoEducacion = idEstadoEducacion;
     }
 
     /**
      * @return the idAreaEstudios
      */
-    public Long getIdAreaEstudios() {
+    public AreaEstudios getIdAreaEstudios() {
         return idAreaEstudios;
     }
 
     /**
      * @param idAreaEstudios the idAreaEstudios to set
      */
-    public void setIdAreaEstudios(Long idAreaEstudios) {
+    public void setIdAreaEstudios(AreaEstudios idAreaEstudios) {
         this.idAreaEstudios = idAreaEstudios;
     }
 
     /**
      * @return the idModalidad
      */
-    public Long getIdModalidad() {
+    public Modalidad getIdModalidad() {
         return idModalidad;
     }
 
     /**
      * @param idModalidad the idModalidad to set
      */
-    public void setIdModalidad(Long idModalidad) {
+    public void setIdModalidad(Modalidad idModalidad) {
         this.idModalidad = idModalidad;
     }
 
@@ -187,14 +187,14 @@ public class Educacion {
     /**
      * @return the idInstitucion
      */
-    public Long getIdInstitucion() {
+    public Institucion getIdInstitucion() {
         return idInstitucion;
     }
 
     /**
      * @param idInstitucion the idInstitucion to set
      */
-    public void setIdInstitucion(Long idInstitucion) {
+    public void setIdInstitucion(Institucion idInstitucion) {
         this.idInstitucion = idInstitucion;
     }
 

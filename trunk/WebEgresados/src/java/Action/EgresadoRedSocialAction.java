@@ -6,7 +6,6 @@
 
 package Action;
 
-import Controlador.ControladorListas;
 import Modelo.EgresadoRedSocial;
 import Modelo.RedSocial;
 import java.util.ArrayList;
@@ -18,13 +17,12 @@ import java.util.ArrayList;
 public class EgresadoRedSocialAction extends CrudAction<EgresadoRedSocial>{
     //Esta lista es de tipos de redes sociales: facebook, twiter, etc.
     private ArrayList<RedSocial> listaRedesSociales;
-    private ControladorListas controladorListas = new ControladorListas();
 
     public EgresadoRedSocialAction() {
-        super("Modelo.EgresadoRedSocial");
-        this.metodoBorrar = "borrarDatosRedSocial";
-        this.metodoConsultar = "consultarDatosRedesSociales";
-        this.metodoActualizar = "actualizarDatosRedSocial";
+        super(EgresadoRedSocial.class.getName());
+        this.idObjeto = "getIdEgresadoRedSocial";
+        this.coleccion = "getEgresadoRedSocialCollection";
+        this.clasePersistencia = Persistencia.Reconocimiento.class.getName();
     }
 
     /**
@@ -44,7 +42,7 @@ public class EgresadoRedSocialAction extends CrudAction<EgresadoRedSocial>{
     @Override
     public String desplegar() {
         this.obtenerLista();
-        this.setListaRedesSociales(controladorListas.consultarRedesSociales());
+        //this.setListaRedesSociales(controladorListas.consultarRedesSociales());
         this.editar = true;
         return SUCCESS;
     }

@@ -6,7 +6,6 @@
 
 package Action;
 
-import Controlador.ControladorListas;
 import Persistencia.AreaEmpresa;
 import Persistencia.CargoEquivalente;
 import Persistencia.ExperienciaLaboral;
@@ -52,13 +51,11 @@ public class ExperienciaLaboralAction extends CrudAction<ExperienciaLaboral> {
         this.listasubSector = listasubSector;
     }
         private ArrayList<ExperienciaLaboral> listaEsperienciaLaboral;
-    private ControladorListas controladorListas = new ControladorListas();
+    
 
     public ExperienciaLaboralAction() {
         super("Modelo.ExperienciaLaboral");
-        this.metodoBorrar = "borrarExperienciaLaboral";
-        this.metodoConsultar = "consultarExperienciaLaboral";
-        this.metodoActualizar = "actualizarExperienciaLaboral";
+        
     }
 
     /**
@@ -87,14 +84,14 @@ public class ExperienciaLaboralAction extends CrudAction<ExperienciaLaboral> {
     @Override
     public String desplegar() {
         this.obtenerLista();
-        this.setListaTipoContacto(controladorListas.consultarTipoContrato());
-        this.setListasubSector(controladorListas.consultarSubsector());
-        this.setListaNivelCargo(controladorListas.consultarNivelCargo());
-        this.setListaAreaEmpresa(controladorListas.consultarAreaEmpresa());
-        this.setListaRangoSalarial(controladorListas.consultarRangoSalarial());
-        this.setListaCargoEquivalente(controladorListas.consultarCargoEquivalente());
-        this.setListaMesIngreso(controladorListas.consultarMeseIngreso());
-        this.setListaMesTerminacion(controladorListas.consultarMeseIngreso());
+//        this.setListaTipoContacto(controladorListas.consultarTipoContrato());
+//        this.setListasubSector(controladorListas.consultarSubsector());
+//        this.setListaNivelCargo(controladorListas.consultarNivelCargo());
+//        this.setListaAreaEmpresa(controladorListas.consultarAreaEmpresa());
+//        this.setListaRangoSalarial(controladorListas.consultarRangoSalarial());
+//        this.setListaCargoEquivalente(controladorListas.consultarCargoEquivalente());
+//        this.setListaMesIngreso(controladorListas.consultarMeseIngreso());
+//        this.setListaMesTerminacion(controladorListas.consultarMeseIngreso());
         
         this.editar = true;
         return SUCCESS;

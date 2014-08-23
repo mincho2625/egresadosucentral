@@ -13,6 +13,7 @@ package Modelo;
 public class AreaEstudios {
     private long idAreaEstudios;
     private String nombre;
+    private boolean estado;
 
     /**
      * @return the idAreaEstudios
@@ -26,5 +27,33 @@ public class AreaEstudios {
      */
     public void setIdAreaEstudios(long idAreaEstudios) {
         this.idAreaEstudios = idAreaEstudios;
+    }
+
+    /**
+     * @return the nombre
+     */
+    public String getNombre() {
+        return nombre;
+    }
+
+    /**
+     * @param nombre the nombre to set
+     */
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    /**
+     * @return the estado
+     */
+    public boolean isEstado() {
+        return estado;
+    }
+
+    /**
+     * @param estado the estado to set
+     */
+    public void setEstado(boolean estado) {
+        this.estado = estado;
     }
 }

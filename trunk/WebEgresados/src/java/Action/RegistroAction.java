@@ -6,7 +6,6 @@
 package Action;
 
 import Controlador.ControladorEgresado;
-import Controlador.ControladorListas;
 import Modelo.Ciudad;
 import Modelo.Departamento;
 import Modelo.Egresado;
@@ -244,15 +243,15 @@ public class RegistroAction extends ActionSupport implements ModelDriven<Egresad
     }
 
     private String desplegar() {
-        ControladorListas cl = new ControladorListas();
-//        setListaPaises(cl.obtenerPaises());
-//        setListaDepartamentos(new ArrayList<Departamento>());
-        setListaCiudades(cl.obtenerCiudades());
-        setListaEstadosCiviles(cl.obtenerEstadosCiviles());
-        setListaGeneros(cl.obtenerGeneros());
-        setListaGruposSanguineos(cl.obtenerGruposSanguineos());
-        setListaTiposDocumento(cl.obtenerTiposDocumento());
-        setListaPreguntas(cl.obtenerPreguntasSeguridad());
+//        ControladorListas cl = new ControladorListas();
+////        setListaPaises(cl.obtenerPaises());
+////        setListaDepartamentos(new ArrayList<Departamento>());
+//        setListaCiudades(cl.obtenerCiudades());
+//        setListaEstadosCiviles(cl.obtenerEstadosCiviles());
+//        setListaGeneros(cl.obtenerGeneros());
+//        setListaGruposSanguineos(cl.obtenerGruposSanguineos());
+//        setListaTiposDocumento(cl.obtenerTiposDocumento());
+//        setListaPreguntas(cl.obtenerPreguntasSeguridad());
 
         return "nuevo";
     }
@@ -266,10 +265,10 @@ public class RegistroAction extends ActionSupport implements ModelDriven<Egresad
     })
     public String refrescarPaises() {
         if (idPais > 0) {
-            ControladorListas cl = new ControladorListas();
-            setListaPaises(cl.obtenerPaises());
-            setListaDepartamentos(cl.obtenerDepartamentosPorPais(getIdPais()));
-            setListaCiudades(cl.obtenerCiudadesPorDepartamento(getIdDepartamento()));
+//            ControladorListas cl = new ControladorListas();
+//            setListaPaises(cl.obtenerPaises());
+//            setListaDepartamentos(cl.obtenerDepartamentosPorPais(getIdPais()));
+//            setListaCiudades(cl.obtenerCiudadesPorDepartamento(getIdDepartamento()));
         }
         return "populate";
     }
@@ -278,7 +277,7 @@ public class RegistroAction extends ActionSupport implements ModelDriven<Egresad
         Map session = ActionContext.getContext().getSession();
         String usuario = (String) session.get("usuario");
         ControladorEgresado controladorEgresado = new ControladorEgresado(usuario);
-        setEgresado(controladorEgresado.obtenerInformacionBasica());
+       //setEgresado(controladorEgresado.obtenerInformacionBasica());
         desplegar();
 
         return "actual";

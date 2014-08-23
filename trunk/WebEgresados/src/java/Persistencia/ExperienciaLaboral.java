@@ -43,6 +43,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "ExperienciaLaboral.findByAnioIngreso", query = "SELECT e FROM ExperienciaLaboral e WHERE e.anioIngreso = :anioIngreso"),
     @NamedQuery(name = "ExperienciaLaboral.findByAnioFinalizacion", query = "SELECT e FROM ExperienciaLaboral e WHERE e.anioFinalizacion = :anioFinalizacion")})
 public class ExperienciaLaboral implements Serializable {
+    @Basic(optional = false)
+    @Column(name = "ESTADO")
+    private boolean estado;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -305,6 +308,14 @@ public class ExperienciaLaboral implements Serializable {
     @Override
     public String toString() {
         return "Persistencia.ExperienciaLaboral[ idExperienciaLaboral=" + idExperienciaLaboral + " ]";
+    }
+
+    public boolean getEstado() {
+        return estado;
+    }
+
+    public void setEstado(boolean estado) {
+        this.estado = estado;
     }
     
 }

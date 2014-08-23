@@ -14,10 +14,11 @@ import java.util.Date;
  */
 public class Contacto {
     private long idContacto;
-    private long idTipoContacto;
+    private TipoContacto idTipoContacto;
     private String descripcion;
     private Date fechaRegistro;
     private long idEgresado;
+    private boolean estado;
 
     /**
      * @return the idContacto
@@ -36,14 +37,14 @@ public class Contacto {
     /**
      * @return the idTipoContacto
      */
-    public long getIdTipoContacto() {
+    public TipoContacto getIdTipoContacto() {
         return idTipoContacto;
     }
 
     /**
      * @param idTipoContacto the idTipoContacto to set
      */
-    public void setIdTipoContacto(long idTipoContacto) {
+    public void setIdTipoContacto(TipoContacto idTipoContacto) {
         this.idTipoContacto = idTipoContacto;
     }
 
@@ -87,5 +88,19 @@ public class Contacto {
      */
     public void setIdEgresado(long idEgresado) {
         this.idEgresado = idEgresado;
+    }
+
+    /**
+     * @return the estado
+     */
+    public boolean isEstado() {
+        return estado;
+    }
+
+    /**
+     * @param estado the estado to set
+     */
+    public void setEstado(boolean estado) {
+        this.estado = estado;
     }
 }

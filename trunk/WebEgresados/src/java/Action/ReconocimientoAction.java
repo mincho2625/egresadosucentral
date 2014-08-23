@@ -30,10 +30,6 @@ public class ReconocimientoAction extends CrudAction<Reconocimiento>{
     
     public ReconocimientoAction() {
         super(Reconocimiento.class.getName());
-        this.metodoActualizar = "actualizarReconocimiento";
-        this.metodoConsultar = "consultarReconocimientos";
-        this.metodoBorrar = "";
-        
         this.idObjeto = "getIdReconocimiento";
         this.coleccion = "getReconocimientoCollection";
         this.clasePersistencia = Persistencia.Reconocimiento.class.getName();
@@ -128,6 +124,7 @@ public class ReconocimientoAction extends CrudAction<Reconocimiento>{
         this.setListaCiudades(Listas.obtenerListas().getListaCiudades());
         this.setListaClasesReconocimiento(Listas.obtenerListas().getListaClasesReconocimiento());
         this.setListaTiposReconocimiento(Listas.obtenerListas().getListaTiposReconocimiento());
+        
         this.obtenerLista();
         this.editar = true;
         return SUCCESS;

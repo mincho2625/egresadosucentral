@@ -9,6 +9,7 @@ public class Genero {
 
     private long idGenero;
     private String nombre;
+    private boolean estado;
 
     /**
      * @return the idGenero
@@ -36,5 +37,19 @@ public class Genero {
      */
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    /**
+     * @return the estado
+     */
+    public boolean isEstado() {
+        return estado;
+    }
+
+    /**
+     * @param estado the estado to set
+     */
+    public void setEstado(boolean estado) {
+        this.estado = estado;
     }
 }

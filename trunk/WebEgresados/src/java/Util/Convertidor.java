@@ -12,23 +12,12 @@ import java.lang.reflect.Method;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 
 /**
  *
  * @author YURY
  */
 public class Convertidor {
-    private final EntityManagerFactory emf = Persistence.createEntityManagerFactory("WebEgresadosPU");
-    private final ConvertidorObjetos convertidorObjetos = new ConvertidorObjetos();
-    private EntityManager em;
-    
-    public Convertidor()
-    {
-        em = emf.createEntityManager();
-    }
-    
     public Object convertirAModelo(Object origen, String claseDestino) {
         Object destino = instanciar(claseDestino);
         Class claseSet;
@@ -56,14 +45,14 @@ public class Convertidor {
                         
                 }
             } catch (SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
-                Logger.getLogger(ConvertidorObjetos.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(Convertidor.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
 
         return destino;
     }
     
-    public Object convertirAPersistencia(Object origen, String claseDestino, String idObjeto)
+    public Object convertirAPersistencia(Object origen, String claseDestino, String idObjeto, EntityManager em)
     {
         Class claseSet;
         Object valor;
@@ -75,12 +64,14 @@ public class Convertidor {
             if (id > 0)
                 destino = em.getReference(Class.forName(claseDestino), id);
             else
-                destino = instanciar(claseDestino);            
+                destino = instanciar(claseDestino);
             
             for (Method set : destino.getClass().getDeclaredMethods()) {
                 try {
-                    if (esSetter(set.getName()) && !"setIdEgresado".equals(set.getName())) {
-                        metodoGet = obtenerMetodoGet(set.getName());
+                    if (esSetter(set.getName()) && !set.getName().equals("setIdEgresado")
+                            && !set.getName().equals("setIdReconocimiento")) {
+                        if (set.getName().equals("setEstado")) metodoGet = "isEstado";
+                        else metodoGet = obtenerMetodoGet(set.getName());
                         valor = invocar(origen, metodoGet);
                         
                         if (valor != null)
@@ -97,7 +88,7 @@ public class Convertidor {
                         
                     }
                 } catch (SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
-                    Logger.getLogger(ConvertidorObjetos.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(Convertidor.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
             
@@ -117,7 +108,7 @@ public class Convertidor {
             }
             return clase.newInstance();
         } catch (InstantiationException | IllegalAccessException | ClassNotFoundException ex) {
-            Logger.getLogger(ConvertidorObjetos.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Convertidor.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
@@ -145,7 +136,7 @@ public class Convertidor {
                 return get.invoke(clase);
             }
         } catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
-            Logger.getLogger(ConvertidorObjetos.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Convertidor.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return null;
