@@ -27,15 +27,15 @@
 
                 <s:iterator value="listaObjetos">
                     <tr>
-                        <td class="tdtres"><s:property value="idTipoVivienda"></s:property><br>
+                        <td class="tdtres"><s:property value="idTipoVivienda.nombre"></s:property><br>
                             </td>
-                            <td class="tdtres"><s:property value="idTipoTenenciaVivienda"></s:property><br>
+                            <td class="tdtres"><s:property value="idTipoTenenciaVivienda.nombre"></s:property><br>
                             </td>
-                            <td class="tdtres"><s:property value="idCiudadResidencia"></s:property><br>
+                            <td class="tdtres"><s:property value="idCiudadResidencia.nombre"></s:property><br>
                             </td>
                             <td class="tdtres"><s:property value="direccion"></s:property><br>
                             </td>
-                            <td class="tdtres"><s:property value="idEstrato"></s:property><br>
+                            <td class="tdtres"><s:property value="idEstrato.estratoLetras"></s:property><br>
                             </td>
                             <td class="tdtres">
                             <s:url id="editarURL" action="editarResidencia.action">
@@ -79,7 +79,7 @@
                                         Ciudad Residencia
                                     </td>
                                     <td>
-                                    <s:select name="idCiudadResidencia" list="listaCiudades" listKey="idCiudad" listValue="nombre"></s:select>
+                                    <s:select name="ciudad" list="listaCiudades" listKey="idCiudad" listValue="nombre"></s:select>
                                     </td>
                                 </tr>
                                 <tr>
@@ -87,7 +87,7 @@
                                         Tipo Vivienda
                                     </td>
                                     <td>
-                                    <s:select name="idTipoVivienda" list="listaTiposVivienda" listKey="idtipoVivienda" listValue="nombre"></s:select>
+                                    <s:select name="tipoVivienda" list="listaTiposVivienda" listKey="idtipoVivienda" listValue="nombre"></s:select>
                                     </td>
                                 </tr>
                                 <tr>
@@ -95,7 +95,7 @@
                                         Tipo Tenencia Vivienda
                                     </td>
                                     <td>
-                                    <s:select name="idTipoTenenciaVivienda" list="listaTiposTenenciaVivienda" listKey="idtipoTenenciaVivienda" listValue="nombre"></s:select>
+                                    <s:select name="tipoTenenciaVivienda" list="listaTiposTenenciaVivienda" listKey="idtipoTenenciaVivienda" listValue="nombre"></s:select>
                                     </td>
                                 </tr>
                                 <tr>
@@ -111,7 +111,7 @@
                                         Estrato
                                     </td>
                                     <td>
-                                    <s:select name="idEstrato" list="listaEstratos" listKey="idEstrato" listValue="estratoLetras"></s:select>
+                                    <s:select name="estrato" list="listaEstratos" listKey="idEstrato" listValue="estratoLetras"></s:select>
                                     </td>
                                 </tr>
                                 <tr>
