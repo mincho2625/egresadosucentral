@@ -73,10 +73,12 @@
                 <s:form action="guardarResidencia.action">
                     <s:push value="objeto">
                         <s:hidden name="idResidencia"></s:hidden>
+                            <div class="tdun">Generar Nuevo Registro</div>
+                            <br>
                             <table>
                                 <tr>
                                     <td>
-                                        Ciudad Residencia
+                                        <div class="tduno">Ciudad Residencia </div>
                                     </td>
                                     <td>
                                     <s:select name="ciudad" list="listaCiudades" listKey="idCiudad" listValue="nombre"></s:select>
@@ -84,7 +86,7 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        Tipo Vivienda
+                                        <div class="tduno"> Tipo Vivienda </div>
                                     </td>
                                     <td>
                                     <s:select name="tipoVivienda" list="listaTiposVivienda" listKey="idtipoVivienda" listValue="nombre"></s:select>
@@ -92,7 +94,7 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        Tipo Tenencia Vivienda
+                                        <div class="tduno">Tipo Tenencia Vivienda </div>
                                     </td>
                                     <td>
                                     <s:select name="tipoTenenciaVivienda" list="listaTiposTenenciaVivienda" listKey="idtipoTenenciaVivienda" listValue="nombre"></s:select>
@@ -100,7 +102,7 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        Dirección
+                                        <div class="tduno"> Dirección </div>
                                     </td>
                                     <td>
                                     <s:textfield name="direccion"></s:textfield>
@@ -108,7 +110,7 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        Estrato
+                                        <div class="tduno"> Estrato </div>
                                     </td>
                                     <td>
                                     <s:select name="estrato" list="listaEstratos" listKey="idEstrato" listValue="estratoLetras"></s:select>
@@ -116,7 +118,7 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        Tiene computador
+                                        <div class="tduno"> Tiene computador </div>
                                     </td>
                                     <td>
                                     <s:checkbox name="computador"></s:checkbox>
@@ -124,15 +126,14 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        Tiene acceso a internet
+                                        <div class="tduno"> Tiene acceso a internet </div>
                                     </td>
                                     <td>
                                     <s:checkbox name="accesoInternet"></s:checkbox>
                                     </td>
                                 </tr>
                                 <tr>
-                                <s:submit cssClass="positive">
-                                <img src="imagenes/btnGuardar.png" alt=""/>Guardar<br>
+                                <s:submit cssClass="positive" value="Guardar">
                             </s:submit>
                             </tr>
                         </table>

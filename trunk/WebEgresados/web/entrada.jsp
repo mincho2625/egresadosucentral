@@ -10,7 +10,6 @@
     </head>
 
     <body >
-
         <div id="cabecera"><img src="imagenes/logosimbolo-ucentral-v1-large.png">
         </div>
 
@@ -20,20 +19,19 @@
                 <s:form name="f1" method="post" action="Ingreso">
 
                     <center><table>
-                            <tr><br><br>
-                            <td align="center"><img src="imagenes/logosimbolo-ucentral-v2-medium.png"></td>
-                            </tr>
+
+                            </tr> <br><br><br><br><br><br>  <br><br>
                             <tr>
-                                <td class="tduno">Usuario</td>
-                            </tr>
-                            <tr>
-                                <td><s:textfield name="usuario"></s:textfield></td>
+                                <td align="center" class="tduno">Usuario</td>
+
+                                <td>
+                                    <s:textfield cssClass="center" name="usuario"></s:textfield>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td class="tduno">Clave</td>
-                                </tr>
-                                <tr>
-                                    <td><s:password name="contrasenia"></s:password></td>
+
+                                    <td><s:password cssClass="center" name="contrasenia"></s:password></td>
                                 </tr>
                             <s:if test="hasActionErrors()">
                                 <tr>
@@ -58,7 +56,9 @@
 
         </div>
 
-        <div id="footer">footer</div>
+        <div id="footer">Sede Centro: carrera 5 n.º 21-38 
+            Sede Norte: calle 75 n.º 16-03 
+            Institución de educación superior sujeta a inspección y vigilancia del Ministerio de Educación Nacional</div>
 
     </body>
 

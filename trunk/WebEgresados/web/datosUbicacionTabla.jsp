@@ -61,10 +61,12 @@
                 <s:form action="guardarUbicacion.action">
                     <s:push value="objeto">
                         <s:hidden name="idContacto"></s:hidden>
+                        <div class="tdun">Generar Nuevo Registro</div>
+                        <br>
                             <table>
                                 <tr>
                                     <td>
-                                        Tipo Contacto
+                                        <div class="tduno">Tipo Contacto</div>
                                     </td>
                                     <td>
                                     <s:select name="tipoContacto" list="listaTiposContacto" listKey="idTipoContacto" listValue="nombre"></s:select>
@@ -72,15 +74,14 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        Descripción
+                                        <div class="tduno">Descripción</div>
                                     </td>
                                     <td>
-                                    <s:textfield name="descripcion"></s:textfield>
+                                    <s:textfield  name="descripcion"></s:textfield>
                                     </td>
                                 </tr>
                                 <tr>
-                                <s:submit cssClass="positive">
-                                <img src="imagenes/btnGuardar.png" alt=""/>Guardar<br>
+                                <s:submit cssClass="positive" value="Guardar">
                             </s:submit>
                             </tr>
                         </table>
