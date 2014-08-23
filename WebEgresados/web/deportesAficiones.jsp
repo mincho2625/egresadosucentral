@@ -68,7 +68,7 @@
                             <table>
                                 <tr>
                                     <td>
-                                        Tipo Reconocimiento
+                                        <div class="tduno"> Tipo Reconocimiento </div>
                                     </td>
                                     <td>
                                     <s:select name="tipoReconocimiento" list="listaTiposReconocimiento" listKey="idTipoReconocimiento" listValue="nombre"></s:select>
@@ -76,7 +76,7 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        Clase Reconocimiento
+                                        <div class="tduno"> Clase Reconocimiento </div>
                                     </td>
                                     <td>
                                     <s:select name="claseReconocimiento" list="listaClasesReconocimiento" listKey="idClaseReconocimiento" listValue="nombre"></s:select>
@@ -84,7 +84,7 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        Descripción
+                                        <div class="tduno"> Descripción </div>
                                     </td>
                                     <td>
                                     <s:textfield name="descripcion"></s:textfield>
@@ -92,7 +92,7 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        Ciudad
+                                        <div class="tduno"> Ciudad </div>
                                     </td>
                                     <td>
                                     <s:select name="ciudad" list="listaCiudades" listKey="idCiudad" listValue="nombre"></s:select>
@@ -100,7 +100,7 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        Entidad Otorgante
+                                        <div class="tduno"> Entidad Otorgante </div>
                                     </td>
                                     <td>
                                     <s:textfield name="entidadOtorgante"></s:textfield>
@@ -108,15 +108,14 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        Fecha
+                                        <div class="tduno">  Fecha </div>
                                     </td>
                                     <td>
                                     <jq:datepicker name="fechaReconocimiento" changeMonth="true" changeYear="true" showButtonPanel="true"></jq:datepicker>
                                     </td>
                                 </tr>
                                 <tr>
-                                <s:submit cssClass="positive">
-                                <img src="imagenes/btnGuardar.png" alt=""/>Guardar<br>
+                                <s:submit cssClass="positive" value="Guardar">
                             </s:submit>
                             </tr>
                         </table>
