@@ -8,7 +8,11 @@ package Action;
 
 import Modelo.EgresadoRedSocial;
 import Modelo.RedSocial;
-import java.util.ArrayList;
+import Util.Listas;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.util.Collection;
+import java.util.Map;
 
 /**
  *
@@ -16,49 +20,65 @@ import java.util.ArrayList;
  */
 public class EgresadoRedSocialAction extends CrudAction<EgresadoRedSocial>{
     //Esta lista es de tipos de redes sociales: facebook, twiter, etc.
-    private ArrayList<RedSocial> listaRedesSociales;
+    private Map<Long, RedSocial> listaRedesSociales;
+    private long redSocial;
 
     public EgresadoRedSocialAction() {
         super(EgresadoRedSocial.class.getName());
         this.idObjeto = "getIdEgresadoRedSocial";
         this.coleccion = "getEgresadoRedSocialCollection";
-        this.clasePersistencia = Persistencia.Reconocimiento.class.getName();
+        this.clasePersistencia = Persistencia.EgresadoRedSocial.class.getName();
     }
 
     /**
      * @return the listaRedesSociales
      */
-    public ArrayList<RedSocial> getListaRedesSociales() {
-        return listaRedesSociales;
+    public Collection<RedSocial> getListaRedesSociales() {
+        return listaRedesSociales.values();
     }
 
     /**
      * @param listaRedesSociales the listaRedesSociales to set
      */
-    public void setListaRedesSociales(ArrayList<RedSocial> listaRedesSociales) {
+    public void setListaRedesSociales(Map<Long, RedSocial> listaRedesSociales) {
         this.listaRedesSociales = listaRedesSociales;
+    }
+    
+    /**
+     * @return the redSocial
+     */
+    public long getRedSocial() {
+        return redSocial;
+    }
+
+    /**
+     * @param redSocial the redSocial to set
+     */
+    public void setRedSocial(long redSocial) {
+        this.redSocial = redSocial;
     }
     
     @Override
     public String desplegar() {
+        this.setListaRedesSociales(Listas.obtenerListas().getListaRedesSociales());
         this.obtenerLista();
-        //this.setListaRedesSociales(controladorListas.consultarRedesSociales());
         this.editar = true;
         return SUCCESS;
     }
 
     @Override
     public void insertarTipos() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.objeto.setIdRedSocial(Listas.obtenerListas().getListaRedesSociales().get(this.redSocial));
     }
 
     @Override
     public void consultarTipos() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.setRedSocial(objeto.getIdRedSocial().getIdRedSocial());
     }
 
     @Override
     public void insertarValoresDefecto() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.objeto.setEstado(true);
+        this.objeto.setFechaRegistro(Date.valueOf(LocalDate.now()));
     }
 }

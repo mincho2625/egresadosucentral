@@ -144,7 +144,7 @@ public class ControladorEgresado {
             
             em.getTransaction().begin();
             Convertidor convertidor2 = new Convertidor();
-            Object destino = (Persistencia.Reconocimiento)convertidor2.convertirAPersistencia(objeto, claseDestino, idObjeto, em);
+            Object destino = convertidor2.convertirAPersistencia(objeto, claseDestino, idObjeto, em);
             
             Method insertarEgresado = destino.getClass().getDeclaredMethod("setIdEgresado", e.getClass());
             insertarEgresado.invoke(destino, e);
