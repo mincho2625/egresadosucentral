@@ -69,10 +69,11 @@
                 <s:form action="guardarEducacionFormal.action">
                     <s:push value="objeto">
                         <s:hidden name="idEducacion"></s:hidden>
+                        <div class="tdun">Generar Nuevo Registro</div>
                             <table>
                                 <tr>
                                     <td>
-                                        Programa
+                                        <div class="tduno"> Programa </div>
                                     </td>
                                     <td>
                                     <s:select name="idPrograma" list="listaProgramas" listKey="idPrograma" listValue="nombre"></s:select>
@@ -81,7 +82,7 @@
 
                                 <tr>
                                     <td>
-                                        Jornada
+                                        <div class="tduno"> Jornada </div>
                                     </td>
                                     <td>
                                     <s:select name="idJornada" list="listaJornadas" listKey="idJornada" listValue="nombre"></s:select>
@@ -89,7 +90,7 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        Nivel Estudios
+                                        <div class="tduno"> Nivel Estudios </div>
                                     </td>
                                     <td>
                                     <s:select name="idNivelEstudios" list="listaNivelesEstudios" listKey="idNivelEstudios" listValue="nombre"></s:select>
@@ -97,7 +98,7 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        Año Inicio
+                                        <div class="tduno"> Año Inicio </div>
                                     </td>
                                     <td>
                                     <s:select name="anioInicio" list="listaAnios"></s:select>
@@ -105,7 +106,7 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        Mes Inicio
+                                        <div class="tduno"> Mes Inicio </div>
                                     </td>
                                     <td>
                                     <s:select name="idMesInicio" list="listaMeses" listKey="idMesInicio" listValue="mes"></s:select>
@@ -113,7 +114,7 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        Año Finalización
+                                        <div class="tduno"> Año Finalización </div>
                                     </td>
                                     <td>
                                     <s:select name="anioFinalizacion" list="listaAnios"></s:select>
@@ -121,7 +122,7 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        Mes Finalización
+                                        <div class="tduno"> Mes Finalización </div>
                                     </td>
                                     <td>
                                     <s:select name="idMesFinalizacion" list="listaMeses" listKey="idMesFinalizacion" listValue="mes"></s:select>
@@ -129,14 +130,14 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        Estado
+                                        <div class="tduno"> Estado </div>
                                     </td>
                                     <td>
                                     <s:select name="idEstadoEducacion" list="listaEstadosEducacion" listKey="idEstadoEducacion" listValue="nombre"></s:select>
                                     </td>
                                 </tr>
-                            <s:submit cssClass="positive">
-                                <img src="imagenes/btnGuardar.png" alt=""/>Guardar<br>
+                            <s:submit cssClass="positive" value="Guardar">
+                                <br>
                             </s:submit>
                             </tr>
                         </table>

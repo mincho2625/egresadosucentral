@@ -65,10 +65,11 @@
                 <s:form action="guardarAficiones.action">
                     <s:push value="objeto">
                         <s:hidden name="idAficion"></s:hidden>
+                        <div class="tdun">Generar Nuevo Registro</div>
                             <table>
                                 <tr>
                                     <td>
-                                        Tipo Actividad
+                                        <div class="tduno"> Tipo Actividad </div>
                                     </td>
                                     <td>
                                     <s:select name="listaActividad" list="listaActividad" listKey="idTipoActividad" listValue="nombre"></s:select>
@@ -76,7 +77,7 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        Nombre 
+                                        <div class="tduno"> Nombre </div> 
                                     </td>
                                     <td>
                                     <jq:datepicker name="listaActividades" changeMonth="true" changeYear="true" showButtonPanel="true"></jq:datepicker>
@@ -84,15 +85,14 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        Fecha
+                                        <div class="tduno"> Fecha </div>
                                     </td>
                                     <td>
                                     <jq:datepicker name="fechaRegistro" changeMonth="true" changeYear="true" showButtonPanel="true"></jq:datepicker>
                                     </td>
                                 </tr>
                                 <tr>
-                                <s:submit cssClass="positive">
-                                <img src="imagenes/btnGuardar.png" alt=""/>Guardar<br>
+                                <s:submit cssClass="positive" value="Guardar">
                             </s:submit>
                             </tr>
                         </table>
