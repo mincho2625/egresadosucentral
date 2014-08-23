@@ -12,7 +12,9 @@ package Modelo;
  */
 public class Estrato {
     private long idEstrato;
+    private boolean estratoNumero;
     private String estratoLetras;
+    private boolean estado;
 
     /**
      * @return the idEstrato
@@ -29,6 +31,20 @@ public class Estrato {
     }
 
     /**
+     * @return the estratoNumero
+     */
+    public boolean isEstratoNumero() {
+        return estratoNumero;
+    }
+
+    /**
+     * @param estratoNumero the estratoNumero to set
+     */
+    public void setEstratoNumero(boolean estratoNumero) {
+        this.estratoNumero = estratoNumero;
+    }
+
+    /**
      * @return the estratoLetras
      */
     public String getEstratoLetras() {
@@ -40,5 +56,19 @@ public class Estrato {
      */
     public void setEstratoLetras(String estratoLetras) {
         this.estratoLetras = estratoLetras;
+    }
+
+    /**
+     * @return the estado
+     */
+    public boolean isEstado() {
+        return estado;
+    }
+
+    /**
+     * @param estado the estado to set
+     */
+    public void setEstado(boolean estado) {
+        this.estado = estado;
     }
 }

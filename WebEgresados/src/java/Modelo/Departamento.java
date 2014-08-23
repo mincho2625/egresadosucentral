@@ -9,6 +9,7 @@ public class Departamento {
 
     private long idDepartamento;
     private String nombre;
+    private boolean estado;
 
     /**
      * @return the idDepartamento
@@ -36,6 +37,20 @@ public class Departamento {
      */
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    /**
+     * @return the estado
+     */
+    public boolean isEstado() {
+        return estado;
+    }
+
+    /**
+     * @param estado the estado to set
+     */
+    public void setEstado(boolean estado) {
+        this.estado = estado;
     }
 
 }

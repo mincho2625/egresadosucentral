@@ -6,7 +6,6 @@
 
 package Action;
 
-import Controlador.ControladorListas;
 import Modelo.Ciudad;
 import Modelo.Estrato;
 import Modelo.Residencia;
@@ -24,14 +23,10 @@ public class ResidenciaAction extends CrudAction<Residencia> {
     private ArrayList<TipoTenenciaVivienda> listaTiposTenenciaVivienda;
     private ArrayList<Estrato> listaEstratos;
     private ArrayList<Ciudad> listaCiudades;
-    private ControladorListas controladorListas = new ControladorListas();
     
     public ResidenciaAction()
     {
         super("Modelo.Residencia");
-        this.metodoBorrar = "borrarDatosResidencia";
-        this.metodoConsultar = "consultarDatosResidencia";
-        this.metodoActualizar = "actualizarDatosResidencia";
     }
 
     /**
@@ -94,10 +89,10 @@ public class ResidenciaAction extends CrudAction<Residencia> {
     public String desplegar()
     {
         this.obtenerLista();
-        this.setListaTiposVivienda(controladorListas.consultarTiposVivienda());
-        this.setListaTiposTenenciaVivienda(controladorListas.consultarTiposTenenciaVivienda());
-        this.setListaEstratos(controladorListas.consultarEstratos());
-        this.setListaCiudades(controladorListas.obtenerCiudades());
+//        this.setListaTiposVivienda(controladorListas.consultarTiposVivienda());
+//        this.setListaTiposTenenciaVivienda(controladorListas.consultarTiposTenenciaVivienda());
+//        this.setListaEstratos(controladorListas.consultarEstratos());
+//        this.setListaCiudades(controladorListas.obtenerCiudades());
         this.editar = true;
         return SUCCESS;
     }

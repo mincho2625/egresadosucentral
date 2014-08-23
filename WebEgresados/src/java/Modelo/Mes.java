@@ -13,6 +13,7 @@ package Modelo;
 public class Mes {
     private long idMes;
     private String mes;
+    private boolean estado;
 
     /**
      * @return the idMes
@@ -40,5 +41,19 @@ public class Mes {
      */
     public void setMes(String mes) {
         this.mes = mes;
+    }
+
+    /**
+     * @return the estado
+     */
+    public boolean isEstado() {
+        return estado;
+    }
+
+    /**
+     * @param estado the estado to set
+     */
+    public void setEstado(boolean estado) {
+        this.estado = estado;
     }
 }

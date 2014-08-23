@@ -13,6 +13,7 @@ package Modelo;
 public class PreguntaSeguridad {
     private long idPreguntaSeguridad;
     private String preguntaSeguridad;
+    private boolean estado;
 
     /**
      * @return the idPreguntaSeguridad
@@ -40,5 +41,19 @@ public class PreguntaSeguridad {
      */
     public void setPreguntaSeguridad(String preguntaSeguridad) {
         this.preguntaSeguridad = preguntaSeguridad;
+    }
+
+    /**
+     * @return the estado
+     */
+    public boolean isEstado() {
+        return estado;
+    }
+
+    /**
+     * @param estado the estado to set
+     */
+    public void setEstado(boolean estado) {
+        this.estado = estado;
     }
 }

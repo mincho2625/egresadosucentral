@@ -14,11 +14,11 @@ import java.util.Date;
  */
 public class Residencia {
     private long idResidencia;
-    private long idCiudadResidencia;
-    private long idTipoVivienda;
-    private long idTipoTenenciaVivienda;
+    private Ciudad idCiudadResidencia;
+    private TipoVivienda idTipoVivienda;
+    private TipoTenenciaVivienda idTipoTenenciaVivienda;
     private String direccion;
-    private long idEstrato;
+    private Estrato idEstrato;
     private boolean computador;
     private boolean conexionInternet;
     private Date fechaRegistro;
@@ -42,42 +42,42 @@ public class Residencia {
     /**
      * @return the idCiudadResidencia
      */
-    public long getIdCiudadResidencia() {
+    public Ciudad getIdCiudadResidencia() {
         return idCiudadResidencia;
     }
 
     /**
      * @param idCiudadResidencia the idCiudadResidencia to set
      */
-    public void setIdCiudadResidencia(long idCiudadResidencia) {
+    public void setIdCiudadResidencia(Ciudad idCiudadResidencia) {
         this.idCiudadResidencia = idCiudadResidencia;
     }
 
     /**
      * @return the idTipoVivienda
      */
-    public long getIdTipoVivienda() {
+    public TipoVivienda getIdTipoVivienda() {
         return idTipoVivienda;
     }
 
     /**
      * @param idTipoVivienda the idTipoVivienda to set
      */
-    public void setIdTipoVivienda(long idTipoVivienda) {
+    public void setIdTipoVivienda(TipoVivienda idTipoVivienda) {
         this.idTipoVivienda = idTipoVivienda;
     }
 
     /**
      * @return the idTipoTenenciaVivienda
      */
-    public long getIdTipoTenenciaVivienda() {
+    public TipoTenenciaVivienda getIdTipoTenenciaVivienda() {
         return idTipoTenenciaVivienda;
     }
 
     /**
      * @param idTipoTenenciaVivienda the idTipoTenenciaVivienda to set
      */
-    public void setIdTipoTenenciaVivienda(long idTipoTenenciaVivienda) {
+    public void setIdTipoTenenciaVivienda(TipoTenenciaVivienda idTipoTenenciaVivienda) {
         this.idTipoTenenciaVivienda = idTipoTenenciaVivienda;
     }
 
@@ -98,14 +98,14 @@ public class Residencia {
     /**
      * @return the idEstrato
      */
-    public long getIdEstrato() {
+    public Estrato getIdEstrato() {
         return idEstrato;
     }
 
     /**
      * @param idEstrato the idEstrato to set
      */
-    public void setIdEstrato(long idEstrato) {
+    public void setIdEstrato(Estrato idEstrato) {
         this.idEstrato = idEstrato;
     }
 

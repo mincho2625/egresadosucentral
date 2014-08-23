@@ -13,6 +13,7 @@ package Modelo;
 public class NivelEstudios {
     private long idNivelEstudios;
     private String nombre;
+    private boolean estado;
 
     /**
      * @return the idNivelEstudios
@@ -40,5 +41,19 @@ public class NivelEstudios {
      */
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    /**
+     * @return the estado
+     */
+    public boolean isEstado() {
+        return estado;
+    }
+
+    /**
+     * @param estado the estado to set
+     */
+    public void setEstado(boolean estado) {
+        this.estado = estado;
     }
 }

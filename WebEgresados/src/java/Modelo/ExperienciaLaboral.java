@@ -5,14 +5,6 @@
  */
 package Modelo;
 
-import Persistencia.AreaEmpresa;
-import Persistencia.CargoEquivalente;
-import Persistencia.Subsector;
-import Persistencia.TipoContrato;
-import Persistencia.Ciudad;
-import Persistencia.NivelCargo;
-import Persistencia.RangoSalarial;
-import Persistencia.Egresado;
 import java.util.Date;
 
 /**
@@ -40,175 +32,308 @@ public class ExperienciaLaboral {
     private boolean conexionInternet;
     private RangoSalarial idRangoSalarial;
     private Date fechaRegistro;
-    private String FUNCIONES_LOGROS;
-    private String TELEFONO_EMPRESA;
+    private String funcionesLogros;
+    private String telefonoEmpresa;
     private CargoEquivalente idCargoEquivalente;
-    private String JEFE_INMEDIATO;
-    private Persistencia.Mes idMesIngreso;
-    private Persistencia.Mes idMesFinalizacion;
+    private String jefeInmediato;
+    private Mes idMesIngreso;
+    private Mes idMesFinalizacion;
     private int anioIngreso;
-    private Integer anioFinalizacion;
-    private Egresado idEgresado;
+    private int anioFinalizacion;
+    private long idEgresado;
+    private boolean estado;
 
+    /**
+     * @return the idExperienciaLaboral
+     */
     public long getIdExperienciaLaboral() {
         return idExperienciaLaboral;
     }
 
+    /**
+     * @param idExperienciaLaboral the idExperienciaLaboral to set
+     */
     public void setIdExperienciaLaboral(long idExperienciaLaboral) {
         this.idExperienciaLaboral = idExperienciaLaboral;
     }
 
+    /**
+     * @return the idTipoContrato
+     */
     public TipoContrato getIdTipoContrato() {
         return idTipoContrato;
     }
 
+    /**
+     * @param idTipoContrato the idTipoContrato to set
+     */
     public void setIdTipoContrato(TipoContrato idTipoContrato) {
         this.idTipoContrato = idTipoContrato;
     }
 
+    /**
+     * @return the nombreEmpresa
+     */
     public String getNombreEmpresa() {
         return nombreEmpresa;
     }
 
+    /**
+     * @param nombreEmpresa the nombreEmpresa to set
+     */
     public void setNombreEmpresa(String nombreEmpresa) {
         this.nombreEmpresa = nombreEmpresa;
     }
 
+    /**
+     * @return the idCiudad
+     */
     public Ciudad getIdCiudad() {
         return idCiudad;
     }
 
+    /**
+     * @param idCiudad the idCiudad to set
+     */
     public void setIdCiudad(Ciudad idCiudad) {
         this.idCiudad = idCiudad;
     }
 
+    /**
+     * @return the cargo
+     */
     public String getCargo() {
         return cargo;
     }
 
+    /**
+     * @param cargo the cargo to set
+     */
     public void setCargo(String cargo) {
         this.cargo = cargo;
     }
 
+    /**
+     * @return the idSubsector
+     */
     public Subsector getIdSubsector() {
         return idSubsector;
     }
 
+    /**
+     * @param idSubsector the idSubsector to set
+     */
     public void setIdSubsector(Subsector idSubsector) {
         this.idSubsector = idSubsector;
     }
 
+    /**
+     * @return the idNivelCargo
+     */
     public NivelCargo getIdNivelCargo() {
         return idNivelCargo;
     }
 
+    /**
+     * @param idNivelCargo the idNivelCargo to set
+     */
     public void setIdNivelCargo(NivelCargo idNivelCargo) {
         this.idNivelCargo = idNivelCargo;
     }
 
+    /**
+     * @return the idAreaEmpresa
+     */
     public AreaEmpresa getIdAreaEmpresa() {
         return idAreaEmpresa;
     }
 
+    /**
+     * @param idAreaEmpresa the idAreaEmpresa to set
+     */
     public void setIdAreaEmpresa(AreaEmpresa idAreaEmpresa) {
         this.idAreaEmpresa = idAreaEmpresa;
     }
 
+    /**
+     * @return the conexionInternet
+     */
     public boolean isConexionInternet() {
         return conexionInternet;
     }
 
+    /**
+     * @param conexionInternet the conexionInternet to set
+     */
     public void setConexionInternet(boolean conexionInternet) {
         this.conexionInternet = conexionInternet;
     }
 
+    /**
+     * @return the idRangoSalarial
+     */
     public RangoSalarial getIdRangoSalarial() {
         return idRangoSalarial;
     }
 
+    /**
+     * @param idRangoSalarial the idRangoSalarial to set
+     */
     public void setIdRangoSalarial(RangoSalarial idRangoSalarial) {
         this.idRangoSalarial = idRangoSalarial;
     }
 
+    /**
+     * @return the fechaRegistro
+     */
     public Date getFechaRegistro() {
         return fechaRegistro;
     }
 
+    /**
+     * @param fechaRegistro the fechaRegistro to set
+     */
     public void setFechaRegistro(Date fechaRegistro) {
         this.fechaRegistro = fechaRegistro;
     }
 
-    public String getFUNCIONES_LOGROS() {
-        return FUNCIONES_LOGROS;
+    /**
+     * @return the funcionesLogros
+     */
+    public String getFuncionesLogros() {
+        return funcionesLogros;
     }
 
-    public void setFUNCIONES_LOGROS(String FUNCIONES_LOGROS) {
-        this.FUNCIONES_LOGROS = FUNCIONES_LOGROS;
+    /**
+     * @param funcionesLogros the funcionesLogros to set
+     */
+    public void setFuncionesLogros(String funcionesLogros) {
+        this.funcionesLogros = funcionesLogros;
     }
 
-    public String getTELEFONO_EMPRESA() {
-        return TELEFONO_EMPRESA;
+    /**
+     * @return the telefonoEmpresa
+     */
+    public String getTelefonoEmpresa() {
+        return telefonoEmpresa;
     }
 
-    public void setTELEFONO_EMPRESA(String TELEFONO_EMPRESA) {
-        this.TELEFONO_EMPRESA = TELEFONO_EMPRESA;
+    /**
+     * @param telefonoEmpresa the telefonoEmpresa to set
+     */
+    public void setTelefonoEmpresa(String telefonoEmpresa) {
+        this.telefonoEmpresa = telefonoEmpresa;
     }
 
+    /**
+     * @return the idCargoEquivalente
+     */
     public CargoEquivalente getIdCargoEquivalente() {
         return idCargoEquivalente;
     }
 
+    /**
+     * @param idCargoEquivalente the idCargoEquivalente to set
+     */
     public void setIdCargoEquivalente(CargoEquivalente idCargoEquivalente) {
         this.idCargoEquivalente = idCargoEquivalente;
     }
 
-    public String getJEFE_INMEDIATO() {
-        return JEFE_INMEDIATO;
+    /**
+     * @return the jefeInmediato
+     */
+    public String getJefeInmediato() {
+        return jefeInmediato;
     }
 
-    public void setJEFE_INMEDIATO(String JEFE_INMEDIATO) {
-        this.JEFE_INMEDIATO = JEFE_INMEDIATO;
+    /**
+     * @param jefeInmediato the jefeInmediato to set
+     */
+    public void setJefeInmediato(String jefeInmediato) {
+        this.jefeInmediato = jefeInmediato;
     }
 
-    public Persistencia.Mes getIdMesIngreso() {
+    /**
+     * @return the idMesIngreso
+     */
+    public Mes getIdMesIngreso() {
         return idMesIngreso;
     }
 
-    public void setIdMesIngreso(Persistencia.Mes idMesIngreso) {
+    /**
+     * @param idMesIngreso the idMesIngreso to set
+     */
+    public void setIdMesIngreso(Mes idMesIngreso) {
         this.idMesIngreso = idMesIngreso;
     }
 
-    public Persistencia.Mes getIdMesFinalizacion() {
+    /**
+     * @return the idMesFinalizacion
+     */
+    public Mes getIdMesFinalizacion() {
         return idMesFinalizacion;
     }
 
-    public void setIdMesFinalizacion(Persistencia.Mes idMesFinalizacion) {
+    /**
+     * @param idMesFinalizacion the idMesFinalizacion to set
+     */
+    public void setIdMesFinalizacion(Mes idMesFinalizacion) {
         this.idMesFinalizacion = idMesFinalizacion;
     }
 
+    /**
+     * @return the anioIngreso
+     */
     public int getAnioIngreso() {
         return anioIngreso;
     }
 
+    /**
+     * @param anioIngreso the anioIngreso to set
+     */
     public void setAnioIngreso(int anioIngreso) {
         this.anioIngreso = anioIngreso;
     }
 
-    public Integer getAnioFinalizacion() {
+    /**
+     * @return the anioFinalizacion
+     */
+    public int getAnioFinalizacion() {
         return anioFinalizacion;
     }
 
-    public void setAnioFinalizacion(Integer anioFinalizacion) {
+    /**
+     * @param anioFinalizacion the anioFinalizacion to set
+     */
+    public void setAnioFinalizacion(int anioFinalizacion) {
         this.anioFinalizacion = anioFinalizacion;
     }
 
-    public Egresado getIdEgresado() {
+    /**
+     * @return the idEgresado
+     */
+    public long getIdEgresado() {
         return idEgresado;
     }
 
-    public void setIdEgresado(Egresado idEgresado) {
+    /**
+     * @param idEgresado the idEgresado to set
+     */
+    public void setIdEgresado(long idEgresado) {
         this.idEgresado = idEgresado;
     }
 
-   
+    /**
+     * @return the estado
+     */
+    public boolean isEstado() {
+        return estado;
+    }
+
+    /**
+     * @param estado the estado to set
+     */
+    public void setEstado(boolean estado) {
+        this.estado = estado;
+    }
 }

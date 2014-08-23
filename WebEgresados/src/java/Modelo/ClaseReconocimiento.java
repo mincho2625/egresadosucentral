@@ -13,6 +13,7 @@ package Modelo;
 public class ClaseReconocimiento {
     private long idClaseReconocimiento;
     private String nombre;
+    private boolean estado;
 
     /**
      * @return the idClaseReconocimiento
@@ -40,5 +41,19 @@ public class ClaseReconocimiento {
      */
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    /**
+     * @return the estado
+     */
+    public boolean isEstado() {
+        return estado;
+    }
+
+    /**
+     * @param estado the estado to set
+     */
+    public void setEstado(boolean estado) {
+        this.estado = estado;
     }
 }

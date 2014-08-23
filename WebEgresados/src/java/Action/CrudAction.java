@@ -7,13 +7,10 @@
 package Action;
 
 import Controlador.ControladorEgresado;
-import Util.ConvertidorObjetos;
 import static com.opensymphony.xwork2.Action.SUCCESS;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -32,9 +29,6 @@ public abstract class CrudAction<T> extends ActionSupport implements ModelDriven
     private ControladorEgresado controladorEgresado;
     
     protected T objeto;
-    protected String metodoConsultar;
-    protected String metodoActualizar;
-    protected String metodoBorrar;
     protected String coleccion;
     protected String idObjeto;
     protected String claseModelo;
@@ -93,9 +87,7 @@ public abstract class CrudAction<T> extends ActionSupport implements ModelDriven
                 return null;
             }
             return clase.newInstance();
-        } catch (InstantiationException | IllegalAccessException ex) {
-            Logger.getLogger(ConvertidorObjetos.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
+        } catch (InstantiationException | IllegalAccessException | ClassNotFoundException ex) {
             Logger.getLogger(CrudAction.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
@@ -154,14 +146,14 @@ public abstract class CrudAction<T> extends ActionSupport implements ModelDriven
         try {
             HttpServletRequest request = (HttpServletRequest) ActionContext.getContext().get(ServletActionContext.HTTP_REQUEST);
             
-            Method borrar = controladorEgresado.getClass().getDeclaredMethod(metodoBorrar, Long.TYPE);
-            borrar.invoke(controladorEgresado, Long.parseLong(request.getParameter("idObjeto")));
+//            Method borrar = controladorEgresado.getClass().getDeclaredMethod(metodoBorrar, Long.TYPE);
+//            borrar.invoke(controladorEgresado, Long.parseLong(request.getParameter("idObjeto")));
             
-            //this.controladorEgresado.borrarDatosUbicacion(Long.parseLong( request.getParameter("idContacto")));
+            this.controladorEgresado.borrar(clasePersistencia, Long.parseLong( request.getParameter("idObjeto")));
             this.obtenerLista();
             this.setEditar(false);
             return SUCCESS;
-        } catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
+        } catch (SecurityException | IllegalArgumentException ex) {
             Logger.getLogger(CrudAction.class.getName()).log(Level.SEVERE, null, ex);
         }
         
