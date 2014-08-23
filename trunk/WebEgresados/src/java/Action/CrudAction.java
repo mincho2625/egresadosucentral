@@ -113,8 +113,6 @@ public abstract class CrudAction<T> extends ActionSupport implements ModelDriven
             insertarTipos();
             insertarValoresDefecto();
             controladorEgresado.actualizar(objeto, clasePersistencia, idObjeto);
-//            Method actualizar = controladorEgresado.getClass().getDeclaredMethod(metodoActualizar, objeto.getClass());
-//            actualizar.invoke(controladorEgresado, objeto);
             obtenerLista();
             this.setEditar(false);
             return SUCCESS;
@@ -130,8 +128,6 @@ public abstract class CrudAction<T> extends ActionSupport implements ModelDriven
         try {
             controladorEgresado.refrescar();
             setListaObjetos((Map<Long, T>) controladorEgresado.consultar(coleccion, idObjeto, claseModelo));
-//            Method consultar = controladorEgresado.getClass().getDeclaredMethod(metodoConsultar);            
-//            setListaObjetos((Map<Long, T>) consultar.invoke(controladorEgresado));
             
             return SUCCESS;
         } catch (SecurityException | IllegalArgumentException ex) {
@@ -145,10 +141,6 @@ public abstract class CrudAction<T> extends ActionSupport implements ModelDriven
     {
         try {
             HttpServletRequest request = (HttpServletRequest) ActionContext.getContext().get(ServletActionContext.HTTP_REQUEST);
-            
-//            Method borrar = controladorEgresado.getClass().getDeclaredMethod(metodoBorrar, Long.TYPE);
-//            borrar.invoke(controladorEgresado, Long.parseLong(request.getParameter("idObjeto")));
-            
             this.controladorEgresado.borrar(clasePersistencia, Long.parseLong( request.getParameter("idObjeto")));
             this.obtenerLista();
             this.setEditar(false);

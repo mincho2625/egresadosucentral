@@ -21,7 +21,7 @@
 
                 <s:iterator value="listaObjetos" status="contacto">
                     <tr>
-                        <td class="tdtres"><s:property value="idTipoContacto"></s:property><br>
+                        <td class="tdtres"><s:property value="idTipoContacto.nombre"></s:property><br>
                             </td>
                             <td class="tdtres"><s:property value="descripcion"></s:property><br>
                             </td>
@@ -67,7 +67,7 @@
                                         Tipo Contacto
                                     </td>
                                     <td>
-                                    <s:select name="idTipoContacto" list="listaTiposContacto" listKey="idTipoContacto" listValue="nombre"></s:select>
+                                    <s:select name="tipoContacto" list="listaTiposContacto" listKey="idTipoContacto" listValue="nombre"></s:select>
                                     </td>
                                 </tr>
                                 <tr>

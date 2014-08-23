@@ -8,55 +8,78 @@ package Action;
 
 import Modelo.Contacto;
 import Modelo.TipoContacto;
-import java.util.ArrayList;
+import Util.Listas;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.util.Collection;
+import java.util.Map;
 
 /**
  *
  * @author YURY
  */
 public class UbicacionAction extends CrudAction<Contacto> {
-    private ArrayList<TipoContacto> listaTiposContacto;
+    private Map<Long, TipoContacto> listaTiposContacto;
+    private long tipoContacto;
     
     public UbicacionAction()
     {
         super(Modelo.Contacto.class.getName());
+        this.idObjeto = "getIdContacto";
+        this.coleccion = "getContactoCollection";
+        this.clasePersistencia = Persistencia.Contacto.class.getName();
     }
     
     /**
      * @return the listaTiposContacto
      */
-    public ArrayList<TipoContacto> getListaTiposContacto() {
-        return listaTiposContacto;
+    public Collection<TipoContacto> getListaTiposContacto() {
+        return listaTiposContacto.values();
     }
 
     /**
      * @param listaTiposContacto the listaTiposContacto to set
      */
-    public void setListaTiposContacto(ArrayList<TipoContacto> listaTiposContacto) {
+    public void setListaTiposContacto(Map<Long, TipoContacto> listaTiposContacto) {
         this.listaTiposContacto = listaTiposContacto;
+    }
+
+    /**
+     * @return the tipoContacto
+     */
+    public long getTipoContacto() {
+        return tipoContacto;
+    }
+
+    /**
+     * @param tipoContacto the tipoContacto to set
+     */
+    public void setTipoContacto(long tipoContacto) {
+        this.tipoContacto = tipoContacto;
     }
     
     @Override
     public String desplegar()
     {
+        this.setListaTiposContacto(Listas.obtenerListas().getListaTiposContacto());
         this.obtenerLista();
-//        this.setListaTiposContacto(controladorListas.obtenerTiposContacto());
         this.editar = true;
         return SUCCESS;
     }
 
     @Override
     public void insertarTipos() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.objeto.setIdTipoContacto(Listas.obtenerListas().getListaTiposContacto().get(this.tipoContacto));
     }
 
     @Override
     public void consultarTipos() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.setTipoContacto(objeto.getIdTipoContacto().getIdTipoContacto());
     }
 
     @Override
     public void insertarValoresDefecto() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.objeto.setEstado(true);
+        this.objeto.setFechaRegistro(Date.valueOf(LocalDate.now()));
     }
 }
