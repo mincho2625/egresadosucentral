@@ -8,7 +8,7 @@ html,body{
 }
 
 #cabecera{
-    width: 100%;
+    width: 120%;
     height: 127px;
     margin: 0 auto;
     background:#f0e7cc url(imagenes/backCabeceraa.jpg) no-repeat right;
@@ -34,11 +34,11 @@ h1{
 }
 
 #frameAbajo{
-    width: 98%;
+    width: 120%;
     height: auto;
     border: 0px solid #000;
     //margin:0 auto;
-    text-align: center;
+    text-align: justify;
 }
 .tituloMenu{
     width: 98%;
@@ -78,7 +78,7 @@ a{text-decoration: none;}
     height: 120%;
     background: #fff;
     float: left;
-    text-align: center;
+    text-align: justify;
     border: 0px solid #000;
 }
 
@@ -150,8 +150,7 @@ caption{
     font-family:verdana;
     font-size:12px;
     font-weight:bold;
-    text-align: center;
-    height: 25px;
+    text-align: right;
 }
 
 .tdtres{
@@ -185,7 +184,7 @@ select{ width: 100%;
 
 
 #footer{
-    width: 100%;
+    width: 120%;
     height: 25px;
     background: #dda;
     clear: both;
