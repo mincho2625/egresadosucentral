@@ -67,7 +67,7 @@
             <br>
         </div>
 
-        <div id="contenido">
+        <div id="contenido1">
             <s:if test="editar">
                 <s:form action="guardarAsociacion.action">
                     <s:push value="objeto">

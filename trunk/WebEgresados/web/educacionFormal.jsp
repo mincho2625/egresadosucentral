@@ -60,11 +60,15 @@
                 </a><br>
             </div>
             <br>
+            <a href="informacionAcademicaOtrasTabla.jsp" class="tduno"><div>Siguiente</div></a>
+            <br>
+            <a href="obtenerListaExperienciaLaboral.action" class="tdatras"><div>Anterior</div></a>
+            <br>
             <br>
 
         </div>
 
-        <div id="contenido">
+        <div id="contenido1">
             <s:if test="editar">
                 <s:form action="guardarEducacionFormalUCentral.action">
                     <s:push value="objeto">
@@ -73,65 +77,43 @@
                             <table>
                                 <tr>
                                     <td>
-                                        <div class="tduno"> Programa </div>
-                                    </td>
-                                    <td>
-                                    <s:select name="programa" list="listaProgramas" listKey="idPrograma" listValue="nombre"></s:select>
+                                        <div class="tduno"> Programa </div><s:select cssClass="center" name="programa" list="listaProgramas" listKey="idPrograma" listValue="nombre"></s:select>
                                     </td>
                                 </tr>
 
                                 <tr>
                                     <td>
-                                        <div class="tduno"> Jornada </div>
-                                    </td>
-                                    <td>
-                                    <s:select name="jornada" list="listaJornadas" listKey="idJornada" listValue="nombre"></s:select>
+                                        <div class="tduno"> Jornada </div><s:select cssClass="center" name="jornada" list="listaJornadas" listKey="idJornada" listValue="nombre"></s:select>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <div class="tduno"> Año Inicio </div>
-                                    </td>
-                                    <td>
-                                    <s:select name="anioInicio" list="listaAnios"></s:select>
+                                        <div class="tduno"> Año Inicio </div><s:select cssClass="center" name="anioInicio" list="listaAnios"></s:select>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <div class="tduno"> Mes Inicio </div>
-                                    </td>
-                                    <td>
-                                    <s:select name="mesInicio" list="listaMeses" listKey="idMes" listValue="mes"></s:select>
+                                        <div class="tduno"> Mes Inicio </div><s:select cssClass="center"name="mesInicio" list="listaMeses" listKey="idMes" listValue="mes"></s:select>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <div class="tduno"> Año Finalización </div>
-                                    </td>
-                                    <td>
-                                    <s:select name="anioFinalizacion" list="listaAnios"></s:select>
+                                        <div class="tduno"> Año Finalización </div><s:select cssClass="center" name="anioFinalizacion" list="listaAnios"></s:select>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <div class="tduno"> Mes Finalización </div>
-                                    </td>
-                                    <td>
-                                    <s:select name="mesFinalizacion" list="listaMeses" listKey="idMes" listValue="mes"></s:select>
+                                        <div class="tduno"> Mes Finalización </div><s:select cssClass="center" name="mesFinalizacion" list="listaMeses" listKey="idMes" listValue="mes"></s:select>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <div class="tduno"> Estado </div>
-                                    </td>
-                                    <td>
-                                    <s:select name="estadoEducacion" list="listaEstadosEducacion" listKey="idEstadoEducacion" listValue="nombre"></s:select>
+                                        <div class="tduno"> Estado </div><s:select cssClass="center" name="estadoEducacion" list="listaEstadosEducacion" listKey="idEstadoEducacion" listValue="nombre"></s:select>
                                     </td>
                                 </tr>
-                            <s:submit cssClass="positive" value="Guardar">
+                            <s:submit cssClass="center1" value="Guardar">
                                 <br>
                             </s:submit>
-                            </tr>
                         </table>
                     </s:push>
                 </s:form>
