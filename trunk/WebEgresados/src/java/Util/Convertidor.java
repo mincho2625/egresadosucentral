@@ -164,12 +164,35 @@ public class Convertidor {
     public Object invocar(Object objeto, String nombreMetodo)
     {
         try {
-            Method metodo = objeto.getClass().getDeclaredMethod(nombreMetodo);
-            return metodo.invoke(objeto);
+            Method metodo = objeto.getClass().getMethod(nombreMetodo);
+            Object valor = metodo.invoke(objeto);
+            if (valor == null && objeto.getClass().getSuperclass() != null
+                    && objeto.getClass().getSuperclass().getPackage().getName().equals("Modelo"))
+            {
+                metodo = objeto.getClass().getSuperclass().getDeclaredMethod(nombreMetodo);
+                valor = metodo.invoke(objeto);
+            }
+            return valor;
         } catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
             Logger.getLogger(ControladorEgresado.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         return null;
+    }
+    
+    public void invocarSet(Object objeto, String nombreMetodo, Object valor)
+    {
+        try {
+            Method metodo = objeto.getClass().getMethod(nombreMetodo, valor.getClass());
+            metodo.invoke(objeto);
+            if (valor == null && objeto.getClass().getSuperclass() != null
+                    && objeto.getClass().getSuperclass().getPackage().getName().equals("Modelo"))
+            {
+                metodo = objeto.getClass().getSuperclass().getDeclaredMethod(nombreMetodo);
+                valor = metodo.invoke(objeto);
+            }
+        } catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
+            Logger.getLogger(ControladorEgresado.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

@@ -6,10 +6,13 @@
 
 package Modelo;
 
+import Util.Equivalencia;
+
 /**
  *
  * @author YURY
  */
+@Equivalencia(nombre = "getIdMes")
 public class Mes {
     private long idMes;
     private String mes;

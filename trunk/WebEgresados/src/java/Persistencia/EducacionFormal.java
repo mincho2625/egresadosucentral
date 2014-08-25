@@ -8,6 +8,7 @@ package Persistencia;
 
 import java.io.Serializable;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -45,7 +46,7 @@ public class EducacionFormal implements Serializable {
     @ManyToOne(optional = false)
     private NivelEstudios idNivelEstudios;
     @JoinColumn(name = "ID_EDUCACION", referencedColumnName = "ID_EDUCACION", insertable = false, updatable = false)
-    @OneToOne(optional = false)
+    @OneToOne(optional = false, cascade = CascadeType.PERSIST)
     private Educacion educacion;
 
     public EducacionFormal() {

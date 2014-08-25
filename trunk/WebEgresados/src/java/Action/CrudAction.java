@@ -33,6 +33,8 @@ public abstract class CrudAction<T> extends ActionSupport implements ModelDriven
     protected String idObjeto;
     protected String claseModelo;
     protected String clasePersistencia;
+    protected String clasePersistencia2;
+    protected String idObjeto2;
     protected boolean editar = false;
     
     /**
@@ -112,7 +114,12 @@ public abstract class CrudAction<T> extends ActionSupport implements ModelDriven
         try {
             insertarTipos();
             insertarValoresDefecto();
-            controladorEgresado.actualizar(objeto, clasePersistencia, idObjeto);
+            
+            if (clasePersistencia2 != null && idObjeto2 != null)
+                controladorEgresado.actualizar(objeto, clasePersistencia, idObjeto, clasePersistencia2, idObjeto2);
+            else
+                controladorEgresado.actualizar(objeto, clasePersistencia, idObjeto);
+            
             obtenerLista();
             this.setEditar(false);
             return SUCCESS;

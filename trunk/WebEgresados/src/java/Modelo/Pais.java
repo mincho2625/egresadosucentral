@@ -1,7 +1,5 @@
 package Modelo;
 
-import java.util.ArrayList;
-
 /**
  * @author YURY
  * @version 1.0
@@ -12,13 +10,6 @@ public class Pais {
     private long idPais;
     private String nombre;
     private boolean estado;
-    private ArrayList<Departamento> listaDepartamentos;
-    
-    public Pais()
-    {
-        listaDepartamentos = new ArrayList<>();
-    }
-    
     /**
      * @return the idPais
      */
@@ -45,21 +36,6 @@ public class Pais {
      */
     public void setNombre(String nombre) {
         this.nombre = nombre;
-    }
-    
-    /**
-     * @return the listaDepartamentos
-     */
-    public ArrayList<Departamento> getListaDepartamentos() {
-        return listaDepartamentos;
-    }
-
-    public void agregarDepartamento(long idDepartamento, String nombre)
-    {
-        Departamento departamento = new Departamento();
-        departamento.setIdDepartamento(idDepartamento);
-        departamento.setNombre(nombre);
-        listaDepartamentos.add(departamento);
     }
 
     /**

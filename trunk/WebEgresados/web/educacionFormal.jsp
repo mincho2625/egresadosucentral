@@ -13,7 +13,7 @@
                 <tr>
                     <td class="tddos">Programa<br>
                     </td>
-                    <td class="tddos">Año Inicio<br>
+                    <td class="tddos">Jornada<br>
                     </td>
                     <td class="tddos">Año Finalización<br>
                     </td>
@@ -25,22 +25,22 @@
 
                 <s:iterator value="listaObjetos">
                     <tr>
-                        <td class="tdtres"><s:property value="idPrograma"></s:property><br>
+                        <td class="tdtres"><s:property value="idPrograma.nombre"></s:property><br>
                             </td>
-                            <td class="tdtres"><s:property value="anioInicio"></s:property><br>
+                            <td class="tdtres"><s:property value="idJornada.nombre"></s:property><br>
                             </td>
                             <td class="tdtres"><s:property value="anioFinalizacion"></s:property><br>
                             </td>
-                            <td class="tdtres"><s:property value="idEstadoEducacion"></s:property><br>
+                            <td class="tdtres"><s:property value="idEstadoEducacion.nombre"></s:property><br>
                             </td>
                             <td class="tdtres">
-                            <s:url id="editarURL" action="editarEducacionFormal.action">
+                            <s:url id="editarURL" action="editarEducacionFormalUCentral.action">
                                 <s:param name="idObjeto" value="%{idEducacion}"></s:param>
                             </s:url>
                             <s:a href="%{editarURL}">
                                 <img style="width: 20px; height: 19px;" title="Editar" alt="Editar" src="imagenes/Icono_de_editar.png" align="top"><br>
                             </s:a>
-                            <s:url id="borrarURL" action="borrarEducacionFormal.action">
+                            <s:url id="borrarURL" action="borrarEducacionFormalUCentral.action">
                                 <s:param name="idObjeto" value="%{idEducacion}"></s:param>
                             </s:url>
                             <s:a href="%{borrarURL}">
@@ -52,7 +52,7 @@
             </table>
             <br>
             <div class="buttons">
-                <a href="desplegarEducacionFormal.action" target="contenido">
+                <a href="desplegarEducacionFormalUCentral.action" target="contenido">
                     <button type="submit" class="positive" name="nuevo">
                         <img src="imagenes/btnGuardar.png" alt=""/>
                         Nuevo
@@ -66,7 +66,7 @@
 
         <div id="contenido">
             <s:if test="editar">
-                <s:form action="guardarEducacionFormal.action">
+                <s:form action="guardarEducacionFormalUCentral.action">
                     <s:push value="objeto">
                         <s:hidden name="idEducacion"></s:hidden>
                         <div class="tdun">Generar Nuevo Registro</div>
@@ -76,7 +76,7 @@
                                         <div class="tduno"> Programa </div>
                                     </td>
                                     <td>
-                                    <s:select name="idPrograma" list="listaProgramas" listKey="idPrograma" listValue="nombre"></s:select>
+                                    <s:select name="programa" list="listaProgramas" listKey="idPrograma" listValue="nombre"></s:select>
                                     </td>
                                 </tr>
 
@@ -85,15 +85,7 @@
                                         <div class="tduno"> Jornada </div>
                                     </td>
                                     <td>
-                                    <s:select name="idJornada" list="listaJornadas" listKey="idJornada" listValue="nombre"></s:select>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="tduno"> Nivel Estudios </div>
-                                    </td>
-                                    <td>
-                                    <s:select name="idNivelEstudios" list="listaNivelesEstudios" listKey="idNivelEstudios" listValue="nombre"></s:select>
+                                    <s:select name="jornada" list="listaJornadas" listKey="idJornada" listValue="nombre"></s:select>
                                     </td>
                                 </tr>
                                 <tr>
@@ -109,7 +101,7 @@
                                         <div class="tduno"> Mes Inicio </div>
                                     </td>
                                     <td>
-                                    <s:select name="idMesInicio" list="listaMeses" listKey="idMesInicio" listValue="mes"></s:select>
+                                    <s:select name="mesInicio" list="listaMeses" listKey="idMes" listValue="mes"></s:select>
                                     </td>
                                 </tr>
                                 <tr>
@@ -125,7 +117,7 @@
                                         <div class="tduno"> Mes Finalización </div>
                                     </td>
                                     <td>
-                                    <s:select name="idMesFinalizacion" list="listaMeses" listKey="idMesFinalizacion" listValue="mes"></s:select>
+                                    <s:select name="mesFinalizacion" list="listaMeses" listKey="idMes" listValue="mes"></s:select>
                                     </td>
                                 </tr>
                                 <tr>
@@ -133,7 +125,7 @@
                                         <div class="tduno"> Estado </div>
                                     </td>
                                     <td>
-                                    <s:select name="idEstadoEducacion" list="listaEstadosEducacion" listKey="idEstadoEducacion" listValue="nombre"></s:select>
+                                    <s:select name="estadoEducacion" list="listaEstadosEducacion" listKey="idEstadoEducacion" listValue="nombre"></s:select>
                                     </td>
                                 </tr>
                             <s:submit cssClass="positive" value="Guardar">

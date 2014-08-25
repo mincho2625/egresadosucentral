@@ -30,7 +30,7 @@
                                        
                     <li>Educacion Formal
                         <ul>
-                            <a href="obtenerListaEducacionFormal.action" target="contenido"><li>Datos Academicos Ucentral</li></a>
+                            <a href="obtenerListaEducacionFormalUCentral.action" target="contenido"><li>Datos Academicos Ucentral</li></a>
                             <a href="informacionAcademicaOtrasTabla.jsp" target="contenido"><li>Informacion Academica Otras Instituciones</li></a>
                         </ul>
                     </li>
@@ -45,8 +45,8 @@
                     <li>Datos Adicionales
                         <ul>
                             <a href="obtenerListaReconocimiento.action" target="contenido"><li>Distinciones y Reconocimientos</li></a>
-                            <a href="asociacionesRedesProfesionalesTabla.jsp" target="contenido"><li>Asociaciones o Redes Profesionales</li></a>
-                            <a href="deportesAficionesTabla.jsp" target="contenido"><li>Deportes o Aficiones</li></a>
+                            <a href="obtenerListaAsociacion.action" target="contenido"><li>Asociaciones o Redes Profesionales</li></a>
+                            <a href="obtenerListaAficion.action" target="contenido"><li>Deportes o Aficiones</li></a>
                         </ul>
                     </li>
                     
