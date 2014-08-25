@@ -1,157 +1,123 @@
 <!DOCTYPE html>
-
+<%@taglib uri="/struts-tags" prefix="s"%>
 <html lang="es">
-
-
     <head>
-        <title>Educacion No Formal e Idiomas</title>
+        <title>Educación Formal</title>
         <meta charset="utf-8"/>
-
         <link rel="stylesheet" href="estilo.css">
-
     </head>
     <body>
         <div id="Tabla" align="center">
-            <s:form method="post" action=".jsp" name="f1">
-                <table rules="all">
-                    <caption>INFORMACION ACADEMICA NO FORMAL OTRAS INSTITUCIONES</caption>
+            <table rules="all" >
+                <caption>EDUCACIÓN FORMAL</caption>
+                <tr>
+                    <td class="tddos">Programa<br>
+                    </td>
+                    <td class="tddos">Jornada<br>
+                    </td>
+                    <td class="tddos">Año Finalización<br>
+                    </td>
+                    <td class="tddos">Estado<br>
+                    </td>
+                    <td class="tddos">Acción<br>
+                    </td>
+                </tr>
+
+                <s:iterator value="listaObjetos">
                     <tr>
-                        <td class="tddos">Titulo<br>
-                        </td>
-                        <td class="tddos">Institucion<br>
-                        </td>
-                        <td class="tddos">Ingreso<br>
-                        </td>
-                        <td class="tddos">Finalizacion<br>
-                        </td>
-                        <td class="tddos">Accion<br>
+                        <td class="tdtres"><s:property value="idPrograma.nombre"></s:property><br>
+                            </td>
+                            <td class="tdtres"><s:property value="idJornada.nombre"></s:property><br>
+                            </td>
+                            <td class="tdtres"><s:property value="anioFinalizacion"></s:property><br>
+                            </td>
+                            <td class="tdtres"><s:property value="idEstadoEducacion.nombre"></s:property><br>
+                            </td>
+                            <td class="tdtres">
+                            <s:url id="editarURL" action="editarEducacionFormalUCentral.action">
+                                <s:param name="idObjeto" value="%{idEducacion}"></s:param>
+                            </s:url>
+                            <s:a href="%{editarURL}">
+                                <img style="width: 20px; height: 19px;" title="Editar" alt="Editar" src="imagenes/Icono_de_editar.png" align="top"><br>
+                            </s:a>
+                            <s:url id="borrarURL" action="borrarEducacionFormalUCentral.action">
+                                <s:param name="idObjeto" value="%{idEducacion}"></s:param>
+                            </s:url>
+                            <s:a href="%{borrarURL}">
+                                <img style="width: 20px; height: 19px;" title="Borrar" alt="Borrar" src="imagenes/Icono_de_editar.png" align="top"><br>
+                            </s:a>
                         </td>
                     </tr>
-                    <tr>
-                        <td class="tdtres"><br>
-                        </td>
-                        <td class="tdtres"><br>
-                        </td>
-                        <td class="tdtres"><br>
-                        </td>
-                        <td class="tdtres"><br>
-                        </td>
-                        <td class="tdtres"><img
-                                style="width: 20px; height: 19px;" title="Editar" alt="Editar"
-                                src="imagenes/Icono_de_editar.png" align="top"><br>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="tdtres"><br>
-                        </td>
-                        <td class="tdtres"><br>
-                        </td>
-                        <td class="tdtres"><br>
-                        </td>
-                        <td class="tdtres"><br>
-                        </td>
-                        <td class="tdtres"><img
-                                style="width: 20px; height: 19px;" title="Editar" alt="Editar"
-                                src="imagenes/Icono_de_editar.png" align="top"> </td>
-                    </tr>
-                    <tr>
-                        <td class="tdtres"><br>
-                        </td>
-                        <td class="tdtres"><br>
-                        </td>
-                        <td class="tdtres"><br>
-                        </td>
-                        <td class="tdtres"><br>
-                        </td>
-                        <td class="tdtres"><img
-                                style="width: 20px; height: 19px;" title="Editar" alt="Editar"
-                                src="imagenes/Icono_de_editar.png" align="top"> </td>
-                    </tr>
-                    <tr>
-                        <td class="tdtres"><br>
-                        </td>
-                        <td class="tdtres"><br>
-                        </td>
-                        <td class="tdtres"><br>
-                        </td>
-                        <td class="tdtres"><br>
-                        </td>
-                        <td class="tdtres"><img
-                                style="width: 20px; height: 19px;" title="Editar" alt="Editar"
-                                src="imagenes/Icono_de_editar.png" align="top"> </td>
-                    </tr>
-                    </tbody>
-                </table>
-                <br>
-                <div style="text-align: right;"><input name="noFormal"
-                                                       value="Agregar Otro Registro" type="button"><br>
-                </div>
-                <br>
-                <br>
-                <table rules="all">
-                    <caption>LENGUA EXTRANJERA</caption>
-                    <tr>
-                        <td class="tddos">Nombre<br>
-                        </td>
-                        <td class="tddos">Institucion<br>
-                        </td>
-                        <td class="tddos">Dominio
-                        </td>
-                        <td class="tddos">Accion<br>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="tdtres"><br>
-                        </td>
-                        <td class="tdtres"><br>
-                        </td>
-                        <td class="tdtres"><br>
-                        </td>
-                        <td class="tdtres"><img
-                                style="width: 20px; height: 19px;" title="Editar" alt="Editar"
-                                src="imagenes/Icono_de_editar.png" align="top"> </td>
-                    </tr>
-                    <tr>
-                        <td class="tdtres"><br>
-                        </td>
-                        <td class="tdtres"><br>
-                        </td>
-                        <td class="tdtres"><br>
-                        </td>
-                        <td class="tdtres"><img
-                                style="width: 20px; height: 19px;" title="Editar" alt="Editar"
-                                src="imagenes/Icono_de_editar.png" align="top"> </td>
-                    </tr>
-                    <tr>
-                        <td class="tdtres"><br>
-                        </td>
-                        <td class="tdtres"><br>
-                        </td>
-                        <td class="tdtres"><br>
-                        </td>
-                        <td class="tdtres"><img
-                                style="width: 20px; height: 19px;" title="Editar" alt="Editar"
-                                src="imagenes/Icono_de_editar.png" align="top"> </td>
-                    </tr>
-                    <tr>
-                        <td class="tdtres"><br>
-                        </td>
-                        <td class="tdtres"><br>
-                        </td>
-                        <td class="tdtres"><br>
-                        </td>
-                        <td class="tdtres"><img
-                                style="width: 20px; height: 19px;" title="Editar" alt="Editar"
-                                src="imagenes/Icono_de_editar.png" align="top"> </td>
-                    </tr>
-                </table>
-                <br>
-                <div style="text-align: right;"><input name="agregarLengua"
-                                                       value="Agregar Otro Registro" type="button"><br>
-                </div>
-                <br>
-                <br>
-            </s:form>
-        </div>	
+                </s:iterator>
+            </table>
+            <br>
+            <div class="buttons">
+                <a href="desplegarEducacionFormalUCentral.action" target="contenido">
+                    <button type="submit" class="positive" name="nuevo">
+                        <img src="imagenes/btnGuardar.png" alt=""/>
+                        Nuevo
+                    </button>
+                </a><br>
+            </div>
+            <br>
+            <a href="informacionAcademicaOtrasTabla.jsp" class="tduno"><div>Siguiente</div></a>
+            <br>
+            <a href="obtenerListaExperienciaLaboral.action" class="tdatras"><div>Anterior</div></a>
+            <br>
+            <br>
+
+        </div>
+
+        <div id="contenido1">
+            <s:if test="editar">
+                <s:form action="guardarEducacionFormalUCentral.action">
+                    <s:push value="objeto">
+                        <s:hidden name="idEducacion"></s:hidden>
+                        <div class="tdun">Generar Nuevo Registro</div>
+                            <table>
+                                <tr>
+                                    <td>
+                                        <div class="tduno"> Programa </div><s:select cssClass="center" name="programa" list="listaProgramas" listKey="idPrograma" listValue="nombre"></s:select>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <div class="tduno"> Jornada </div><s:select cssClass="center" name="jornada" list="listaJornadas" listKey="idJornada" listValue="nombre"></s:select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="tduno"> Año Inicio </div><s:select cssClass="center" name="anioInicio" list="listaAnios"></s:select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="tduno"> Mes Inicio </div><s:select cssClass="center"name="mesInicio" list="listaMeses" listKey="idMes" listValue="mes"></s:select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="tduno"> Año Finalización </div><s:select cssClass="center" name="anioFinalizacion" list="listaAnios"></s:select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="tduno"> Mes Finalización </div><s:select cssClass="center" name="mesFinalizacion" list="listaMeses" listKey="idMes" listValue="mes"></s:select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="tduno"> Estado </div><s:select cssClass="center" name="estadoEducacion" list="listaEstadosEducacion" listKey="idEstadoEducacion" listValue="nombre"></s:select>
+                                    </td>
+                                </tr>
+                            <s:submit cssClass="center1" value="Guardar">
+                                <br>
+                            </s:submit>
+                        </table>
+                    </s:push>
+                </s:form>
+            </s:if>
+        </div>
     </body>
 </html>
