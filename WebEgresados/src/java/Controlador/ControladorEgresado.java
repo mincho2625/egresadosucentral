@@ -11,6 +11,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.Id;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
@@ -49,8 +50,9 @@ public class ControladorEgresado {
             
             Collection<Object> coleccion = (Collection)convertidor2.invocar(e,lista);
             for (Object objeto : coleccion) {
-                if ((boolean)convertidor2.invocar(objeto, "getEstado")){                    
-                    listaObjetos.put((Long)convertidor2.invocar(objeto, idObjeto), convertidor2.convertirAModelo(objeto, claseDestino));
+                if ((boolean)convertidor2.invocar(objeto, "getEstado")){
+                    //if (objeto.getClass().getAnnotation(Id.class).)
+                    listaObjetos.put((Long)convertidor2.invocar(objeto, idObjeto), convertidor2.convertirAModelo(objeto, null, claseDestino));
                 }
             }
             
@@ -120,6 +122,7 @@ public class ControladorEgresado {
             Method insertarDestino2 = destino2.getClass().getMethod("setEducacion", destino.getClass());
             insertarDestino2.invoke(destino2, destino);
             
+            em.persist(destino);
             em.persist(destino2);
             em.getTransaction().commit();
             return true;

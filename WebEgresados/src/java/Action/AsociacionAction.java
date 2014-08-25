@@ -64,8 +64,8 @@ public class AsociacionAction extends CrudAction<Asociacion> {
     /**
      * @return the listaPaises
      */
-    public Map<Long, Pais> getListaPaises() {
-        return listaPaises;
+    public Collection<Pais> getListaPaises() {
+        return listaPaises.values();
     }
 
     /**

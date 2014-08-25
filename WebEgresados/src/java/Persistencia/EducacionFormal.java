@@ -7,9 +7,6 @@
 package Persistencia;
 
 import java.io.Serializable;
-import javax.persistence.Basic;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -29,47 +26,32 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "EducacionFormal.findAll", query = "SELECT e FROM EducacionFormal e"),
-    @NamedQuery(name = "EducacionFormal.findByIdEducacion", query = "SELECT e FROM EducacionFormal e WHERE e.idEducacion = :idEducacion")})
+    @NamedQuery(name = "EducacionFormal.findByIdEducacion", query = "SELECT e FROM EducacionFormal e WHERE e.educacion = :educacion")})
 public class EducacionFormal implements Serializable {
-    private static final long serialVersionUID = 1L;
-    @Id
-    @Basic(optional = false)
-    @Column(name = "ID_EDUCACION")
-    private Long idEducacion;
-    @JoinColumn(name = "ID_PROGRAMA", referencedColumnName = "ID_PROGRAMA")
-    @ManyToOne(optional = false)
-    private Programa idPrograma;
     @JoinColumn(name = "ID_JORNADA", referencedColumnName = "ID_JORNADA")
     @ManyToOne(optional = false)
     private Jornada idJornada;
     @JoinColumn(name = "ID_NIVEL_ESTUDIOS", referencedColumnName = "ID_NIVEL_ESTUDIOS")
     @ManyToOne(optional = false)
     private NivelEstudios idNivelEstudios;
-    @JoinColumn(name = "ID_EDUCACION", referencedColumnName = "ID_EDUCACION", insertable = false, updatable = false)
-    @OneToOne(optional = false, cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "ID_PROGRAMA", referencedColumnName = "ID_PROGRAMA")
+    @ManyToOne(optional = false)
+    private Programa idPrograma;
+    private static final long serialVersionUID = 1L;
+    @Id
+    @JoinColumn(name = "ID_EDUCACION", referencedColumnName = "ID_EDUCACION")
+    @OneToOne(optional = false)
     private Educacion educacion;
 
     public EducacionFormal() {
     }
 
-    public EducacionFormal(Long idEducacion) {
-        this.idEducacion = idEducacion;
+    public Educacion getEducacion() {
+        return educacion;
     }
 
-    public Long getIdEducacion() {
-        return idEducacion;
-    }
-
-    public void setIdEducacion(Long idEducacion) {
-        this.idEducacion = idEducacion;
-    }
-
-    public Programa getIdPrograma() {
-        return idPrograma;
-    }
-
-    public void setIdPrograma(Programa idPrograma) {
-        this.idPrograma = idPrograma;
+    public void setEducacion(Educacion educacion) {
+        this.educacion = educacion;
     }
 
     public Jornada getIdJornada() {
@@ -88,37 +70,16 @@ public class EducacionFormal implements Serializable {
         this.idNivelEstudios = idNivelEstudios;
     }
 
-    public Educacion getEducacion() {
-        return educacion;
+    public Programa getIdPrograma() {
+        return idPrograma;
     }
 
-    public void setEducacion(Educacion educacion) {
-        this.educacion = educacion;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (idEducacion != null ? idEducacion.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof EducacionFormal)) {
-            return false;
-        }
-        EducacionFormal other = (EducacionFormal) object;
-        if ((this.idEducacion == null && other.idEducacion != null) || (this.idEducacion != null && !this.idEducacion.equals(other.idEducacion))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "Persistencia.EducacionFormal[ idEducacion=" + idEducacion + " ]";
+    public void setIdPrograma(Programa idPrograma) {
+        this.idPrograma = idPrograma;
     }
     
+    public boolean getEstado()
+    {
+        return educacion.getEstado();
+    }
 }

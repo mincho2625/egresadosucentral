@@ -19,8 +19,10 @@ import javax.persistence.EntityManager;
  * @author YURY
  */
 public class Convertidor {
-    public Object convertirAModelo(Object origen, String claseDestino) {
-        Object destino = instanciar(claseDestino);
+    public Object convertirAModelo(Object origen, Object destino, String claseDestino) {
+        if (destino == null)
+            destino = instanciar(claseDestino);
+        
         Class claseSet;
         Object valor;
         String metodoGet;
@@ -38,7 +40,7 @@ public class Convertidor {
                             if (!esInstancia(claseSet))
                                 valor = obtenerId(valor, metodoGet);
                             else
-                                valor = convertirAModelo(valor, claseSet.getName());
+                                valor = convertirAModelo(valor, null, claseSet.getName());
                         }
                         
                         set.invoke(destino, valor);
