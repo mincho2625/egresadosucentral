@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Action;
 
 import Modelo.Aficion;
@@ -18,26 +17,26 @@ import java.util.Map;
  *
  * @author JERONIMO
  */
-public class AficionAction  extends CrudAction<Aficion>{
+public class AficionAction extends CrudAction<Aficion> {
 
-    private Map<Long,TipoActividad> listaActividad;
+    private Map<Long, TipoActividad> listaActividad;
     private long tipoActividad;
-    
+
     public AficionAction() {
         super(Aficion.class.getName());
         this.idObjeto = "getIdAficion";
         this.coleccion = "getAficionesCollection";
         this.clasePersistencia = Persistencia.Aficiones.class.getName();
     }
-    
+
     public Collection<TipoActividad> getListaActividad() {
         return listaActividad.values();
     }
 
-    public void setListaActividad(Map<Long,TipoActividad> listaActividad) {
+    public void setListaActividad(Map<Long, TipoActividad> listaActividad) {
         this.listaActividad = listaActividad;
     }
-    
+
     /**
      * @return the tipoActividad
      */
@@ -74,5 +73,5 @@ public class AficionAction  extends CrudAction<Aficion>{
     public void insertarValoresDefecto() {
         this.objeto.setEstado(true);
         this.objeto.setFechaRegistro(Date.valueOf(LocalDate.now()));
-    }    
+    }
 }

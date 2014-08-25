@@ -53,6 +53,7 @@
                     
                     <a href="encuesta.jsp" target="contenido"><li>Encuesta</li></a>
                     
+                    <a href="entrada.jsp" ><li>Salir</li></a>
                 </ul>
             </div>
 

@@ -52,6 +52,10 @@
                 </a><br>
             </div>
             <br>
+            <a href="obtenerListaResidencia.action" class="tduno"><div>Siguiente</div></a>
+            <br>
+            <a href="obtenerListaUbicacion.action"  class="tdatras"><div>Anterior</div></a>
+            <br>
             <br>
 
         </div>
@@ -66,24 +70,19 @@
                             <table>
                                 <tr>
                                     <td>
-                                        <div class="tduno"> Red Social </div>
-                                    </td>
-                                    <td>
-                                    <s:select name="redSocial" list="listaRedesSociales" listKey="idRedSocial" listValue="nombre"></s:select>
+                                        <div class="tduno"> Red Social </div><s:select cssClass="center "name="redSocial" list="listaRedesSociales" listKey="idRedSocial" listValue="nombre"></s:select>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <div class="tduno"> URL </div>
-                                    </td>
-                                    <td>
-                                    <s:textfield name="url"></s:textfield>
+                                        <div class="tduno"> URL </div><s:textfield name="url" cssClass="center"></s:textfield>
                                     </td>
                                 </tr>
-                            <s:submit cssClass="positive" value="Guardar">
-                            </s:submit>
+                                <tr>
+                                <s:submit cssClass="center1" value="Guardar">
+                                </s:submit>
                             </tr>
-                            
+
                         </table>
                     </s:push>
                 </s:form>

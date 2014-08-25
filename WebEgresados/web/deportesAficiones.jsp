@@ -50,6 +50,10 @@
                 </a><br>
             </div>
             <br>
+            <a href="encuesta.jsp" class="tduno"><div>Siguiente</div></a>
+            <br>
+            <a href="obtenerListaAsociacion.action" class="tduno"><div>Anterior</div></a>
+            <br>
             <br>
 
         </div>

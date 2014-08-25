@@ -18,20 +18,18 @@
                 <div class="tituloMenu">Acceso</div>
                 <s:form name="f1" method="post" action="Ingreso">
 
-                    <center><table>
-
-                            </tr> <br><br><br><br><br><br>  <br><br>
+                    <center>
+                        <table>
+                            <br><br><br><br><br><br><br><br>
                             <tr>
-                                <td align="center" class="tduno">Usuario</td>
-
                                 <td>
-                                    <s:textfield cssClass="center" name="usuario"></s:textfield>
+                                    <div id="text" class="tduno">Usuario</div><s:textfield cssClass="center" name="usuario"></s:textfield>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td class="tduno">Clave</td>
-
-                                    <td><s:password cssClass="center" name="contrasenia"></s:password></td>
+                                    <td>
+                                        <div id="text" class="tduno">Contraseña</div><s:password cssClass="center" name="contrasenia"></s:password>
+                                    </td>
                                 </tr>
                             <s:if test="hasActionErrors()">
                                 <tr>
@@ -42,14 +40,15 @@
                                     </tr>
                             </s:if>
                             <tr>
-                                <td><s:submit value="ENTRAR"></s:submit></td>
+                                <td><s:submit cssClass="center1" value="ENTRAR"></s:submit></td>
                                 </tr>
-                            </table></center>
+                            </table>
+                    </center>
 
                 </s:form>
             </div>
 
-            <div id="contenido">
+            <div id="contenido" class="center">
                 <iframe src="frameContenido.jsp" name="contenido">
                 </iframe>
             </div>

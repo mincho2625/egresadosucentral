@@ -63,6 +63,10 @@
                 </a><br>
             </div>
             <br>
+            <a href="obtenerListaEducacionFormalUCentral.action" class="tduno"><div>Siguiente</div></a>
+            <br>
+            <a href="obtenerListaResidencia.action" class="tdatras"><div>Anterior</div></a>
+            <br>
             <br>
 
         </div>
@@ -72,143 +76,97 @@
                 <s:form action="guardarExperienciaLaboral.action">
                     <s:push value="objeto">
                         <s:hidden name="idExperienciaLaboral"></s:hidden>
+                            <div class="tdun">Generar Nuevo Registro</div>
+                            <br>
                             <table>
                                 <tr>
                                     <td>
-                                        Tipo Contrato
-                                    </td>
-                                    <td>
-                                    <s:select name="tipoContrato" list="listaTiposContrato" listKey="idTipoContrato" listValue="nombre"></s:select>
+                                        <div class="tduno">Tipo Contrato</div><s:select  cssClass="center" name="tipoContrato" list="listaTiposContrato" listKey="idTipoContrato" listValue="nombre"></s:select>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        Nombre Empresa
-                                    </td>
-                                    <td>
-                                    <s:textfield name="nombreEmpresa"></s:textfield>
+                                        <div class="tduno">Nombre Empresa</div><s:textfield cssClass="center" name="nombreEmpresa"></s:textfield>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        Ciudad
-                                    </td>
-                                    <td>
-                                    <s:select name="ciudad" list="listaCiudades" listKey="idCiudad" listValue="nombre"></s:select>
+                                        <div class="tduno">Ciudad</div><s:select cssClass="center "name="ciudad" list="listaCiudades" listKey="idCiudad" listValue="nombre"></s:select>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        Cargo
-                                    </td>
-                                    <td>
-                                    <s:textfield name="cargo"></s:textfield>
+                                        <div class="tduno">Cargo</div><s:textfield cssClass="center" name="cargo"></s:textfield>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        Tipos SubSector
-                                    </td>
-                                    <td>
-                                    <s:select name="subsector" list="listaSubsectores" listKey="idSubsector" listValue="nombre"></s:select>
+                                        <div class="tduno">Tipos SubSector</div><s:select cssClass="center" name="subsector" list="listaSubsectores" listKey="idSubsector" listValue="nombre"></s:select>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        Nivel del Cargo
-                                    </td>
-                                    <td>
-                                    <s:select name="nivelCargo" list="listaNivelesCargo" listKey="idNivelCargo" listValue="nombre"></s:select>
+                                        <div class="tduno">Nivel del Cargo</div><s:select cssClass="center" name="nivelCargo" list="listaNivelesCargo" listKey="idNivelCargo" listValue="nombre"></s:select>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        Area de la Empresa
-                                    </td>
-                                    <td>
-                                    <s:select name="areaEmpresa" list="listaAreasEmpresa" listKey="idAreaEmpresa" listValue="nombre"></s:select>
+                                        <div class="tduno">Area de la Empresa</div><s:select cssClass="center" name="areaEmpresa" list="listaAreasEmpresa" listKey="idAreaEmpresa" listValue="nombre"></s:select>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                    <s:checkbox cssClass="checkbox" name="conexionInternet">Conexion a internet</s:checkbox>
+                                    <s:checkbox cssClass="checkbox" name="conexionInternet" > <div class="tduno">Conexion a internet </div> </s:checkbox>
                                     </td>
                                 </tr>  
                                 <tr>
                                     <td>
-                                        Rango salarial
-                                    </td>
-                                    <td>
-                                    <s:select name="rangoSalarial" list="listaRangosSalariales" listKey="idRangoSalarial" listValue="descripcion"></s:select>
+                                        <div class="tduno">Rango salarial</div><s:select cssClass="center" name="rangoSalarial" list="listaRangosSalariales" listKey="idRangoSalarial" listValue="descripcion"></s:select>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        Funciones Logros
-                                    </td>
-                                    <td>
-                                    <s:textarea name="funcionesLogros"></s:textarea>
+                                        <div class="tduno">Funciones Logros</div><s:textarea cssClass="center" name="funcionesLogros"></s:textarea>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        Telefono de la Empresa
-                                    </td>
-                                    <td>
-                                    <s:textfield name="telefonoEmpresa"></s:textfield>
+                                        <div class="tduno"> Telefono de la Empresa</div><s:textfield cssClass="center"name="telefonoEmpresa"></s:textfield>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        Cargo Equivalente
-                                    </td>
-                                    <td>
-                                    <s:select name="cargoEquivalente" list="listaCargosEquivalentes" listKey="idCargoEquivalente" listValue="nombre"></s:select>
+                                        <div class="tduno">Cargo Equivalente</div><s:select cssClass="center" name="cargoEquivalente" list="listaCargosEquivalentes" listKey="idCargoEquivalente" listValue="nombre"></s:select>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        Jefe Inmediato
-                                    </td>
-                                    <td>
-                                    <s:textfield name="jefeInmediato"></s:textfield>
+                                        <div class="tduno">Jefe Inmediato</div><s:textfield cssClass="center" name="jefeInmediato"></s:textfield>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        Año de ingreso
-                                    </td>
-                                    <td>
-                                    <s:select name="anioIngreso" list="listaAnios"></s:select>
+                                        <div class="tduno">Año de ingreso</div><s:select cssClass="center"name="anioIngreso" list="listaAnios"></s:select>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        Mes de ingreso
-                                    </td>
-                                    <td>
-                                    <s:select name="mesIngreso" list="listaMeses" listKey="idMes" listValue="mes"></s:select>
+                                        <div class="tduno">Mes de ingreso</div><s:select cssClass="center" name="mesIngreso" list="listaMeses" listKey="idMes" listValue="mes"></s:select>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        Año Finalización
-                                    </td>
-                                    <td>
-                                        <s:select name="anioFinalizacion" list="listaAnios"></s:select>
+                                        <div class="tduno">Año Finalización</div><s:select cssClass="center" name="anioFinalizacion" list="listaAnios"></s:select>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        Mes Finalización
-                                    </td>
-                                    <td>
-                                    <s:select name="mesFinalizacion" list="listaMeses" listKey="idMes" listValue="mes"></s:select>
+                                        <div class="tduno">Mes Finalización</div><s:select cssClass="center" name="mesFinalizacion" list="listaMeses" listKey="idMes" listValue="mes"></s:select>
                                     </td>
                                 </tr>
-                            <s:submit cssClass="positive">
-                                <img src="imagenes/btnGuardar.png" alt=""/>Guardar<br>
-                            </s:submit>
+                                <tr>
+                                <s:submit cssClass="center1" value="Guardar">
+                                </s:submit>
                             </tr>
                         </table>
                     </s:push>

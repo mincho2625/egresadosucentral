@@ -23,6 +23,7 @@
                     <a href="educacionNoFormal.jsp" target="contenido"><li>Educacion No Formal e Idiomas</li></a>
                     <a href="datosAdicionales.jsp" target="contenido"><li>Datos Adicionales</li></a>
                     <a href="encuesta.jsp" target="contenido"><li>Encuesta</li></a>
+                    <a href="entrada.jsp" target="contenido"><li>Salir</li></a>
                 </ul>
             </div>
 
