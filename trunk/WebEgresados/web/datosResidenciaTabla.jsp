@@ -64,6 +64,10 @@
                 </a><br>
             </div>
             <br>
+            <a href="obtenerListaExperienciaLaboral.action" class="tduno"><div>Siguiente</div></a>
+            <br>
+            <a href="obtenerListaEgresadoRedSocial.action" class="tdatras"><div>Anterior</div></a>
+            <br>
             <br>
 
         </div>
@@ -78,62 +82,41 @@
                             <table>
                                 <tr>
                                     <td>
-                                        <div class="tduno">Ciudad Residencia </div>
-                                    </td>
-                                    <td>
-                                    <s:select name="ciudad" list="listaCiudades" listKey="idCiudad" listValue="nombre"></s:select>
+                                        <div class="tduno">Ciudad Residencia </div><s:select  cssClass="center" name="ciudad" list="listaCiudades" listKey="idCiudad" listValue="nombre"></s:select>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <div class="tduno"> Tipo Vivienda </div>
-                                    </td>
-                                    <td>
-                                    <s:select name="tipoVivienda" list="listaTiposVivienda" listKey="idTipoVivienda" listValue="nombre"></s:select>
+                                        <div class="tduno"> Tipo Vivienda </div><s:select cssClass="center" name="tipoVivienda" list="listaTiposVivienda" listKey="idTipoVivienda" listValue="nombre"></s:select>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <div class="tduno">Tipo Tenencia Vivienda </div>
-                                    </td>
-                                    <td>
-                                    <s:select name="tipoTenenciaVivienda" list="listaTiposTenenciaVivienda" listKey="idTipoTenenciaVivienda" listValue="nombre"></s:select>
+                                        <div class="tduno">Tipo Tenencia Vivienda </div><s:select cssClass="center" name="tipoTenenciaVivienda" list="listaTiposTenenciaVivienda" listKey="idTipoTenenciaVivienda" listValue="nombre"></s:select>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <div class="tduno"> Dirección </div>
-                                    </td>
-                                    <td>
-                                    <s:textfield name="direccion"></s:textfield>
+                                        <div class="tduno"> Dirección </div><s:textfield cssClass="center" name="direccion"></s:textfield>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <div class="tduno"> Estrato </div>
-                                    </td>
-                                    <td>
-                                    <s:select name="estrato" list="listaEstratos" listKey="idEstrato" listValue="estratoLetras"></s:select>
+                                        <div class="tduno"> Estrato </div> <s:select cssClass="center" name="estrato" list="listaEstratos" listKey="idEstrato" listValue="estratoLetras"></s:select>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <div class="tduno"> Tiene computador </div>
-                                    </td>
-                                    <td>
-                                    <s:checkbox name="computador"></s:checkbox>
+                                        <div class="tduno"> Tiene computador </div><s:checkbox cssClass="center"name="computador"></s:checkbox>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <div class="tduno"> Tiene acceso a internet </div>
-                                    </td>
-                                    <td>
-                                    <s:checkbox name="conexionInternet"></s:checkbox>
+                                        <div class="tduno"> Tiene acceso a internet </div><s:checkbox cssClass="center" name="conexionInternet"></s:checkbox>
                                     </td>
                                 </tr>
                                 <tr>
-                                <s:submit cssClass="positive" value="Guardar">
+                                <s:submit cssClass="center1" value="Guardar">
                             </s:submit>
                             </tr>
                         </table>

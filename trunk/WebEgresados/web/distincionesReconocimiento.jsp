@@ -61,11 +61,15 @@
                 <a href="desplegarReconocimiento.action" target="contenido">
                     <button type="submit" class="positive" name="nuevo">
                         <img src="imagenes/btnGuardar.png" alt=""/>
-                        <div class="tduno">Nuevo</div>
+                        Nuevo
                     </button>
                 </a><br>
             </div>
             <br>
+            <a href="obtenerListaAsociacion.action" class="tduno"><div>Siguiente</Div></a>
+            <br>
+            <a href="lenguaExtranjeraTabla.jsp" class="tdatras"><div>Anterior</Div></a>
+            <br>            
             <br>
 
         </div>
@@ -81,54 +85,36 @@
                                 <tr>
                                     <td>
                                         <br>
-                                        <div class="tduno">Tipo Reconocimiento</div>
-                                    </td>
-                                    <td>
-                                    <s:select name="tipoReconocimiento" list="listaTiposReconocimiento" listKey="idTipoReconocimiento" listValue="nombre"></s:select>
+                                        <div class="tduno">Tipo Reconocimiento</div><s:select cssClass="center"name="tipoReconocimiento" list="listaTiposReconocimiento" listKey="idTipoReconocimiento" listValue="nombre"></s:select>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <div class="tduno">Clase Reconocimiento</div>
-                                    </td>
-                                    <td>
-                                    <s:select name="claseReconocimiento" list="listaClasesReconocimiento" listKey="idClaseReconocimiento" listValue="nombre"></s:select>
+                                        <div class="tduno">Clase Reconocimiento</div><s:select cssClass="center"name="claseReconocimiento" list="listaClasesReconocimiento" listKey="idClaseReconocimiento" listValue="nombre"></s:select>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <div class="tduno">Descripción</div>
-                                    </td>
-                                    <td>
-                                    <s:textfield name="descripcion"></s:textfield>
+                                        <div class="tduno">Descripción</div><s:textfield cssClass="center" name="descripcion"></s:textfield>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <div class="tduno">Ciudad</div>
-                                    </td>
-                                    <td>
-                                    <s:select name="ciudad" list="listaCiudades" listKey="idCiudad" listValue="nombre"></s:select>
+                                        <div class="tduno">Ciudad</div><s:select cssClass="center" name="ciudad" list="listaCiudades" listKey="idCiudad" listValue="nombre"></s:select>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <div class="tduno">Entidad Otorgante</div>
-                                    </td>
-                                    <td>
-                                    <s:textfield name="entidadOtorgante"></s:textfield>
+                                        <div class="tduno">Entidad Otorgante</div><s:textfield  cssClass="center" name="entidadOtorgante"></s:textfield>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <div class="tduno">Fecha</div>
-                                    </td>
-                                    <td>
-                                    <jq:datepicker name="fechaReconocimiento" changeMonth="true" changeYear="true" showButtonPanel="true"></jq:datepicker>
+                                        <div class="tduno">Fecha</div><jq:datepicker name="fechaReconocimiento" changeMonth="true" changeYear="true" showButtonPanel="true"></jq:datepicker>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <!<s:submit value="Guardar"></s:submit>
+                                    <!<s:submit cssClass="center1" value="Guardar"></s:submit>
                             </tr>
                         </table>
                     </s:push>

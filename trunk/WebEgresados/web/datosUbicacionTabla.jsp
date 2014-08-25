@@ -52,42 +52,38 @@
                 </a><br>
             </div>
             <br>
+            <a href="obtenerListaEgresadoRedSocial.action" class="tduno"><div>Siguiente</div></a>
+            <br>
+            <a href="obtenerEgresadoRegistro.action" class="tdatras"><div>Anterior</div></a>
+            <br>
             <br>
 
         </div>
-
         <div id="contenido">
             <s:if test="editar">
-                <s:form action="guardarUbicacion.action">
+                <s:form action="guardarUbicacion.action"> 
                     <s:push value="objeto">
                         <s:hidden name="idContacto"></s:hidden>
-                        <div class="tdun">Generar Nuevo Registro</div>
-                        <br>
-                            <table>
+                            <div class="tdun">Generar Nuevo Registro</div>
+                            <br>
+                            <table >
                                 <tr>
                                     <td>
-                                        <div class="tduno">Tipo Contacto</div>
-                                    </td>
-                                    <td>
-                                    <s:select name="tipoContacto" list="listaTiposContacto" listKey="idTipoContacto" listValue="nombre"></s:select>
+                                        <div class="tduno">Tipo Contacto</div><s:select cssClass="center" name="tipoContacto" list="listaTiposContacto" listKey="idTipoContacto" listValue="nombre"></s:select>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <div class="tduno">Descripción</div>
-                                    </td>
-                                    <td>
-                                    <s:textfield  name="descripcion"></s:textfield>
+                                        <div class="tduno">Descripción</div><s:textfield cssClass="center" name="descripcion"></s:textfield>
                                     </td>
                                 </tr>
                                 <tr>
-                                <s:submit cssClass="positive" value="Guardar">
-                            </s:submit>
-                            </tr>
-                        </table>
+                                <s:submit cssClass="center1" value="Guardar"></s:submit>
+                                </tr>
+                            </table>
                     </s:push>
                 </s:form>
             </s:if>
         </div>
-    </body>
+</body>
 </html>

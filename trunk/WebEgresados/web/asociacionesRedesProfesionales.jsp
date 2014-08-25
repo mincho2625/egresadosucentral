@@ -60,8 +60,11 @@
                 </a><br>
             </div>
             <br>
+            <a href="obtenerListaAficion.action" class="tduno"><div>Siguiente</div></a>
             <br>
-
+            <a href="obtenerListaReconocimiento.action" class="tduno"><div>Anterior</div></a>
+            <br>
+            <br>
         </div>
 
         <div id="contenido">
@@ -72,39 +75,27 @@
                             <table>
                                 <tr>
                                     <td>
-                                        <div class="tduno"> Tipo Asociacion </div>
-                                    </td>
-                                    <td>
-                                    <s:select name="tipoAsociacion" list="listaTiposAsociaciones" listKey="idTipoAsociacion" listValue="nombre"></s:select>
+                                        <div class="tduno"> Tipo Asociacion </div><s:select cssClass="center"name="tipoAsociacion" list="listaTiposAsociaciones" listKey="idTipoAsociacion" listValue="nombre"></s:select>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <div class="tduno"> Descripción </div>
-                                    </td>
-                                    <td>
-                                    <s:textfield name="descripcion"></s:textfield>
+                                        <div class="tduno"> Descripción </div><s:textfield cssClass="center"name="descripcion"></s:textfield>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <div class="tduno"> Fecha vinculación </div>
-                                    </td>
-                                    <td>
-                                    <jq:datepicker name="fechaVinculacion" changeMonth="true" changeYear="true" showButtonPanel="true"></jq:datepicker>
+                                        <div class="tduno"> Fecha vinculación </div><jq:datepicker name="fechaVinculacion" changeMonth="true" changeYear="true" showButtonPanel="true"></jq:datepicker>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <div class="tduno"> País </div>
-                                    </td>
-                                    <td>
-                                    <s:select name="pais" list="listaPaises" listKey="idPais" listValue="nombre"></s:select>
+                                        <div class="tduno"> País </div><s:select cssClass="center"name="pais" list="listaPaises" listKey="idPais" listValue="nombre"></s:select>
                                     </td>
                                 </tr>
                                 <tr>
                                 <tr>
-                                <s:submit cssClass="positive" value="Guardar">
+                                <s:submit cssClass="center1" value="Guardar">
                             </s:submit>
                             </tr>
                         </table>
