@@ -4,8 +4,6 @@ import Modelo.Egresado;
 import Util.Convertidor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.sql.Date;
-import java.time.LocalDate;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -64,74 +62,19 @@ public class ControladorEgresado {
         return null;
     }
 
-    public boolean crearEgresado(Egresado egresado) {
+    public boolean actualizarInformacionBasica(Egresado egresado) {
+        Convertidor convertidor = new Convertidor();
         if (egresado == null) {
             return false;
         }
 
         em.getTransaction().begin();
-        e = new Persistencia.Egresado();
-
-        e.setFechaExpedicion(egresado.getFechaExpedicion());
-        e.setFechaNacimiento(egresado.getFechaNacimiento());
-        e.setFechaUltimaAct(egresado.getFechaUltimaAct());
-        e.setIdCiudadExpedicion(em.getReference(Persistencia.Ciudad.class, egresado.getCiudadExpedicion()));
-        e.setIdCiudadNacimiento(em.getReference(Persistencia.Ciudad.class, egresado.getCiudadNacimiento()));
-        e.setIdEstadoCivil(em.getReference(Persistencia.EstadoCivil.class, egresado.getEstadoCivil()));
-        e.setIdGenero(em.getReference(Persistencia.Genero.class, egresado.getGenero()));
-        e.setIdGrupoSanguineo(em.getReference(Persistencia.GrupoSanguineo.class, egresado.getGrupoSanguineo()));
-        e.setIdTipoDocumento(em.getReference(Persistencia.TipoDocumento.class, egresado.getTipoDocumento()));
-        e.setNombres(egresado.getNombres());
-        e.setNumeroDocumento(egresado.getNumeroDocumento());
-        e.setPrimerApellido(egresado.getPrimerApellido());
-        e.setSegundoApellido(egresado.getSegundoApellido());
-        e.setAceptaCondiciones(true);
-        e.setFechaUltimaAct(Date.valueOf(LocalDate.now()));
-
-        Persistencia.Usuario u = new Persistencia.Usuario();
-        u.setContrasenia(egresado.getClave());
-        u.setCorreoInstitucional(egresado.getCorreoInstitucional());
-        u.setIdPreguntaSeguridad(em.getReference(Persistencia.PreguntaSeguridad.class, egresado.getIdPreguntaSeguridad()));
-        u.setNombre(egresado.getNombreUsuario());
-        u.setRespuestaSeguridad(egresado.getRespuestaSeguridad());
+        e = (Persistencia.Egresado) convertidor.convertirAPersistencia(egresado, Persistencia.Egresado.class.getName(), "idEgresado", em);
+        Persistencia.Usuario u = (Persistencia.Usuario) convertidor.convertirAPersistencia(egresado, Persistencia.Usuario.class.getName(), "idUsuario", em);
         e.setIdUsuario(u);
 
         em.persist(e);
         em.getTransaction().commit();
-
-        return true;
-    }
-
-    public boolean actualizarInformacionBasica(Egresado egresado) {
-        if (egresado == null) {
-            return false;
-        }
-
-        if (egresado.getIdEgresado() > 0) {
-            em.getTransaction().begin();
-
-            e = em.getReference(Persistencia.Egresado.class, egresado.getIdEgresado());
-            e.setFechaExpedicion(egresado.getFechaExpedicion());
-            e.setFechaNacimiento(egresado.getFechaNacimiento());
-            e.setFechaUltimaAct(egresado.getFechaUltimaAct());
-            e.setIdCiudadExpedicion(em.getReference(Persistencia.Ciudad.class, egresado.getCiudadExpedicion()));
-            e.setIdCiudadNacimiento(em.getReference(Persistencia.Ciudad.class, egresado.getCiudadNacimiento()));
-            e.setIdEstadoCivil(em.getReference(Persistencia.EstadoCivil.class, egresado.getEstadoCivil()));
-            e.setIdGenero(em.getReference(Persistencia.Genero.class, egresado.getGenero()));
-            e.setIdGrupoSanguineo(em.getReference(Persistencia.GrupoSanguineo.class, egresado.getGrupoSanguineo()));
-            e.setIdTipoDocumento(em.getReference(Persistencia.TipoDocumento.class, egresado.getTipoDocumento()));
-            e.setNombres(egresado.getNombres());
-            e.setNumeroDocumento(egresado.getNumeroDocumento());
-            e.setPrimerApellido(egresado.getPrimerApellido());
-            e.setSegundoApellido(egresado.getSegundoApellido());
-            e.setAceptaCondiciones(true);
-            e.setFechaUltimaAct(Date.valueOf(LocalDate.now()));
-
-            em.persist(e);
-            em.getTransaction().commit();
-        } else {
-            return false;
-        }
 
         return true;
     }
@@ -146,10 +89,38 @@ public class ControladorEgresado {
             Convertidor convertidor2 = new Convertidor();
             Object destino = convertidor2.convertirAPersistencia(objeto, claseDestino, idObjeto, em);
             
-            Method insertarEgresado = destino.getClass().getDeclaredMethod("setIdEgresado", e.getClass());
+            Method insertarEgresado = destino.getClass().getMethod("setIdEgresado", e.getClass());
             insertarEgresado.invoke(destino, e);
             
             em.persist(destino);
+            em.getTransaction().commit();
+            return true;
+        } catch (SecurityException | IllegalArgumentException | NoSuchMethodException | IllegalAccessException | InvocationTargetException ex) {
+            Logger.getLogger(ControladorEgresado.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return false;
+    }
+    
+    public boolean actualizar(Object objeto, String claseDestino, String idObjeto, String claseDestino2, String idObjeto2)
+    {
+        try {
+            if (objeto == null)
+                return false;
+            
+            em.getTransaction().begin();
+            Convertidor convertidor = new Convertidor();
+            Object destino2 = convertidor.convertirAPersistencia(objeto, claseDestino2, idObjeto, em);
+            Object destino = convertidor.convertirAPersistencia(objeto, claseDestino, idObjeto, em);
+            
+            // Educación
+            Method insertarEgresado = destino.getClass().getMethod("setIdEgresado", e.getClass());
+            insertarEgresado.invoke(destino, e);
+            
+            Method insertarDestino2 = destino2.getClass().getMethod("setEducacion", destino.getClass());
+            insertarDestino2.invoke(destino2, destino);
+            
+            em.persist(destino2);
             em.getTransaction().commit();
             return true;
         } catch (SecurityException | IllegalArgumentException | NoSuchMethodException | IllegalAccessException | InvocationTargetException ex) {

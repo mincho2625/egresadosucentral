@@ -13,7 +13,7 @@ import java.util.Date;
  * @author YURY
  */
 public class Educacion {
-    private Long idEducacion;
+    private long idEducacion;
     private Date fechaActEstado;
     private Mes idMesInicio;
     private Ciudad idCiudad;
@@ -27,7 +27,7 @@ public class Educacion {
     private Institucion idInstitucion;
     private String otraInstitucion;
     private boolean estado;
-    private Long idEgresado;
+    private long idEgresado;
     private String tipo;
 
     /**

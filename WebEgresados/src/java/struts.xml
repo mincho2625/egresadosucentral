@@ -29,12 +29,20 @@
             <result name="success">/datosResidenciaTabla.jsp</result>
         </action>
         
-        <action name="*EducacionFormal" method="{1}" class="Action.EducacionFormalAction">
+        <action name="*EducacionFormalUCentral" method="{1}" class="Action.EducacionFormalUCentralAction">
             <result name="success">/educacionFormal.jsp</result>
         </action>
         
         <action name="*Reconocimiento" method="{1}" class="Action.ReconocimientoAction">
             <result name="success">/distincionesReconocimiento.jsp</result>
+        </action>
+        
+        <action name="*Aficion" method="{1}" class="Action.AficionAction">
+            <result name="success">/deportesAficiones.jsp</result>
+        </action>
+        
+        <action name="*Asociacion" method="{1}" class="Action.AsociacionAction">
+            <result name="success">/asociacionesRedesProfesionales.jsp</result>
         </action>
         
         <action name="*Registro" method="{1}" class="Action.RegistroAction">

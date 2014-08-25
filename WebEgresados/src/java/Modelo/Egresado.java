@@ -17,17 +17,14 @@ public class Egresado extends Usuario {
     private String numeroDocumento;
     private String primerApellido;
     private String segundoApellido;
-    private long ciudadNacimiento;
-    private long ciudadExpedicion;
-    private long estadoCivil;
-    private long grupoSanguineo;
-    private long genero;
-    private long tipoDocumento;
+    private Ciudad idCiudadNacimiento;
+    private Ciudad idCiudadExpedicion;
+    private EstadoCivil idEstadoCivil;
+    private GrupoSanguineo idGrupoSanguineo;
+    private Genero idGenero;
+    private TipoDocumento idTipoDocumento;
     private long idEgresado;
-    
-    public Egresado()
-    {
-    }
+    private boolean aceptaCondiciones;    
 
     /**
      * @return the fechaExpedicion
@@ -142,87 +139,87 @@ public class Egresado extends Usuario {
     }
 
     /**
-     * @return the ciudadNacimiento
+     * @return the idCiudadNacimiento
      */
-    public long getCiudadNacimiento() {
-        return ciudadNacimiento;
+    public Ciudad getIdCiudadNacimiento() {
+        return idCiudadNacimiento;
     }
 
     /**
-     * @param ciudadNacimiento the ciudadNacimiento to set
+     * @param idCiudadNacimiento the idCiudadNacimiento to set
      */
-    public void setCiudadNacimiento(long ciudadNacimiento) {
-        this.ciudadNacimiento = ciudadNacimiento;
+    public void setIdCiudadNacimiento(Ciudad idCiudadNacimiento) {
+        this.idCiudadNacimiento = idCiudadNacimiento;
     }
 
     /**
-     * @return the ciudadExpedicion
+     * @return the idCiudadExpedicion
      */
-    public long getCiudadExpedicion() {
-        return ciudadExpedicion;
+    public Ciudad getIdCiudadExpedicion() {
+        return idCiudadExpedicion;
     }
 
     /**
-     * @param ciudadExpedicion the ciudadExpedicion to set
+     * @param idCiudadExpedicion the idCiudadExpedicion to set
      */
-    public void setCiudadExpedicion(long ciudadExpedicion) {
-        this.ciudadExpedicion = ciudadExpedicion;
+    public void setIdCiudadExpedicion(Ciudad idCiudadExpedicion) {
+        this.idCiudadExpedicion = idCiudadExpedicion;
     }
 
     /**
-     * @return the estadoCivil
+     * @return the idEstadoCivil
      */
-    public long getEstadoCivil() {
-        return estadoCivil;
+    public EstadoCivil getIdEstadoCivil() {
+        return idEstadoCivil;
     }
 
     /**
-     * @param estadoCivil the estadoCivil to set
+     * @param idEstadoCivil the idEstadoCivil to set
      */
-    public void setEstadoCivil(long estadoCivil) {
-        this.estadoCivil = estadoCivil;
+    public void setIdEstadoCivil(EstadoCivil idEstadoCivil) {
+        this.idEstadoCivil = idEstadoCivil;
     }
 
     /**
-     * @return the grupoSanguineo
+     * @return the idGrupoSanguineo
      */
-    public long getGrupoSanguineo() {
-        return grupoSanguineo;
+    public GrupoSanguineo getIdGrupoSanguineo() {
+        return idGrupoSanguineo;
     }
 
     /**
-     * @param grupoSanguineo the grupoSanguineo to set
+     * @param idGrupoSanguineo the idGrupoSanguineo to set
      */
-    public void setGrupoSanguineo(long grupoSanguineo) {
-        this.grupoSanguineo = grupoSanguineo;
+    public void setIdGrupoSanguineo(GrupoSanguineo idGrupoSanguineo) {
+        this.idGrupoSanguineo = idGrupoSanguineo;
     }
 
     /**
-     * @return the genero
+     * @return the idGenero
      */
-    public long getGenero() {
-        return genero;
+    public Genero getIdGenero() {
+        return idGenero;
     }
 
     /**
-     * @param genero the genero to set
+     * @param idGenero the idGenero to set
      */
-    public void setGenero(long genero) {
-        this.genero = genero;
+    public void setIdGenero(Genero idGenero) {
+        this.idGenero = idGenero;
     }
 
     /**
-     * @return the tipoDocumento
+     * @return the idTipoDocumento
      */
-    public long getTipoDocumento() {
-        return tipoDocumento;
+    public TipoDocumento getIdTipoDocumento() {
+        return idTipoDocumento;
     }
 
     /**
-     * @param tipoDocumento the tipoDocumento to set
+     * @param idTipoDocumento the idTipoDocumento to set
      */
-    public void setTipoDocumento(long tipoDocumento) {
-        this.tipoDocumento = tipoDocumento;
+    public void setIdTipoDocumento(TipoDocumento idTipoDocumento) {
+        this.idTipoDocumento = idTipoDocumento;
     }
 
     /**
@@ -237,5 +234,19 @@ public class Egresado extends Usuario {
      */
     public void setIdEgresado(long idEgresado) {
         this.idEgresado = idEgresado;
+    }
+
+    /**
+     * @return the aceptaCondiciones
+     */
+    public boolean isAceptaCondiciones() {
+        return aceptaCondiciones;
+    }
+
+    /**
+     * @param aceptaCondiciones the aceptaCondiciones to set
+     */
+    public void setAceptaCondiciones(boolean aceptaCondiciones) {
+        this.aceptaCondiciones = aceptaCondiciones;
     }
 }

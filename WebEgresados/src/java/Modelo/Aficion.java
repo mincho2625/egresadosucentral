@@ -15,7 +15,7 @@ import java.util.Date;
 public class Aficion {
     
     private long idAficion;
-    private long idTipoActividad;
+    private TipoActividad idTipoActividad;
     private String listaActividades;
     private Date fechaRegistro;
     private boolean estado;
@@ -29,11 +29,11 @@ public class Aficion {
         this.idAficion = idAficion;
     }
 
-    public long getIdTipoActividad() {
+    public TipoActividad getIdTipoActividad() {
         return idTipoActividad;
     }
 
-    public void setIdTipoActividad(long idTipoActividad) {
+    public void setIdTipoActividad(TipoActividad idTipoActividad) {
         this.idTipoActividad = idTipoActividad;
     }
 

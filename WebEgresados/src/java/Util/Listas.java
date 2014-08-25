@@ -12,14 +12,19 @@ import Modelo.AreaEstudios;
 import Modelo.CargoEquivalente;
 import Modelo.Ciudad;
 import Modelo.ClaseReconocimiento;
+import Modelo.EstadoCivil;
 import Modelo.EstadoEducacion;
 import Modelo.Estrato;
+import Modelo.Genero;
+import Modelo.GrupoSanguineo;
 import Modelo.Institucion;
 import Modelo.Jornada;
 import Modelo.Mes;
 import Modelo.Modalidad;
 import Modelo.NivelCargo;
 import Modelo.NivelEstudios;
+import Modelo.Pais;
+import Modelo.PreguntaSeguridad;
 import Modelo.Programa;
 import Modelo.RangoSalarial;
 import Modelo.RedSocial;
@@ -27,6 +32,8 @@ import Modelo.Subsector;
 import Modelo.TipoContacto;
 import Modelo.TipoContrato;
 import Modelo.TipoActividad;
+import Modelo.TipoAsociacion;
+import Modelo.TipoDocumento;
 import Modelo.TipoReconocimiento;
 import Modelo.TipoTenenciaVivienda;
 import Modelo.TipoVivienda;
@@ -70,6 +77,13 @@ public final class Listas {
     private Map<Long, Estrato> listaEstratos;
     private Map<Long, TipoContacto> listaTiposContacto;
     private Map<Long,TipoActividad> listaActividad;
+    private Map<Long, TipoDocumento> listaTiposDocumento;
+    private Map<Long, GrupoSanguineo> listaGruposSanguineos;
+    private Map<Long, Genero> listaGeneros;
+    private Map<Long, EstadoCivil> listaEstadosCiviles;
+    private Map<Long, PreguntaSeguridad> listaPreguntas;
+    private Map<Long, TipoAsociacion> listaTiposAsociaciones;
+    private Map<Long, Pais> listaPaises;
     private ArrayList<Integer> listaAnios;
     private final EntityManagerFactory emf = Persistence.createEntityManagerFactory("WebEgresadosPU");
 
@@ -97,6 +111,14 @@ public final class Listas {
         this.listaTiposTenenciaVivienda = new HashMap<>();
         this.listaEstratos = new HashMap<>();
         this.listaTiposContacto = new HashMap<>();
+        this.listaTiposDocumento = new HashMap<>();
+        this.listaGruposSanguineos = new HashMap<>();
+        this.listaGeneros = new HashMap<>();
+        this.listaEstadosCiviles = new HashMap<>();
+        this.listaPreguntas = new HashMap<>();
+        this.listaActividad = new HashMap<>();
+        this.listaTiposAsociaciones = new HashMap<>();
+        this.listaPaises = new HashMap<>();
         
         consultar(this.listaCiudades, "Ciudad.findAll", "getIdCiudad", Modelo.Ciudad.class.getName());        
         consultar(this.listaClasesReconocimiento, "ClaseReconocimiento.findAll", "getIdClaseReconocimiento", Modelo.ClaseReconocimiento.class.getName());        
@@ -110,7 +132,7 @@ public final class Listas {
         consultar(this.listaProgramas, "Programa.findAll", "getIdPrograma", Modelo.Programa.class.getName());
         consultar(this.listaNivelesEstudios, "NivelEstudios.findAll", "getIdNivelEstudios", Modelo.NivelEstudios.class.getName());
         consultar(this.listaRedesSociales, "RedSocial.findAll", "getIdRedSocial", Modelo.RedSocial.class.getName());
-        consultar(this.listaTiposContrato, "TipoContrato.findAll", "getIdTipoContrato", Modelo.TipoContacto.class.getName());
+        consultar(this.listaTiposContrato, "TipoContrato.findAll", "getIdTipoContrato", Modelo.TipoContrato.class.getName());
         consultar(this.listaSubsectores, "Subsector.findAll", "getIdSubsector", Modelo.Subsector.class.getName());
         consultar(this.listaNivelesCargo, "NivelCargo.findAll", "getIdNivelCargo", Modelo.NivelCargo.class.getName());
         consultar(this.listaAreasEmpresa, "AreaEmpresa.findAll", "getIdAreaEmpresa", Modelo.AreaEmpresa.class.getName());
@@ -120,6 +142,14 @@ public final class Listas {
         consultar(this.listaTiposTenenciaVivienda, "TipoTenenciaVivienda.findAll", "getIdTipoTenenciaVivienda", Modelo.TipoTenenciaVivienda.class.getName());
         consultar(this.listaEstratos, "Estrato.findAll", "getIdEstrato", Modelo.Estrato.class.getName());
         consultar(this.listaTiposContacto, "TipoContacto.findAll", "getIdTipoContacto", Modelo.TipoContacto.class.getName());
+        consultar(this.listaTiposDocumento, "TipoDocumento.findAll", "getIdTipoDocumento", Modelo.TipoDocumento.class.getName());
+        consultar(this.listaGruposSanguineos, "GrupoSanguineo.findAll", "getIdGrupoSanguineo", Modelo.GrupoSanguineo.class.getName());
+        consultar(this.listaPreguntas, "PreguntaSeguridad.findAll", "getIdPreguntaSeguridad", Modelo.PreguntaSeguridad.class.getName());
+        consultar(this.listaEstadosCiviles, "EstadoCivil.findAll", "getIdEstadoCivil", Modelo.EstadoCivil.class.getName());
+        consultar(this.listaGeneros, "Genero.findAll", "getIdGenero", Modelo.Genero.class.getName());
+        consultar(this.listaActividad, "TipoActividad.findAll", "getIdTipoActividad", Modelo.TipoActividad.class.getName());
+        consultar(this.listaTiposAsociaciones, "TipoAsociacion.findAll", "getIdTipoAsociacion", Modelo.TipoAsociacion.class.getName());
+        consultar(this.listaPaises, "Pais.findAll", "getIdPais", Modelo.Pais.class.getName());
         consultarAnios();
     }
     
@@ -463,6 +493,104 @@ public final class Listas {
         this.listaActividad = listaActividad;
     }
     
+    /**
+     * @return the listaTiposDocumento
+     */
+    public Map<Long, TipoDocumento> getListaTiposDocumento() {
+        return listaTiposDocumento;
+    }
+
+    /**
+     * @param listaTiposDocumento the listaTiposDocumento to set
+     */
+    public void setListaTiposDocumento(Map<Long, TipoDocumento> listaTiposDocumento) {
+        this.listaTiposDocumento = listaTiposDocumento;
+    }
+
+    /**
+     * @return the listaGruposSanguineos
+     */
+    public Map<Long, GrupoSanguineo> getListaGruposSanguineos() {
+        return listaGruposSanguineos;
+    }
+
+    /**
+     * @param listaGruposSanguineos the listaGruposSanguineos to set
+     */
+    public void setListaGruposSanguineos(Map<Long, GrupoSanguineo> listaGruposSanguineos) {
+        this.listaGruposSanguineos = listaGruposSanguineos;
+    }
+
+    /**
+     * @return the listaGeneros
+     */
+    public Map<Long, Genero> getListaGeneros() {
+        return listaGeneros;
+    }
+
+    /**
+     * @param listaGeneros the listaGeneros to set
+     */
+    public void setListaGeneros(Map<Long, Genero> listaGeneros) {
+        this.listaGeneros = listaGeneros;
+    }
+
+    /**
+     * @return the listaEstadosCiviles
+     */
+    public Map<Long, EstadoCivil> getListaEstadosCiviles() {
+        return listaEstadosCiviles;
+    }
+
+    /**
+     * @param listaEstadosCiviles the listaEstadosCiviles to set
+     */
+    public void setListaEstadosCiviles(Map<Long, EstadoCivil> listaEstadosCiviles) {
+        this.listaEstadosCiviles = listaEstadosCiviles;
+    }
+
+    /**
+     * @return the listaPreguntas
+     */
+    public Map<Long, PreguntaSeguridad> getListaPreguntas() {
+        return listaPreguntas;
+    }
+
+    /**
+     * @param listaPreguntas the listaPreguntas to set
+     */
+    public void setListaPreguntas(Map<Long, PreguntaSeguridad> listaPreguntas) {
+        this.listaPreguntas = listaPreguntas;
+    }
+    
+    /**
+     * @return the listaTiposAsociaciones
+     */
+    public Map<Long, TipoAsociacion> getListaTiposAsociaciones() {
+        return listaTiposAsociaciones;
+    }
+
+    /**
+     * @param listaTiposAsociaciones the listaTiposAsociaciones to set
+     */
+    public void setListaTiposAsociaciones(Map<Long, TipoAsociacion> listaTiposAsociaciones) {
+        this.listaTiposAsociaciones = listaTiposAsociaciones;
+    }
+    
+    /**
+     * @return the listaPaises
+     */
+    public Map<Long, Pais> getListaPaises() {
+        return listaPaises;
+    }
+
+    /**
+     * @param listaPaises the listaPaises to set
+     */
+    public void setListaPaises(Map<Long, Pais> listaPaises) {
+        this.listaPaises = listaPaises;
+    }
+    
     private Map<Long, Object> consultar(Map listaObjetos, String consulta, String idObjeto, String claseDestino)
     {
         Convertidor convertidor2 = new Convertidor();
@@ -488,7 +616,7 @@ public final class Listas {
     private ArrayList<Integer> consultarAnios()
     {
         listaAnios = new ArrayList<>();
-        for (int i = 1990; i < LocalDate.now().getYear(); i++) {
+        for (int i = 1990; i <= LocalDate.now().getYear(); i++) {
             listaAnios.add(i);
         }
         return listaAnios;

@@ -1,12 +1,10 @@
 <!DOCTYPE html>
 <%@taglib uri="/struts-tags" prefix="s"%>
-<%@taglib uri="/struts-jquery-tags" prefix="jq" %>
 <html lang="es">
     <head>
         <title>Reconocimientos y distinciones</title>
         <meta charset="utf-8"/>
         <link rel="stylesheet" href="estilo.css">
-        <jq:head></jq:head>
     </head>
     <body>
         <div id="Tabla" align="center">
@@ -17,27 +15,23 @@
                     </td>
                     <td class="tddos">Lista de Actividades<br>
                     </td>
-                    <td class="tddos">Fecha<br>
-                    </td>
                 </tr>
 
-                <s:iterator value="listaObjetos" status="contacto">
+                <s:iterator value="listaObjetos">
                     <tr>
                         <td class="tdtres"><s:property value="idTipoActividad.nombre"></s:property><br>
                             </td>
                             <td class="tdtres"><s:property value="listaActividades"></s:property><br>
                             </td>
-                            <td class="tdtres"><s:property value="fechaRegistro"></s:property><br>
-                            </td>
                             <td class="tdtres">
-                            <s:url id="editarURL" action="editarA.action">
-                                <s:param name="idObjeto" value="%{idReconocimiento}"></s:param>
+                            <s:url id="editarURL" action="editarAficion.action">
+                                <s:param name="idObjeto" value="%{idAficion}"></s:param>
                             </s:url>
                             <s:a href="%{editarURL}">
                                 <img style="width: 20px; height: 19px;" title="Editar" alt="Editar" src="imagenes/Icono_de_editar.png" align="top"><br>
                             </s:a>
-                            <s:url id="borrarURL" action="borrarReconocimiento.action">
-                                <s:param name="idObjeto" value="%{idReconocimiento}"></s:param>
+                            <s:url id="borrarURL" action="borrarAficion.action">
+                                <s:param name="idObjeto" value="%{idAficion}"></s:param>
                             </s:url>
                             <s:a href="%{borrarURL}">
                                 <img style="width: 20px; height: 19px;" title="Borrar" alt="Borrar" src="imagenes/Icono_de_editar.png" align="top"><br>
@@ -48,7 +42,7 @@
             </table>
             <br>
             <div class="buttons">
-                <a href="desplegarAficiones.action" target="contenido">
+                <a href="desplegarAficion.action" target="contenido">
                     <button type="submit" class="positive" name="nuevo">
                         <img src="imagenes/btnGuardar.png" alt=""/>
                         Nuevo
@@ -62,58 +56,27 @@
 
         <div id="contenido">
             <s:if test="editar">
-                <s:form action="guardarReconocimiento.action">
+                <s:form action="guardarAficion.action">
                     <s:push value="objeto">
-                        <s:hidden name="idReconocimiento"></s:hidden>
+                        <s:hidden name="idAficion"></s:hidden>
                             <table>
                                 <tr>
                                     <td>
                                         <div class="tduno"> Tipo Reconocimiento </div>
                                     </td>
                                     <td>
-                                    <s:select name="tipoReconocimiento" list="listaTiposReconocimiento" listKey="idTipoReconocimiento" listValue="nombre"></s:select>
+                                    <s:select name="tipoActividad" list="listaTipoActividad" listKey="idTipoActividad" listValue="nombre"></s:select>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <div class="tduno"> Clase Reconocimiento </div>
+                                        <div class="tduno"> Lista Actividades </div>
                                     </td>
                                     <td>
-                                    <s:select name="claseReconocimiento" list="listaClasesReconocimiento" listKey="idClaseReconocimiento" listValue="nombre"></s:select>
+                                    <s:textfield name="listaActividades"></s:textfield>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>
-                                        <div class="tduno"> Descripción </div>
-                                    </td>
-                                    <td>
-                                    <s:textfield name="descripcion"></s:textfield>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="tduno"> Ciudad </div>
-                                    </td>
-                                    <td>
-                                    <s:select name="ciudad" list="listaCiudades" listKey="idCiudad" listValue="nombre"></s:select>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="tduno"> Entidad Otorgante </div>
-                                    </td>
-                                    <td>
-                                    <s:textfield name="entidadOtorgante"></s:textfield>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="tduno">  Fecha </div>
-                                    </td>
-                                    <td>
-                                    <jq:datepicker name="fechaReconocimiento" changeMonth="true" changeYear="true" showButtonPanel="true"></jq:datepicker>
-                                    </td>
-                                </tr>
                                 <tr>
                                 <s:submit cssClass="positive" value="Guardar">
                             </s:submit>

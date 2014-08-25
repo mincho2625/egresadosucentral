@@ -18,6 +18,7 @@ import Modelo.TipoContrato;
 import Util.Listas;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
 
@@ -37,6 +38,7 @@ public class ExperienciaLaboralAction extends CrudAction<ExperienciaLaboral> {
     private Map<Long, CargoEquivalente> listaCargosEquivalentes;
     private Map<Long, Mes> listaMeses;
     private Map<Long, Ciudad> listaCiudades;
+    private ArrayList<Integer> listaAnios;
     private long tipoContrato;
     private long subsector;
     private long nivelCargo;
@@ -292,6 +294,20 @@ public class ExperienciaLaboralAction extends CrudAction<ExperienciaLaboral> {
         this.mesIngreso = mesIngreso;
     }
     
+    /**
+     * @return the listaAnios
+     */
+    public ArrayList<Integer> getListaAnios() {
+        return listaAnios;
+    }
+
+    /**
+     * @param listaAnios the listaAnios to set
+     */
+    public void setListaAnios(ArrayList<Integer> listaAnios) {
+        this.listaAnios = listaAnios;
+    }
+    
     @Override
     public String desplegar() {
         this.obtenerLista();
@@ -303,6 +319,7 @@ public class ExperienciaLaboralAction extends CrudAction<ExperienciaLaboral> {
         this.setListaSubsectores(Listas.obtenerListas().getListaSubsectores());
         this.setListaTiposContrato(Listas.obtenerListas().getListaTiposContrato());
         this.setListaCiudades(Listas.obtenerListas().getListaCiudades());
+        this.setListaAnios(Listas.obtenerListas().getListaAnios());
         
         this.editar = true;
         return SUCCESS;

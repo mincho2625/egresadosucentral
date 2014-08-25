@@ -94,7 +94,7 @@ public class Educacion implements Serializable {
     @JoinColumn(name = "ID_EGRESADO", referencedColumnName = "ID_EGRESADO")
     @ManyToOne(optional = false)
     private Egresado idEgresado;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "educacion")
+    @OneToOne(cascade = CascadeType.PERSIST, mappedBy = "educacion")
     private EducacionFormal educacionFormal;
 
     public Educacion() {
@@ -254,6 +254,9 @@ public class Educacion implements Serializable {
 
     public void setEducacionFormal(EducacionFormal educacionFormal) {
         this.educacionFormal = educacionFormal;
+        if (this.educacionFormal != null){
+            this.educacionFormal.setEducacion(this);
+        }
     }
 
     @Override

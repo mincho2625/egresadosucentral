@@ -6,7 +6,9 @@
 
 package Persistencia;
 
+import Util.Configuracion;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -381,4 +383,25 @@ public class Egresado implements Serializable {
         return "Persistencia.Egresado[ idEgresado=" + idEgresado + " ]";
     }
     
+    public Collection<EducacionFormal> getEducacionFormalUcentral() {
+        Collection<EducacionFormal> coleccion = new ArrayList<EducacionFormal>();
+        Configuracion configuracion = new Configuracion();
+        for (Educacion educacion : educacionCollection)
+        {
+            if (educacion.getEducacionFormal() != null && educacion.getIdInstitucion().getIdInstitucion().equals(configuracion.getIdInstitucionUcentral().getIdInstitucion()))
+                coleccion.add(educacion.getEducacionFormal());
+        }
+        return coleccion;
+    }
+    
+    public Collection<EducacionFormal> getEducacionFormalOtrasInstituciones() {
+        Collection<EducacionFormal> coleccion = new ArrayList<EducacionFormal>();
+        Configuracion configuracion = new Configuracion();
+        for (Educacion educacion : educacionCollection)
+        {
+            if (educacion.getEducacionFormal() != null && !educacion.getIdInstitucion().getIdInstitucion().equals(configuracion.getIdInstitucionUcentral().getIdInstitucion()))
+                coleccion.add(educacion.getEducacionFormal());
+        }
+        return coleccion;
+    }
 }
