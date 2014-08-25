@@ -11,7 +11,7 @@
 </head>
 
 <body>
-<div align="center">
+    <div class="positive">
 	<iframe width="854" height="510" src="https://www.youtube.com/embed/vmfLO41s6OU" frameborder="1" allowfullscreen></iframe>
 </div>
 </body>

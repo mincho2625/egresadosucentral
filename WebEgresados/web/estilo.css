@@ -93,6 +93,16 @@ a{text-decoration: none;}
     border-left: 1px solid #436600;
 
 }
+#contenido1{
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 15px;
+    width: 74%;
+    height: 100%;
+    text-align: center;
+    border-left: 0px solid #436600;
+
+}
 #contenido2{
     margin-left: auto;
     margin-right: auto;
