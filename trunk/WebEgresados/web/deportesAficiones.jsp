@@ -69,7 +69,7 @@
                                         <div class="tduno"> Tipo Reconocimiento </div>
                                     </td>
                                     <td>
-                                    <s:select name="tipoActividad" list="listaTipoActividad" listKey="idTipoActividad" listValue="nombre"></s:select>
+                                    <s:select name="tipoActividad" list="listaTiposActividades" listKey="idTipoActividad" listValue="nombre"></s:select>
                                     </td>
                                 </tr>
                                 <tr>

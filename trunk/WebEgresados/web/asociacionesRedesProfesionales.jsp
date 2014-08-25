@@ -71,7 +71,7 @@
             <s:if test="editar">
                 <s:form action="guardarAsociacion.action">
                     <s:push value="objeto">
-                        <s:hidden name="idAficion"></s:hidden>
+                        <s:hidden name="idAsociacion"></s:hidden>
                             <table>
                                 <tr>
                                     <td>

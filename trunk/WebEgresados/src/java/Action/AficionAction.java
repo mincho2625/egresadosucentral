@@ -3,11 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package Action;
 
 import Modelo.Aficion;
 import Modelo.TipoActividad;
 import Util.Listas;
+import static com.opensymphony.xwork2.Action.SUCCESS;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.Collection;
@@ -17,26 +19,32 @@ import java.util.Map;
  *
  * @author JERONIMO
  */
-public class AficionAction extends CrudAction<Aficion> {
+public class AficionAction  extends CrudAction<Aficion>{
 
-    private Map<Long, TipoActividad> listaActividad;
+    private Map<Long,TipoActividad> listaTiposActividades;
     private long tipoActividad;
-
+    
     public AficionAction() {
         super(Aficion.class.getName());
         this.idObjeto = "getIdAficion";
         this.coleccion = "getAficionesCollection";
         this.clasePersistencia = Persistencia.Aficiones.class.getName();
     }
-
-    public Collection<TipoActividad> getListaActividad() {
-        return listaActividad.values();
+    
+    /**
+     * @return the listaTiposActividades
+     */
+    public Collection<TipoActividad> getListaTiposActividades() {
+        return listaTiposActividades.values();
     }
 
-    public void setListaActividad(Map<Long, TipoActividad> listaActividad) {
-        this.listaActividad = listaActividad;
+    /**
+     * @param listaTiposActividades the listaTiposActividades to set
+     */
+    public void setListaTiposActividades(Map<Long,TipoActividad> listaTiposActividades) {
+        this.listaTiposActividades = listaTiposActividades;
     }
-
+    
     /**
      * @return the tipoActividad
      */
@@ -53,7 +61,7 @@ public class AficionAction extends CrudAction<Aficion> {
 
     @Override
     public String desplegar() {
-        this.setListaActividad(Listas.obtenerListas().getListaActividad());
+        this.setListaTiposActividades(Listas.obtenerListas().getListaTiposActividades());
         this.obtenerLista();
         this.editar = true;
         return SUCCESS;
@@ -61,7 +69,7 @@ public class AficionAction extends CrudAction<Aficion> {
 
     @Override
     public void insertarTipos() {
-        this.objeto.setIdTipoActividad(Listas.obtenerListas().getListaActividad().get(this.tipoActividad));
+        this.objeto.setIdTipoActividad(Listas.obtenerListas().getListaTiposActividades().get(this.tipoActividad));
     }
 
     @Override

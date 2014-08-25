@@ -50,6 +50,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Egresado.findByIdEgresado", query = "SELECT e FROM Egresado e WHERE e.idEgresado = :idEgresado"),
     @NamedQuery(name = "Egresado.findByNombreUsuario", query = "SELECT e FROM Egresado e join Usuario u WHERE u.nombre = :nombreUsuario")})
 public class Egresado implements Serializable {
+    @Lob
+    @Column(name = "FOTO")
+    private byte[] foto;
     private static final long serialVersionUID = 1L;
     @Basic(optional = false)
     @Column(name = "PRIMER_APELLIDO")
@@ -71,9 +74,6 @@ public class Egresado implements Serializable {
     @Column(name = "FECHA_EXPEDICION")
     @Temporal(TemporalType.DATE)
     private Date fechaExpedicion;
-    @Lob
-    @Column(name = "FOTO")
-    private byte[] foto;
     @Basic(optional = false)
     @Column(name = "FECHA_ULTIMA_ACT")
     @Temporal(TemporalType.TIMESTAMP)
@@ -193,13 +193,6 @@ public class Egresado implements Serializable {
         this.fechaExpedicion = fechaExpedicion;
     }
 
-    public byte[] getFoto() {
-        return foto;
-    }
-
-    public void setFoto(byte[] foto) {
-        this.foto = foto;
-    }
 
     public Date getFechaUltimaAct() {
         return fechaUltimaAct;
@@ -384,7 +377,7 @@ public class Egresado implements Serializable {
     }
     
     public Collection<EducacionFormal> getEducacionFormalUcentral() {
-        Collection<EducacionFormal> coleccion = new ArrayList<EducacionFormal>();
+        Collection<EducacionFormal> coleccion = new ArrayList<>();
         Configuracion configuracion = new Configuracion();
         for (Educacion educacion : educacionCollection)
         {
@@ -395,7 +388,7 @@ public class Egresado implements Serializable {
     }
     
     public Collection<EducacionFormal> getEducacionFormalOtrasInstituciones() {
-        Collection<EducacionFormal> coleccion = new ArrayList<EducacionFormal>();
+        Collection<EducacionFormal> coleccion = new ArrayList<>();
         Configuracion configuracion = new Configuracion();
         for (Educacion educacion : educacionCollection)
         {
@@ -403,5 +396,13 @@ public class Egresado implements Serializable {
                 coleccion.add(educacion.getEducacionFormal());
         }
         return coleccion;
+    }
+
+    public byte[] getFoto() {
+        return foto;
+    }
+
+    public void setFoto(byte[] foto) {
+        this.foto = foto;
     }
 }

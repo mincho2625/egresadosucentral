@@ -76,7 +76,7 @@ public final class Listas {
     private Map<Long, TipoTenenciaVivienda> listaTiposTenenciaVivienda;
     private Map<Long, Estrato> listaEstratos;
     private Map<Long, TipoContacto> listaTiposContacto;
-    private Map<Long,TipoActividad> listaActividad;
+    private Map<Long,TipoActividad> listaTiposActividades;
     private Map<Long, TipoDocumento> listaTiposDocumento;
     private Map<Long, GrupoSanguineo> listaGruposSanguineos;
     private Map<Long, Genero> listaGeneros;
@@ -116,7 +116,7 @@ public final class Listas {
         this.listaGeneros = new HashMap<>();
         this.listaEstadosCiviles = new HashMap<>();
         this.listaPreguntas = new HashMap<>();
-        this.listaActividad = new HashMap<>();
+        this.listaTiposActividades = new HashMap<>();
         this.listaTiposAsociaciones = new HashMap<>();
         this.listaPaises = new HashMap<>();
         
@@ -147,7 +147,7 @@ public final class Listas {
         consultar(this.listaPreguntas, "PreguntaSeguridad.findAll", "getIdPreguntaSeguridad", Modelo.PreguntaSeguridad.class.getName());
         consultar(this.listaEstadosCiviles, "EstadoCivil.findAll", "getIdEstadoCivil", Modelo.EstadoCivil.class.getName());
         consultar(this.listaGeneros, "Genero.findAll", "getIdGenero", Modelo.Genero.class.getName());
-        consultar(this.listaActividad, "TipoActividad.findAll", "getIdTipoActividad", Modelo.TipoActividad.class.getName());
+        consultar(this.listaTiposActividades, "TipoActividad.findAll", "getIdTipoActividad", Modelo.TipoActividad.class.getName());
         consultar(this.listaTiposAsociaciones, "TipoAsociacion.findAll", "getIdTipoAsociacion", Modelo.TipoAsociacion.class.getName());
         consultar(this.listaPaises, "Pais.findAll", "getIdPais", Modelo.Pais.class.getName());
         consultarAnios();
@@ -485,14 +485,6 @@ public final class Listas {
         this.listaTiposContacto = listaTiposContacto;
     }
     
-    public Map<Long,TipoActividad> getListaActividad() {
-        return listaActividad;
-    }
-
-    public void setListaActividad(Map<Long,TipoActividad> listaActividad) {
-        this.listaActividad = listaActividad;
-    }
-    
     /**
      * @return the listaTiposDocumento
      */
@@ -591,6 +583,20 @@ public final class Listas {
         this.listaPaises = listaPaises;
     }
     
+    /**
+     * @return the listaTiposActividades
+     */
+    public Map<Long,TipoActividad> getListaTiposActividades() {
+        return listaTiposActividades;
+    }
+
+    /**
+     * @param listaTiposActividades the listaTiposActividades to set
+     */
+    public void setListaTiposActividades(Map<Long,TipoActividad> listaTiposActividades) {
+        this.listaTiposActividades = listaTiposActividades;
+    }
+    
     private Map<Long, Object> consultar(Map listaObjetos, String consulta, String idObjeto, String claseDestino)
     {
         Convertidor convertidor2 = new Convertidor();
@@ -601,7 +607,7 @@ public final class Listas {
             List<Object> lista = query.getResultList();
             for (Object objeto : lista) {
                 if ((boolean)convertidor2.invocar(objeto, "getEstado")){
-                    listaObjetos.put((Long)convertidor2.invocar(objeto, idObjeto), convertidor2.convertirAModelo(objeto, claseDestino));
+                    listaObjetos.put((Long)convertidor2.invocar(objeto, idObjeto), convertidor2.convertirAModelo(objeto, null, claseDestino));
                 }
             }
 

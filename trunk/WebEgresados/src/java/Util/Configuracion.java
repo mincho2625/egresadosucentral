@@ -53,7 +53,7 @@ public class Configuracion {
             Query query = em.createNamedQuery(consulta);
             query.setParameter(parametro, idParametro);
             Object objeto = query.getSingleResult();            
-            return convertidor.convertirAModelo(objeto, claseDestino);
+            return convertidor.convertirAModelo(objeto, null, claseDestino);
         } catch (SecurityException | IllegalArgumentException ex) {
             Logger.getLogger(ControladorEgresado.class.getName()).log(Level.SEVERE, null, ex);
         }
