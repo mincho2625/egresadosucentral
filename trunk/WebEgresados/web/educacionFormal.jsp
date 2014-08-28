@@ -93,7 +93,7 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        <div class="tduno"> Mes Inicio </div><s:select cssClass="center"name="mesInicio" list="listaMeses" listKey="idMes" listValue="mes"></s:select>
+                                        <div class="tduno"> Mes Inicio </div><s:select cssClass="center" name="mesInicio" list="listaMeses" listKey="idMes" listValue="mes"></s:select>
                                     </td>
                                 </tr>
                                 <tr>

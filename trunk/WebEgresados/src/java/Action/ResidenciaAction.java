@@ -36,7 +36,7 @@ public class ResidenciaAction extends CrudAction<Residencia> {
         super(Residencia.class.getName());
         this.idObjeto = "getIdResidencia";
         this.coleccion = "getResidenciaCollection";
-        this.clasePersistencia = Persistencia.Residencia.class.getName();
+        this.claseBasePersistencia = Persistencia.Residencia.class.getName();
     }
 
     /**

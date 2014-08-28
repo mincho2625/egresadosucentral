@@ -63,6 +63,30 @@ public class ControladorEgresado {
         
         return null;
     }
+    
+    public Map<Long, Object> consultar(String lista, String idObjeto, String claseDestino, String idObjetoConcreto)
+    {
+        Convertidor convertidor2 = new Convertidor();
+        
+        try {
+            Map<Long, Object> listaObjetos = new HashMap<>();
+            
+            Collection<Object> coleccion = (Collection)convertidor2.invocar(e,lista);
+            for (Object objeto : coleccion) {
+                if ((boolean)convertidor2.invocar(objeto, "getEstado")){
+                    Object concreto = convertidor2.invocar(objeto, idObjetoConcreto);
+                    Object item = convertidor2.convertirAModelo(objeto, concreto, claseDestino);
+                    listaObjetos.put((Long)convertidor2.invocar(concreto, idObjeto), item);
+                }
+            }
+            
+            return listaObjetos;
+        } catch (SecurityException | IllegalArgumentException ex) {
+            Logger.getLogger(ControladorEgresado.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return null;
+    }
 
     public boolean actualizarInformacionBasica(Egresado egresado) {
         Convertidor convertidor = new Convertidor();

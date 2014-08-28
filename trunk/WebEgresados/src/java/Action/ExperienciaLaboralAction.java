@@ -53,7 +53,7 @@ public class ExperienciaLaboralAction extends CrudAction<ExperienciaLaboral> {
         super(ExperienciaLaboral.class.getName());
         this.idObjeto = "getIdExperienciaLaboral";
         this.coleccion = "getExperienciaLaboralCollection";
-        this.clasePersistencia = Persistencia.ExperienciaLaboral.class.getName();
+        this.claseBasePersistencia = Persistencia.ExperienciaLaboral.class.getName();
     }
     
     /**
