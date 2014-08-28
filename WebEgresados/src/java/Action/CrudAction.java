@@ -32,9 +32,10 @@ public abstract class CrudAction<T> extends ActionSupport implements ModelDriven
     protected String coleccion;
     protected String idObjeto;
     protected String claseModelo;
-    protected String clasePersistencia;
-    protected String clasePersistencia2;
-    protected String idObjeto2;
+    protected String claseBasePersistencia;
+    protected String claseConcretaPersistencia;
+    protected String objetoConcretoSet;
+    protected String objetoBaseGet;
     protected boolean editar = false;
     
     /**
@@ -115,10 +116,10 @@ public abstract class CrudAction<T> extends ActionSupport implements ModelDriven
             insertarTipos();
             insertarValoresDefecto();
             
-            if (clasePersistencia2 != null && idObjeto2 != null)
-                controladorEgresado.actualizar(objeto, clasePersistencia, idObjeto, clasePersistencia2, idObjeto2);
+            if (claseConcretaPersistencia != null && objetoConcretoSet != null)
+                controladorEgresado.actualizar(objeto, claseBasePersistencia, idObjeto, claseConcretaPersistencia, objetoConcretoSet);
             else
-                controladorEgresado.actualizar(objeto, clasePersistencia, idObjeto);
+                controladorEgresado.actualizar(objeto, claseBasePersistencia, idObjeto);
             
             obtenerLista();
             this.setEditar(false);
@@ -134,7 +135,10 @@ public abstract class CrudAction<T> extends ActionSupport implements ModelDriven
     {
         try {
             controladorEgresado.refrescar();
-            setListaObjetos((Map<Long, T>) controladorEgresado.consultar(coleccion, idObjeto, claseModelo));
+            if (claseConcretaPersistencia != null && objetoBaseGet != null)
+                setListaObjetos((Map<Long, T>) controladorEgresado.consultar(coleccion, idObjeto, claseModelo, objetoBaseGet));
+            else
+                setListaObjetos((Map<Long, T>) controladorEgresado.consultar(coleccion, idObjeto, claseModelo));
             
             return SUCCESS;
         } catch (SecurityException | IllegalArgumentException ex) {
@@ -148,7 +152,7 @@ public abstract class CrudAction<T> extends ActionSupport implements ModelDriven
     {
         try {
             HttpServletRequest request = (HttpServletRequest) ActionContext.getContext().get(ServletActionContext.HTTP_REQUEST);
-            this.controladorEgresado.borrar(clasePersistencia, Long.parseLong( request.getParameter("idObjeto")));
+            this.controladorEgresado.borrar(claseBasePersistencia, Long.parseLong( request.getParameter("idObjeto")));
             this.obtenerLista();
             this.setEditar(false);
             return SUCCESS;

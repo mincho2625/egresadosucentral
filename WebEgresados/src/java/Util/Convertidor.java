@@ -13,25 +13,31 @@ import java.lang.reflect.Method;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
+import org.apache.commons.lang.ArrayUtils;
 
 /**
  *
  * @author YURY
  */
 public class Convertidor {
-    public Object convertirAModelo(Object origen, Object destino, String claseDestino) {
-        if (destino == null)
-            destino = instanciar(claseDestino);
-        
+    public Object convertirAModelo(Object origen, Object origenBase, String claseDestino) {
         Class claseSet;
         Object valor;
         String metodoGet;
+        
+        Object destino = instanciar(claseDestino);
+        
+        Method[] metodos = destino.getClass().getDeclaredMethods();
+        if (origenBase != null && destino.getClass().getSuperclass().getPackage().getName().equals("Modelo"))
+            metodos = (Method[]) ArrayUtils.addAll(metodos, destino.getClass().getSuperclass().getDeclaredMethods());
 
-        for (Method set : destino.getClass().getDeclaredMethods()) {
+        for (Method set : metodos) {
             try {
                 if (esSetter(set.getName())) {
                     metodoGet = obtenerMetodoGetPersistencia(set.getName());
                     valor = invocar(origen, metodoGet);
+                    if (valor == null && origenBase != null)
+                        valor = invocar(origenBase, metodoGet);
                     
                     if (valor != null)
                     {
@@ -165,8 +171,10 @@ public class Convertidor {
     
     public Object invocar(Object objeto, String nombreMetodo)
     {
+        Method metodo;
         try {
-            Method metodo = objeto.getClass().getMethod(nombreMetodo);
+            metodo = objeto.getClass().getMethod(nombreMetodo);
+            
             Object valor = metodo.invoke(objeto);
             if (valor == null && objeto.getClass().getSuperclass() != null
                     && objeto.getClass().getSuperclass().getPackage().getName().equals("Modelo"))

@@ -39,10 +39,11 @@ public class EducacionFormalUCentralAction extends CrudAction<EducacionFormal> {
     public EducacionFormalUCentralAction() {
         super(EducacionFormal.class.getName());
         this.idObjeto = "getIdEducacion";
-        this.idObjeto2 = "setEducacionFormal";
+        this.objetoConcretoSet = "setEducacionFormal";
+        this.objetoBaseGet = "getEducacion";
         this.coleccion = "getEducacionFormalUcentral";
-        this.clasePersistencia2 = Persistencia.EducacionFormal.class.getName();
-        this.clasePersistencia = Persistencia.Educacion.class.getName();
+        this.claseConcretaPersistencia = Persistencia.EducacionFormal.class.getName();
+        this.claseBasePersistencia = Persistencia.Educacion.class.getName();
     }
 
     /**

@@ -30,7 +30,7 @@ public class AsociacionAction extends CrudAction<Asociacion> {
         super(Asociacion.class.getName());
         this.idObjeto = "getIdAsociacion";
         this.coleccion = "getAsociacionCollection";
-        this.clasePersistencia = Persistencia.Asociacion.class.getName();
+        this.claseBasePersistencia = Persistencia.Asociacion.class.getName();
     }
 
     /**

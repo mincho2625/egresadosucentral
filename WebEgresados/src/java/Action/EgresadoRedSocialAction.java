@@ -27,7 +27,7 @@ public class EgresadoRedSocialAction extends CrudAction<EgresadoRedSocial>{
         super(EgresadoRedSocial.class.getName());
         this.idObjeto = "getIdEgresadoRedSocial";
         this.coleccion = "getEgresadoRedSocialCollection";
-        this.clasePersistencia = Persistencia.EgresadoRedSocial.class.getName();
+        this.claseBasePersistencia = Persistencia.EgresadoRedSocial.class.getName();
     }
 
     /**
