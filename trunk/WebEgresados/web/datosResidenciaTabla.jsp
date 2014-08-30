@@ -107,7 +107,7 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        <div class="tduno"> Tiene computador </div><s:checkbox cssClass="center"name="computador"></s:checkbox>
+                                        <div class="tduno"> Tiene computador </div><s:checkbox cssClass="center" name="computador"></s:checkbox>
                                     </td>
                                 </tr>
                                 <tr>

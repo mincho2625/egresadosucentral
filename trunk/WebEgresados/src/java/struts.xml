@@ -33,6 +33,10 @@
             <result name="success">/educacionFormal.jsp</result>
         </action>
         
+        <action name="*EducacionFormalOtrasInstituciones" method="{1}" class="Action.EducacionFormalOtrasInstitucionesAction">
+            <result name="success">/educacionFormalOtrasInstituciones.jsp</result>
+        </action>
+        
         <action name="*Reconocimiento" method="{1}" class="Action.ReconocimientoAction">
             <result name="success">/distincionesReconocimiento.jsp</result>
         </action>

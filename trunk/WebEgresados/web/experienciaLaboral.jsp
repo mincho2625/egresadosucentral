@@ -91,7 +91,7 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        <div class="tduno">Ciudad</div><s:select cssClass="center "name="ciudad" list="listaCiudades" listKey="idCiudad" listValue="nombre"></s:select>
+                                        <div class="tduno">Ciudad</div><s:select cssClass="center" name="ciudad" list="listaCiudades" listKey="idCiudad" listValue="nombre"></s:select>
                                     </td>
                                 </tr>
                                 <tr>
@@ -131,7 +131,7 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        <div class="tduno"> Telefono de la Empresa</div><s:textfield cssClass="center"name="telefonoEmpresa"></s:textfield>
+                                        <div class="tduno"> Telefono de la Empresa</div><s:textfield cssClass="center" name="telefonoEmpresa"></s:textfield>
                                     </td>
                                 </tr>
                                 <tr>
@@ -146,7 +146,7 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        <div class="tduno">Año de ingreso</div><s:select cssClass="center"name="anioIngreso" list="listaAnios"></s:select>
+                                        <div class="tduno">Año de ingreso</div><s:select cssClass="center" name="anioIngreso" list="listaAnios"></s:select>
                                     </td>
                                 </tr>
                                 <tr>

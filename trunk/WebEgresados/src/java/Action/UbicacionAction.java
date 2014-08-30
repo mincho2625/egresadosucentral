@@ -27,7 +27,7 @@ public class UbicacionAction extends CrudAction<Contacto> {
         super(Modelo.Contacto.class.getName());
         this.idObjeto = "getIdContacto";
         this.coleccion = "getContactoCollection";
-        this.claseBasePersistencia = Persistencia.Contacto.class.getName();
+        this.claseConcretaPersistencia = Persistencia.Contacto.class;
     }
     
     /**

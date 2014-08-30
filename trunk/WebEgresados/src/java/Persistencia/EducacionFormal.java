@@ -82,4 +82,9 @@ public class EducacionFormal implements Serializable {
     {
         return educacion.getEstado();
     }
+    
+    public void setEstado(boolean estado)
+    {
+        educacion.setEstado(estado);
+    }
 }

@@ -32,7 +32,7 @@ public class ReconocimientoAction extends CrudAction<Reconocimiento>{
         super(Reconocimiento.class.getName());
         this.idObjeto = "getIdReconocimiento";
         this.coleccion = "getReconocimientoCollection";
-        this.claseBasePersistencia = Persistencia.Reconocimiento.class.getName();
+        this.claseConcretaPersistencia = Persistencia.Reconocimiento.class;
     }
 
     /**

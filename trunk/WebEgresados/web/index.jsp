@@ -32,7 +32,7 @@
                     <li>Educacion Formal
                         <ul>
                             <a href="obtenerListaEducacionFormalUCentral.action" target="contenido"><li>Datos Academicos Ucentral</li></a>
-                            <a href="informacionAcademicaOtrasTabla.jsp" target="contenido"><li>Informacion Academica Otras Instituciones</li></a>
+                            <a href="obtenerListaEducacionFormalOtrasInstituciones.action" target="contenido"><li>Informacion Academica Otras Instituciones</li></a>
                         </ul>
                     </li>
 

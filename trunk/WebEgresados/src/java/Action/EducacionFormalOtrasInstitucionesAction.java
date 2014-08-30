@@ -6,12 +6,16 @@
 
 package Action;
 
+import Modelo.AreaEstudios;
+import Modelo.Ciudad;
 import Modelo.EducacionFormal;
 import Modelo.EstadoEducacion;
+import Modelo.Institucion;
 import Modelo.Jornada;
 import Modelo.Mes;
+import Modelo.Modalidad;
+import Modelo.NivelEstudios;
 import Modelo.Programa;
-import Util.Configuracion;
 import Util.Listas;
 import static com.opensymphony.xwork2.Action.SUCCESS;
 import java.sql.Date;
@@ -24,24 +28,41 @@ import java.util.Map;
  *
  * @author YURY
  */
-public class EducacionFormalUCentralAction extends CrudAction<EducacionFormal> {
+public class EducacionFormalOtrasInstitucionesAction extends CrudAction<EducacionFormal> {
     private Map<Long, Mes> listaMeses;
     private Map<Long, EstadoEducacion> listaEstadosEducacion;
     private Map<Long, Jornada> listaJornadas;
     private Map<Long, Programa> listaProgramas;
+    private Map<Long, AreaEstudios> listaAreasEstudios;
+    private Map<Long, Ciudad> listaCiudades;
+    private Map<Long, Institucion> listaInstituciones;
+    private Map<Long, Modalidad> listaModalidades;
+    private Map<Long, NivelEstudios> listaNivelesEstudios;
     private ArrayList<Integer> listaAnios;
+    
+//    this.objeto.setIdAreaEstudios(configuracion.getIdAreaEstudios());
+//        this.objeto.setIdCiudad(configuracion.getIdCiudadUcentral());
+//        this.objeto.setIdInstitucion(configuracion.getIdInstitucionUcentral());
+//        this.objeto.setIdModalidad(configuracion.getIdModalidadUcentral());
+//        this.objeto.setIdNivelEstudios(configuracion.getIdNivelEstudios());
+    
     private long mesInicio;
     private long mesFinalizacion;
     private long estadoEducacion;
     private long programa;
     private long jornada;
+    private long areaEstudios;
+    private long ciudad;
+    private long institucion;
+    private long modalidad;
+    private long nivelEstudios;
 
-    public EducacionFormalUCentralAction() {
+    public EducacionFormalOtrasInstitucionesAction() {
         super(EducacionFormal.class.getName());
         this.idObjeto = "getIdEducacion";
-        //this.objetoConcretoSet = "setEducacionFormal";
-        //this.objetoBaseGet = "getEducacion";
-        this.coleccion = "getEducacionFormalUcentral";
+        //this.objetoConcretoSet = "setEducacion";
+        //this.objetoBaseGet = "setEducacion";
+        this.coleccion = "getEducacionFormalOtrasInstituciones";
         this.claseConcretaPersistencia = Persistencia.EducacionFormal.class;
         this.claseBasePersistencia = Persistencia.Educacion.class;
     }
@@ -186,6 +207,146 @@ public class EducacionFormalUCentralAction extends CrudAction<EducacionFormal> {
         this.jornada = jornada;
     }
     
+    /**
+     * @return the listaAreasEstudios
+     */
+    public Collection<AreaEstudios> getListaAreasEstudios() {
+        return listaAreasEstudios.values();
+    }
+
+    /**
+     * @param listaAreasEstudios the listaAreasEstudios to set
+     */
+    public void setListaAreasEstudios(Map<Long, AreaEstudios> listaAreasEstudios) {
+        this.listaAreasEstudios = listaAreasEstudios;
+    }
+
+    /**
+     * @return the listaCiudades
+     */
+    public Collection<Ciudad> getListaCiudades() {
+        return listaCiudades.values();
+    }
+
+    /**
+     * @param listaCiudades the listaCiudades to set
+     */
+    public void setListaCiudades(Map<Long, Ciudad> listaCiudades) {
+        this.listaCiudades = listaCiudades;
+    }
+
+    /**
+     * @return the listaInstituciones
+     */
+    public Collection<Institucion> getListaInstituciones() {
+        return listaInstituciones.values();
+    }
+
+    /**
+     * @param listaInstituciones the listaInstituciones to set
+     */
+    public void setListaInstituciones(Map<Long, Institucion> listaInstituciones) {
+        this.listaInstituciones = listaInstituciones;
+    }
+
+    /**
+     * @return the listaModalidades
+     */
+    public Collection<Modalidad> getListaModalidades() {
+        return listaModalidades.values();
+    }
+
+    /**
+     * @param listaModalidades the listaModalidades to set
+     */
+    public void setListaModalidades(Map<Long, Modalidad> listaModalidades) {
+        this.listaModalidades = listaModalidades;
+    }
+
+    /**
+     * @return the listaNivelesEstudios
+     */
+    public Collection<NivelEstudios> getListaNivelesEstudios() {
+        return listaNivelesEstudios.values();
+    }
+
+    /**
+     * @param listaNivelesEstudios the listaNivelesEstudios to set
+     */
+    public void setListaNivelesEstudios(Map<Long, NivelEstudios> listaNivelesEstudios) {
+        this.listaNivelesEstudios = listaNivelesEstudios;
+    }
+
+    /**
+     * @return the areaEstudios
+     */
+    public long getAreaEstudios() {
+        return areaEstudios;
+    }
+
+    /**
+     * @param areaEstudios the areaEstudios to set
+     */
+    public void setAreaEstudios(long areaEstudios) {
+        this.areaEstudios = areaEstudios;
+    }
+
+    /**
+     * @return the ciudad
+     */
+    public long getCiudad() {
+        return ciudad;
+    }
+
+    /**
+     * @param ciudad the ciudad to set
+     */
+    public void setCiudad(long ciudad) {
+        this.ciudad = ciudad;
+    }
+
+    /**
+     * @return the institucion
+     */
+    public long getInstitucion() {
+        return institucion;
+    }
+
+    /**
+     * @param institucion the institucion to set
+     */
+    public void setInstitucion(long institucion) {
+        this.institucion = institucion;
+    }
+
+    /**
+     * @return the modalidad
+     */
+    public long getModalidad() {
+        return modalidad;
+    }
+
+    /**
+     * @param modalidad the modalidad to set
+     */
+    public void setModalidad(long modalidad) {
+        this.modalidad = modalidad;
+    }
+
+    /**
+     * @return the nivelEstudios
+     */
+    public long getNivelEstudios() {
+        return nivelEstudios;
+    }
+
+    /**
+     * @param nivelEstudios the nivelEstudios to set
+     */
+    public void setNivelEstudios(long nivelEstudios) {
+        this.nivelEstudios = nivelEstudios;
+    }
+    
     @Override
     public String desplegar() {
         this.setListaEstadosEducacion(Listas.obtenerListas().getListaEstadosEducacion());
@@ -193,6 +354,11 @@ public class EducacionFormalUCentralAction extends CrudAction<EducacionFormal> {
         this.setListaJornadas(Listas.obtenerListas().getListaJornadas());
         this.setListaProgramas(Listas.obtenerListas().getListaProgramas());
         this.setListaAnios(Listas.obtenerListas().getListaAnios());
+        this.setListaAreasEstudios(Listas.obtenerListas().getListaAreasEstudios());
+        this.setListaCiudades(Listas.obtenerListas().getListaCiudades());
+        this.setListaInstituciones(Listas.obtenerListas().getListaInstituciones());
+        this.setListaModalidades(Listas.obtenerListas().getListaModalidades());
+        this.setListaNivelesEstudios(Listas.obtenerListas().getListaNivelesEstudios());
         
         this.obtenerLista();
         this.editar = true;
@@ -206,6 +372,11 @@ public class EducacionFormalUCentralAction extends CrudAction<EducacionFormal> {
         this.objeto.setIdMesFinalizacion(Listas.obtenerListas().getListaMeses().get(this.mesFinalizacion));
         this.objeto.setIdMesInicio(Listas.obtenerListas().getListaMeses().get(this.mesInicio));
         this.objeto.setIdPrograma(Listas.obtenerListas().getListaProgramas().get(this.programa));
+        this.objeto.setIdAreaEstudios(Listas.obtenerListas().getListaAreasEstudios().get(this.areaEstudios));
+        this.objeto.setIdCiudad(Listas.obtenerListas().getListaCiudades().get(this.ciudad));
+        this.objeto.setIdInstitucion(Listas.obtenerListas().getListaInstituciones().get(this.institucion));
+        this.objeto.setIdModalidad(Listas.obtenerListas().getListaModalidades().get(this.modalidad));
+        this.objeto.setIdNivelEstudios(Listas.obtenerListas().getListaNivelesEstudios().get(this.nivelEstudios));
     }
 
     @Override
@@ -215,18 +386,17 @@ public class EducacionFormalUCentralAction extends CrudAction<EducacionFormal> {
         this.setMesFinalizacion(objeto.getIdMesFinalizacion().getIdMes());
         this.setMesInicio(objeto.getIdMesInicio().getIdMes());
         this.setPrograma(objeto.getIdPrograma().getIdPrograma());
+        this.setAreaEstudios(objeto.getIdAreaEstudios().getIdAreaEstudios());
+        this.setCiudad(objeto.getIdCiudad().getIdCiudad());
+        this.setInstitucion(objeto.getIdInstitucion().getIdInstitucion());
+        this.setModalidad(objeto.getIdModalidad().getIdModalidad());
+        this.setNivelEstudios(objeto.getIdNivelEstudios().getIdNivelEstudios());
     }
 
     @Override
     public void insertarValoresDefecto() {
-        Configuracion configuracion = new Configuracion();
         this.objeto.setEstado(true);
         this.objeto.setFechaRegistro(Date.valueOf(LocalDate.now()));
         this.objeto.setFechaActEstado(Date.valueOf(LocalDate.now()));
-        this.objeto.setIdAreaEstudios(configuracion.getIdAreaEstudios());
-        this.objeto.setIdCiudad(configuracion.getIdCiudadUcentral());
-        this.objeto.setIdInstitucion(configuracion.getIdInstitucionUcentral());
-        this.objeto.setIdModalidad(configuracion.getIdModalidadUcentral());
-        this.objeto.setIdNivelEstudios(configuracion.getIdNivelEstudios());
     }
 }

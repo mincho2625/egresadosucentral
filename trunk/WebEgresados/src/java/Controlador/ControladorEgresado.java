@@ -11,7 +11,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Id;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
@@ -64,7 +63,7 @@ public class ControladorEgresado {
         return null;
     }
     
-    public Map<Long, Object> consultar(String lista, String idObjeto, String claseDestino, String idObjetoConcreto)
+    public Map<Long, Object> consultar(String lista, String idObjeto, String claseDestino, String claseBase)
     {
         Convertidor convertidor2 = new Convertidor();
         
@@ -74,7 +73,7 @@ public class ControladorEgresado {
             Collection<Object> coleccion = (Collection)convertidor2.invocar(e,lista);
             for (Object objeto : coleccion) {
                 if ((boolean)convertidor2.invocar(objeto, "getEstado")){
-                    Object concreto = convertidor2.invocar(objeto, idObjetoConcreto);
+                    Object concreto = convertidor2.invocar(objeto, "get"+claseBase);
                     Object item = convertidor2.convertirAModelo(objeto, concreto, claseDestino);
                     listaObjetos.put((Long)convertidor2.invocar(concreto, idObjeto), item);
                 }
@@ -128,7 +127,7 @@ public class ControladorEgresado {
         return false;
     }
     
-    public boolean actualizar(Object objeto, String claseDestino, String idObjeto, String claseDestino2, String idObjeto2)
+    public boolean actualizar(Object objeto, String claseDestino, String idObjeto, String claseBase, String setClaseBase)
     {
         try {
             if (objeto == null)
@@ -136,18 +135,18 @@ public class ControladorEgresado {
             
             em.getTransaction().begin();
             Convertidor convertidor = new Convertidor();
-            Object destino2 = convertidor.convertirAPersistencia(objeto, claseDestino2, idObjeto, em);
-            Object destino = convertidor.convertirAPersistencia(objeto, claseDestino, idObjeto, em);
+            Object base = convertidor.convertirAPersistencia(objeto, claseBase, idObjeto, em);
+            Object concreto = convertidor.convertirAPersistencia(objeto, claseDestino, idObjeto, em);
             
             // Educación
-            Method insertarEgresado = destino.getClass().getMethod("setIdEgresado", e.getClass());
-            insertarEgresado.invoke(destino, e);
+            Method insertarEgresado = base.getClass().getMethod("setIdEgresado", e.getClass());
+            insertarEgresado.invoke(base, e);
             
-            Method insertarDestino2 = destino2.getClass().getMethod("setEducacion", destino.getClass());
-            insertarDestino2.invoke(destino2, destino);
+            Method insertarDestino2 = concreto.getClass().getMethod(setClaseBase, base.getClass());
+            insertarDestino2.invoke(concreto, base);
             
-            em.persist(destino);
-            em.persist(destino2);
+            em.persist(base);
+            em.persist(concreto);
             em.getTransaction().commit();
             return true;
         } catch (SecurityException | IllegalArgumentException | NoSuchMethodException | IllegalAccessException | InvocationTargetException ex) {

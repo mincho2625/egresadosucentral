@@ -32,10 +32,10 @@ public abstract class CrudAction<T> extends ActionSupport implements ModelDriven
     protected String coleccion;
     protected String idObjeto;
     protected String claseModelo;
-    protected String claseBasePersistencia;
-    protected String claseConcretaPersistencia;
-    protected String objetoConcretoSet;
-    protected String objetoBaseGet;
+    protected Class claseBasePersistencia;
+    protected Class claseConcretaPersistencia;
+    //protected String objetoConcretoSet;
+    //protected String objetoBaseGet;
     protected boolean editar = false;
     
     /**
@@ -116,10 +116,10 @@ public abstract class CrudAction<T> extends ActionSupport implements ModelDriven
             insertarTipos();
             insertarValoresDefecto();
             
-            if (claseConcretaPersistencia != null && objetoConcretoSet != null)
-                controladorEgresado.actualizar(objeto, claseBasePersistencia, idObjeto, claseConcretaPersistencia, objetoConcretoSet);
+            if (claseBasePersistencia != null)
+                controladorEgresado.actualizar(objeto, claseConcretaPersistencia.getName(), idObjeto, claseBasePersistencia.getName(), "set" + claseBasePersistencia.getSimpleName());
             else
-                controladorEgresado.actualizar(objeto, claseBasePersistencia, idObjeto);
+                controladorEgresado.actualizar(objeto, claseConcretaPersistencia.getName(), idObjeto);
             
             obtenerLista();
             this.setEditar(false);
@@ -135,8 +135,8 @@ public abstract class CrudAction<T> extends ActionSupport implements ModelDriven
     {
         try {
             controladorEgresado.refrescar();
-            if (claseConcretaPersistencia != null && objetoBaseGet != null)
-                setListaObjetos((Map<Long, T>) controladorEgresado.consultar(coleccion, idObjeto, claseModelo, objetoBaseGet));
+            if (claseBasePersistencia != null)
+                setListaObjetos((Map<Long, T>) controladorEgresado.consultar(coleccion, idObjeto, claseModelo, claseBasePersistencia.getSimpleName()));
             else
                 setListaObjetos((Map<Long, T>) controladorEgresado.consultar(coleccion, idObjeto, claseModelo));
             
@@ -152,7 +152,7 @@ public abstract class CrudAction<T> extends ActionSupport implements ModelDriven
     {
         try {
             HttpServletRequest request = (HttpServletRequest) ActionContext.getContext().get(ServletActionContext.HTTP_REQUEST);
-            this.controladorEgresado.borrar(claseBasePersistencia, Long.parseLong( request.getParameter("idObjeto")));
+            this.controladorEgresado.borrar(claseConcretaPersistencia.getName(), Long.parseLong( request.getParameter("idObjeto")));
             this.obtenerLista();
             this.setEditar(false);
             return SUCCESS;
