@@ -85,12 +85,12 @@
                                 <tr>
                                     <td>
                                         <br>
-                                        <div class="tduno">Tipo Reconocimiento</div><s:select cssClass="center"name="tipoReconocimiento" list="listaTiposReconocimiento" listKey="idTipoReconocimiento" listValue="nombre"></s:select>
+                                        <div class="tduno">Tipo Reconocimiento</div><s:select cssClass="center" name="tipoReconocimiento" list="listaTiposReconocimiento" listKey="idTipoReconocimiento" listValue="nombre"></s:select>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <div class="tduno">Clase Reconocimiento</div><s:select cssClass="center"name="claseReconocimiento" list="listaClasesReconocimiento" listKey="idClaseReconocimiento" listValue="nombre"></s:select>
+                                        <div class="tduno">Clase Reconocimiento</div><s:select cssClass="center" name="claseReconocimiento" list="listaClasesReconocimiento" listKey="idClaseReconocimiento" listValue="nombre"></s:select>
                                     </td>
                                 </tr>
                                 <tr>

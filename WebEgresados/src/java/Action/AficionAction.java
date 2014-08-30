@@ -28,7 +28,7 @@ public class AficionAction  extends CrudAction<Aficion>{
         super(Aficion.class.getName());
         this.idObjeto = "getIdAficion";
         this.coleccion = "getAficionesCollection";
-        this.claseBasePersistencia = Persistencia.Aficiones.class.getName();
+        this.claseConcretaPersistencia = Persistencia.Aficiones.class;
     }
     
     /**

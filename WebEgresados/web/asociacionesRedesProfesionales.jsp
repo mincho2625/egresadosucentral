@@ -75,12 +75,12 @@
                             <table>
                                 <tr>
                                     <td>
-                                        <div class="tduno"> Tipo Asociacion </div><s:select cssClass="center"name="tipoAsociacion" list="listaTiposAsociaciones" listKey="idTipoAsociacion" listValue="nombre"></s:select>
+                                        <div class="tduno"> Tipo Asociacion </div><s:select cssClass="center" name="tipoAsociacion" list="listaTiposAsociaciones" listKey="idTipoAsociacion" listValue="nombre"></s:select>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <div class="tduno"> Descripción </div><s:textfield cssClass="center"name="descripcion"></s:textfield>
+                                        <div class="tduno"> Descripción </div><s:textfield cssClass="center" name="descripcion"></s:textfield>
                                     </td>
                                 </tr>
                                 <tr>
@@ -90,7 +90,7 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        <div class="tduno"> País </div><s:select cssClass="center"name="pais" list="listaPaises" listKey="idPais" listValue="nombre"></s:select>
+                                        <div class="tduno"> País </div><s:select cssClass="center" name="pais" list="listaPaises" listKey="idPais" listValue="nombre"></s:select>
                                     </td>
                                 </tr>
                                 <tr>

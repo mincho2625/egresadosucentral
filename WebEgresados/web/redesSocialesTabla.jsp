@@ -70,7 +70,7 @@
                             <table>
                                 <tr>
                                     <td>
-                                        <div class="tduno"> Red Social </div><s:select cssClass="center "name="redSocial" list="listaRedesSociales" listKey="idRedSocial" listValue="nombre"></s:select>
+                                        <div class="tduno"> Red Social </div><s:select cssClass="center" name="redSocial" list="listaRedesSociales" listKey="idRedSocial" listValue="nombre"></s:select>
                                     </td>
                                 </tr>
                                 <tr>

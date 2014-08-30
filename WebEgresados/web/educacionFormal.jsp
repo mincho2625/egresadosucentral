@@ -60,7 +60,7 @@
                 </a><br>
             </div>
             <br>
-            <a href="informacionAcademicaOtrasTabla.jsp" class="tduno"><div>Siguiente</div></a>
+            <a href="obtenerListaEducacionFormalOtrasInstituciones.action" class="tduno"><div>Siguiente</div></a>
             <br>
             <a href="obtenerListaExperienciaLaboral.action" class="tdatras"><div>Anterior</div></a>
             <br>

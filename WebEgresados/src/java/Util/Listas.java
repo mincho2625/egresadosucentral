@@ -83,7 +83,7 @@ public final class Listas {
     private Map<Long, EstadoCivil> listaEstadosCiviles;
     private Map<Long, PreguntaSeguridad> listaPreguntas;
     private Map<Long, TipoAsociacion> listaTiposAsociaciones;
-    private Map<Long, Pais> listaPaises;
+    private Map<Long, Pais> listaPaises;   
     private ArrayList<Integer> listaAnios;
     private final EntityManagerFactory emf = Persistence.createEntityManagerFactory("WebEgresadosPU");
 
@@ -125,7 +125,7 @@ public final class Listas {
         consultar(this.listaTiposReconocimiento, "TipoReconocimiento.findAll", "getIdTipoReconocimiento", Modelo.TipoReconocimiento.class.getName());
         consultar(this.listaMeses, "Mes.findAll", "getIdMes", Modelo.Mes.class.getName());
         consultar(this.listaEstadosEducacion, "EstadoEducacion.findAll", "getIdEstadoEducacion", Modelo.EstadoEducacion.class.getName());
-        consultar(this.listaAreasEstudios, "AreaEstudios.findAll", "getIdAreaEstudio", Modelo.AreaEstudios.class.getName());
+        consultar(this.listaAreasEstudios, "AreaEstudios.findAll", "getIdAreaEstudios", Modelo.AreaEstudios.class.getName());
         consultar(this.listaModalidades, "Modalidad.findAll", "getIdModalidad", Modelo.Modalidad.class.getName());
         consultar(this.listaInstituciones, "Institucion.findAll", "getIdInstitucion", Modelo.Institucion.class.getName());
         consultar(this.listaJornadas, "Jornada.findAll", "getIdJornada", Modelo.Jornada.class.getName());
