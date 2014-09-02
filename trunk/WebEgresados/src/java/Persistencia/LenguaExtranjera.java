@@ -7,11 +7,7 @@
 package Persistencia;
 
 import java.io.Serializable;
-import javax.persistence.Basic;
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -30,37 +26,21 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "LenguaExtranjera.findAll", query = "SELECT l FROM LenguaExtranjera l"),
-    @NamedQuery(name = "LenguaExtranjera.findByIdEducacion", query = "SELECT l FROM LenguaExtranjera l WHERE l.idEducacion = :idEducacion")})
+    @NamedQuery(name = "LenguaExtranjera.findByIdEducacion", query = "SELECT l FROM LenguaExtranjera l WHERE l.educacion = :educacion")})
 public class LenguaExtranjera implements Serializable {
     private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "ID_EDUCACION")
-    private Long idEducacion;
-    @JoinColumn(name = "ID_EDUCACION", referencedColumnName = "ID_EDUCACION", insertable = false, updatable = false)
-    @OneToOne(optional = false)
-    private Educacion educacion;
     @JoinColumn(name = "ID_DOMINIO", referencedColumnName = "ID_DOMINIO_LENGUA_EXT")
     @ManyToOne(optional = false)
     private DominioLenguaExt idDominio;
     @JoinColumn(name = "ID_IDIOMA", referencedColumnName = "ID_IDIOMA")
     @ManyToOne(optional = false)
     private Idioma idIdioma;
+    @Id
+    @JoinColumn(name = "ID_EDUCACION", referencedColumnName = "ID_EDUCACION")
+    @OneToOne(optional = false)
+    private Educacion educacion;
 
     public LenguaExtranjera() {
-    }
-
-    public LenguaExtranjera(Long idEducacion) {
-        this.idEducacion = idEducacion;
-    }
-
-    public Long getIdEducacion() {
-        return idEducacion;
-    }
-
-    public void setIdEducacion(Long idEducacion) {
-        this.idEducacion = idEducacion;
     }
 
     public Educacion getEducacion() {
@@ -86,30 +66,14 @@ public class LenguaExtranjera implements Serializable {
     public void setIdIdioma(Idioma idIdioma) {
         this.idIdioma = idIdioma;
     }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (idEducacion != null ? idEducacion.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof LenguaExtranjera)) {
-            return false;
-        }
-        LenguaExtranjera other = (LenguaExtranjera) object;
-        if ((this.idEducacion == null && other.idEducacion != null) || (this.idEducacion != null && !this.idEducacion.equals(other.idEducacion))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "Persistencia.LenguaExtranjera[ idEducacion=" + idEducacion + " ]";
+    
+    public boolean getEstado()
+    {
+        return educacion.getEstado();
     }
     
+    public void setEstado(boolean estado)
+    {
+        educacion.setEstado(estado);
+    }
 }

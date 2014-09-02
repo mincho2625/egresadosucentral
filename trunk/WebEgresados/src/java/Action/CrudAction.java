@@ -34,8 +34,6 @@ public abstract class CrudAction<T> extends ActionSupport implements ModelDriven
     protected String claseModelo;
     protected Class claseBasePersistencia;
     protected Class claseConcretaPersistencia;
-    //protected String objetoConcretoSet;
-    //protected String objetoBaseGet;
     protected boolean editar = false;
     
     /**

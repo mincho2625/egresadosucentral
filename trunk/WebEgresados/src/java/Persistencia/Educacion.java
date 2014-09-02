@@ -92,6 +92,11 @@ public class Educacion implements Serializable {
     private boolean estado;
     @OneToOne(cascade = CascadeType.PERSIST, mappedBy = "educacion")
     private EducacionFormal educacionFormal;
+    @OneToOne(cascade = CascadeType.PERSIST, mappedBy = "educacion")
+    private EducacionNoFormal educacionNoFormal;
+    @OneToOne(cascade = CascadeType.PERSIST, mappedBy = "educacion")
+    private LenguaExtranjera lenguaExtranjera;
+    
 
     public Educacion() {
     }
@@ -170,6 +175,22 @@ public class Educacion implements Serializable {
 
     public void setEducacionFormal(EducacionFormal educacionFormal) {
         this.educacionFormal = educacionFormal;
+    }
+    
+    public EducacionNoFormal getEducacionNoFormal() {
+        return educacionNoFormal;
+    }
+
+    public void setEducacionNoFormal(EducacionNoFormal educacionNoFormal) {
+        this.educacionNoFormal = educacionNoFormal;
+    }
+    
+    public LenguaExtranjera getLenguaExtranjera() {
+        return lenguaExtranjera;
+    }
+    
+    public void setLenguaExtranjera(LenguaExtranjera lenguaExtranjera){
+        this.lenguaExtranjera = lenguaExtranjera;
     }
 
     @Override

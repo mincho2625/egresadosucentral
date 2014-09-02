@@ -397,6 +397,28 @@ public class Egresado implements Serializable {
         }
         return coleccion;
     }
+    
+    public Collection<EducacionNoFormal> getEducacionNoFormal()
+    {
+        Collection<EducacionNoFormal> collection = new ArrayList<>();
+        for (Educacion educacion : educacionCollection) {
+            if (educacion.getEducacionNoFormal() != null)
+                collection.add(educacion.getEducacionNoFormal());
+        }
+        
+        return collection;
+    }
+    
+    public Collection<LenguaExtranjera> getLenguaExtranjera()
+    {
+        Collection<LenguaExtranjera> collection = new ArrayList<>();
+        for (Educacion educacion : educacionCollection) {
+            if (educacion.getLenguaExtranjera() != null)
+                collection.add(educacion.getLenguaExtranjera());
+        }
+        
+        return collection;
+    }
 
     public byte[] getFoto() {
         return foto;

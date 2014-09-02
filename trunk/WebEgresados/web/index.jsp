@@ -17,7 +17,7 @@
                 <div class="tituloMenu">Datos Personales</div>
                 <ul class="menu">
 
-                    <a href="obtenerEgresadoRegistro.action" target="contenido"><li>Registro en Sistema</li></a>
+                    <a href="editarEgresado.action" target="contenido"><li>Registro en Sistema</li></a>
 
                     <li>Informacion Personal
                         <ul>
@@ -38,8 +38,8 @@
 
                     <li>Educacion No Formal e Idiomas
                         <ul>
-                            <a href="informacionAcademicaNoFormalTabla.jsp" target="contenido"><li>Educacion No Formal</li></a>
-                            <a href="lenguaExtranjeraTabla.jsp" target="contenido"><li>Lengua Extranjera</li></a>
+                            <a href="obtenerListaEducacionNoFormal.action" target="contenido"><li>Educacion No Formal</li></a>
+                            <a href="obtenerListaLenguaExtranjera.action" target="contenido"><li>Lengua Extranjera</li></a>
                         </ul>
                     </li>
 
