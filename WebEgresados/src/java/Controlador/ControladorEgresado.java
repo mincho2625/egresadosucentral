@@ -39,19 +39,25 @@ public class ControladorEgresado {
         query.setParameter("nombreUsuario", nombreUsuario);
         e = (Persistencia.Egresado) query.getSingleResult();
     }
+    
+    public Egresado consultar()
+    {
+        Convertidor convertidor = new Convertidor();
+        Egresado egresado = (Egresado)convertidor.convertirAModelo(e, e.getIdUsuario(), Modelo.Egresado.class.getName());
+        return egresado;
+    }
 
     public Map<Long, Object> consultar(String lista, String idObjeto, String claseDestino)
     {
-        Convertidor convertidor2 = new Convertidor();
+        Convertidor convertidor = new Convertidor();
         
         try {
             Map<Long, Object> listaObjetos = new HashMap<>();
             
-            Collection<Object> coleccion = (Collection)convertidor2.invocar(e,lista);
+            Collection<Object> coleccion = (Collection)convertidor.invocar(e,lista);
             for (Object objeto : coleccion) {
-                if ((boolean)convertidor2.invocar(objeto, "getEstado")){
-                    //if (objeto.getClass().getAnnotation(Id.class).)
-                    listaObjetos.put((Long)convertidor2.invocar(objeto, idObjeto), convertidor2.convertirAModelo(objeto, null, claseDestino));
+                if ((boolean)convertidor.invocar(objeto, "getEstado")){
+                    listaObjetos.put((Long)convertidor.invocar(objeto, idObjeto), convertidor.convertirAModelo(objeto, null, claseDestino));
                 }
             }
             
@@ -87,15 +93,15 @@ public class ControladorEgresado {
         return null;
     }
 
-    public boolean actualizarInformacionBasica(Egresado egresado) {
+    public boolean actualizar(Egresado egresado) {
         Convertidor convertidor = new Convertidor();
         if (egresado == null) {
             return false;
         }
 
         em.getTransaction().begin();
-        e = (Persistencia.Egresado) convertidor.convertirAPersistencia(egresado, Persistencia.Egresado.class.getName(), "idEgresado", em);
-        Persistencia.Usuario u = (Persistencia.Usuario) convertidor.convertirAPersistencia(egresado, Persistencia.Usuario.class.getName(), "idUsuario", em);
+        e = (Persistencia.Egresado) convertidor.convertirAPersistencia(egresado, Persistencia.Egresado.class.getName(), "getIdEgresado", em);
+        Persistencia.Usuario u = (Persistencia.Usuario) convertidor.convertirAPersistencia(egresado, Persistencia.Usuario.class.getName(), "getIdUsuario", em);
         e.setIdUsuario(u);
 
         em.persist(e);

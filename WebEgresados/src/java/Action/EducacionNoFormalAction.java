@@ -8,16 +8,14 @@ package Action;
 
 import Modelo.AreaEstudios;
 import Modelo.Ciudad;
-import Modelo.EducacionFormal;
+import Modelo.EducacionNoFormal;
 import Modelo.EstadoEducacion;
 import Modelo.Institucion;
-import Modelo.Jornada;
+import Modelo.IntensidadHoraria;
 import Modelo.Mes;
 import Modelo.Modalidad;
-import Modelo.NivelEstudios;
-import Modelo.Programa;
+import Modelo.TipoEdNoFormal;
 import Util.Listas;
-import static com.opensymphony.xwork2.Action.SUCCESS;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -28,37 +26,35 @@ import java.util.Map;
  *
  * @author YURY
  */
-public class EducacionFormalOtrasInstitucionesAction extends CrudAction<EducacionFormal> {
+public class EducacionNoFormalAction extends CrudAction<EducacionNoFormal> {
     private Map<Long, Mes> listaMeses;
     private Map<Long, EstadoEducacion> listaEstadosEducacion;
-    private Map<Long, Jornada> listaJornadas;
-    private Map<Long, Programa> listaProgramas;
     private Map<Long, AreaEstudios> listaAreasEstudios;
     private Map<Long, Ciudad> listaCiudades;
     private Map<Long, Institucion> listaInstituciones;
     private Map<Long, Modalidad> listaModalidades;
-    private Map<Long, NivelEstudios> listaNivelesEstudios;
     private ArrayList<Integer> listaAnios;
-    
+    private Map<Long, TipoEdNoFormal> listaTiposEdNoFormal;
+    private Map<Long, IntensidadHoraria> listaIntensidadesHorarias;
     private long mesInicio;
     private long mesFinalizacion;
     private long estadoEducacion;
-    private long programa;
-    private long jornada;
     private long areaEstudios;
     private long ciudad;
     private long institucion;
     private long modalidad;
-    private long nivelEstudios;
-
-    public EducacionFormalOtrasInstitucionesAction() {
-        super(EducacionFormal.class.getName());
+    private long tipoEdNoFormal;
+    private long intensidadHoraria;
+    
+    public EducacionNoFormalAction()
+    {
+        super(EducacionNoFormal.class.getName());
         this.idObjeto = "getIdEducacion";
-        this.coleccion = "getEducacionFormalOtrasInstituciones";
-        this.claseConcretaPersistencia = Persistencia.EducacionFormal.class;
+        this.coleccion = "getEducacionNoFormal";
+        this.claseConcretaPersistencia = Persistencia.EducacionNoFormal.class;
         this.claseBasePersistencia = Persistencia.Educacion.class;
     }
-
+    
     /**
      * @return the listaMeses
      */
@@ -87,118 +83,6 @@ public class EducacionFormalOtrasInstitucionesAction extends CrudAction<Educacio
         this.listaEstadosEducacion = listaEstadosEducacion;
     }
 
-    /**
-     * @return the listaJornadas
-     */
-    public Collection<Jornada> getListaJornadas() {
-        return listaJornadas.values();
-    }
-
-    /**
-     * @param listaJornadas the listaJornadas to set
-     */
-    public void setListaJornadas(Map<Long, Jornada> listaJornadas) {
-        this.listaJornadas = listaJornadas;
-    }
-
-    /**
-     * @return the listaProgramas
-     */
-    public Collection<Programa> getListaProgramas() {
-        return listaProgramas.values();
-    }
-
-    /**
-     * @param listaProgramas the listaProgramas to set
-     */
-    public void setListaProgramas(Map<Long, Programa> listaProgramas) {
-        this.listaProgramas = listaProgramas;
-    }
-
-    /**
-     * @return the listaAnios
-     */
-    public ArrayList<Integer> getListaAnios() {
-        return listaAnios;
-    }
-
-    /**
-     * @param listaAnios the listaAnios to set
-     */
-    public void setListaAnios(ArrayList<Integer> listaAnios) {
-        this.listaAnios = listaAnios;
-    }
-
-    /**
-     * @return the mesInicio
-     */
-    public long getMesInicio() {
-        return mesInicio;
-    }
-
-    /**
-     * @param mesInicio the mesInicio to set
-     */
-    public void setMesInicio(long mesInicio) {
-        this.mesInicio = mesInicio;
-    }
-
-    /**
-     * @return the mesFinalizacion
-     */
-    public long getMesFinalizacion() {
-        return mesFinalizacion;
-    }
-
-    /**
-     * @param mesFinalizacion the mesFinalizacion to set
-     */
-    public void setMesFinalizacion(long mesFinalizacion) {
-        this.mesFinalizacion = mesFinalizacion;
-    }
-
-    /**
-     * @return the estadoEducacion
-     */
-    public long getEstadoEducacion() {
-        return estadoEducacion;
-    }
-
-    /**
-     * @param estadoEducacion the estadoEducacion to set
-     */
-    public void setEstadoEducacion(long estadoEducacion) {
-        this.estadoEducacion = estadoEducacion;
-    }
-
-    /**
-     * @return the programa
-     */
-    public long getPrograma() {
-        return programa;
-    }
-
-    /**
-     * @param programa the programa to set
-     */
-    public void setPrograma(long programa) {
-        this.programa = programa;
-    }
-
-    /**
-     * @return the jornada
-     */
-    public long getJornada() {
-        return jornada;
-    }
-
-    /**
-     * @param jornada the jornada to set
-     */
-    public void setJornada(long jornada) {
-        this.jornada = jornada;
-    }
-    
     /**
      * @return the listaAreasEstudios
      */
@@ -256,17 +140,87 @@ public class EducacionFormalOtrasInstitucionesAction extends CrudAction<Educacio
     }
 
     /**
-     * @return the listaNivelesEstudios
+     * @return the listaAnios
      */
-    public Collection<NivelEstudios> getListaNivelesEstudios() {
-        return listaNivelesEstudios.values();
+    public ArrayList<Integer> getListaAnios() {
+        return listaAnios;
     }
 
     /**
-     * @param listaNivelesEstudios the listaNivelesEstudios to set
+     * @param listaAnios the listaAnios to set
      */
-    public void setListaNivelesEstudios(Map<Long, NivelEstudios> listaNivelesEstudios) {
-        this.listaNivelesEstudios = listaNivelesEstudios;
+    public void setListaAnios(ArrayList<Integer> listaAnios) {
+        this.listaAnios = listaAnios;
+    }
+
+    /**
+     * @return the listaTiposEdNoFormal
+     */
+    public Collection<TipoEdNoFormal> getListaTiposEdNoFormal() {
+        return listaTiposEdNoFormal.values();
+    }
+
+    /**
+     * @param listaTiposEdNoFormal the listaTiposEdNoFormal to set
+     */
+    public void setListaTiposEdNoFormal(Map<Long, TipoEdNoFormal> listaTiposEdNoFormal) {
+        this.listaTiposEdNoFormal = listaTiposEdNoFormal;
+    }
+
+    /**
+     * @return the listaIntensidadesHorarias
+     */
+    public Collection<IntensidadHoraria> getListaIntensidadesHorarias() {
+        return listaIntensidadesHorarias.values();
+    }
+
+    /**
+     * @param listaIntensidadesHorarias the listaIntensidadesHorarias to set
+     */
+    public void setListaIntensidadesHorarias(Map<Long, IntensidadHoraria> listaIntensidadesHorarias) {
+        this.listaIntensidadesHorarias = listaIntensidadesHorarias;
+    }
+
+    /**
+     * @return the mesInicio
+     */
+    public long getMesInicio() {
+        return mesInicio;
+    }
+
+    /**
+     * @param mesInicio the mesInicio to set
+     */
+    public void setMesInicio(long mesInicio) {
+        this.mesInicio = mesInicio;
+    }
+
+    /**
+     * @return the mesFinalizacion
+     */
+    public long getMesFinalizacion() {
+        return mesFinalizacion;
+    }
+
+    /**
+     * @param mesFinalizacion the mesFinalizacion to set
+     */
+    public void setMesFinalizacion(long mesFinalizacion) {
+        this.mesFinalizacion = mesFinalizacion;
+    }
+
+    /**
+     * @return the estadoEducacion
+     */
+    public long getEstadoEducacion() {
+        return estadoEducacion;
+    }
+
+    /**
+     * @param estadoEducacion the estadoEducacion to set
+     */
+    public void setEstadoEducacion(long estadoEducacion) {
+        this.estadoEducacion = estadoEducacion;
     }
 
     /**
@@ -326,31 +280,44 @@ public class EducacionFormalOtrasInstitucionesAction extends CrudAction<Educacio
     }
 
     /**
-     * @return the nivelEstudios
+     * @return the tipoEdNoFormal
      */
-    public long getNivelEstudios() {
-        return nivelEstudios;
+    public long getTipoEdNoFormal() {
+        return tipoEdNoFormal;
     }
 
     /**
-     * @param nivelEstudios the nivelEstudios to set
+     * @param tipoEdNoFormal the tipoEdNoFormal to set
      */
-    public void setNivelEstudios(long nivelEstudios) {
-        this.nivelEstudios = nivelEstudios;
+    public void setTipoEdNoFormal(long tipoEdNoFormal) {
+        this.tipoEdNoFormal = tipoEdNoFormal;
+    }
+
+    /**
+     * @return the intensidadHoraria
+     */
+    public long getIntensidadHoraria() {
+        return intensidadHoraria;
+    }
+
+    /**
+     * @param intensidadHoraria the intensidadHoraria to set
+     */
+    public void setIntensidadHoraria(long intensidadHoraria) {
+        this.intensidadHoraria = intensidadHoraria;
     }
     
     @Override
     public String desplegar() {
         this.setListaEstadosEducacion(Listas.obtenerListas().getListaEstadosEducacion());
         this.setListaMeses(Listas.obtenerListas().getListaMeses());
-        this.setListaJornadas(Listas.obtenerListas().getListaJornadas());
-        this.setListaProgramas(Listas.obtenerListas().getListaProgramas());
         this.setListaAnios(Listas.obtenerListas().getListaAnios());
         this.setListaAreasEstudios(Listas.obtenerListas().getListaAreasEstudios());
         this.setListaCiudades(Listas.obtenerListas().getListaCiudades());
         this.setListaInstituciones(Listas.obtenerListas().getListaInstituciones());
         this.setListaModalidades(Listas.obtenerListas().getListaModalidades());
-        this.setListaNivelesEstudios(Listas.obtenerListas().getListaNivelesEstudios());
+        this.setListaIntensidadesHorarias(Listas.obtenerListas().getListaIntensidadesHorarias());
+        this.setListaTiposEdNoFormal(Listas.obtenerListas().getListaTiposEdNoFormal());
         
         this.obtenerLista();
         this.editar = true;
@@ -360,29 +327,27 @@ public class EducacionFormalOtrasInstitucionesAction extends CrudAction<Educacio
     @Override
     public void insertarTipos() {
         this.objeto.setIdEstadoEducacion(Listas.obtenerListas().getListaEstadosEducacion().get(this.estadoEducacion));
-        this.objeto.setIdJornada(Listas.obtenerListas().getListaJornadas().get(this.jornada));
         this.objeto.setIdMesFinalizacion(Listas.obtenerListas().getListaMeses().get(this.mesFinalizacion));
         this.objeto.setIdMesInicio(Listas.obtenerListas().getListaMeses().get(this.mesInicio));
-        this.objeto.setIdPrograma(Listas.obtenerListas().getListaProgramas().get(this.programa));
         this.objeto.setIdAreaEstudios(Listas.obtenerListas().getListaAreasEstudios().get(this.areaEstudios));
         this.objeto.setIdCiudad(Listas.obtenerListas().getListaCiudades().get(this.ciudad));
         this.objeto.setIdInstitucion(Listas.obtenerListas().getListaInstituciones().get(this.institucion));
         this.objeto.setIdModalidad(Listas.obtenerListas().getListaModalidades().get(this.modalidad));
-        this.objeto.setIdNivelEstudios(Listas.obtenerListas().getListaNivelesEstudios().get(this.nivelEstudios));
+        this.objeto.setIdIntensidadHoraria(Listas.obtenerListas().getListaIntensidadesHorarias().get(this.intensidadHoraria));
+        this.objeto.setIdTipoEdNoFormal(Listas.obtenerListas().getListaTiposEdNoFormal().get(this.tipoEdNoFormal));
     }
 
     @Override
     public void consultarTipos() {
         this.setEstadoEducacion(objeto.getIdEstadoEducacion().getIdEstadoEducacion());
-        this.setJornada(objeto.getIdJornada().getIdJornada());
         this.setMesFinalizacion(objeto.getIdMesFinalizacion().getIdMes());
         this.setMesInicio(objeto.getIdMesInicio().getIdMes());
-        this.setPrograma(objeto.getIdPrograma().getIdPrograma());
         this.setAreaEstudios(objeto.getIdAreaEstudios().getIdAreaEstudios());
         this.setCiudad(objeto.getIdCiudad().getIdCiudad());
         this.setInstitucion(objeto.getIdInstitucion().getIdInstitucion());
         this.setModalidad(objeto.getIdModalidad().getIdModalidad());
-        this.setNivelEstudios(objeto.getIdNivelEstudios().getIdNivelEstudios());
+        this.setIntensidadHoraria(objeto.getIdIntensidadHoraria().getIdIntensidadHoraria());
+        this.setTipoEdNoFormal(objeto.getIdTipoEdNoFormal().getIdTipoEdNoFormal());
     }
 
     @Override

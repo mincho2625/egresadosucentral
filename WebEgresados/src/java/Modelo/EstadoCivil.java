@@ -8,7 +8,7 @@ package Modelo;
 public class EstadoCivil {
 
     private long idEstadoCivil;
-    private String nombre;
+    private String estadoCivil;
     private boolean estado;
 
     /**
@@ -26,17 +26,17 @@ public class EstadoCivil {
     }
 
     /**
-     * @return the nombre
+     * @return the estadoCivil
      */
-    public String getNombre() {
-        return nombre;
+    public String getEstadoCivil() {
+        return estadoCivil;
     }
 
     /**
-     * @param nombre the nombre to set
+     * @param estadoCivil the estadoCivil to set
      */
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setEstadoCivil(String estadoCivil) {
+        this.estadoCivil = estadoCivil;
     }
 
     /**

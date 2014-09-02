@@ -28,17 +28,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "EducacionNoFormal.findAll", query = "SELECT e FROM EducacionNoFormal e"),
-    @NamedQuery(name = "EducacionNoFormal.findByIdEducacion", query = "SELECT e FROM EducacionNoFormal e WHERE e.idEducacion = :idEducacion"),
+    @NamedQuery(name = "EducacionNoFormal.findByIdEducacion", query = "SELECT e FROM EducacionNoFormal e WHERE e.educacion = :educacion"),
     @NamedQuery(name = "EducacionNoFormal.findByOtroTipoEdNoFormal", query = "SELECT e FROM EducacionNoFormal e WHERE e.otroTipoEdNoFormal = :otroTipoEdNoFormal"),
     @NamedQuery(name = "EducacionNoFormal.findByTitulo", query = "SELECT e FROM EducacionNoFormal e WHERE e.titulo = :titulo"),
     @NamedQuery(name = "EducacionNoFormal.findByDescripcion", query = "SELECT e FROM EducacionNoFormal e WHERE e.descripcion = :descripcion"),
     @NamedQuery(name = "EducacionNoFormal.findByEstado", query = "SELECT e FROM EducacionNoFormal e WHERE e.estado = :estado")})
 public class EducacionNoFormal implements Serializable {
     private static final long serialVersionUID = 1L;
-    @Id
-    @Basic(optional = false)
-    @Column(name = "ID_EDUCACION")
-    private Long idEducacion;
     @Column(name = "OTRO_TIPO_ED_NO_FORMAL")
     private String otroTipoEdNoFormal;
     @Basic(optional = false)
@@ -49,7 +45,8 @@ public class EducacionNoFormal implements Serializable {
     @Basic(optional = false)
     @Column(name = "ESTADO")
     private boolean estado;
-    @JoinColumn(name = "ID_EDUCACION", referencedColumnName = "ID_EDUCACION", insertable = false, updatable = false)
+    @Id
+    @JoinColumn(name = "ID_EDUCACION", referencedColumnName = "ID_EDUCACION")
     @OneToOne(optional = false)
     private Educacion educacion;
     @JoinColumn(name = "ID_TIPO_ED_NO_FORMAL", referencedColumnName = "ID_TIPO_ED_NO_FORMAL")
@@ -60,24 +57,6 @@ public class EducacionNoFormal implements Serializable {
     private IntensidadHoraria idIntensidadHoraria;
 
     public EducacionNoFormal() {
-    }
-
-    public EducacionNoFormal(Long idEducacion) {
-        this.idEducacion = idEducacion;
-    }
-
-    public EducacionNoFormal(Long idEducacion, String titulo, boolean estado) {
-        this.idEducacion = idEducacion;
-        this.titulo = titulo;
-        this.estado = estado;
-    }
-
-    public Long getIdEducacion() {
-        return idEducacion;
-    }
-
-    public void setIdEducacion(Long idEducacion) {
-        this.idEducacion = idEducacion;
     }
 
     public String getOtroTipoEdNoFormal() {
@@ -135,30 +114,4 @@ public class EducacionNoFormal implements Serializable {
     public void setIdIntensidadHoraria(IntensidadHoraria idIntensidadHoraria) {
         this.idIntensidadHoraria = idIntensidadHoraria;
     }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (idEducacion != null ? idEducacion.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof EducacionNoFormal)) {
-            return false;
-        }
-        EducacionNoFormal other = (EducacionNoFormal) object;
-        if ((this.idEducacion == null && other.idEducacion != null) || (this.idEducacion != null && !this.idEducacion.equals(other.idEducacion))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "Persistencia.EducacionNoFormal[ idEducacion=" + idEducacion + " ]";
-    }
-    
 }

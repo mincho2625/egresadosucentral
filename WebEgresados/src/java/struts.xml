@@ -37,6 +37,14 @@
             <result name="success">/educacionFormalOtrasInstituciones.jsp</result>
         </action>
         
+        <action name="*EducacionNoFormal" method="{1}" class="Action.EducacionNoFormalAction">
+            <result name="success">/educacionNoFormal.jsp</result>
+        </action>
+        
+        <action name="*LenguaExtranjera" method="{1}" class="Action.LenguaExtranjeraAction">
+            <result name="success">/lenguaExtranjera.jsp</result>
+        </action>
+        
         <action name="*Reconocimiento" method="{1}" class="Action.ReconocimientoAction">
             <result name="success">/distincionesReconocimiento.jsp</result>
         </action>
@@ -61,6 +69,14 @@
             
             <result name="errorNuevo">/registroNuevoUsuario.jsp</result>
             <result name="errorActual">/registroSistema.jsp</result>
+        </action>
+        
+        <action name="*Egresado" method="{1}" class="Action.EgresadoAction">
+            <result name="editar">/registroSistema.jsp</result>
+            <result name="success" type="chain">
+                <param name="actionName">Ubicacion</param>
+                <param name="method">obtenerLista</param>
+            </result>
         </action>
     </package>
 </struts>

@@ -8,14 +8,13 @@ package Action;
 
 import Modelo.AreaEstudios;
 import Modelo.Ciudad;
-import Modelo.EducacionFormal;
+import Modelo.DominioLenguaExt;
 import Modelo.EstadoEducacion;
+import Modelo.Idioma;
 import Modelo.Institucion;
-import Modelo.Jornada;
+import Modelo.LenguaExtranjera;
 import Modelo.Mes;
 import Modelo.Modalidad;
-import Modelo.NivelEstudios;
-import Modelo.Programa;
 import Util.Listas;
 import static com.opensymphony.xwork2.Action.SUCCESS;
 import java.sql.Date;
@@ -28,37 +27,34 @@ import java.util.Map;
  *
  * @author YURY
  */
-public class EducacionFormalOtrasInstitucionesAction extends CrudAction<EducacionFormal> {
+public class LenguaExtranjeraAction extends CrudAction<LenguaExtranjera> {
     private Map<Long, Mes> listaMeses;
     private Map<Long, EstadoEducacion> listaEstadosEducacion;
-    private Map<Long, Jornada> listaJornadas;
-    private Map<Long, Programa> listaProgramas;
     private Map<Long, AreaEstudios> listaAreasEstudios;
     private Map<Long, Ciudad> listaCiudades;
     private Map<Long, Institucion> listaInstituciones;
     private Map<Long, Modalidad> listaModalidades;
-    private Map<Long, NivelEstudios> listaNivelesEstudios;
     private ArrayList<Integer> listaAnios;
-    
+    private Map<Long, DominioLenguaExt> listaDominioLenguaExt;
+    private Map<Long, Idioma> listaIdiomas;
     private long mesInicio;
     private long mesFinalizacion;
     private long estadoEducacion;
-    private long programa;
-    private long jornada;
     private long areaEstudios;
     private long ciudad;
     private long institucion;
     private long modalidad;
-    private long nivelEstudios;
-
-    public EducacionFormalOtrasInstitucionesAction() {
-        super(EducacionFormal.class.getName());
+    private long dominio;
+    private long idioma;
+    
+    public LenguaExtranjeraAction() {
+        super(LenguaExtranjera.class.getName());
         this.idObjeto = "getIdEducacion";
-        this.coleccion = "getEducacionFormalOtrasInstituciones";
-        this.claseConcretaPersistencia = Persistencia.EducacionFormal.class;
+        this.coleccion = "getLenguaExtranjera";
+        this.claseConcretaPersistencia = Persistencia.LenguaExtranjera.class;
         this.claseBasePersistencia = Persistencia.Educacion.class;
     }
-
+    
     /**
      * @return the listaMeses
      */
@@ -87,118 +83,6 @@ public class EducacionFormalOtrasInstitucionesAction extends CrudAction<Educacio
         this.listaEstadosEducacion = listaEstadosEducacion;
     }
 
-    /**
-     * @return the listaJornadas
-     */
-    public Collection<Jornada> getListaJornadas() {
-        return listaJornadas.values();
-    }
-
-    /**
-     * @param listaJornadas the listaJornadas to set
-     */
-    public void setListaJornadas(Map<Long, Jornada> listaJornadas) {
-        this.listaJornadas = listaJornadas;
-    }
-
-    /**
-     * @return the listaProgramas
-     */
-    public Collection<Programa> getListaProgramas() {
-        return listaProgramas.values();
-    }
-
-    /**
-     * @param listaProgramas the listaProgramas to set
-     */
-    public void setListaProgramas(Map<Long, Programa> listaProgramas) {
-        this.listaProgramas = listaProgramas;
-    }
-
-    /**
-     * @return the listaAnios
-     */
-    public ArrayList<Integer> getListaAnios() {
-        return listaAnios;
-    }
-
-    /**
-     * @param listaAnios the listaAnios to set
-     */
-    public void setListaAnios(ArrayList<Integer> listaAnios) {
-        this.listaAnios = listaAnios;
-    }
-
-    /**
-     * @return the mesInicio
-     */
-    public long getMesInicio() {
-        return mesInicio;
-    }
-
-    /**
-     * @param mesInicio the mesInicio to set
-     */
-    public void setMesInicio(long mesInicio) {
-        this.mesInicio = mesInicio;
-    }
-
-    /**
-     * @return the mesFinalizacion
-     */
-    public long getMesFinalizacion() {
-        return mesFinalizacion;
-    }
-
-    /**
-     * @param mesFinalizacion the mesFinalizacion to set
-     */
-    public void setMesFinalizacion(long mesFinalizacion) {
-        this.mesFinalizacion = mesFinalizacion;
-    }
-
-    /**
-     * @return the estadoEducacion
-     */
-    public long getEstadoEducacion() {
-        return estadoEducacion;
-    }
-
-    /**
-     * @param estadoEducacion the estadoEducacion to set
-     */
-    public void setEstadoEducacion(long estadoEducacion) {
-        this.estadoEducacion = estadoEducacion;
-    }
-
-    /**
-     * @return the programa
-     */
-    public long getPrograma() {
-        return programa;
-    }
-
-    /**
-     * @param programa the programa to set
-     */
-    public void setPrograma(long programa) {
-        this.programa = programa;
-    }
-
-    /**
-     * @return the jornada
-     */
-    public long getJornada() {
-        return jornada;
-    }
-
-    /**
-     * @param jornada the jornada to set
-     */
-    public void setJornada(long jornada) {
-        this.jornada = jornada;
-    }
-    
     /**
      * @return the listaAreasEstudios
      */
@@ -256,17 +140,87 @@ public class EducacionFormalOtrasInstitucionesAction extends CrudAction<Educacio
     }
 
     /**
-     * @return the listaNivelesEstudios
+     * @return the listaAnios
      */
-    public Collection<NivelEstudios> getListaNivelesEstudios() {
-        return listaNivelesEstudios.values();
+    public ArrayList<Integer> getListaAnios() {
+        return listaAnios;
     }
 
     /**
-     * @param listaNivelesEstudios the listaNivelesEstudios to set
+     * @param listaAnios the listaAnios to set
      */
-    public void setListaNivelesEstudios(Map<Long, NivelEstudios> listaNivelesEstudios) {
-        this.listaNivelesEstudios = listaNivelesEstudios;
+    public void setListaAnios(ArrayList<Integer> listaAnios) {
+        this.listaAnios = listaAnios;
+    }
+
+    /**
+     * @return the listaDominioLenguaExt
+     */
+    public Collection<DominioLenguaExt> getListaDominioLenguaExt() {
+        return listaDominioLenguaExt.values();
+    }
+
+    /**
+     * @param listaDominioLenguaExt the listaDominioLenguaExt to set
+     */
+    public void setListaDominioLenguaExt(Map<Long, DominioLenguaExt> listaDominioLenguaExt) {
+        this.listaDominioLenguaExt = listaDominioLenguaExt;
+    }
+
+    /**
+     * @return the listaIdiomas
+     */
+    public Collection<Idioma> getListaIdiomas() {
+        return listaIdiomas.values();
+    }
+
+    /**
+     * @param listaIdiomas the listaIdiomas to set
+     */
+    public void setListaIdiomas(Map<Long, Idioma> listaIdiomas) {
+        this.listaIdiomas = listaIdiomas;
+    }
+
+    /**
+     * @return the mesInicio
+     */
+    public long getMesInicio() {
+        return mesInicio;
+    }
+
+    /**
+     * @param mesInicio the mesInicio to set
+     */
+    public void setMesInicio(long mesInicio) {
+        this.mesInicio = mesInicio;
+    }
+
+    /**
+     * @return the mesFinalizacion
+     */
+    public long getMesFinalizacion() {
+        return mesFinalizacion;
+    }
+
+    /**
+     * @param mesFinalizacion the mesFinalizacion to set
+     */
+    public void setMesFinalizacion(long mesFinalizacion) {
+        this.mesFinalizacion = mesFinalizacion;
+    }
+
+    /**
+     * @return the estadoEducacion
+     */
+    public long getEstadoEducacion() {
+        return estadoEducacion;
+    }
+
+    /**
+     * @param estadoEducacion the estadoEducacion to set
+     */
+    public void setEstadoEducacion(long estadoEducacion) {
+        this.estadoEducacion = estadoEducacion;
     }
 
     /**
@@ -326,31 +280,44 @@ public class EducacionFormalOtrasInstitucionesAction extends CrudAction<Educacio
     }
 
     /**
-     * @return the nivelEstudios
+     * @return the dominio
      */
-    public long getNivelEstudios() {
-        return nivelEstudios;
+    public long getDominio() {
+        return dominio;
     }
 
     /**
-     * @param nivelEstudios the nivelEstudios to set
+     * @param dominio the dominio to set
      */
-    public void setNivelEstudios(long nivelEstudios) {
-        this.nivelEstudios = nivelEstudios;
+    public void setDominio(long dominio) {
+        this.dominio = dominio;
     }
-    
+
+    /**
+     * @return the idioma
+     */
+    public long getIdioma() {
+        return idioma;
+    }
+
+    /**
+     * @param idioma the idioma to set
+     */
+    public void setIdioma(long idioma) {
+        this.idioma = idioma;
+    }
+
     @Override
     public String desplegar() {
         this.setListaEstadosEducacion(Listas.obtenerListas().getListaEstadosEducacion());
         this.setListaMeses(Listas.obtenerListas().getListaMeses());
-        this.setListaJornadas(Listas.obtenerListas().getListaJornadas());
-        this.setListaProgramas(Listas.obtenerListas().getListaProgramas());
         this.setListaAnios(Listas.obtenerListas().getListaAnios());
         this.setListaAreasEstudios(Listas.obtenerListas().getListaAreasEstudios());
         this.setListaCiudades(Listas.obtenerListas().getListaCiudades());
         this.setListaInstituciones(Listas.obtenerListas().getListaInstituciones());
         this.setListaModalidades(Listas.obtenerListas().getListaModalidades());
-        this.setListaNivelesEstudios(Listas.obtenerListas().getListaNivelesEstudios());
+        this.setListaDominioLenguaExt(Listas.obtenerListas().getListaDominioLenguaExt());
+        this.setListaIdiomas(Listas.obtenerListas().getListaIdiomas());
         
         this.obtenerLista();
         this.editar = true;
@@ -360,29 +327,27 @@ public class EducacionFormalOtrasInstitucionesAction extends CrudAction<Educacio
     @Override
     public void insertarTipos() {
         this.objeto.setIdEstadoEducacion(Listas.obtenerListas().getListaEstadosEducacion().get(this.estadoEducacion));
-        this.objeto.setIdJornada(Listas.obtenerListas().getListaJornadas().get(this.jornada));
         this.objeto.setIdMesFinalizacion(Listas.obtenerListas().getListaMeses().get(this.mesFinalizacion));
         this.objeto.setIdMesInicio(Listas.obtenerListas().getListaMeses().get(this.mesInicio));
-        this.objeto.setIdPrograma(Listas.obtenerListas().getListaProgramas().get(this.programa));
         this.objeto.setIdAreaEstudios(Listas.obtenerListas().getListaAreasEstudios().get(this.areaEstudios));
         this.objeto.setIdCiudad(Listas.obtenerListas().getListaCiudades().get(this.ciudad));
         this.objeto.setIdInstitucion(Listas.obtenerListas().getListaInstituciones().get(this.institucion));
         this.objeto.setIdModalidad(Listas.obtenerListas().getListaModalidades().get(this.modalidad));
-        this.objeto.setIdNivelEstudios(Listas.obtenerListas().getListaNivelesEstudios().get(this.nivelEstudios));
+        this.objeto.setIdDominio(Listas.obtenerListas().getListaDominioLenguaExt().get(this.dominio));
+        this.objeto.setIdIdioma(Listas.obtenerListas().getListaIdiomas().get(this.idioma));
     }
 
     @Override
     public void consultarTipos() {
         this.setEstadoEducacion(objeto.getIdEstadoEducacion().getIdEstadoEducacion());
-        this.setJornada(objeto.getIdJornada().getIdJornada());
         this.setMesFinalizacion(objeto.getIdMesFinalizacion().getIdMes());
         this.setMesInicio(objeto.getIdMesInicio().getIdMes());
-        this.setPrograma(objeto.getIdPrograma().getIdPrograma());
         this.setAreaEstudios(objeto.getIdAreaEstudios().getIdAreaEstudios());
         this.setCiudad(objeto.getIdCiudad().getIdCiudad());
         this.setInstitucion(objeto.getIdInstitucion().getIdInstitucion());
         this.setModalidad(objeto.getIdModalidad().getIdModalidad());
-        this.setNivelEstudios(objeto.getIdNivelEstudios().getIdNivelEstudios());
+        this.setDominio(objeto.getIdDominio().getIdDominioLenguaExt());
+        this.setIdioma(objeto.getIdIdioma().getIdIdioma());
     }
 
     @Override
@@ -390,5 +355,5 @@ public class EducacionFormalOtrasInstitucionesAction extends CrudAction<Educacio
         this.objeto.setEstado(true);
         this.objeto.setFechaRegistro(Date.valueOf(LocalDate.now()));
         this.objeto.setFechaActEstado(Date.valueOf(LocalDate.now()));
-    }
+    }    
 }

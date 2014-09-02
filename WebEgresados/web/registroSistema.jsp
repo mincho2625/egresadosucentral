@@ -11,7 +11,7 @@
         </head>
         <body>
             <div id="Tabla" align="center">
-            <s:form action="actualizarEgresadoRegistro.action" id="formRegistro"> <br>
+            <s:form action="guardarEgresado.action" id="formRegistro"> <br>
                 <s:push value="egresado">
                     <s:hidden name="idEgresado"></s:hidden>
                         <table cellpadding="2" cellspacing="12">
@@ -89,7 +89,7 @@
                                 <br>
                             </td>
                             <td>
-                                <s:select name="grupoSanguineo" list="listaGruposSanguineos" listKey="idGrupoSanguineo" listValue="nombre" headerValue="GrupoSanguineo"/>
+                                <s:select name="grupoSanguineo" list="listaGruposSanguineos" listKey="idGrupoSanguineo" listValue="grupoSanguineo" headerValue="GrupoSanguineo"/>
                                 <br>
                             </td>
                         </tr>
@@ -119,7 +119,7 @@
                                 <br>
                             </td>
                             <td>
-                                <s:select name="estadoCivil" list="listaEstadosCiviles" listKey="idEstadoCivil" listValue="nombre" headerValue="EstadoCivil"/>
+                                <s:select name="estadoCivil" list="listaEstadosCiviles" listKey="idEstadoCivil" listValue="estadoCivil" headerValue="EstadoCivil"/>
                                 <br>
                             </td>
                         </tr>

@@ -8,7 +8,7 @@ package Modelo;
 public class GrupoSanguineo {
 
     private long idGrupoSanguineo;
-    private String nombre;
+    private String grupoSanguineo;
     private boolean estado;
 
     /**
@@ -26,17 +26,17 @@ public class GrupoSanguineo {
     }
 
     /**
-     * @return the nombre
+     * @return the grupoSanguineo
      */
-    public String getNombre() {
-        return nombre;
+    public String getGrupoSanguineo() {
+        return grupoSanguineo;
     }
 
     /**
-     * @param nombre the nombre to set
+     * @param grupoSanguineo the grupoSanguineo to set
      */
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setGrupoSanguineo(String grupoSanguineo) {
+        this.grupoSanguineo = grupoSanguineo;
     }
 
     /**

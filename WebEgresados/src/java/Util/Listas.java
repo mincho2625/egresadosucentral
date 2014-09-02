@@ -12,12 +12,15 @@ import Modelo.AreaEstudios;
 import Modelo.CargoEquivalente;
 import Modelo.Ciudad;
 import Modelo.ClaseReconocimiento;
+import Modelo.DominioLenguaExt;
 import Modelo.EstadoCivil;
 import Modelo.EstadoEducacion;
 import Modelo.Estrato;
 import Modelo.Genero;
 import Modelo.GrupoSanguineo;
+import Modelo.Idioma;
 import Modelo.Institucion;
+import Modelo.IntensidadHoraria;
 import Modelo.Jornada;
 import Modelo.Mes;
 import Modelo.Modalidad;
@@ -34,6 +37,7 @@ import Modelo.TipoContrato;
 import Modelo.TipoActividad;
 import Modelo.TipoAsociacion;
 import Modelo.TipoDocumento;
+import Modelo.TipoEdNoFormal;
 import Modelo.TipoReconocimiento;
 import Modelo.TipoTenenciaVivienda;
 import Modelo.TipoVivienda;
@@ -83,7 +87,11 @@ public final class Listas {
     private Map<Long, EstadoCivil> listaEstadosCiviles;
     private Map<Long, PreguntaSeguridad> listaPreguntas;
     private Map<Long, TipoAsociacion> listaTiposAsociaciones;
-    private Map<Long, Pais> listaPaises;   
+    private Map<Long, Pais> listaPaises;
+    private Map<Long, TipoEdNoFormal> listaTiposEdNoFormal;
+    private Map<Long, IntensidadHoraria> listaIntensidadesHorarias;
+    private Map<Long, DominioLenguaExt> listaDominioLenguaExt;
+    private Map<Long, Idioma> listaIdiomas;
     private ArrayList<Integer> listaAnios;
     private final EntityManagerFactory emf = Persistence.createEntityManagerFactory("WebEgresadosPU");
 
@@ -119,6 +127,10 @@ public final class Listas {
         this.listaTiposActividades = new HashMap<>();
         this.listaTiposAsociaciones = new HashMap<>();
         this.listaPaises = new HashMap<>();
+        this.listaTiposEdNoFormal = new HashMap<>();
+        this.listaIntensidadesHorarias = new HashMap<>();
+        this.listaDominioLenguaExt = new HashMap<>();
+        this.listaIdiomas = new HashMap<>();
         
         consultar(this.listaCiudades, "Ciudad.findAll", "getIdCiudad", Modelo.Ciudad.class.getName());        
         consultar(this.listaClasesReconocimiento, "ClaseReconocimiento.findAll", "getIdClaseReconocimiento", Modelo.ClaseReconocimiento.class.getName());        
@@ -150,6 +162,10 @@ public final class Listas {
         consultar(this.listaTiposActividades, "TipoActividad.findAll", "getIdTipoActividad", Modelo.TipoActividad.class.getName());
         consultar(this.listaTiposAsociaciones, "TipoAsociacion.findAll", "getIdTipoAsociacion", Modelo.TipoAsociacion.class.getName());
         consultar(this.listaPaises, "Pais.findAll", "getIdPais", Modelo.Pais.class.getName());
+        consultar(this.listaTiposEdNoFormal, "TipoEdNoFormal.findAll", "getIdTipoEdNoFormal", Modelo.TipoEdNoFormal.class.getName());
+        consultar(this.listaIntensidadesHorarias, "IntensidadHoraria.findAll", "getIdIntensidadHoraria", Modelo.IntensidadHoraria.class.getName());
+        consultar(this.listaDominioLenguaExt, "DominioLenguaExt.findAll", "getIdDominioLenguaExt", Modelo.DominioLenguaExt.class.getName());
+        consultar(this.listaIdiomas, "Idioma.findAll", "getIdIdioma", Modelo.Idioma.class.getName());
         consultarAnios();
     }
     
@@ -595,6 +611,62 @@ public final class Listas {
      */
     public void setListaTiposActividades(Map<Long,TipoActividad> listaTiposActividades) {
         this.listaTiposActividades = listaTiposActividades;
+    }
+    
+    /**
+     * @return the listaTiposEdNoFormal
+     */
+    public Map<Long, TipoEdNoFormal> getListaTiposEdNoFormal() {
+        return listaTiposEdNoFormal;
+    }
+
+    /**
+     * @param listaTiposEdNoFormal the listaTiposEdNoFormal to set
+     */
+    public void setListaTiposEdNoFormal(Map<Long, TipoEdNoFormal> listaTiposEdNoFormal) {
+        this.listaTiposEdNoFormal = listaTiposEdNoFormal;
+    }
+
+    /**
+     * @return the listaIntensidadesHorarias
+     */
+    public Map<Long, IntensidadHoraria> getListaIntensidadesHorarias() {
+        return listaIntensidadesHorarias;
+    }
+
+    /**
+     * @param listaIntensidadesHorarias the listaIntensidadesHorarias to set
+     */
+    public void setListaIntensidadesHorarias(Map<Long, IntensidadHoraria> listaIntensidadesHorarias) {
+        this.listaIntensidadesHorarias = listaIntensidadesHorarias;
+    }
+    
+    /**
+     * @return the listaDominioLenguaExt
+     */
+    public Map<Long, DominioLenguaExt> getListaDominioLenguaExt() {
+        return listaDominioLenguaExt;
+    }
+
+    /**
+     * @param listaDominioLenguaExt the listaDominioLenguaExt to set
+     */
+    public void setListaDominioLenguaExt(Map<Long, DominioLenguaExt> listaDominioLenguaExt) {
+        this.listaDominioLenguaExt = listaDominioLenguaExt;
+    }
+
+    /**
+     * @return the listaIdiomas
+     */
+    public Map<Long, Idioma> getListaIdiomas() {
+        return listaIdiomas;
+    }
+
+    /**
+     * @param listaIdiomas the listaIdiomas to set
+     */
+    public void setListaIdiomas(Map<Long, Idioma> listaIdiomas) {
+        this.listaIdiomas = listaIdiomas;
     }
     
     private Map<Long, Object> consultar(Map listaObjetos, String consulta, String idObjeto, String claseDestino)

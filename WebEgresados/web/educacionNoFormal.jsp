@@ -2,18 +2,22 @@
 <%@taglib uri="/struts-tags" prefix="s"%>
 <html lang="es">
     <head>
-        <title>Educación Formal</title>
+        <title>Educación no Formal</title>
         <meta charset="utf-8"/>
         <link rel="stylesheet" href="estilo.css">
     </head>
     <body>
         <div id="Tabla" align="center">
             <table rules="all" >
-                <caption>EDUCACIÓN FORMAL</caption>
+                <caption>EDUCACIÓN NO FORMAL</caption>
                 <tr>
-                    <td class="tddos">Programa<br>
+                    <td class="tddos">Ciudad<br>
                     </td>
-                    <td class="tddos">Jornada<br>
+                    <td class="tddos">Institución<br>
+                    </td>
+                    <td class="tddos">Tipo Educación no Formal<br>
+                    </td>
+                    <td class="tddos">Intensidad Horaria<br>
                     </td>
                     <td class="tddos">Año Finalización<br>
                     </td>
@@ -25,22 +29,26 @@
 
                 <s:iterator value="listaObjetos">
                     <tr>
-                        <td class="tdtres"><s:property value="idPrograma.nombre"></s:property><br>
+                        <td class="tdtres"><s:property value="idCiudad.nombre"></s:property><br>
                             </td>
-                            <td class="tdtres"><s:property value="idJornada.nombre"></s:property><br>
+                            <td class="tdtres"><s:property value="idInstitucion.nombre"></s:property><br>
+                            </td>
+                            <td class="tdtres"><s:property value="idTipoEdNoFormal.nombre"></s:property><br>
+                            </td>
+                            <td class="tdtres"><s:property value="idIntensidadHoraria.nombre"></s:property><br>
                             </td>
                             <td class="tdtres"><s:property value="anioFinalizacion"></s:property><br>
                             </td>
                             <td class="tdtres"><s:property value="idEstadoEducacion.nombre"></s:property><br>
                             </td>
                             <td class="tdtres">
-                            <s:url id="editarURL" action="editarEducacionFormalUCentral.action">
+                            <s:url id="editarURL" action="editarEducacionNoFormal.action">
                                 <s:param name="idObjeto" value="%{idEducacion}"></s:param>
                             </s:url>
                             <s:a href="%{editarURL}">
                                 <img style="width: 20px; height: 19px;" title="Editar" alt="Editar" src="imagenes/Icono_de_editar.png" align="top"><br>
                             </s:a>
-                            <s:url id="borrarURL" action="borrarEducacionFormalUCentral.action">
+                            <s:url id="borrarURL" action="borrarEducacionNoFormal.action">
                                 <s:param name="idObjeto" value="%{idEducacion}"></s:param>
                             </s:url>
                             <s:a href="%{borrarURL}">
@@ -52,7 +60,7 @@
             </table>
             <br>
             <div class="buttons">
-                <a href="desplegarEducacionFormalUCentral.action" target="contenido">
+                <a href="desplegarEducacionNoFormal.action" target="contenido">
                     <button type="submit" class="positive" name="nuevo">
                         <img src="imagenes/btnGuardar.png" alt=""/>
                         Nuevo
@@ -60,9 +68,9 @@
                 </a><br>
             </div>
             <br>
-            <a href="informacionAcademicaOtrasTabla.jsp" class="tduno"><div>Siguiente</div></a>
+            <a href="informacionAcademicaNoFormalTabla.jsp" class="tduno"><div>Siguiente</div></a>
             <br>
-            <a href="obtenerListaExperienciaLaboral.action" class="tdatras"><div>Anterior</div></a>
+            <a href="obtenerListaEducacionFormalOtrasInstituciones.action" class="tdatras"><div>Atras</div></a>
             <br>
             <br>
 
@@ -70,20 +78,54 @@
 
         <div id="contenido1">
             <s:if test="editar">
-                <s:form action="guardarEducacionFormalUCentral.action">
+                <s:form action="guardarEducacionNoFormal.action">
                     <s:push value="objeto">
                         <s:hidden name="idEducacion"></s:hidden>
-                        <div class="tdun">Generar Nuevo Registro</div>
+                            <div class="tdun">Generar Nuevo Registro</div>
                             <table>
                                 <tr>
                                     <td>
-                                        <div class="tduno"> Programa </div><s:select cssClass="center" name="programa" list="listaProgramas" listKey="idPrograma" listValue="nombre"></s:select>
+                                        <div class="tduno"> Ciudad </div><s:select cssClass="center" name="ciudad" list="listaCiudades" listKey="idCiudad" listValue="nombre"></s:select>
                                     </td>
                                 </tr>
-
                                 <tr>
                                     <td>
-                                        <div class="tduno"> Jornada </div><s:select cssClass="center" name="jornada" list="listaJornadas" listKey="idJornada" listValue="nombre"></s:select>
+                                        <div class="tduno"> Institución </div><s:select cssClass="center" name="institucion" list="listaInstituciones" listKey="idInstitucion" listValue="nombre"></s:select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="tduno"> Tipo Educación no Formal </div><s:select cssClass="center" name="tipoEdNoFormal" list="listaTiposEdNoFormal" listKey="idTipoEdNoFormal" listValue="nombre"></s:select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="tduno"> Cual </div><s:textfield name="otroTipoEdNoFormal"></s:textfield>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="tduno"> Título </div><s:textfield name="titulo"></s:textfield>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="tduno"> Descripción </div><s:textfield name="descripcion"></s:textfield>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="tduno"> Área estudios </div><s:select cssClass="center" name="areaEstudios" list="listaAreasEstudios" listKey="idAreaEstudios" listValue="nombre"></s:select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="tduno"> Modalidad </div><s:select cssClass="center" name="modalidad" list="listaModalidades" listKey="idModalidad" listValue="nombre"></s:select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="tduno"> Intensidad Horaria </div><s:select cssClass="center" name="intensidadHoraria" list="listaIntensidadesHorarias" listKey="idIntensidadHoraria" listValue="nombre"></s:select>
                                     </td>
                                 </tr>
                                 <tr>
@@ -93,7 +135,7 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        <div class="tduno"> Mes Inicio </div><s:select cssClass="center"name="mesInicio" list="listaMeses" listKey="idMes" listValue="mes"></s:select>
+                                        <div class="tduno"> Mes Inicio </div><s:select cssClass="center" name="mesInicio" list="listaMeses" listKey="idMes" listValue="mes"></s:select>
                                     </td>
                                 </tr>
                                 <tr>
