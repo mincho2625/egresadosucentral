@@ -105,11 +105,13 @@
                                 </tr>
                                 <tr>
                                     <td>
+                                        <s:property value="getFieldErros().get('titulo'){0}"/>
                                         <div class="tduno"> Título </div><s:textfield name="titulo"></s:textfield>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
+                                        <s:property value="getFieldErros().get('descri'){0}"/>
                                         <div class="tduno"> Descripción </div><s:textfield name="descripcion"></s:textfield>
                                     </td>
                                 </tr>

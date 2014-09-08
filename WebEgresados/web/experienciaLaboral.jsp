@@ -86,6 +86,7 @@
                                 </tr>
                                 <tr>
                                     <td>
+                                        <s:property value="getFieldErros().get('nomempresa'){0}"/>
                                         <div class="tduno">Nombre Empresa</div><s:textfield cssClass="center" name="nombreEmpresa"></s:textfield>
                                     </td>
                                 </tr>
@@ -96,6 +97,7 @@
                                 </tr>
                                 <tr>
                                     <td>
+                                        <s:property value="getFieldErros().get('cargo'){0}"/>
                                         <div class="tduno">Cargo</div><s:textfield cssClass="center" name="cargo"></s:textfield>
                                     </td>
                                 </tr>
@@ -126,11 +128,13 @@
                                 </tr>
                                 <tr>
                                     <td>
+                                        <s:property value="getFieldErros().get('funlo'){0}"/>
                                         <div class="tduno">Funciones Logros</div><s:textarea cssClass="center" name="funcionesLogros"></s:textarea>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
+                                        <s:property value="getFieldErros().get('telempresa'){0}"/>
                                         <div class="tduno"> Telefono de la Empresa</div><s:textfield cssClass="center" name="telefonoEmpresa"></s:textfield>
                                     </td>
                                 </tr>
@@ -141,6 +145,7 @@
                                 </tr>
                                 <tr>
                                     <td>
+                                        <s:property value="getFieldErros().get('jefeinme'){0}"/>
                                         <div class="tduno">Jefe Inmediato</div><s:textfield cssClass="center" name="jefeInmediato"></s:textfield>
                                     </td>
                                 </tr>

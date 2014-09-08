@@ -47,6 +47,7 @@ public class IngresoAction extends ActionSupport{
         this.contrasenia = contrasenia;
     }
 
+    
     @Override
     public String execute() throws Exception {
         ControladorUsuario controladorUsuario = new ControladorUsuario();
@@ -60,4 +61,15 @@ public class IngresoAction extends ActionSupport{
             return ERROR;
         }
     }
+
+    @Override
+    public void validate() {
+        if (usuario.equals("")) {
+            addFieldError("usuario", "Digite un Usuario");
+        }
+        if (contrasenia.equals("")) {
+            addFieldError("contrasenia", "Digite una Contraseña");
+        }
+    }
+    
 }

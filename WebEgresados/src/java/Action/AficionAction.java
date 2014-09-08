@@ -82,4 +82,15 @@ public class AficionAction  extends CrudAction<Aficion>{
         this.objeto.setEstado(true);
         this.objeto.setFechaRegistro(Date.valueOf(LocalDate.now()));
     }
+
+    @Override
+    public void validate() {
+    if (objeto.getListaActividades()!= null) {
+            if (objeto.getListaActividades().equals("")) {
+             addFieldError("lisacti", "Digite la lista de activiades");   
+            }
+        }
+        
+    }
+    
 }

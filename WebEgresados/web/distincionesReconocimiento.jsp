@@ -95,6 +95,7 @@
                                 </tr>
                                 <tr>
                                     <td>
+                                        <s:property value="getFieldErros().get('descrip'){0}"/>
                                         <div class="tduno">Descripción</div><s:textfield cssClass="center" name="descripcion"></s:textfield>
                                     </td>
                                 </tr>
@@ -105,11 +106,13 @@
                                 </tr>
                                 <tr>
                                     <td>
+                                        <s:property value="getFieldErros().get('entiotor'){0}"/>
                                         <div class="tduno">Entidad Otorgante</div><s:textfield  cssClass="center" name="entidadOtorgante"></s:textfield>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
+                                        <s:property value="getFieldErros().get('fecharegistro'){0}"/>
                                         <div class="tduno">Fecha</div><jq:datepicker name="fechaReconocimiento" changeMonth="true" changeYear="true" showButtonPanel="true"></jq:datepicker>
                                     </td>
                                 </tr>

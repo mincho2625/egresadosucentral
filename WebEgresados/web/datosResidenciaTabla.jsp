@@ -97,6 +97,7 @@
                                 </tr>
                                 <tr>
                                     <td>
+                                    <s:property value="getFieldErros().get('direccion'){0}"/>
                                         <div class="tduno"> Dirección </div><s:textfield cssClass="center" name="direccion"></s:textfield>
                                     </td>
                                 </tr>

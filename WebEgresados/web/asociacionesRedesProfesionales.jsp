@@ -80,11 +80,13 @@
                                 </tr>
                                 <tr>
                                     <td>
+                                        <s:property value="getFieldErros().get('descr'){0}"/>
                                         <div class="tduno"> Descripción </div><s:textfield cssClass="center" name="descripcion"></s:textfield>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
+                                        <s:property value="getFieldErros().get('fechavinculacion'){0}"/>
                                         <div class="tduno"> Fecha vinculación </div><jq:datepicker name="fechaVinculacion" changeMonth="true" changeYear="true" showButtonPanel="true"></jq:datepicker>
                                     </td>
                                 </tr>

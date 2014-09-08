@@ -57,6 +57,7 @@
             <a href="obtenerEgresadoRegistro.action" class="tdatras"><div>Anterior</div></a>
             <br>
             <br>
+            <br>
 
         </div>
         <div id="contenido1">
@@ -74,7 +75,8 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        <div class="tduno">Descripción</div><s:textfield cssClass="center" name="descripcion"></s:textfield>
+                                        <s:property  value="getFieldErros().get('descripcion'){0}"/>
+                                    <div class="tduno">Descripción</div><s:textfield cssClass="center" name="descripcion"></s:textfield>
                                     </td>
                                 </tr>
                                 <tr>
@@ -85,5 +87,5 @@
                 </s:form>
             </s:if>
         </div>
-</body>
+    </body>
 </html>

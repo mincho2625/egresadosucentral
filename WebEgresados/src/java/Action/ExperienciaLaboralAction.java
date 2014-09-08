@@ -356,4 +356,35 @@ public class ExperienciaLaboralAction extends CrudAction<ExperienciaLaboral> {
         this.objeto.setEstado(true);
         this.objeto.setFechaRegistro(Date.valueOf(LocalDate.now()));
     }
+
+    @Override
+    public void validate() {
+        if (objeto.getNombreEmpresa() != null) {
+            if (objeto.getNombreEmpresa().equals("")) {
+             addFieldError("nomempresa", "Digite un Nombre de empresa");   
+            }
+        }
+        if (objeto.getCargo()!= null) {
+            if (objeto.getCargo().equals("")) {
+             addFieldError("cargo", "Digite un Cargo");   
+            }
+        }
+        if (objeto.getFuncionesLogros()!= null) {
+            if (objeto.getFuncionesLogros().equals("")) {
+             addFieldError("funlo", "Digite una Funcion o Logro");   
+            }
+        }
+        if (objeto.getTelefonoEmpresa()!= null) {
+            if (objeto.getTelefonoEmpresa().equals("")) {
+             addFieldError("telempresa", "Digite el telefono de la empresa");   
+            }
+        }
+        if (objeto.getJefeInmediato()!= null) {
+            if (objeto.getJefeInmediato().equals("")) {
+             addFieldError("jefeinme", "Digite el nombre del jefe inmediato");   
+            }
+        }
+    }
+    
+    
 }

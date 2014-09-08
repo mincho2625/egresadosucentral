@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Action;
 
 import Modelo.AreaEstudios;
@@ -27,6 +26,7 @@ import java.util.Map;
  * @author YURY
  */
 public class EducacionNoFormalAction extends CrudAction<EducacionNoFormal> {
+
     private Map<Long, Mes> listaMeses;
     private Map<Long, EstadoEducacion> listaEstadosEducacion;
     private Map<Long, AreaEstudios> listaAreasEstudios;
@@ -45,16 +45,15 @@ public class EducacionNoFormalAction extends CrudAction<EducacionNoFormal> {
     private long modalidad;
     private long tipoEdNoFormal;
     private long intensidadHoraria;
-    
-    public EducacionNoFormalAction()
-    {
+
+    public EducacionNoFormalAction() {
         super(EducacionNoFormal.class.getName());
         this.idObjeto = "getIdEducacion";
         this.coleccion = "getEducacionNoFormal";
         this.claseConcretaPersistencia = Persistencia.EducacionNoFormal.class;
         this.claseBasePersistencia = Persistencia.Educacion.class;
     }
-    
+
     /**
      * @return the listaMeses
      */
@@ -306,7 +305,7 @@ public class EducacionNoFormalAction extends CrudAction<EducacionNoFormal> {
     public void setIntensidadHoraria(long intensidadHoraria) {
         this.intensidadHoraria = intensidadHoraria;
     }
-    
+
     @Override
     public String desplegar() {
         this.setListaEstadosEducacion(Listas.obtenerListas().getListaEstadosEducacion());
@@ -318,7 +317,7 @@ public class EducacionNoFormalAction extends CrudAction<EducacionNoFormal> {
         this.setListaModalidades(Listas.obtenerListas().getListaModalidades());
         this.setListaIntensidadesHorarias(Listas.obtenerListas().getListaIntensidadesHorarias());
         this.setListaTiposEdNoFormal(Listas.obtenerListas().getListaTiposEdNoFormal());
-        
+
         this.obtenerLista();
         this.editar = true;
         return SUCCESS;
@@ -356,4 +355,19 @@ public class EducacionNoFormalAction extends CrudAction<EducacionNoFormal> {
         this.objeto.setFechaRegistro(Date.valueOf(LocalDate.now()));
         this.objeto.setFechaActEstado(Date.valueOf(LocalDate.now()));
     }
+
+    @Override
+    public void validate() {
+        if (objeto.getTitulo() != null) {
+            if (objeto.getTitulo().equals("")) {
+                addFieldError("titulo", "Digite el titulo");
+            }
+        }
+        if (objeto.getDescripcion()!= null) {
+            if (objeto.getDescripcion().equals("")) {
+             addFieldError("descri", "Digite ladescripcion");   
+            }
+        }
+    }
+
 }

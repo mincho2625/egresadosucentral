@@ -23,11 +23,13 @@
                             <br><br><br><br><br><br><br><br>
                             <tr>
                                 <td>
+                                    <s:property  value="getFieldErros().get('usuario'){0}" />
                                     <div id="text" class="tduno">Usuario</div><s:textfield cssClass="center" name="usuario"></s:textfield>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
+                                        <s:property  value="getFieldErros().get('contrasenia'){0}" />
                                         <div id="text" class="tduno">Contraseña</div><s:password cssClass="center" name="contrasenia"></s:password>
                                     </td>
                                 </tr>
@@ -35,7 +37,7 @@
                                 <tr>
                                 <div class="errors">
                                     <s:actionerror />
-                                    <s:a href="desplegarRegistro.action">Registro</s:a>
+                                    <s:a href="desplegarRegistro.action"> <div class="tduno">Registro</div></s:a>
                                     </div>
                                     </tr>
                             </s:if>

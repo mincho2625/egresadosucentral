@@ -126,7 +126,7 @@
 
                         <tr>
                             <td><div class="buttons">
-                                    <button type="submit" class="positive" name="cambioClave">
+                                    <button type="submit" class="center1" name="cambioClave">
                                         <img src="imagenes/btnCambioClave.png" alt=""/>
                                         Cambio Clave
                                     </button><br>
@@ -149,8 +149,7 @@
                                 </td>
                             </s:if>
                             <td><div class="buttons">
-                                    <s:submit cssClass="positive">
-                                        <img src="imagenes/btnGuardar.png" alt=""/>Guardar<br>
+                                <s:submit cssClass="center1" value="Guardar">
                                     </s:submit>
 
                                 </div></td>
