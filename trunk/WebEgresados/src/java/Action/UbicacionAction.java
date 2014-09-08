@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Action;
 
 import Modelo.Contacto;
@@ -13,23 +12,24 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Map;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author YURY
  */
 public class UbicacionAction extends CrudAction<Contacto> {
+
     private Map<Long, TipoContacto> listaTiposContacto;
     private long tipoContacto;
-    
-    public UbicacionAction()
-    {
+
+    public UbicacionAction() {
         super(Modelo.Contacto.class.getName());
         this.idObjeto = "getIdContacto";
         this.coleccion = "getContactoCollection";
         this.claseConcretaPersistencia = Persistencia.Contacto.class;
     }
-    
+
     /**
      * @return the listaTiposContacto
      */
@@ -57,10 +57,18 @@ public class UbicacionAction extends CrudAction<Contacto> {
     public void setTipoContacto(long tipoContacto) {
         this.tipoContacto = tipoContacto;
     }
-    
+
     @Override
-    public String desplegar()
-    {
+    public void validate() {
+        if (objeto.getDescripcion() != null) {
+            if (objeto.getDescripcion().equals("")) {
+             addFieldError("descripcion", "Digite una Descripcion");   
+            }
+        }
+    }
+
+    @Override
+    public String desplegar() {
         this.setListaTiposContacto(Listas.obtenerListas().getListaTiposContacto());
         this.obtenerLista();
         this.editar = true;

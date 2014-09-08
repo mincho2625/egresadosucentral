@@ -11,22 +11,27 @@
         <action name="*Ingreso" method="{1}" class="Action.IngresoAction">
             <result name="success">/index.jsp</result>
             <result name="error">/entrada.jsp</result>
+            <result name="input">/entrada.jsp</result>
         </action>
         
         <action name="*Ubicacion" method="{1}" class="Action.UbicacionAction">
             <result name="success">/datosUbicacionTabla.jsp</result>
+            <result name="input" >/datosUbicacionTabla.jsp</result>
         </action>
         
         <action name="*EgresadoRedSocial" method="{1}" class="Action.EgresadoRedSocialAction">
             <result name="success">/redesSocialesTabla.jsp</result>
+            <result name="input" >/redesSocialesTabla.jsp</result>
         </action>
         
         <action name="*ExperienciaLaboral" method="{1}" class="Action.ExperienciaLaboralAction">
             <result name="success">/experienciaLaboral.jsp</result>
+            <result name="input" >/experienciaLaboral.jsp</result>
         </action>
         
         <action name="*Residencia" method="{1}" class="Action.ResidenciaAction">
             <result name="success">/datosResidenciaTabla.jsp</result>
+            <result name="input" >/datosResidenciaTabla.jsp</result>
         </action>
         
         <action name="*EducacionFormalUCentral" method="{1}" class="Action.EducacionFormalUCentralAction">
@@ -39,22 +44,27 @@
         
         <action name="*EducacionNoFormal" method="{1}" class="Action.EducacionNoFormalAction">
             <result name="success">/educacionNoFormal.jsp</result>
+            <result name="input" >/educacionNoFormal.jsp</result>
         </action>
         
         <action name="*LenguaExtranjera" method="{1}" class="Action.LenguaExtranjeraAction">
             <result name="success">/lenguaExtranjera.jsp</result>
+            <result name="input" >/lenguaExtranjera.jsp</result>
         </action>
         
         <action name="*Reconocimiento" method="{1}" class="Action.ReconocimientoAction">
             <result name="success">/distincionesReconocimiento.jsp</result>
+            <result name="input" >/distincionesReconocimiento.jsp</result>
         </action>
         
         <action name="*Aficion" method="{1}" class="Action.AficionAction">
             <result name="success">/deportesAficiones.jsp</result>
+            <result name="input" >/deportesAficiones.jsp</result>
         </action>
         
         <action name="*Asociacion" method="{1}" class="Action.AsociacionAction">
             <result name="success">/asociacionesRedesProfesionales.jsp</result>
+            <result name="input" >/asociacionesRedesProfesionales.jsp</result>
         </action>
         
         <action name="*Registro" method="{1}" class="Action.RegistroAction">

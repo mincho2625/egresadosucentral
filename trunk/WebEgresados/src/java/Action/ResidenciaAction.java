@@ -184,4 +184,14 @@ public class ResidenciaAction extends CrudAction<Residencia> {
         this.objeto.setEstado(true);
         this.objeto.setFechaRegistro(Date.valueOf(LocalDate.now()));
     }
+
+    @Override
+    public void validate() {
+        if (objeto.getDireccion() != null) {
+            if (objeto.getDireccion().equals("")) {
+             addFieldError("direccion", "Digite una direccion");   
+            }
+        }
+    }
+    
 }

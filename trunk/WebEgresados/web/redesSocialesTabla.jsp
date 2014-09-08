@@ -75,6 +75,7 @@
                                 </tr>
                                 <tr>
                                     <td>
+                                        <s:property  value="getFieldErros().get('url'){0}"/>
                                         <div class="tduno"> URL </div><s:textfield name="url" cssClass="center"></s:textfield>
                                     </td>
                                 </tr>

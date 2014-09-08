@@ -81,4 +81,13 @@ public class EgresadoRedSocialAction extends CrudAction<EgresadoRedSocial>{
         this.objeto.setEstado(true);
         this.objeto.setFechaRegistro(Date.valueOf(LocalDate.now()));
     }
+
+    @Override
+    public void validate() {
+        if (objeto.getUrl() != null) {
+            if (objeto.getUrl().equals("")) {
+             addFieldError("url", "Digite una url");   
+            }
+        }
+    }
 }

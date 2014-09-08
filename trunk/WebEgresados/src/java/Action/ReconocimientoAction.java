@@ -149,4 +149,24 @@ public class ReconocimientoAction extends CrudAction<Reconocimiento>{
         this.objeto.setEstado(true);
         this.objeto.setFechaRegistro(Date.valueOf(LocalDate.now()));
     }
+
+    @Override
+    public void validate() {
+       if (objeto.getDescripcion()!= null) {
+            if (objeto.getDescripcion().equals("")) {
+             addFieldError("descrip", "Digite la descripcion");   
+            }
+        }
+       if (objeto.getEntidadOtorgante()!= null) {
+            if (objeto.getEntidadOtorgante().equals("")) {
+             addFieldError("entiotor", "Digite la entidad otorgante");   
+            }
+        }
+       if (objeto.getFechaRegistro()!= null) {
+            if (objeto.getFechaRegistro().equals("")) {
+             addFieldError("fecharegistro", "Digite la fecha de registro");   
+            }
+        }
+    }
+    
 }

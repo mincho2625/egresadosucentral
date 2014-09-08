@@ -15,6 +15,8 @@
                     </td>
                     <td class="tddos">Lista de Actividades<br>
                     </td>
+                    <td class="tddos">Accion<br>
+                    </td>
                 </tr>
 
                 <s:iterator value="listaObjetos">
@@ -63,6 +65,7 @@
                 <s:form action="guardarAficion.action">
                     <s:push value="objeto">
                         <s:hidden name="idAficion"></s:hidden>
+                            <div class="tdun">Generar Nuevo Registro</div>
                             <table>
                                 <tr>
                                     <td>
@@ -77,13 +80,14 @@
                                         <div class="tduno"> Lista Actividades </div>
                                     </td>
                                     <td>
-                                    <s:textfield name="listaActividades"></s:textfield>
+                                    <s:property value="getFieldErros().get('lisacti'){0}"/>
+                                    <s:textfield cssClass="center" name="listaActividades"></s:textfield>
                                     </td>
                                 </tr>
                                 <tr>
                                 <tr>
-                                <s:submit cssClass="positive" value="Guardar">
-                            </s:submit>
+                                <s:submit cssClass="center1" value="Guardar">
+                                </s:submit>
                             </tr>
                         </table>
                     </s:push>

@@ -115,4 +115,19 @@ public class AsociacionAction extends CrudAction<Asociacion> {
         this.objeto.setEstado(true);
         this.objeto.setFechaRegistro(Date.valueOf(LocalDate.now()));
     }
+
+    @Override
+    public void validate() {
+        if (objeto.getFechaVinculacion()!= null) {
+            if (objeto.getFechaVinculacion().equals("")) {
+             addFieldError("fechavinculacion", "Digite la fecha de vinculacion");   
+            }
+        }
+        if (objeto.getDescripcion()!= null) {
+            if (objeto.getDescripcion().equals("")) {
+             addFieldError("descr", "Digite la descripccion");   
+            }
+        }
+    }
+    
 }
