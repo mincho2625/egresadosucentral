@@ -88,5 +88,9 @@
                 <param name="method">obtenerLista</param>
             </result>
         </action>
+        
+        <action name="*Encuesta" method="{1}" class="Action.EncuestaAction">
+            <result name="success">/encuesta.jsp</result>
+        </action>
     </package>
 </struts>
