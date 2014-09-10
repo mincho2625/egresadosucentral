@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<%@taglib uri="/struts-tags" prefix="s"%>
 <html lang="es">
     <head>
         <title>Formulario Principal </title>
@@ -51,8 +52,18 @@
                         </ul>
                     </li>
 
-
-                    <a href="encuesta.jsp" target="contenido"><li>Encuesta</li></a>
+                    <li>Encuesta
+                        <ul>
+                            <s:iterator value="listaEncuestas" status="estado">
+                                <s:url id="encuestaURL" action="desplegarEncuesta.action">
+                                    <s:param name="idEncuesta" value="%{idEncuesta}"></s:param>
+                                </s:url>
+                                <a href="<s:property value="#encuestaURL" />" target="contenido">
+                                    <li><s:property value="nombre"></s:property></li>
+                                </a>
+                            </s:iterator>
+                        </ul>
+                    </li>
 
                     <a href="entrada.jsp" ><li>Salir</li></a>
                 </ul>

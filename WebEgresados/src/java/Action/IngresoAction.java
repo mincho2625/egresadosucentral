@@ -7,8 +7,11 @@
 package Action;
 
 import Controlador.ControladorUsuario;
+import Controlador.ControlardorEncuesta;
+import Modelo.Encuesta;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
+import java.util.ArrayList;
 import java.util.Map;
 
 /**
@@ -18,6 +21,8 @@ import java.util.Map;
 public class IngresoAction extends ActionSupport{
     private String usuario;
     private String contrasenia;
+    private ArrayList<Encuesta> listaEncuestas;
+    private ControlardorEncuesta controlardorEncuesta = new ControlardorEncuesta();
 
     /**
      * @return the usuario
@@ -47,6 +52,19 @@ public class IngresoAction extends ActionSupport{
         this.contrasenia = contrasenia;
     }
 
+    /**
+     * @return the listaEncuestas
+     */
+    public ArrayList<Encuesta> getListaEncuestas() {
+        return listaEncuestas;
+    }
+
+    /**
+     * @param listaEncuestas the listaEncuestas to set
+     */
+    public void setListaEncuestas(ArrayList<Encuesta> listaEncuestas) {
+        this.listaEncuestas = listaEncuestas;
+    }
     
     @Override
     public String execute() throws Exception {
@@ -54,6 +72,7 @@ public class IngresoAction extends ActionSupport{
         if (controladorUsuario.login(usuario, contrasenia)) {
             Map session = ActionContext.getContext().getSession();
             session.put("usuario", usuario);
+            this.listaEncuestas = controlardorEncuesta.consultarEncuestas();
             return SUCCESS;
         }
         else {

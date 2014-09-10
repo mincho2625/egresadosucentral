@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Context antiJARLocking="true" path="/WebEgresados">
   <Resource auth="Container" driverClassName="com.mysql.jdbc.Driver" maxActive="20" maxIdle="10" maxWait="-1" name="egresados" password="admin" type="javax.sql.DataSource" url="jdbc:mysql://localhost:3306/egresados?zeroDateTimeBehavior=convertToNull" username="root"/>
-  <Resource auth="Container" driverClassName="com.mysql.jdbc.Driver" maxActive="20" maxIdle="10" maxWait="-1" name="jdbc/egresadosDatasource" password="admin" type="javax.sql.DataSource" url="jdbc:mysql://localhost:3306/egresados?zeroDateTimeBehavior=convertToNull" username="root"/>
-  <Resource auth="Container" driverClassName="com.mysql.jdbc.Driver" maxActive="20" maxIdle="10" maxWait="-1" name="jdbc/EgresadosDatasource" password="admin" type="javax.sql.DataSource" url="jdbc:mysql://localhost:3306/egresados?zeroDateTimeBehavior=convertToNull" username="root"/>
 </Context>
