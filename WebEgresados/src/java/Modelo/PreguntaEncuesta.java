@@ -6,6 +6,8 @@
 
 package Modelo;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author YURY
@@ -16,6 +18,11 @@ public class PreguntaEncuesta {
     private Encuesta idEncuesta;
     private boolean estado;
     private TipoRespuesta idTipoRespuesta;
+    private ArrayList<RespuestaEncuesta> listaRespuestasEncuesta;
+
+    public PreguntaEncuesta() {
+        this.listaRespuestasEncuesta = new ArrayList<>();
+    }
 
     /**
      * @return the idPreguntaEncuesta
@@ -85,5 +92,16 @@ public class PreguntaEncuesta {
      */
     public void setIdTipoRespuesta(TipoRespuesta idTipoRespuesta) {
         this.idTipoRespuesta = idTipoRespuesta;
+    }
+
+    /**
+     * @return the listaRespuestasEncuesta
+     */
+    public ArrayList<RespuestaEncuesta> getListaRespuestasEncuesta() {
+        return listaRespuestasEncuesta;
+    }
+
+    public void agregarRespuestaEncuesta(RespuestaEncuesta respuestasEncuesta) {
+        this.listaRespuestasEncuesta.add(respuestasEncuesta);
     }
 }
