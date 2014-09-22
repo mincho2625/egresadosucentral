@@ -8,6 +8,7 @@ package Controlador;
 
 import Modelo.Encuesta;
 import Modelo.PreguntaEncuesta;
+import Modelo.RespuestaEncuesta;
 import Util.Convertidor;
 import java.util.ArrayList;
 import java.util.List;
@@ -56,11 +57,17 @@ public class ControlardorEncuesta {
         ArrayList<PreguntaEncuesta> listaPreguntas = new ArrayList<>();
         
         try {
-            Query query = em.createNamedQuery("PreguntaEncuesta.findAll");
-            List<Persistencia.PreguntaEncuesta> lista = query.getResultList();
-            for (Persistencia.PreguntaEncuesta encuesta : lista) {
-                if (encuesta.getEstado()){
-                    listaPreguntas.add((PreguntaEncuesta)convertidor.convertirAModelo(encuesta, null, Modelo.PreguntaEncuesta.class.getName()));
+            Persistencia.Encuesta e = em.getReference(Persistencia.Encuesta.class, idEncuesta);
+            if (e != null) {
+                for (Persistencia.PreguntaEncuesta pe : e.getPreguntaEncuestaCollection()) {
+                    if (pe.getEstado()){
+                        PreguntaEncuesta preguntaEncuesta = (PreguntaEncuesta)convertidor.convertirAModelo(pe, null, Modelo.PreguntaEncuesta.class.getName());
+                        for (Persistencia.RespuestaEncuesta re : pe.getRespuestaEncuestaCollection()) {
+                            preguntaEncuesta.agregarRespuestaEncuesta((RespuestaEncuesta)convertidor.convertirAModelo(re, null, Modelo.RespuestaEncuesta.class.getName()));
+                        }
+
+                        listaPreguntas.add(preguntaEncuesta);
+                    }
                 }
             }
 

@@ -1,0 +1,59 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+package Modelo;
+
+/**
+ *
+ * @author YURY
+ */
+public class RespuestaEncuesta {
+    private long idRespuestaEncuesta;
+    private String respuesta;
+    private boolean estado;
+
+    /**
+     * @return the idRespuestaEncuesta
+     */
+    public long getIdRespuestaEncuesta() {
+        return idRespuestaEncuesta;
+    }
+
+    /**
+     * @param idRespuestaEncuesta the idRespuestaEncuesta to set
+     */
+    public void setIdRespuestaEncuesta(long idRespuestaEncuesta) {
+        this.idRespuestaEncuesta = idRespuestaEncuesta;
+    }
+
+    /**
+     * @return the respuesta
+     */
+    public String getRespuesta() {
+        return respuesta;
+    }
+
+    /**
+     * @param respuesta the respuesta to set
+     */
+    public void setRespuesta(String respuesta) {
+        this.respuesta = respuesta;
+    }
+
+    /**
+     * @return the estado
+     */
+    public boolean isEstado() {
+        return estado;
+    }
+
+    /**
+     * @param estado the estado to set
+     */
+    public void setEstado(boolean estado) {
+        this.estado = estado;
+    }
+}
