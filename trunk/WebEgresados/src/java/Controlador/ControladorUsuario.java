@@ -21,14 +21,21 @@ public class ControladorUsuario {
      * @return 
      */
     public boolean login(String usuario, String contrasenia) {
-        EntityManager em = emf.createEntityManager();
-        Query query = em.createNamedQuery("Usuario.findByNombre");
-        query.setParameter("nombre", usuario);
-        Object result = query.getSingleResult();
-        if (result != null) {
-            Persistencia.Usuario u = (Persistencia.Usuario) result;
-            if (u.getContrasenia().equals(contrasenia))
-                return true;
+        try {
+            EntityManager em = emf.createEntityManager();
+            Query query = em.createNamedQuery("Usuario.findByNombre");
+            query.setParameter("nombre", usuario);
+            Object result = query.getSingleResult();
+            if (result != null) {
+                Persistencia.Usuario u = (Persistencia.Usuario) result;
+                if (u.getContrasenia().equals(contrasenia)) {
+                    return true;
+                }
+            }
+        }
+        catch(Exception ex)
+        {
+            return false;
         }
         
         return false;

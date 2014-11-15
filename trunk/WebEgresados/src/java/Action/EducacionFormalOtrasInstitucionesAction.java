@@ -3,12 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Action;
 
 import Modelo.AreaEstudios;
 import Modelo.Ciudad;
-import Modelo.EducacionFormal;
+import Modelo.EdFormalOtrasInstituciones;
 import Modelo.EstadoEducacion;
 import Modelo.Institucion;
 import Modelo.Jornada;
@@ -16,7 +15,6 @@ import Modelo.Mes;
 import Modelo.Modalidad;
 import Modelo.NivelEstudios;
 import Modelo.Programa;
-import Util.Listas;
 import static com.opensymphony.xwork2.Action.SUCCESS;
 import java.sql.Date;
 import java.time.LocalDate;
@@ -28,34 +26,34 @@ import java.util.Map;
  *
  * @author YURY
  */
-public class EducacionFormalOtrasInstitucionesAction extends CrudAction<EducacionFormal> {
+public class EducacionFormalOtrasInstitucionesAction extends CrudAction<EdFormalOtrasInstituciones> {
+
     private Map<Long, Mes> listaMeses;
     private Map<Long, EstadoEducacion> listaEstadosEducacion;
     private Map<Long, Jornada> listaJornadas;
-    private Map<Long, Programa> listaProgramas;
     private Map<Long, AreaEstudios> listaAreasEstudios;
     private Map<Long, Ciudad> listaCiudades;
     private Map<Long, Institucion> listaInstituciones;
     private Map<Long, Modalidad> listaModalidades;
     private Map<Long, NivelEstudios> listaNivelesEstudios;
     private ArrayList<Integer> listaAnios;
-    
+
     private long mesInicio;
     private long mesFinalizacion;
     private long estadoEducacion;
-    private long programa;
     private long jornada;
     private long areaEstudios;
     private long ciudad;
     private long institucion;
     private long modalidad;
     private long nivelEstudios;
+    private boolean checkOtraInstitucion;
 
     public EducacionFormalOtrasInstitucionesAction() {
-        super(EducacionFormal.class.getName());
+        super(EdFormalOtrasInstituciones.class.getName());
         this.idObjeto = "getIdEducacion";
         this.coleccion = "getEducacionFormalOtrasInstituciones";
-        this.claseConcretaPersistencia = Persistencia.EducacionFormal.class;
+        this.claseConcretaPersistencia = Persistencia.EdFormalOtrasInstituciones.class;
         this.claseBasePersistencia = Persistencia.Educacion.class;
     }
 
@@ -99,20 +97,6 @@ public class EducacionFormalOtrasInstitucionesAction extends CrudAction<Educacio
      */
     public void setListaJornadas(Map<Long, Jornada> listaJornadas) {
         this.listaJornadas = listaJornadas;
-    }
-
-    /**
-     * @return the listaProgramas
-     */
-    public Collection<Programa> getListaProgramas() {
-        return listaProgramas.values();
-    }
-
-    /**
-     * @param listaProgramas the listaProgramas to set
-     */
-    public void setListaProgramas(Map<Long, Programa> listaProgramas) {
-        this.listaProgramas = listaProgramas;
     }
 
     /**
@@ -172,20 +156,6 @@ public class EducacionFormalOtrasInstitucionesAction extends CrudAction<Educacio
     }
 
     /**
-     * @return the programa
-     */
-    public long getPrograma() {
-        return programa;
-    }
-
-    /**
-     * @param programa the programa to set
-     */
-    public void setPrograma(long programa) {
-        this.programa = programa;
-    }
-
-    /**
      * @return the jornada
      */
     public long getJornada() {
@@ -198,7 +168,7 @@ public class EducacionFormalOtrasInstitucionesAction extends CrudAction<Educacio
     public void setJornada(long jornada) {
         this.jornada = jornada;
     }
-    
+
     /**
      * @return the listaAreasEstudios
      */
@@ -338,20 +308,33 @@ public class EducacionFormalOtrasInstitucionesAction extends CrudAction<Educacio
     public void setNivelEstudios(long nivelEstudios) {
         this.nivelEstudios = nivelEstudios;
     }
-    
+
+    /**
+     * @return the checkOtraInstitucion
+     */
+    public boolean isCheckOtraInstitucion() {
+        return checkOtraInstitucion;
+    }
+
+    /**
+     * @param checkOtraInstitucion the checkOtraInstitucion to set
+     */
+    public void setCheckOtraInstitucion(boolean checkOtraInstitucion) {
+        this.checkOtraInstitucion = checkOtraInstitucion;
+    }
+
     @Override
     public String desplegar() {
-        this.setListaEstadosEducacion(Listas.obtenerListas().getListaEstadosEducacion());
-        this.setListaMeses(Listas.obtenerListas().getListaMeses());
-        this.setListaJornadas(Listas.obtenerListas().getListaJornadas());
-        this.setListaProgramas(Listas.obtenerListas().getListaProgramas());
-        this.setListaAnios(Listas.obtenerListas().getListaAnios());
-        this.setListaAreasEstudios(Listas.obtenerListas().getListaAreasEstudios());
-        this.setListaCiudades(Listas.obtenerListas().getListaCiudades());
-        this.setListaInstituciones(Listas.obtenerListas().getListaInstituciones());
-        this.setListaModalidades(Listas.obtenerListas().getListaModalidades());
-        this.setListaNivelesEstudios(Listas.obtenerListas().getListaNivelesEstudios());
-        
+        this.setListaEstadosEducacion(listas.getListaEstadosEducacion());
+        this.setListaMeses(listas.getListaMeses());
+        this.setListaJornadas(listas.getListaJornadas());
+        this.setListaAnios(listas.getListaAnios());
+        this.setListaAreasEstudios(listas.getListaAreasEstudios());
+        this.setListaCiudades(listas.getListaCiudades());
+        this.setListaInstituciones(listas.getListaOtrasInstituciones());
+        this.setListaModalidades(listas.getListaModalidades());
+        this.setListaNivelesEstudios(listas.getListaNivelesEstudios());
+
         this.obtenerLista();
         this.editar = true;
         return SUCCESS;
@@ -359,30 +342,32 @@ public class EducacionFormalOtrasInstitucionesAction extends CrudAction<Educacio
 
     @Override
     public void insertarTipos() {
-        this.objeto.setIdEstadoEducacion(Listas.obtenerListas().getListaEstadosEducacion().get(this.estadoEducacion));
-        this.objeto.setIdJornada(Listas.obtenerListas().getListaJornadas().get(this.jornada));
-        this.objeto.setIdMesFinalizacion(Listas.obtenerListas().getListaMeses().get(this.mesFinalizacion));
-        this.objeto.setIdMesInicio(Listas.obtenerListas().getListaMeses().get(this.mesInicio));
-        this.objeto.setIdPrograma(Listas.obtenerListas().getListaProgramas().get(this.programa));
-        this.objeto.setIdAreaEstudios(Listas.obtenerListas().getListaAreasEstudios().get(this.areaEstudios));
-        this.objeto.setIdCiudad(Listas.obtenerListas().getListaCiudades().get(this.ciudad));
-        this.objeto.setIdInstitucion(Listas.obtenerListas().getListaInstituciones().get(this.institucion));
-        this.objeto.setIdModalidad(Listas.obtenerListas().getListaModalidades().get(this.modalidad));
-        this.objeto.setIdNivelEstudios(Listas.obtenerListas().getListaNivelesEstudios().get(this.nivelEstudios));
+        this.objeto.setIdEstadoEducacion(listas.getListaEstadosEducacion().get(this.estadoEducacion));
+        this.objeto.setIdMesFinalizacion(listas.getListaMeses().get(this.mesFinalizacion));
+        this.objeto.setIdMesInicio(listas.getListaMeses().get(this.mesInicio));
+        this.objeto.setIdAreaEstudios(listas.getListaAreasEstudios().get(this.areaEstudios));
+        this.objeto.setIdCiudad(listas.getListaCiudades().get(this.ciudad));
+        this.objeto.setIdInstitucion(listas.getListaInstituciones().get(this.institucion));
+        this.objeto.setIdModalidad(listas.getListaModalidades().get(this.modalidad));
+        this.objeto.setIdNivelEstudios(listas.getListaNivelesEstudios().get(this.nivelEstudios));
+        if (this.institucion > 0) {
+            this.checkOtraInstitucion = false;
+        }
     }
 
     @Override
     public void consultarTipos() {
         this.setEstadoEducacion(objeto.getIdEstadoEducacion().getIdEstadoEducacion());
-        this.setJornada(objeto.getIdJornada().getIdJornada());
-        this.setMesFinalizacion(objeto.getIdMesFinalizacion().getIdMes());
         this.setMesInicio(objeto.getIdMesInicio().getIdMes());
-        this.setPrograma(objeto.getIdPrograma().getIdPrograma());
         this.setAreaEstudios(objeto.getIdAreaEstudios().getIdAreaEstudios());
         this.setCiudad(objeto.getIdCiudad().getIdCiudad());
-        this.setInstitucion(objeto.getIdInstitucion().getIdInstitucion());
         this.setModalidad(objeto.getIdModalidad().getIdModalidad());
         this.setNivelEstudios(objeto.getIdNivelEstudios().getIdNivelEstudios());
+        
+        if (objeto.getIdMesFinalizacion() != null)
+            this.setMesFinalizacion(objeto.getIdMesFinalizacion().getIdMes());
+        if (objeto.getIdInstitucion() != null)
+            this.setInstitucion(objeto.getIdInstitucion().getIdInstitucion());
     }
 
     @Override
@@ -390,5 +375,81 @@ public class EducacionFormalOtrasInstitucionesAction extends CrudAction<Educacio
         this.objeto.setEstado(true);
         this.objeto.setFechaRegistro(Date.valueOf(LocalDate.now()));
         this.objeto.setFechaActEstado(Date.valueOf(LocalDate.now()));
+    }
+
+    @Override
+    public void validar() {
+        if (mesInicio <= 0) {
+            addFieldError("mesInicio", "El mes inicio es requerido.");
+        }
+        if (jornada <= 0) {
+            addFieldError("jornada", "La jornada es requerida.");
+        }
+        if (areaEstudios <= 0) {
+            addFieldError("areaEstudios", "El área de estudios es requerido.");
+        }
+        if (ciudad <= 0) {
+            addFieldError("ciudad", "La ciudad es requerida.");
+        }
+        if (modalidad <= 0) {
+            addFieldError("modalidad", "La modalidad es requerida.");
+        }
+        if (nivelEstudios <= 0) {
+            addFieldError("nivelEstudios", "El nivel de estudios es requerido.");
+        }
+        if (objeto.getAnioInicio() <= 0) {
+            addFieldError("anioInicio", "El año de inicio es requerido.");
+        }
+        if (objeto.getTitulo().isEmpty()) {
+            addFieldError("titulo", "El título es requerido.");
+        }
+
+        // Estado educación
+        if (estadoEducacion <= 0) {
+            addFieldError("estadoEducacion", "El estado es requerido.");
+        } else {
+            // Configuración: Terminado
+            if (estadoEducacion == 2) {
+                if (objeto.getAnioFinalizacion() <= 0) {
+                    addFieldError("anioFinalizacion", "El año de finalización es requerido.");
+                } else if (objeto.getAnioFinalizacion() < objeto.getAnioInicio()) {
+                    addFieldError("anioFinalizacion", "El año de finalización debe ser mayor al año de inicio.");
+                }
+
+                if (mesFinalizacion <= 0) {
+                    addFieldError("mesFinalizacion", "El mes de finalización es requerido.");
+                } else if (objeto.getAnioFinalizacion() == objeto.getAnioInicio()
+                        && objeto.getIdMesFinalizacion().getNumero() < objeto.getIdMesInicio().getNumero()) {
+                    addFieldError("mesFinalizacion", "El mes de finalización debe ser mayor o igual al mes de inicio.");
+                }
+            }
+        }
+
+        //otra institución
+        if (isCheckOtraInstitucion()) {
+            if (objeto.getOtraInstitucion().isEmpty()) {
+                addFieldError("otraInstitucion", "La institución es requerida.");
+            }
+        } else {
+            if (institucion <= 0) {
+                addFieldError("institucion", "La institución es requerida.");
+            }
+        }
+    }
+
+    @Override
+    public void validarLista() {
+        this.setListaNivelesEstudios(listas.getListaNivelesEstudios());
+
+        Collection<Long> lista = new ArrayList<>();
+        for (EdFormalOtrasInstituciones ed : listaObjetos.values()) {
+            lista.add(ed.getIdNivelEstudios().getIdNivelEstudios());
+        }
+
+        for (NivelEstudios nivel : listaNivelesEstudios.values()) {
+            if (nivel.isObligatorioOtrasInst() && !lista.contains(nivel.getIdNivelEstudios())) {
+                addActionError(String.format("Ingrese al menos un estudio de tipo %s", nivel.getNombre()));
+            }
+        }
     }
 }

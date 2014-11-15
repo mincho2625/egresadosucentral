@@ -22,36 +22,36 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author YURY
  */
 @Entity
-@Table(name = "educacion_formal")
+@Table(name = "educacion_formal_ucentral")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "EducacionFormal.findAll", query = "SELECT e FROM EducacionFormal e"),
-    @NamedQuery(name = "EducacionFormal.findByIdEducacion", query = "SELECT e FROM EducacionFormal e WHERE e.educacion = :educacion")})
-public class EducacionFormal implements Serializable {
-    @JoinColumn(name = "ID_JORNADA", referencedColumnName = "ID_JORNADA")
-    @ManyToOne(optional = false)
-    private Jornada idJornada;
-    @JoinColumn(name = "ID_NIVEL_ESTUDIOS", referencedColumnName = "ID_NIVEL_ESTUDIOS")
-    @ManyToOne(optional = false)
-    private NivelEstudios idNivelEstudios;
+    @NamedQuery(name = "EducacionFormalUcentral.findAll", query = "SELECT e FROM EducacionFormalUcentral e"),
+    @NamedQuery(name = "EducacionFormalUcentral.findByIdEducacion", query = "SELECT e FROM EducacionFormalUcentral e WHERE e.educacion = :educacion")})
+public class EducacionFormalUcentral implements Serializable {
+    private static final long serialVersionUID = 1L;
     @JoinColumn(name = "ID_PROGRAMA", referencedColumnName = "ID_PROGRAMA")
     @ManyToOne(optional = false)
     private Programa idPrograma;
-    private static final long serialVersionUID = 1L;
+    @JoinColumn(name = "ID_JORNADA", referencedColumnName = "ID_JORNADA")
+    @ManyToOne(optional = false)
+    private Jornada idJornada;
     @Id
     @JoinColumn(name = "ID_EDUCACION", referencedColumnName = "ID_EDUCACION")
     @OneToOne(optional = false)
     private Educacion educacion;
+    @JoinColumn(name = "ID_NIVEL_ESTUDIOS", referencedColumnName = "ID_NIVEL_ESTUDIOS")
+    @ManyToOne(optional = false)
+    private NivelEstudios idNivelEstudios;
 
-    public EducacionFormal() {
+    public EducacionFormalUcentral() {
     }
 
-    public Educacion getEducacion() {
-        return educacion;
+    public Programa getIdPrograma() {
+        return idPrograma;
     }
 
-    public void setEducacion(Educacion educacion) {
-        this.educacion = educacion;
+    public void setIdPrograma(Programa idPrograma) {
+        this.idPrograma = idPrograma;
     }
 
     public Jornada getIdJornada() {
@@ -62,6 +62,14 @@ public class EducacionFormal implements Serializable {
         this.idJornada = idJornada;
     }
 
+    public Educacion getEducacion() {
+        return educacion;
+    }
+
+    public void setEducacion(Educacion educacion) {
+        this.educacion = educacion;
+    }
+
     public NivelEstudios getIdNivelEstudios() {
         return idNivelEstudios;
     }
@@ -70,21 +78,8 @@ public class EducacionFormal implements Serializable {
         this.idNivelEstudios = idNivelEstudios;
     }
 
-    public Programa getIdPrograma() {
-        return idPrograma;
-    }
-
-    public void setIdPrograma(Programa idPrograma) {
-        this.idPrograma = idPrograma;
-    }
-    
     public boolean getEstado()
     {
         return educacion.getEstado();
-    }
-    
-    public void setEstado(boolean estado)
-    {
-        educacion.setEstado(estado);
     }
 }

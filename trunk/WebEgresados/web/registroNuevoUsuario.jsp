@@ -15,61 +15,31 @@
             </div>
 
             <div id="Tabla" align="center">
-            <s:form action="crearEgresadoRegistro.action" id="formRegistro"> <br>
+            <s:form action="guardarRegistro.action" id="formRegistro"> <br>
 
                 <table cellpadding="2" cellspacing="12">
                     <caption>REGISTRO EN EL SISTEMA</caption>
                     <tr>
-                        
-                    </tr>
-                    <tr>
-                        <td class="tduno">Primer Apellido:
-                        </td>
-                        <td class="tduno">Segundo Apellido:
-                        </td>
-                        <td class="tduno" colspan="2">Nombres:</td>
-                    </tr>
-                    <tr>
-                        <td><s:textfield name="primerApellido"/></td>
-                        <td><s:textfield name="segundoApellido"/></td>
-                        <td colspan="2"><s:textfield name="nombres"/></td>
-                    </tr>
-                    <tr>
-                        <td class="tduno">Fecha Nacimiento:<br>
-                        </td>
-                        <td class="tduno">Numero Documento:<br>
-                        </td>
-                        <td class="tduno">Fecha Expedicion:<br>
-                        </td>
-                        <td class="tduno">Pais Expedicion:<br>
-                        </td>
+                        <td><s:textfield name="primerApellido" label="Primer Apellido:"/></td>
+                        <td><s:textfield name="segundoApellido" label="Segundo Apellido:"/></td>
+                        <td colspan="2"><s:textfield name="nombres" label="Nombres:"/></td>
                     </tr>
                     <tr>
                         <td>
-                            <jq:datepicker name="fechaNacimiento" changeMonth="true" changeYear="true" showButtonPanel="true"></jq:datepicker>
+                            <jq:datepicker name="fechaNacimiento" label="Fecha Nacimiento:" changeMonth="true" changeYear="true" showButtonPanel="true"></jq:datepicker>
                                 <br>
                             </td>
                             <td>
-                            <s:textfield name="numeroDocumento"></s:textfield>
+                            <s:textfield name="numeroDocumento" label="Numero Documento:"></s:textfield>
                                 <br>
                             </td>
                             <td>
-                            <jq:datepicker name="fechaExpedicion" changeMonth="true" changeYear="true" showButtonPanel="true"></jq:datepicker>
+                            <jq:datepicker name="fechaExpedicion" label="Fecha Expedicion:" changeMonth="true" changeYear="true" showButtonPanel="true"></jq:datepicker>
                                 <br>
                             </td>
                             <td>
                             <s:url var="refrescarPaisesURL" action="refrescarPaises"></s:url>
-
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="tduno">DepartamentoExpedicion:<br>
-                            </td>
-                            <td class="tduno">Ciudad Expedicion:<br>
-                            </td>
-                            <td class="tduno">Tipo Documento:<br>
-                            </td>
-                            <td class="tduno">Grupo Sanguineo:<br>
+                            
                             </td>
                         </tr>
                         <tr>
@@ -80,30 +50,21 @@
                             <s:select
                                 id="ciudadExpedicion"
                                 name="ciudadExpedicion"
+                                label="Ciudad Expedicion:"
                                 list="listaCiudades"
                                 listKey="idCiudad"
                                 listValue="nombre"
                                 headerKey="-1"
-                                headerValue="Seleccione Ciudad"/>
+                                headerValue="- Seleccione - "/>
                             <br>
                         </td>
                         <td>
-                            <s:select name="tipoDocumento" list="listaTiposDocumento" listKey="idTipoDocumento" listValue="nombre" headerValue="TipoDocumento"/>
+                            <s:select name="tipoDocumento" label="Tipo Documento:" list="listaTiposDocumento" listKey="idTipoDocumento" listValue="nombre" headerKey="-1" headerValue="- Seleccione - "/>
                             <br>
                         </td>
                         <td>
-                            <s:select name="grupoSanguineo" list="listaGruposSanguineos" listKey="idGrupoSanguineo" listValue="nombre" headerValue="GrupoSanguineo"/>
+                            <s:select name="grupoSanguineo" label="Grupo Sanguineo:" list="listaGruposSanguineos" listKey="idGrupoSanguineo" listValue="grupoSanguineo" headerKey="-1" headerValue="- Seleccione - "/>
                             <br>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="tduno">Departamento Nacimiento:<br>
-                        </td>
-                        <td class="tduno">Ciudad Nacimiento:<br>
-                        </td>
-                        <td class="tduno">Genero:<br>
-                        </td>
-                        <td class="tduno">Estado Civil:<br>
                         </td>
                     </tr>
                     <tr>
@@ -111,117 +72,58 @@
                             <s:select
                                 id="ciudadNacimiento"
                                 name="ciudadNacimiento"
+                                label="Ciudad Nacimiento:"
                                 list="listaCiudades"
                                 listKey="idCiudad"
                                 listValue="nombre"
                                 headerKey="-1"
-                                headerValue="Seleccione Ciudad"/>
+                                headerValue="- Seleccione - "/>
                         </td>
                         <td>
-                            <s:select name="genero" list="listaGeneros" listKey="idGenero" listValue="nombre" headerValue="Genero"/>
+                            <s:select name="genero" label="Genero:" list="listaGeneros" listKey="idGenero" listValue="nombre" headerKey="-1" headerValue="- Seleccione - "/>
                             <br>
                         </td>
                         <td>
-                            <s:select name="estadoCivil" list="listaEstadosCiviles" listKey="idEstadoCivil" listValue="nombre" headerValue="EstadoCivil"/>
+                            <s:select name="estadoCivil" label="Estado Civil:" list="listaEstadosCiviles" listKey="idEstadoCivil" listValue="estadoCivil" headerKey="-1" headerValue="- Seleccione - "/>
                             <br>
                         </td>
                     </tr>
                     <tr>
-                        <td><br>
-                        </td>
-                        <td><br>
-                        </td>
-                        <td><br>
-                        </td>
-                        <td><br>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="tduno" colspan="2">Usuario:<br>
-                        </td>
-                        <td class="tduno" colspan="2">Correo
-                            Institucional: </td>
-                    </tr>
-                    <tr>
-                        <td colspan="2"><s:textfield name="nombreUsuario"></s:textfield><br>
+                        <td colspan="2"><s:textfield name="nombre" label="Usuario:"></s:textfield><br>
                             </td>
-                            <td colspan="2"><s:textfield name="correoInstitucional"></s:textfield><br>
+                            <td colspan="2"><s:textfield name="correoInstitucional" label="Correo Institucional:"></s:textfield><br>
                             </td>
                         </tr>
                         <tr>
-                            <td class="tduno" colspan="2">Contraseña:<br>
+                            <td colspan="2"><s:password name="contrasenia" label="Contraseña:"></s:password><br>
                             </td>
-                            <td class="tduno" colspan="2">Confirmar contraseña:<br>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="2"><s:password name="clave"></s:password><br>
-                            </td>
-                            <td colspan="2"><s:password name="confirmacionClave"></s:password><br>
+                            <td colspan="2"><s:password name="confirmacionClave" label="Confirmar contraseña:"></s:password><br>
                             </td>
                         </tr>
                         <tr>
-                            <td class="tduno" colspan="2">Pregunta
-                                Seguridad:<br>
-                            </td>
-                            <td class="tduno" colspan="2">Respuesta
-                                Secreta:<br>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="2"><s:select name="idPreguntaSeguridad" list="listaPreguntas" listKey="idPreguntaSeguridad" listValue="preguntaSeguridad"/><br>
+                            <td colspan="2"><s:select name="preguntaSeguridad" label="Pregunta Seguridad:" list="listaPreguntas" listKey="idPreguntaSeguridad" listValue="pregunta" headerKey="-1" headerValue="- Seleccione - "/><br>
                         </td>
-                        <td colspan="2"><s:password name="respuestaSeguridad"></s:password><br>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><br>
-                            </td>
-                            <td><br>
-                            </td>
-                            <td><br>
-                            </td>
-                            <td><br>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><div class="buttons">
-                                    <button type="submit" class="positive" name="cambioClave">
-                                        <img src="imagenes/btnCambioClave.png" alt=""/>
-                                        Cambio Clave
-                                    </button><br>
-                                </div></td>
-                            <td><br>
-                            </td>
-                            <td><br>
-                            </td>
-                            <td><br>
+                        <td colspan="2"><s:password name="respuestaSeguridad" label="Respuesta Secreta:"></s:password><br>
                             </td>
                         </tr>
                         <tr>
                             <td>
-                            <s:checkbox cssClass="checkbox" name="terminos">Terminos y Condiciones.</s:checkbox>
+                            <s:checkbox cssClass="checkbox" name="terminos" label="Terminos y Condiciones."></s:checkbox>
                             </td>
 
-                        <s:if test="hasActionErrors()">
                             <td>
-                                <s:actionerror />
+                            <s:actionerror />
+                        </td>
+                        <td>
+                            <div class="buttons">
+                                <s:submit cssClass="positive" src="imagenes/btnGuardar.png"></s:submit>
+                                </div>
                             </td>
-                        </s:if>
-                        <td><div class="buttons">
-                                <s:submit cssClass="positive"></s:submit>
-                                    <img src="imagenes/btnGuardar.png" alt=""/>
-                                    Guardar<br>
-                                </div></td>
                             <td><br>
-
                     </table>
-
             </s:form>
-
         </div>
         <br>
         <br>
-
     </body>
 </html>

@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Action;
 
 import Modelo.AreaEmpresa;
@@ -27,6 +26,7 @@ import java.util.Map;
  * @author JERONIMO
  */
 public class ExperienciaLaboralAction extends CrudAction<ExperienciaLaboral> {
+
     // Aquí van las listas que van a sr los combos del formulario, ejemplo: ciudades
     // Debes crear el objeto TipoContrato en el modelo, los atributos del modelo deben llamarse igual que el Persistencia, porque 
     // yo hice unos métodos genéricos que pasan los datos rápidamente, pero es importante el nombre
@@ -55,7 +55,7 @@ public class ExperienciaLaboralAction extends CrudAction<ExperienciaLaboral> {
         this.coleccion = "getExperienciaLaboralCollection";
         this.claseConcretaPersistencia = Persistencia.ExperienciaLaboral.class;
     }
-    
+
     /**
      * @return the listaTiposContrato
      */
@@ -237,7 +237,7 @@ public class ExperienciaLaboralAction extends CrudAction<ExperienciaLaboral> {
     public void setCargoEquivalente(long cargoEquivalente) {
         this.cargoEquivalente = cargoEquivalente;
     }
-    
+
     /**
      * @return the listaCiudades
      */
@@ -279,7 +279,7 @@ public class ExperienciaLaboralAction extends CrudAction<ExperienciaLaboral> {
     public void setMesFinalizacion(long mesFinalizacion) {
         this.mesFinalizacion = mesFinalizacion;
     }
-    
+
     /**
      * @return the mesIngreso
      */
@@ -293,7 +293,7 @@ public class ExperienciaLaboralAction extends CrudAction<ExperienciaLaboral> {
     public void setMesIngreso(long mesIngreso) {
         this.mesIngreso = mesIngreso;
     }
-    
+
     /**
      * @return the listaAnios
      */
@@ -307,35 +307,35 @@ public class ExperienciaLaboralAction extends CrudAction<ExperienciaLaboral> {
     public void setListaAnios(ArrayList<Integer> listaAnios) {
         this.listaAnios = listaAnios;
     }
-    
+
     @Override
     public String desplegar() {
         this.obtenerLista();
-        this.setListaAreasEmpresa(Listas.obtenerListas().getListaAreasEmpresa());
-        this.setListaCargosEquivalentes(Listas.obtenerListas().getListaCargosEquivalentes());
-        this.setListaMeses(Listas.obtenerListas().getListaMeses());
-        this.setListaNivelesCargo(Listas.obtenerListas().getListaNivelesCargo());
-        this.setListaRangosSalariales(Listas.obtenerListas().getListaRangosSalariales());
-        this.setListaSubsectores(Listas.obtenerListas().getListaSubsectores());
-        this.setListaTiposContrato(Listas.obtenerListas().getListaTiposContrato());
-        this.setListaCiudades(Listas.obtenerListas().getListaCiudades());
-        this.setListaAnios(Listas.obtenerListas().getListaAnios());
-        
+        this.setListaAreasEmpresa(listas.getListaAreasEmpresa());
+        this.setListaCargosEquivalentes(listas.getListaCargosEquivalentes());
+        this.setListaMeses(listas.getListaMeses());
+        this.setListaNivelesCargo(listas.getListaNivelesCargo());
+        this.setListaRangosSalariales(listas.getListaRangosSalariales());
+        this.setListaSubsectores(listas.getListaSubsectores());
+        this.setListaTiposContrato(listas.getListaTiposContrato());
+        this.setListaCiudades(listas.getListaCiudades());
+        this.setListaAnios(listas.getListaAnios());
+
         this.editar = true;
         return SUCCESS;
     }
 
     @Override
     public void insertarTipos() {
-        this.objeto.setIdAreaEmpresa(Listas.obtenerListas().getListaAreasEmpresa().get(this.areaEmpresa));
-        this.objeto.setIdCargoEquivalente(Listas.obtenerListas().getListaCargosEquivalentes().get(this.cargoEquivalente));
-        this.objeto.setIdCiudad(Listas.obtenerListas().getListaCiudades().get(this.ciudad));
-        this.objeto.setIdMesFinalizacion(Listas.obtenerListas().getListaMeses().get(this.mesFinalizacion));
-        this.objeto.setIdMesIngreso(Listas.obtenerListas().getListaMeses().get(this.mesIngreso));
-        this.objeto.setIdNivelCargo(Listas.obtenerListas().getListaNivelesCargo().get(this.nivelCargo));
-        this.objeto.setIdRangoSalarial(Listas.obtenerListas().getListaRangosSalariales().get(this.rangoSalarial));
-        this.objeto.setIdSubsector(Listas.obtenerListas().getListaSubsectores().get(this.subsector));
-        this.objeto.setIdTipoContrato(Listas.obtenerListas().getListaTiposContrato().get(this.tipoContrato));
+        this.objeto.setIdAreaEmpresa(listas.getListaAreasEmpresa().get(this.areaEmpresa));
+        this.objeto.setIdCargoEquivalente(listas.getListaCargosEquivalentes().get(this.cargoEquivalente));
+        this.objeto.setIdCiudad(listas.getListaCiudades().get(this.ciudad));
+        this.objeto.setIdMesFinalizacion(listas.getListaMeses().get(this.mesFinalizacion));
+        this.objeto.setIdMesIngreso(listas.getListaMeses().get(this.mesIngreso));
+        this.objeto.setIdNivelCargo(listas.getListaNivelesCargo().get(this.nivelCargo));
+        this.objeto.setIdRangoSalarial(listas.getListaRangosSalariales().get(this.rangoSalarial));
+        this.objeto.setIdSubsector(listas.getListaSubsectores().get(this.subsector));
+        this.objeto.setIdTipoContrato(listas.getListaTiposContrato().get(this.tipoContrato));
     }
 
     @Override
@@ -347,8 +347,10 @@ public class ExperienciaLaboralAction extends CrudAction<ExperienciaLaboral> {
         this.setRangoSalarial(objeto.getIdRangoSalarial().getIdRangoSalarial());
         this.setSubsector(objeto.getIdSubsector().getIdSubsector());
         this.setTipoContrato(objeto.getIdTipoContrato().getIdTipoContrato());
-        this.setMesFinalizacion(objeto.getIdMesFinalizacion().getIdMes());
         this.setMesIngreso(objeto.getIdMesIngreso().getIdMes());
+        
+        if (objeto.getIdMesFinalizacion() != null)
+            this.setMesFinalizacion(objeto.getIdMesFinalizacion().getIdMes());
     }
 
     @Override
@@ -358,33 +360,54 @@ public class ExperienciaLaboralAction extends CrudAction<ExperienciaLaboral> {
     }
 
     @Override
-    public void validate() {
-        if (objeto.getNombreEmpresa() != null) {
-            if (objeto.getNombreEmpresa().equals("")) {
-             addFieldError("nomempresa", "Digite un Nombre de empresa");   
-            }
+    public void validar() {
+        if (objeto.getNombreEmpresa().isEmpty()) {
+            addFieldError("nombreEmpresa", "El nombre de la empresa es requerido.");
         }
-        if (objeto.getCargo()!= null) {
-            if (objeto.getCargo().equals("")) {
-             addFieldError("cargo", "Digite un Cargo");   
-            }
+        if (objeto.getCargo().isEmpty()) {
+            addFieldError("cargo", "El cargo es requerido.");
         }
-        if (objeto.getFuncionesLogros()!= null) {
-            if (objeto.getFuncionesLogros().equals("")) {
-             addFieldError("funlo", "Digite una Funcion o Logro");   
-            }
+        if (objeto.getFuncionesLogros().equals("")) {
+            addFieldError("funcionesLogros", "Las funciones y logros son requeridos.");
         }
-        if (objeto.getTelefonoEmpresa()!= null) {
-            if (objeto.getTelefonoEmpresa().equals("")) {
-             addFieldError("telempresa", "Digite el telefono de la empresa");   
-            }
+        if (tipoContrato <= 0)
+            addFieldError("tipoContrato", "El tipo de contrato es requerido.");
+        if (ciudad <= 0)
+            addFieldError("ciudad", "La ciudad es requerida.");
+        if (subsector <= 0)
+            addFieldError("subsector", "El subsector es requerido.");
+        if (nivelCargo <= 0)
+            addFieldError("nivelCargo", "El nivel del cargo es requerido.");
+        if (areaEmpresa <= 0)
+            addFieldError("areaEmpresa", "El área de la empresa es requerido.");
+        if (rangoSalarial <= 0)
+            addFieldError("rangoSalarial", "El rango salarial es requerido.");
+        if (cargoEquivalente <= 0)
+            addFieldError("cargoEquivalente", "El cargo equivalente es requerido.");
+        if (mesIngreso <= 0)
+            addFieldError("mesIngreso", "El mes de ingreso es requerido.");
+        if (objeto.getAnioIngreso() <= 0)
+            addFieldError("anioIngreso", "El año de ingreso es requerido.");
+        
+        if (objeto.getAnioFinalizacion() > 0)
+        {
+            if (objeto.getAnioFinalizacion() < objeto.getAnioIngreso())
+                addFieldError("anioFinalización", "El año de finalización debe ser mayor o igual al año de ingreso.");
+            if (mesFinalizacion <= 0)
+                addFieldError("mesFinalizacion", "El mes de finalización es requerido.");
         }
-        if (objeto.getJefeInmediato()!= null) {
-            if (objeto.getJefeInmediato().equals("")) {
-             addFieldError("jefeinme", "Digite el nombre del jefe inmediato");   
-            }
+        
+        if (mesFinalizacion > 0)
+        {
+            if (objeto.getAnioFinalizacion() <= 0)
+                addFieldError("anioFinalizacion", "El año de finalización es requerido.");
+            else if (objeto.getAnioFinalizacion() == objeto.getAnioIngreso() && mesFinalizacion < mesIngreso)
+                addFieldError("mesFinalizacion", "El mes de finalización debe ser mayor o igual al mes de ingreso.");
         }
     }
-    
-    
+
+    @Override
+    public void validarLista() {
+        
+    }
 }

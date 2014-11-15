@@ -7,15 +7,20 @@
 package Persistencia;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -27,48 +32,47 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "EgresadoRespuesta.findAll", query = "SELECT e FROM EgresadoRespuesta e"),
-    @NamedQuery(name = "EgresadoRespuesta.findByIdRespuesta", query = "SELECT e FROM EgresadoRespuesta e WHERE e.egresadoRespuestaPK.idRespuesta = :idRespuesta"),
     @NamedQuery(name = "EgresadoRespuesta.findByOtra", query = "SELECT e FROM EgresadoRespuesta e WHERE e.otra = :otra"),
     @NamedQuery(name = "EgresadoRespuesta.findByEstado", query = "SELECT e FROM EgresadoRespuesta e WHERE e.estado = :estado"),
-    @NamedQuery(name = "EgresadoRespuesta.findByIdEgresado", query = "SELECT e FROM EgresadoRespuesta e WHERE e.egresadoRespuestaPK.idEgresado = :idEgresado")})
+    @NamedQuery(name = "EgresadoRespuesta.findByIdEgresadoRespuesta", query = "SELECT e FROM EgresadoRespuesta e WHERE e.idEgresadoRespuesta = :idEgresadoRespuesta"),
+    @NamedQuery(name = "EgresadoRespuesta.findByFechaRegistro", query = "SELECT e FROM EgresadoRespuesta e WHERE e.fechaRegistro = :fechaRegistro")})
 public class EgresadoRespuesta implements Serializable {
     private static final long serialVersionUID = 1L;
-    @EmbeddedId
-    protected EgresadoRespuestaPK egresadoRespuestaPK;
     @Column(name = "OTRA")
     private String otra;
     @Basic(optional = false)
     @Column(name = "ESTADO")
     private boolean estado;
-    @JoinColumn(name = "ID_RESPUESTA", referencedColumnName = "ID_RESPUESTA_ENCUESTA", insertable = false, updatable = false)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "ID_EGRESADO_RESPUESTA")
+    private Long idEgresadoRespuesta;
+    @Basic(optional = false)
+    @Column(name = "FECHA_REGISTRO")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date fechaRegistro;
+    @JoinColumn(name = "ID_RESPUESTA_ENCUESTA", referencedColumnName = "ID_RESPUESTA_ENCUESTA")
+    @ManyToOne
+    private RespuestaEncuesta idRespuestaEncuesta;
+    @JoinColumn(name = "ID_EGRESADO", referencedColumnName = "ID_EGRESADO")
     @ManyToOne(optional = false)
-    private RespuestaEncuesta respuestaEncuesta;
-    @JoinColumn(name = "ID_EGRESADO", referencedColumnName = "ID_EGRESADO", insertable = false, updatable = false)
+    private Egresado idEgresado;
+    @JoinColumn(name = "ID_PREGUNTA_ENCUESTA", referencedColumnName = "ID_PREGUNTA_ENCUESTA")
     @ManyToOne(optional = false)
-    private Egresado egresado;
+    private PreguntaEncuesta idPreguntaEncuesta;
 
     public EgresadoRespuesta() {
     }
 
-    public EgresadoRespuesta(EgresadoRespuestaPK egresadoRespuestaPK) {
-        this.egresadoRespuestaPK = egresadoRespuestaPK;
+    public EgresadoRespuesta(Long idEgresadoRespuesta) {
+        this.idEgresadoRespuesta = idEgresadoRespuesta;
     }
 
-    public EgresadoRespuesta(EgresadoRespuestaPK egresadoRespuestaPK, boolean estado) {
-        this.egresadoRespuestaPK = egresadoRespuestaPK;
+    public EgresadoRespuesta(Long idEgresadoRespuesta, boolean estado, Date fechaRegistro) {
+        this.idEgresadoRespuesta = idEgresadoRespuesta;
         this.estado = estado;
-    }
-
-    public EgresadoRespuesta(long idRespuesta, long idEgresado) {
-        this.egresadoRespuestaPK = new EgresadoRespuestaPK(idRespuesta, idEgresado);
-    }
-
-    public EgresadoRespuestaPK getEgresadoRespuestaPK() {
-        return egresadoRespuestaPK;
-    }
-
-    public void setEgresadoRespuestaPK(EgresadoRespuestaPK egresadoRespuestaPK) {
-        this.egresadoRespuestaPK = egresadoRespuestaPK;
+        this.fechaRegistro = fechaRegistro;
     }
 
     public String getOtra() {
@@ -87,26 +91,50 @@ public class EgresadoRespuesta implements Serializable {
         this.estado = estado;
     }
 
-    public RespuestaEncuesta getRespuestaEncuesta() {
-        return respuestaEncuesta;
+    public Long getIdEgresadoRespuesta() {
+        return idEgresadoRespuesta;
     }
 
-    public void setRespuestaEncuesta(RespuestaEncuesta respuestaEncuesta) {
-        this.respuestaEncuesta = respuestaEncuesta;
+    public void setIdEgresadoRespuesta(Long idEgresadoRespuesta) {
+        this.idEgresadoRespuesta = idEgresadoRespuesta;
     }
 
-    public Egresado getEgresado() {
-        return egresado;
+    public Date getFechaRegistro() {
+        return fechaRegistro;
     }
 
-    public void setEgresado(Egresado egresado) {
-        this.egresado = egresado;
+    public void setFechaRegistro(Date fechaRegistro) {
+        this.fechaRegistro = fechaRegistro;
+    }
+
+    public RespuestaEncuesta getIdRespuestaEncuesta() {
+        return idRespuestaEncuesta;
+    }
+
+    public void setIdRespuestaEncuesta(RespuestaEncuesta idRespuestaEncuesta) {
+        this.idRespuestaEncuesta = idRespuestaEncuesta;
+    }
+
+    public Egresado getIdEgresado() {
+        return idEgresado;
+    }
+
+    public void setIdEgresado(Egresado idEgresado) {
+        this.idEgresado = idEgresado;
+    }
+
+    public PreguntaEncuesta getIdPreguntaEncuesta() {
+        return idPreguntaEncuesta;
+    }
+
+    public void setIdPreguntaEncuesta(PreguntaEncuesta idPreguntaEncuesta) {
+        this.idPreguntaEncuesta = idPreguntaEncuesta;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (egresadoRespuestaPK != null ? egresadoRespuestaPK.hashCode() : 0);
+        hash += (idEgresadoRespuesta != null ? idEgresadoRespuesta.hashCode() : 0);
         return hash;
     }
 
@@ -117,7 +145,7 @@ public class EgresadoRespuesta implements Serializable {
             return false;
         }
         EgresadoRespuesta other = (EgresadoRespuesta) object;
-        if ((this.egresadoRespuestaPK == null && other.egresadoRespuestaPK != null) || (this.egresadoRespuestaPK != null && !this.egresadoRespuestaPK.equals(other.egresadoRespuestaPK))) {
+        if ((this.idEgresadoRespuesta == null && other.idEgresadoRespuesta != null) || (this.idEgresadoRespuesta != null && !this.idEgresadoRespuesta.equals(other.idEgresadoRespuesta))) {
             return false;
         }
         return true;
@@ -125,7 +153,7 @@ public class EgresadoRespuesta implements Serializable {
 
     @Override
     public String toString() {
-        return "Persistencia.EgresadoRespuesta[ egresadoRespuestaPK=" + egresadoRespuestaPK + " ]";
+        return "Persistencia.EgresadoRespuesta[ idEgresadoRespuesta=" + idEgresadoRespuesta + " ]";
     }
     
 }

@@ -1,51 +1,61 @@
 <!DOCTYPE html>
 <%@taglib uri="/struts-tags" prefix="s"%>
-<%@taglib uri="/struts-jquery-tags" prefix="jq" %>
+<%@taglib uri="/struts-jquery-tags" prefix="jq"%>
 <html lang="es">
-    <head>
-        <title>Reconocimientos y distinciones</title>
-        <meta charset="utf-8"/>
-        <link rel="stylesheet" href="estilo.css">
+    <head><title>Registro Sistema</title>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="estilo2.css">
         <jq:head></jq:head>
-    </head>
-    <body>
-        <div id="Tabla" align="center">
-            <table rules="all" >
-                <caption>Asociaciones a Redes profesionales</caption>
-                <tr>
-                    <td class="tddos">Tipo Asociacion<br>
-                    </td>
-                    <td class="tddos">Descripción<br>
-                    </td>
-                    <td class="tddos">Fecha vinculación<br>
-                    </td>
-                    <td class="tddos">País<br>
-                    </td>
-                </tr>
+        </head>
+        <body>
+            <div class="TituloPrincipal" style="/* [disabled]margin-left:10px; */ font-size: 20px">
+                <div align="center">Portal Egresados  Universidad Central</div>
+            </div>
+            <div class="titu">
+                <p align="left"><img src="imagenes/document-open.png" width="107" height="94"><img src="imagenes/logosimbolo-ucentral-v1-medium.png" width="248" height="57">Asociaciones a Redes Profesionales</p>
+            </div>
+            <!--<div id="default-example" data-collapse>
+                <h3>Informacion</h3>-->
+            <div align="center" class="tabla" id="Tabla">
+                <table rules="all" class="table2" >
+                    <caption>&nbsp;</caption>
+                    <tr>
+                        <td class="texfield"><div align="center" class="fuentetabla">>Tipo Asociacion<br>
+                            </div></td>
+                        <td class="texfield"><div align="center" class="fuentetabla">Descripcion<br>
+                            </div></td>
+                        <td class="texfield"><div align="center" class="fuentetabla">Fecha vinculacion<br>
+                            </div></td>
+                        <td class="texfield"><div align="center" class="fuentetabla">Pais<br>
+                            </div></td>
+                        <td class="texfield"><div align="center" class="fuentetabla">Accion<br>
+                            </div></td>                            
+                    </tr>
 
+                <s:hidden name="cantidadObjetos"></s:hidden>
                 <s:iterator value="listaObjetos">
                     <tr>
-                        <td class="tdtres"><s:property value="idTipoAsociacion.nombre"></s:property><br>
+                        <td class="texfield"><s:property value="idTipoAsociacion.nombre"></s:property><br>
                             </td>
-                            <td class="tdtres"><s:property value="descripcion"></s:property><br>
+                            <td class="texfield"><s:property value="descripcion"></s:property><br>
                             </td>
-                            <td class="tdtres"><s:property value="fechaVinculacion"></s:property><br>
+                            <td class="texfield"><s:property value="fechaVinculacion"></s:property><br>
                             </td>
-                            <td class="tdtres"><s:property value="idPais.nombre"></s:property><br>
+                            <td class="texfield"><s:property value="idPais.nombre"></s:property><br>
                             </td>
-                            <td class="tdtres">
+                            <td class="texfield">
                             <s:url id="editarURL" action="editarAsociacion.action">
                                 <s:param name="idObjeto" value="%{idAsociacion}"></s:param>
                             </s:url>
                             <s:a href="%{editarURL}">
-                                <img style="width: 20px; height: 19px;" title="Editar" alt="Editar" src="imagenes/Icono_de_editar.png" align="top"><br>
-                            </s:a>
-                            <s:url id="borrarURL" action="borrarAsociacion.action">
-                                <s:param name="idObjeto" value="%{idAsociacion}"></s:param>
-                            </s:url>
-                            <s:a href="%{borrarURL}">
-                                <img style="width: 20px; height: 19px;" title="Borrar" alt="Borrar" src="imagenes/Icono_de_editar.png" align="top"><br>
-                            </s:a>
+                                <div class="fuentetabla2"><img style="width: 20px; height: 19px;" title="Editar" alt="Editar" src="imagenes/Icono_de_editar.png" align="top">Editar</div><br>
+                                </s:a>
+                                <s:url id="borrarURL" action="borrarAsociacion.action">
+                                    <s:param name="idObjeto" value="%{idAsociacion}"></s:param>
+                                </s:url>
+                                <s:a href="%{borrarURL}">
+                                <div class="fuentetabla2"><img style="width: 20px; height: 19px;" title="Borrar" alt="Borrar" src="imagenes/Icono_de_editar.png" align="top">Borrar</div><br>
+                                </s:a>
                         </td>
                     </tr>
                 </s:iterator>
@@ -59,51 +69,65 @@
                     </button>
                 </a><br>
             </div>
-            <br>
-            <a href="obtenerListaAficion.action" class="tduno"><div>Siguiente</div></a>
-            <br>
-            <a href="obtenerListaReconocimiento.action" class="tduno"><div>Anterior</div></a>
-            <br>
-            <br>
+            <div class="fromtables" id="contenido1">
+                <s:if test="editar">
+                    <s:form action="guardarAsociacion.action">
+                        <s:push value="objeto">
+                            <s:hidden name="idAsociacion"></s:hidden>
+                                   <div class="fuente2">
+                                        <p align="center">Agregar un Nueva Asociaciones o Red profesional</p>
+                          </div>
+                                    <div align="center"><br>
+                                    </div>
+                                <table>
+                                    <tr>
+                                        <td>
+                                        <s:select label="Tipo Asociacion" cssClass="texfield" name="tipoAsociacion" list="listaTiposAsociaciones" listKey="idTipoAsociacion" listValue="nombre" headerKey="-1" headerValue="- Seleccione -"></s:select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                        <s:textfield label="Descripcion" cssClass="texfield" name="descripcion"></s:textfield>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                        <jq:datepicker label="Fecha vinculacion" name="fechaVinculacion" changeMonth="true" changeYear="true" showButtonPanel="true"></jq:datepicker>   
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <s:select label="Pais" cssClass="texfield" name="pais" list="listaPaises" listKey="idPais" listValue="nombre" headerKey="-1" headerValue="- Seleccione -"></s:select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                    <tr>
+                                    <s:actionerror></s:actionerror>
+                                    <s:submit cssClass="center1" value="Guardar">
+                                    </s:submit>
+                                </tr>
+                            </table>
+                        </s:push>
+                    </s:form>
+                </s:if>
+            </div>
         </div>
-
-        <div id="contenido1">
-            <s:if test="editar">
-                <s:form action="guardarAsociacion.action">
-                    <s:push value="objeto">
-                        <s:hidden name="idAsociacion"></s:hidden>
-                            <table>
-                                <tr>
-                                    <td>
-                                        <div class="tduno"> Tipo Asociacion </div><s:select cssClass="center" name="tipoAsociacion" list="listaTiposAsociaciones" listKey="idTipoAsociacion" listValue="nombre"></s:select>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <s:property value="getFieldErros().get('descr'){0}"/>
-                                        <div class="tduno"> Descripción </div><s:textfield cssClass="center" name="descripcion"></s:textfield>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <s:property value="getFieldErros().get('fechavinculacion'){0}"/>
-                                        <div class="tduno"> Fecha vinculación </div><jq:datepicker name="fechaVinculacion" changeMonth="true" changeYear="true" showButtonPanel="true"></jq:datepicker>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="tduno"> País </div><s:select cssClass="center" name="pais" list="listaPaises" listKey="idPais" listValue="nombre"></s:select>
-                                    </td>
-                                </tr>
-                                <tr>
-                                <tr>
-                                <s:submit cssClass="center1" value="Guardar">
-                            </s:submit>
-                            </tr>
-                        </table>
-                    </s:push>
-                </s:form>
-            </s:if>
-        </div>
+        <!--</div>-->
+        <p></p>
+        <p><br>
+        </p>
+        <a href="siguienteAsociacion.action"><div class="tdsiguiente"><img src="imagenes/button_next_89675.jpg" width="21" height="21"></div></a>
+        <br>
+        <a href="anteriorAsociacion.action" class="tdatras"><div class="tdatras"><img src="imagenes/boton_atras.png" width="24" height="24"></div></a>
+        <br>
+        <br>
+        <br>
+        <s:if test="hasActionErrors()">
+            <div class="errors">
+               <s:actionerror/>
+            </div>
+        </s:if>
+        <br>
+        <br>
     </body>
 </html>

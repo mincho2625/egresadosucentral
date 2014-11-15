@@ -8,6 +8,7 @@ package Persistencia;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -21,6 +22,8 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -38,7 +41,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Usuario.findByContrasenia", query = "SELECT u FROM Usuario u WHERE u.contrasenia = :contrasenia"),
     @NamedQuery(name = "Usuario.findByCorreoInstitucional", query = "SELECT u FROM Usuario u WHERE u.correoInstitucional = :correoInstitucional"),
     @NamedQuery(name = "Usuario.findByRespuestaSeguridad", query = "SELECT u FROM Usuario u WHERE u.respuestaSeguridad = :respuestaSeguridad"),
-    @NamedQuery(name = "Usuario.findByEstado", query = "SELECT u FROM Usuario u WHERE u.estado = :estado")})
+    @NamedQuery(name = "Usuario.findByEstado", query = "SELECT u FROM Usuario u WHERE u.estado = :estado"),
+    @NamedQuery(name = "Usuario.findByFechaRegistro", query = "SELECT u FROM Usuario u WHERE u.fechaRegistro = :fechaRegistro")})
 public class Usuario implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -61,6 +65,10 @@ public class Usuario implements Serializable {
     @Basic(optional = false)
     @Column(name = "ESTADO")
     private boolean estado;
+    @Basic(optional = false)
+    @Column(name = "FECHA_REGISTRO")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date fechaRegistro;
     @JoinColumn(name = "ID_PREGUNTA_SEGURIDAD", referencedColumnName = "ID_PREGUNTA_SEGURIDAD")
     @ManyToOne(optional = false)
     private PreguntaSeguridad idPreguntaSeguridad;
@@ -74,13 +82,14 @@ public class Usuario implements Serializable {
         this.idUsuario = idUsuario;
     }
 
-    public Usuario(Long idUsuario, String nombre, String contrasenia, String correoInstitucional, String respuestaSeguridad, boolean estado) {
+    public Usuario(Long idUsuario, String nombre, String contrasenia, String correoInstitucional, String respuestaSeguridad, boolean estado, Date fechaRegistro) {
         this.idUsuario = idUsuario;
         this.nombre = nombre;
         this.contrasenia = contrasenia;
         this.correoInstitucional = correoInstitucional;
         this.respuestaSeguridad = respuestaSeguridad;
         this.estado = estado;
+        this.fechaRegistro = fechaRegistro;
     }
 
     public Long getIdUsuario() {
@@ -129,6 +138,14 @@ public class Usuario implements Serializable {
 
     public void setEstado(boolean estado) {
         this.estado = estado;
+    }
+
+    public Date getFechaRegistro() {
+        return fechaRegistro;
+    }
+
+    public void setFechaRegistro(Date fechaRegistro) {
+        this.fechaRegistro = fechaRegistro;
     }
 
     public PreguntaSeguridad getIdPreguntaSeguridad() {

@@ -10,7 +10,7 @@ package Modelo;
  *
  * @author YURY
  */
-public class EducacionFormal extends Educacion {
+public class EducacionFormalUCentral extends Educacion {
     private Programa idPrograma;
     private Jornada idJornada;
     private NivelEstudios idNivelEstudios;

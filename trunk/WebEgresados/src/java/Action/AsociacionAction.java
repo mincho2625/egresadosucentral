@@ -9,7 +9,6 @@ package Action;
 import Modelo.Asociacion;
 import Modelo.Pais;
 import Modelo.TipoAsociacion;
-import Util.Listas;
 import static com.opensymphony.xwork2.Action.SUCCESS;
 import java.sql.Date;
 import java.time.LocalDate;
@@ -91,8 +90,8 @@ public class AsociacionAction extends CrudAction<Asociacion> {
     
     @Override
     public String desplegar() {
-        this.setListaTiposAsociaciones(Listas.obtenerListas().getListaTiposAsociaciones());
-        this.setListaPaises(Listas.obtenerListas().getListaPaises());
+        this.setListaTiposAsociaciones(listas.getListaTiposAsociaciones());
+        this.setListaPaises(listas.getListaPaises());
         this.obtenerLista();
         this.editar = true;
         return SUCCESS;
@@ -100,8 +99,8 @@ public class AsociacionAction extends CrudAction<Asociacion> {
 
     @Override
     public void insertarTipos() {
-        this.objeto.setIdTipoAsociacion(Listas.obtenerListas().getListaTiposAsociaciones().get(this.tipoAsociacion));
-        this.objeto.setIdPais(Listas.obtenerListas().getListaPaises().get(this.pais));
+        this.objeto.setIdTipoAsociacion(listas.getListaTiposAsociaciones().get(this.tipoAsociacion));
+        this.objeto.setIdPais(listas.getListaPaises().get(this.pais));
     }
 
     @Override
@@ -117,17 +116,20 @@ public class AsociacionAction extends CrudAction<Asociacion> {
     }
 
     @Override
-    public void validate() {
-        if (objeto.getFechaVinculacion()!= null) {
-            if (objeto.getFechaVinculacion().equals("")) {
-             addFieldError("fechavinculacion", "Digite la fecha de vinculacion");   
-            }
-        }
-        if (objeto.getDescripcion()!= null) {
-            if (objeto.getDescripcion().equals("")) {
-             addFieldError("descr", "Digite la descripccion");   
-            }
-        }
+    public void validar() {
+        if (tipoAsociacion <= 0)
+            addFieldError("tipoAsociacion", "El tipo de asociación es requerido.");
+        if (pais <= 0)
+            addFieldError("pais", "El país es requerido");
+        if (objeto.getDescripcion().isEmpty())
+            addFieldError("descripcion", "La descripción es requerida");
+        if (objeto.getFechaVinculacion() == null)
+            addFieldError("fechaVinculacion", "La fecha de vinculación es requerida");
     }
-    
+
+    @Override
+    public void validarLista() {
+        if (cantidadObjetos == 0)
+            addActionError("Ingrese al menos una asociación.");
+    }
 }

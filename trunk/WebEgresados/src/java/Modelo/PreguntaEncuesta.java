@@ -7,6 +7,9 @@
 package Modelo;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  *
@@ -18,9 +21,12 @@ public class PreguntaEncuesta {
     private Encuesta idEncuesta;
     private boolean estado;
     private TipoRespuesta idTipoRespuesta;
-    private ArrayList<RespuestaEncuesta> listaRespuestasEncuesta;
+    private Map<Long, RespuestaEncuesta> listaPosiblesRespuestasEncuesta;
+    private int orden;
+    private ArrayList<EgresadoRespuesta> listaRespuestasEncuesta;
 
     public PreguntaEncuesta() {
+        this.listaPosiblesRespuestasEncuesta = new HashMap<>();
         this.listaRespuestasEncuesta = new ArrayList<>();
     }
 
@@ -95,13 +101,52 @@ public class PreguntaEncuesta {
     }
 
     /**
+     * @return the listaPosiblesRespuestasEncuesta
+     */
+    public Collection<RespuestaEncuesta> getListaPosiblesRespuestasEncuesta() {
+        return listaPosiblesRespuestasEncuesta.values();
+    }
+
+    /**
+     * @param listaPosiblesRespuestasEncuesta the listaPosiblesRespuestasEncuesta to set
+     */
+    public void setListaPosiblesRespuestasEncuesta(Map<Long, RespuestaEncuesta> listaPosiblesRespuestasEncuesta) {
+        this.listaPosiblesRespuestasEncuesta = listaPosiblesRespuestasEncuesta;
+    }
+
+    /**
+     * @return the orden
+     */
+    public int getOrden() {
+        return orden;
+    }
+
+    /**
+     * @param orden the orden to set
+     */
+    public void setOrden(int orden) {
+        this.orden = orden;
+    }
+
+    /**
      * @return the listaRespuestasEncuesta
      */
-    public ArrayList<RespuestaEncuesta> getListaRespuestasEncuesta() {
+    public ArrayList<EgresadoRespuesta> getListaRespuestasEncuesta() {
         return listaRespuestasEncuesta;
     }
 
-    public void agregarRespuestaEncuesta(RespuestaEncuesta respuestasEncuesta) {
-        this.listaRespuestasEncuesta.add(respuestasEncuesta);
+    /**
+     * @param listaRespuestasEncuesta the listaRespuestasEncuesta to set
+     */
+    public void setListaRespuestasEncuesta(ArrayList<EgresadoRespuesta> listaRespuestasEncuesta) {
+        this.listaRespuestasEncuesta = listaRespuestasEncuesta;
+    }
+
+    public void agregarPosibleRespuestaEncuesta(RespuestaEncuesta respuestaEncuesta) {
+        this.listaPosiblesRespuestasEncuesta.put(respuestaEncuesta.getIdRespuestaEncuesta(), respuestaEncuesta);
+    }
+
+    public RespuestaEncuesta getRespuestaEncuesta(long idRespuesta) {
+        return listaPosiblesRespuestasEncuesta.get(idRespuesta);
     }
 }

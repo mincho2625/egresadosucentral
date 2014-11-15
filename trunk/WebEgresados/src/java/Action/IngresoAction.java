@@ -6,8 +6,10 @@
 
 package Action;
 
+import Controlador.ControladorEgresado;
 import Controlador.ControladorUsuario;
 import Controlador.ControlardorEncuesta;
+import Modelo.Egresado;
 import Modelo.Encuesta;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
@@ -22,7 +24,7 @@ public class IngresoAction extends ActionSupport{
     private String usuario;
     private String contrasenia;
     private ArrayList<Encuesta> listaEncuestas;
-    private ControlardorEncuesta controlardorEncuesta = new ControlardorEncuesta();
+    private boolean primeraVez;
 
     /**
      * @return the usuario
@@ -66,17 +68,39 @@ public class IngresoAction extends ActionSupport{
         this.listaEncuestas = listaEncuestas;
     }
     
+    /**
+     * @return the primeraVez
+     */
+    public boolean isPrimeraVez() {
+        return primeraVez;
+    }
+
+    /**
+     * @param primeraVez the primeraVez to set
+     */
+    public void setPrimeraVez(boolean primeraVez) {
+        this.primeraVez = primeraVez;
+    }
+    
     @Override
     public String execute() throws Exception {
         ControladorUsuario controladorUsuario = new ControladorUsuario();
         if (controladorUsuario.login(usuario, contrasenia)) {
             Map session = ActionContext.getContext().getSession();
             session.put("usuario", usuario);
+            
+            ControlardorEncuesta controlardorEncuesta = new ControlardorEncuesta();
             this.listaEncuestas = controlardorEncuesta.consultarEncuestas();
+            ControladorEgresado controladorEgresado = new ControladorEgresado(usuario);
+            Egresado egresado = controladorEgresado.consultar();
+            if (egresado != null && egresado.getFechaUltimaAct() == null){
+                this.primeraVez = true;
+            }
+            
             return SUCCESS;
         }
         else {
-            addActionError("Usuario o contraseña incorrectos. Si desea registrarse haga click en Registro");
+            addActionError("Usuario o contraseña incorrectos.");
             return ERROR;
         }
     }
@@ -90,5 +114,4 @@ public class IngresoAction extends ActionSupport{
             addFieldError("contrasenia", "Digite una Contraseña");
         }
     }
-    
 }

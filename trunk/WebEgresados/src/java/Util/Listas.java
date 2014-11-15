@@ -57,7 +57,7 @@ import javax.persistence.Query;
  *
  * @author YURY
  */
-public final class Listas {
+public class Listas {
     private Map<Long, Ciudad> listaCiudades;
     private Map<Long, TipoReconocimiento> listaTiposReconocimiento;
     private Map<Long, ClaseReconocimiento> listaClasesReconocimiento;
@@ -80,7 +80,7 @@ public final class Listas {
     private Map<Long, TipoTenenciaVivienda> listaTiposTenenciaVivienda;
     private Map<Long, Estrato> listaEstratos;
     private Map<Long, TipoContacto> listaTiposContacto;
-    private Map<Long,TipoActividad> listaTiposActividades;
+    private Map<Long, TipoActividad> listaTiposActividades;
     private Map<Long, TipoDocumento> listaTiposDocumento;
     private Map<Long, GrupoSanguineo> listaGruposSanguineos;
     private Map<Long, Genero> listaGeneros;
@@ -92,97 +92,20 @@ public final class Listas {
     private Map<Long, IntensidadHoraria> listaIntensidadesHorarias;
     private Map<Long, DominioLenguaExt> listaDominioLenguaExt;
     private Map<Long, Idioma> listaIdiomas;
+    private Map<Long, NivelEstudios> listaNivelesEstudiosUCentral;
+    private Map<Long, Institucion> listaOtrasInstituciones;
     private ArrayList<Integer> listaAnios;
     private final EntityManagerFactory emf = Persistence.createEntityManagerFactory("WebEgresadosPU");
-
-    private Listas()
-    {
-        this.listaCiudades = new HashMap<>();
-        this.listaClasesReconocimiento = new HashMap<>();
-        this.listaTiposReconocimiento = new HashMap<>();
-        this.listaMeses = new HashMap<>();
-        this.listaEstadosEducacion = new HashMap<>();
-        this.listaAreasEstudios = new HashMap<>();
-        this.listaModalidades = new HashMap<>();
-        this.listaInstituciones = new HashMap<>();
-        this.listaJornadas = new HashMap<>();
-        this.listaProgramas = new HashMap<>();
-        this.listaNivelesEstudios = new HashMap<>();
-        this.listaRedesSociales = new HashMap<>();
-        this.listaTiposContrato = new HashMap<>();
-        this.listaSubsectores = new HashMap<>();
-        this.listaNivelesCargo = new HashMap<>();
-        this.listaAreasEmpresa = new HashMap<>();
-        this.listaRangosSalariales = new HashMap<>();
-        this.listaCargosEquivalentes = new HashMap<>();
-        this.listaTiposVivienda = new HashMap<>();
-        this.listaTiposTenenciaVivienda = new HashMap<>();
-        this.listaEstratos = new HashMap<>();
-        this.listaTiposContacto = new HashMap<>();
-        this.listaTiposDocumento = new HashMap<>();
-        this.listaGruposSanguineos = new HashMap<>();
-        this.listaGeneros = new HashMap<>();
-        this.listaEstadosCiviles = new HashMap<>();
-        this.listaPreguntas = new HashMap<>();
-        this.listaTiposActividades = new HashMap<>();
-        this.listaTiposAsociaciones = new HashMap<>();
-        this.listaPaises = new HashMap<>();
-        this.listaTiposEdNoFormal = new HashMap<>();
-        this.listaIntensidadesHorarias = new HashMap<>();
-        this.listaDominioLenguaExt = new HashMap<>();
-        this.listaIdiomas = new HashMap<>();
-        
-        consultar(this.listaCiudades, "Ciudad.findAll", "getIdCiudad", Modelo.Ciudad.class.getName());        
-        consultar(this.listaClasesReconocimiento, "ClaseReconocimiento.findAll", "getIdClaseReconocimiento", Modelo.ClaseReconocimiento.class.getName());        
-        consultar(this.listaTiposReconocimiento, "TipoReconocimiento.findAll", "getIdTipoReconocimiento", Modelo.TipoReconocimiento.class.getName());
-        consultar(this.listaMeses, "Mes.findAll", "getIdMes", Modelo.Mes.class.getName());
-        consultar(this.listaEstadosEducacion, "EstadoEducacion.findAll", "getIdEstadoEducacion", Modelo.EstadoEducacion.class.getName());
-        consultar(this.listaAreasEstudios, "AreaEstudios.findAll", "getIdAreaEstudios", Modelo.AreaEstudios.class.getName());
-        consultar(this.listaModalidades, "Modalidad.findAll", "getIdModalidad", Modelo.Modalidad.class.getName());
-        consultar(this.listaInstituciones, "Institucion.findAll", "getIdInstitucion", Modelo.Institucion.class.getName());
-        consultar(this.listaJornadas, "Jornada.findAll", "getIdJornada", Modelo.Jornada.class.getName());
-        consultar(this.listaProgramas, "Programa.findAll", "getIdPrograma", Modelo.Programa.class.getName());
-        consultar(this.listaNivelesEstudios, "NivelEstudios.findAll", "getIdNivelEstudios", Modelo.NivelEstudios.class.getName());
-        consultar(this.listaRedesSociales, "RedSocial.findAll", "getIdRedSocial", Modelo.RedSocial.class.getName());
-        consultar(this.listaTiposContrato, "TipoContrato.findAll", "getIdTipoContrato", Modelo.TipoContrato.class.getName());
-        consultar(this.listaSubsectores, "Subsector.findAll", "getIdSubsector", Modelo.Subsector.class.getName());
-        consultar(this.listaNivelesCargo, "NivelCargo.findAll", "getIdNivelCargo", Modelo.NivelCargo.class.getName());
-        consultar(this.listaAreasEmpresa, "AreaEmpresa.findAll", "getIdAreaEmpresa", Modelo.AreaEmpresa.class.getName());
-        consultar(this.listaRangosSalariales, "RangoSalarial.findAll", "getIdRangoSalarial", Modelo.RangoSalarial.class.getName());
-        consultar(this.listaCargosEquivalentes, "CargoEquivalente.findAll", "getIdCargoEquivalente", Modelo.CargoEquivalente.class.getName());
-        consultar(this.listaTiposVivienda, "TipoVivienda.findAll", "getIdTipoVivienda", Modelo.TipoVivienda.class.getName());
-        consultar(this.listaTiposTenenciaVivienda, "TipoTenenciaVivienda.findAll", "getIdTipoTenenciaVivienda", Modelo.TipoTenenciaVivienda.class.getName());
-        consultar(this.listaEstratos, "Estrato.findAll", "getIdEstrato", Modelo.Estrato.class.getName());
-        consultar(this.listaTiposContacto, "TipoContacto.findAll", "getIdTipoContacto", Modelo.TipoContacto.class.getName());
-        consultar(this.listaTiposDocumento, "TipoDocumento.findAll", "getIdTipoDocumento", Modelo.TipoDocumento.class.getName());
-        consultar(this.listaGruposSanguineos, "GrupoSanguineo.findAll", "getIdGrupoSanguineo", Modelo.GrupoSanguineo.class.getName());
-        consultar(this.listaPreguntas, "PreguntaSeguridad.findAll", "getIdPreguntaSeguridad", Modelo.PreguntaSeguridad.class.getName());
-        consultar(this.listaEstadosCiviles, "EstadoCivil.findAll", "getIdEstadoCivil", Modelo.EstadoCivil.class.getName());
-        consultar(this.listaGeneros, "Genero.findAll", "getIdGenero", Modelo.Genero.class.getName());
-        consultar(this.listaTiposActividades, "TipoActividad.findAll", "getIdTipoActividad", Modelo.TipoActividad.class.getName());
-        consultar(this.listaTiposAsociaciones, "TipoAsociacion.findAll", "getIdTipoAsociacion", Modelo.TipoAsociacion.class.getName());
-        consultar(this.listaPaises, "Pais.findAll", "getIdPais", Modelo.Pais.class.getName());
-        consultar(this.listaTiposEdNoFormal, "TipoEdNoFormal.findAll", "getIdTipoEdNoFormal", Modelo.TipoEdNoFormal.class.getName());
-        consultar(this.listaIntensidadesHorarias, "IntensidadHoraria.findAll", "getIdIntensidadHoraria", Modelo.IntensidadHoraria.class.getName());
-        consultar(this.listaDominioLenguaExt, "DominioLenguaExt.findAll", "getIdDominioLenguaExt", Modelo.DominioLenguaExt.class.getName());
-        consultar(this.listaIdiomas, "Idioma.findAll", "getIdIdioma", Modelo.Idioma.class.getName());
-        consultarAnios();
-    }
-    
-    private static Listas listas;
-    
-    public static Listas obtenerListas()
-    {
-        if (listas == null)
-            listas = new Listas();
-        
-        return listas;
-    }
 
     /**
      * @return the listaCiudades
      */
     public Map<Long, Ciudad> getListaCiudades() {
+        if (listaCiudades == null)
+        {
+            this.listaCiudades = new HashMap<>();
+            consultar(this.listaCiudades, "Ciudad.findAll", "getIdCiudad", Modelo.Ciudad.class.getName());
+        }
         return listaCiudades;
     }
 
@@ -197,6 +120,11 @@ public final class Listas {
      * @return the listaTiposReconocimiento
      */
     public Map<Long, TipoReconocimiento> getListaTiposReconocimiento() {
+        if (listaTiposReconocimiento == null)
+        {
+            this.listaTiposReconocimiento = new HashMap<>();
+            consultar(this.listaTiposReconocimiento, "TipoReconocimiento.findAll", "getIdTipoReconocimiento", Modelo.TipoReconocimiento.class.getName());
+        }
         return listaTiposReconocimiento;
     }
 
@@ -211,6 +139,11 @@ public final class Listas {
      * @return the listaClasesReconocimiento
      */
     public Map<Long, ClaseReconocimiento> getListaClasesReconocimiento() {
+        if (listaClasesReconocimiento == null)
+        {
+            this.listaClasesReconocimiento = new HashMap<>();
+            consultar(this.listaClasesReconocimiento, "ClaseReconocimiento.findAll", "getIdClaseReconocimiento", Modelo.ClaseReconocimiento.class.getName());
+        }
         return listaClasesReconocimiento;
     }
 
@@ -225,6 +158,11 @@ public final class Listas {
      * @return the listaMeses
      */
     public Map<Long, Mes> getListaMeses() {
+        if (listaMeses == null)
+        {
+            this.listaMeses = new HashMap<>();
+            consultar(this.listaMeses, "Mes.findAll", "getIdMes", Modelo.Mes.class.getName());
+        }
         return listaMeses;
     }
 
@@ -239,6 +177,11 @@ public final class Listas {
      * @return the listaEstadosEducacion
      */
     public Map<Long, EstadoEducacion> getListaEstadosEducacion() {
+        if (listaEstadosEducacion == null)
+        {
+            this.listaEstadosEducacion = new HashMap<>();
+            consultar(this.listaEstadosEducacion, "EstadoEducacion.findAll", "getIdEstadoEducacion", Modelo.EstadoEducacion.class.getName());
+        }
         return listaEstadosEducacion;
     }
 
@@ -253,6 +196,11 @@ public final class Listas {
      * @return the listaAreasEstudios
      */
     public Map<Long, AreaEstudios> getListaAreasEstudios() {
+        if (listaAreasEstudios == null)
+        {
+            this.listaAreasEstudios = new HashMap<>();
+            consultar(this.listaAreasEstudios, "AreaEstudios.findAll", "getIdAreaEstudios", Modelo.AreaEstudios.class.getName());
+        }
         return listaAreasEstudios;
     }
 
@@ -267,6 +215,11 @@ public final class Listas {
      * @return the listaModalidades
      */
     public Map<Long, Modalidad> getListaModalidades() {
+        if (listaModalidades == null)
+        {
+            this.listaModalidades = new HashMap<>();
+            consultar(this.listaModalidades, "Modalidad.findAll", "getIdModalidad", Modelo.Modalidad.class.getName());
+        }
         return listaModalidades;
     }
 
@@ -281,6 +234,11 @@ public final class Listas {
      * @return the listaInstituciones
      */
     public Map<Long, Institucion> getListaInstituciones() {
+        if (listaInstituciones == null)
+        {
+            this.listaInstituciones = new HashMap<>();
+            consultar(this.listaInstituciones, "Institucion.findAll", "getIdInstitucion", Modelo.Institucion.class.getName());
+        }
         return listaInstituciones;
     }
 
@@ -295,6 +253,11 @@ public final class Listas {
      * @return the listaJornadas
      */
     public Map<Long, Jornada> getListaJornadas() {
+        if (listaJornadas == null)
+        {
+            this.listaJornadas = new HashMap<>();
+            consultar(this.listaJornadas, "Jornada.findAll", "getIdJornada", Modelo.Jornada.class.getName());
+        }
         return listaJornadas;
     }
 
@@ -309,6 +272,11 @@ public final class Listas {
      * @return the listaProgramas
      */
     public Map<Long, Programa> getListaProgramas() {
+        if (listaProgramas == null)
+        {
+            this.listaProgramas = new HashMap<>();
+            consultar(this.listaProgramas, "Programa.findAll", "getIdPrograma", Modelo.Programa.class.getName());
+        }
         return listaProgramas;
     }
 
@@ -323,6 +291,11 @@ public final class Listas {
      * @return the listaNivelesEstudios
      */
     public Map<Long, NivelEstudios> getListaNivelesEstudios() {
+        if (listaNivelesEstudios == null)
+        {
+            this.listaNivelesEstudios = new HashMap<>();
+            consultar(this.listaNivelesEstudios, "NivelEstudios.findAll", "getIdNivelEstudios", Modelo.NivelEstudios.class.getName());
+        }
         return listaNivelesEstudios;
     }
 
@@ -337,6 +310,10 @@ public final class Listas {
      * @return the listaAnios
      */
     public ArrayList<Integer> getListaAnios() {
+        if (listaAnios == null)
+        {
+            consultarAnios();
+        }
         return listaAnios;
     }
 
@@ -351,6 +328,11 @@ public final class Listas {
      * @return the listaRedesSociales
      */
     public Map<Long, RedSocial> getListaRedesSociales() {
+        if (listaRedesSociales == null)
+        {
+            this.listaRedesSociales = new HashMap<>();
+            consultar(this.listaRedesSociales, "RedSocial.findAll", "getIdRedSocial", Modelo.RedSocial.class.getName());
+        }
         return listaRedesSociales;
     }
 
@@ -365,6 +347,11 @@ public final class Listas {
      * @return the listaTiposContrato
      */
     public Map<Long, TipoContrato> getListaTiposContrato() {
+        if (listaTiposContrato == null)
+        {
+            this.listaTiposContrato = new HashMap<>();
+            consultar(this.listaTiposContrato, "TipoContrato.findAll", "getIdTipoContrato", Modelo.TipoContrato.class.getName());
+        }
         return listaTiposContrato;
     }
 
@@ -379,6 +366,11 @@ public final class Listas {
      * @return the listaSubsectores
      */
     public Map<Long, Subsector> getListaSubsectores() {
+        if (listaSubsectores == null)
+        {
+            this.listaSubsectores = new HashMap<>();
+            consultar(this.listaSubsectores, "Subsector.findAll", "getIdSubsector", Modelo.Subsector.class.getName());
+        }
         return listaSubsectores;
     }
 
@@ -393,6 +385,11 @@ public final class Listas {
      * @return the listaNivelesCargo
      */
     public Map<Long, NivelCargo> getListaNivelesCargo() {
+        if (listaNivelesCargo == null)
+        {
+            this.listaNivelesCargo = new HashMap<>();
+            consultar(this.listaNivelesCargo, "NivelCargo.findAll", "getIdNivelCargo", Modelo.NivelCargo.class.getName());
+        }
         return listaNivelesCargo;
     }
 
@@ -407,6 +404,11 @@ public final class Listas {
      * @return the listaAreasEmpresa
      */
     public Map<Long, AreaEmpresa> getListaAreasEmpresa() {
+        if (listaAreasEmpresa == null)
+        {
+            this.listaAreasEmpresa = new HashMap<>();
+            consultar(this.listaAreasEmpresa, "AreaEmpresa.findAll", "getIdAreaEmpresa", Modelo.AreaEmpresa.class.getName());
+        }
         return listaAreasEmpresa;
     }
 
@@ -421,6 +423,11 @@ public final class Listas {
      * @return the listaRangosSalariales
      */
     public Map<Long, RangoSalarial> getListaRangosSalariales() {
+        if (listaRangosSalariales == null)
+        {
+            this.listaRangosSalariales = new HashMap<>();
+            consultar(this.listaRangosSalariales, "RangoSalarial.findAll", "getIdRangoSalarial", Modelo.RangoSalarial.class.getName());
+        }
         return listaRangosSalariales;
     }
 
@@ -435,6 +442,11 @@ public final class Listas {
      * @return the listaCargosEquivalentes
      */
     public Map<Long, CargoEquivalente> getListaCargosEquivalentes() {
+        if (listaCargosEquivalentes == null)
+        {
+            this.listaCargosEquivalentes = new HashMap<>();
+            consultar(this.listaCargosEquivalentes, "CargoEquivalente.findAll", "getIdCargoEquivalente", Modelo.CargoEquivalente.class.getName());
+        }
         return listaCargosEquivalentes;
     }
 
@@ -449,6 +461,11 @@ public final class Listas {
      * @return the listaTiposVivienda
      */
     public Map<Long, TipoVivienda> getListaTiposVivienda() {
+        if (listaTiposVivienda ==  null)
+        {
+            this.listaTiposVivienda = new HashMap<>();
+            consultar(this.listaTiposVivienda, "TipoVivienda.findAll", "getIdTipoVivienda", Modelo.TipoVivienda.class.getName());
+        }
         return listaTiposVivienda;
     }
 
@@ -463,6 +480,11 @@ public final class Listas {
      * @return the listaTiposTenenciaVivienda
      */
     public Map<Long, TipoTenenciaVivienda> getListaTiposTenenciaVivienda() {
+        if (listaTiposTenenciaVivienda == null)
+        {
+            this.listaTiposTenenciaVivienda = new HashMap<>();
+            consultar(this.listaTiposTenenciaVivienda, "TipoTenenciaVivienda.findAll", "getIdTipoTenenciaVivienda", Modelo.TipoTenenciaVivienda.class.getName());
+        }
         return listaTiposTenenciaVivienda;
     }
 
@@ -477,6 +499,11 @@ public final class Listas {
      * @return the listaEstratos
      */
     public Map<Long, Estrato> getListaEstratos() {
+        if (listaEstratos == null)
+        {
+            this.listaEstratos = new HashMap<>();
+            consultar(this.listaEstratos, "Estrato.findAll", "getIdEstrato", Modelo.Estrato.class.getName());
+        }
         return listaEstratos;
     }
 
@@ -491,6 +518,11 @@ public final class Listas {
      * @return the listaTiposContacto
      */
     public Map<Long, TipoContacto> getListaTiposContacto() {
+        if (listaTiposContacto == null)
+        {
+            this.listaTiposContacto = new HashMap<>();
+            consultar(this.listaTiposContacto, "TipoContacto.findAll", "getIdTipoContacto", Modelo.TipoContacto.class.getName());
+        }
         return listaTiposContacto;
     }
 
@@ -505,6 +537,11 @@ public final class Listas {
      * @return the listaTiposDocumento
      */
     public Map<Long, TipoDocumento> getListaTiposDocumento() {
+        if (listaTiposDocumento == null)
+        {
+            this.listaTiposDocumento = new HashMap<>();
+            consultar(this.listaTiposDocumento, "TipoDocumento.findAll", "getIdTipoDocumento", Modelo.TipoDocumento.class.getName());
+        }
         return listaTiposDocumento;
     }
 
@@ -519,6 +556,11 @@ public final class Listas {
      * @return the listaGruposSanguineos
      */
     public Map<Long, GrupoSanguineo> getListaGruposSanguineos() {
+        if (listaGruposSanguineos == null)
+        {
+            this.listaGruposSanguineos = new HashMap<>();
+            consultar(this.listaGruposSanguineos, "GrupoSanguineo.findAll", "getIdGrupoSanguineo", Modelo.GrupoSanguineo.class.getName());
+        }
         return listaGruposSanguineos;
     }
 
@@ -533,6 +575,11 @@ public final class Listas {
      * @return the listaGeneros
      */
     public Map<Long, Genero> getListaGeneros() {
+        if (listaGeneros == null)
+        {
+            this.listaGeneros = new HashMap<>();
+            consultar(this.listaGeneros, "Genero.findAll", "getIdGenero", Modelo.Genero.class.getName());
+        }
         return listaGeneros;
     }
 
@@ -547,6 +594,11 @@ public final class Listas {
      * @return the listaEstadosCiviles
      */
     public Map<Long, EstadoCivil> getListaEstadosCiviles() {
+        if (listaEstadosCiviles == null)
+        {
+            this.listaEstadosCiviles = new HashMap<>();
+            consultar(this.listaEstadosCiviles, "EstadoCivil.findAll", "getIdEstadoCivil", Modelo.EstadoCivil.class.getName());
+        }
         return listaEstadosCiviles;
     }
 
@@ -561,6 +613,11 @@ public final class Listas {
      * @return the listaPreguntas
      */
     public Map<Long, PreguntaSeguridad> getListaPreguntas() {
+        if (listaPreguntas == null)
+        {
+            this.listaPreguntas = new HashMap<>();
+            consultar(this.listaPreguntas, "PreguntaSeguridad.findAll", "getIdPreguntaSeguridad", Modelo.PreguntaSeguridad.class.getName());
+        }
         return listaPreguntas;
     }
 
@@ -575,6 +632,11 @@ public final class Listas {
      * @return the listaTiposAsociaciones
      */
     public Map<Long, TipoAsociacion> getListaTiposAsociaciones() {
+        if (listaTiposAsociaciones == null)
+        {
+            this.listaTiposAsociaciones = new HashMap<>();
+            consultar(this.listaTiposAsociaciones, "TipoAsociacion.findAll", "getIdTipoAsociacion", Modelo.TipoAsociacion.class.getName());
+        }
         return listaTiposAsociaciones;
     }
 
@@ -589,6 +651,11 @@ public final class Listas {
      * @return the listaPaises
      */
     public Map<Long, Pais> getListaPaises() {
+        if (listaPaises == null)
+        {
+            this.listaPaises = new HashMap<>();
+            consultar(this.listaPaises, "Pais.findAll", "getIdPais", Modelo.Pais.class.getName());
+        }
         return listaPaises;
     }
 
@@ -603,6 +670,11 @@ public final class Listas {
      * @return the listaTiposActividades
      */
     public Map<Long,TipoActividad> getListaTiposActividades() {
+        if (listaTiposActividades == null)
+        {
+            this.listaTiposActividades = new HashMap<>();
+            consultar(this.listaTiposActividades, "TipoActividad.findAll", "getIdTipoActividad", Modelo.TipoActividad.class.getName());
+        }
         return listaTiposActividades;
     }
 
@@ -617,6 +689,11 @@ public final class Listas {
      * @return the listaTiposEdNoFormal
      */
     public Map<Long, TipoEdNoFormal> getListaTiposEdNoFormal() {
+        if (listaTiposEdNoFormal == null)
+        {
+            this.listaTiposEdNoFormal = new HashMap<>();
+            consultar(this.listaTiposEdNoFormal, "TipoEdNoFormal.findAll", "getIdTipoEdNoFormal", Modelo.TipoEdNoFormal.class.getName());    
+        }
         return listaTiposEdNoFormal;
     }
 
@@ -631,6 +708,11 @@ public final class Listas {
      * @return the listaIntensidadesHorarias
      */
     public Map<Long, IntensidadHoraria> getListaIntensidadesHorarias() {
+        if (listaIntensidadesHorarias == null)
+        {
+            this.listaIntensidadesHorarias = new HashMap<>();
+            consultar(this.listaIntensidadesHorarias, "IntensidadHoraria.findAll", "getIdIntensidadHoraria", Modelo.IntensidadHoraria.class.getName());
+        }
         return listaIntensidadesHorarias;
     }
 
@@ -645,6 +727,11 @@ public final class Listas {
      * @return the listaDominioLenguaExt
      */
     public Map<Long, DominioLenguaExt> getListaDominioLenguaExt() {
+        if (listaDominioLenguaExt ==null)
+        {
+            this.listaDominioLenguaExt = new HashMap<>();
+            consultar(this.listaDominioLenguaExt, "DominioLenguaExt.findAll", "getIdDominioLenguaExt", Modelo.DominioLenguaExt.class.getName());
+        }
         return listaDominioLenguaExt;
     }
 
@@ -659,6 +746,11 @@ public final class Listas {
      * @return the listaIdiomas
      */
     public Map<Long, Idioma> getListaIdiomas() {
+        if (listaIdiomas == null)
+        {
+            this.listaIdiomas = new HashMap<>();
+            consultar(this.listaIdiomas, "Idioma.findAll", "getIdIdioma", Modelo.Idioma.class.getName());
+        }
         return listaIdiomas;
     }
 
@@ -669,17 +761,90 @@ public final class Listas {
         this.listaIdiomas = listaIdiomas;
     }
     
+    /**
+     * @return the listaNivelesEstudiosUCentral
+     */
+    public Map<Long, NivelEstudios> getListaNivelesEstudiosUCentral() {
+        if (listaNivelesEstudiosUCentral == null)
+        {
+            listaNivelesEstudiosUCentral = new HashMap<>();
+            HashMap<String, Object> parametros = new HashMap<>();
+            parametros.put("aplicaUCentral", true);
+            consultar(this.listaNivelesEstudiosUCentral, "NivelEstudios.findByAplicaUCentral", "getIdNivelEstudios", Modelo.NivelEstudios.class.getName(), parametros);
+        }
+        return listaNivelesEstudiosUCentral;
+    }
+
+    /**
+     * @param listaNivelesEstudiosUCentral the listaNivelesEstudiosUCentral to set
+     */
+    public void setListaNivelesEstudiosUCentral(Map<Long, NivelEstudios> listaNivelesEstudiosUCentral) {
+        this.listaNivelesEstudiosUCentral = listaNivelesEstudiosUCentral;
+    }
+    
+    /**
+     * @return the listaOtrasInstituciones
+     */
+    public Map<Long, Institucion> getListaOtrasInstituciones() {
+        if (listaOtrasInstituciones == null)
+        {
+            this.listaOtrasInstituciones = new HashMap<>();
+            HashMap<String, Object> parametros = new HashMap<>();
+            // Configuración: Universidad Central
+            parametros.put("idInstitucion", 1);
+            consultar(this.listaOtrasInstituciones, "Institucion.findOtras", "getIdInstitucion", Modelo.Institucion.class.getName(), parametros);
+        }
+        return listaOtrasInstituciones;
+    }
+
+    /**
+     * @param listaOtrasInstituciones the listaOtrasInstituciones to set
+     */
+    public void setListaOtrasInstituciones(Map<Long, Institucion> listaOtrasInstituciones) {
+        this.listaOtrasInstituciones = listaOtrasInstituciones;
+    }
+    
     private Map<Long, Object> consultar(Map listaObjetos, String consulta, String idObjeto, String claseDestino)
     {
-        Convertidor convertidor2 = new Convertidor();
+        Convertidor convertidor = new Convertidor();
         EntityManager em = emf.createEntityManager();
         
         try {
             Query query = em.createNamedQuery(consulta);
             List<Object> lista = query.getResultList();
-            for (Object objeto : lista) {
-                if ((boolean)convertidor2.invocar(objeto, "getEstado")){
-                    listaObjetos.put((Long)convertidor2.invocar(objeto, idObjeto), convertidor2.convertirAModelo(objeto, null, claseDestino));
+            for(Object objeto: lista)
+            {
+                if ((boolean)convertidor.invocar(objeto, "getEstado")) {
+                    listaObjetos.put((Long)convertidor.invocar(objeto, idObjeto), convertidor.convertirAModelo(objeto, null, claseDestino));
+                }
+            }
+
+            return listaObjetos;
+        } catch (SecurityException | IllegalArgumentException ex) {
+            Logger.getLogger(ControladorEgresado.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return null;
+    }
+    
+    private Map<Long, Object> consultar(Map listaObjetos, String consulta, String idObjeto, String claseDestino, Map<String, Object> parametros)
+    {
+        Convertidor convertidor = new Convertidor();
+        EntityManager em = emf.createEntityManager();
+        
+        try {
+            Query query = em.createNamedQuery(consulta);
+            
+            for (Map.Entry<String, Object> entry : parametros.entrySet()) {
+                query.setParameter(entry.getKey(), entry.getValue());
+            }
+            
+            List<Object> lista = query.getResultList();
+            for(Object objeto: lista)
+            {
+                if ((boolean)convertidor.invocar(objeto, "getEstado"))
+                {
+                    listaObjetos.put((Long)convertidor.invocar(objeto, idObjeto), convertidor.convertirAModelo(objeto, null, claseDestino));
                 }
             }
 

@@ -12,6 +12,8 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -33,10 +35,13 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "PreguntaEncuesta.findAll", query = "SELECT p FROM PreguntaEncuesta p"),
     @NamedQuery(name = "PreguntaEncuesta.findByIdPreguntaEncuesta", query = "SELECT p FROM PreguntaEncuesta p WHERE p.idPreguntaEncuesta = :idPreguntaEncuesta"),
     @NamedQuery(name = "PreguntaEncuesta.findByPregunta", query = "SELECT p FROM PreguntaEncuesta p WHERE p.pregunta = :pregunta"),
-    @NamedQuery(name = "PreguntaEncuesta.findByEstado", query = "SELECT p FROM PreguntaEncuesta p WHERE p.estado = :estado")})
+    @NamedQuery(name = "PreguntaEncuesta.findByEstado", query = "SELECT p FROM PreguntaEncuesta p WHERE p.estado = :estado"),
+    @NamedQuery(name = "PreguntaEncuesta.findByObligatoria", query = "SELECT p FROM PreguntaEncuesta p WHERE p.obligatoria = :obligatoria"),
+    @NamedQuery(name = "PreguntaEncuesta.findByOrden", query = "SELECT p FROM PreguntaEncuesta p WHERE p.orden = :orden")})
 public class PreguntaEncuesta implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "ID_PREGUNTA_ENCUESTA")
     private Long idPreguntaEncuesta;
@@ -46,6 +51,14 @@ public class PreguntaEncuesta implements Serializable {
     @Basic(optional = false)
     @Column(name = "ESTADO")
     private boolean estado;
+    @Basic(optional = false)
+    @Column(name = "OBLIGATORIA")
+    private boolean obligatoria;
+    @Basic(optional = false)
+    @Column(name = "ORDEN")
+    private int orden;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idPreguntaEncuesta")
+    private Collection<EgresadoRespuesta> egresadoRespuestaCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idPreguntaEncuesta")
     private Collection<RespuestaEncuesta> respuestaEncuestaCollection;
     @JoinColumn(name = "ID_ENCUESTA", referencedColumnName = "ID_ENCUESTA")
@@ -62,10 +75,12 @@ public class PreguntaEncuesta implements Serializable {
         this.idPreguntaEncuesta = idPreguntaEncuesta;
     }
 
-    public PreguntaEncuesta(Long idPreguntaEncuesta, String pregunta, boolean estado) {
+    public PreguntaEncuesta(Long idPreguntaEncuesta, String pregunta, boolean estado, boolean obligatoria, int orden) {
         this.idPreguntaEncuesta = idPreguntaEncuesta;
         this.pregunta = pregunta;
         this.estado = estado;
+        this.obligatoria = obligatoria;
+        this.orden = orden;
     }
 
     public Long getIdPreguntaEncuesta() {
@@ -90,6 +105,31 @@ public class PreguntaEncuesta implements Serializable {
 
     public void setEstado(boolean estado) {
         this.estado = estado;
+    }
+
+    public boolean getObligatoria() {
+        return obligatoria;
+    }
+
+    public void setObligatoria(boolean obligatoria) {
+        this.obligatoria = obligatoria;
+    }
+
+    public int getOrden() {
+        return orden;
+    }
+
+    public void setOrden(int orden) {
+        this.orden = orden;
+    }
+
+    @XmlTransient
+    public Collection<EgresadoRespuesta> getEgresadoRespuestaCollection() {
+        return egresadoRespuestaCollection;
+    }
+
+    public void setEgresadoRespuestaCollection(Collection<EgresadoRespuesta> egresadoRespuestaCollection) {
+        this.egresadoRespuestaCollection = egresadoRespuestaCollection;
     }
 
     @XmlTransient

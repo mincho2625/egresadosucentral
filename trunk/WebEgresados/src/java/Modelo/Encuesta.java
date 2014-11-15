@@ -15,6 +15,7 @@ public class Encuesta {
     private String nombre;
     private String descripcion;
     private boolean estado;
+    private int orden;
 
     /**
      * @return the idEncuesta
@@ -70,5 +71,19 @@ public class Encuesta {
      */
     public void setEstado(boolean estado) {
         this.estado = estado;
+    }
+
+    /**
+     * @return the orden
+     */
+    public int getOrden() {
+        return orden;
+    }
+
+    /**
+     * @param orden the orden to set
+     */
+    public void setOrden(int orden) {
+        this.orden = orden;
     }
 }

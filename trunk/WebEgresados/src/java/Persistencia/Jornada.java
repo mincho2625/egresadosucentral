@@ -48,7 +48,7 @@ public class Jornada implements Serializable {
     @Column(name = "ESTADO")
     private boolean estado;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idJornada")
-    private Collection<EducacionFormal> educacionFormalCollection;
+    private Collection<EducacionFormalUcentral> educacionFormalUcentralCollection;
 
     public Jornada() {
     }
@@ -88,12 +88,12 @@ public class Jornada implements Serializable {
     }
 
     @XmlTransient
-    public Collection<EducacionFormal> getEducacionFormalCollection() {
-        return educacionFormalCollection;
+    public Collection<EducacionFormalUcentral> getEducacionFormalUcentralCollection() {
+        return educacionFormalUcentralCollection;
     }
 
-    public void setEducacionFormalCollection(Collection<EducacionFormal> educacionFormalCollection) {
-        this.educacionFormalCollection = educacionFormalCollection;
+    public void setEducacionFormalUcentralCollection(Collection<EducacionFormalUcentral> educacionFormalUcentralCollection) {
+        this.educacionFormalUcentralCollection = educacionFormalUcentralCollection;
     }
 
     @Override

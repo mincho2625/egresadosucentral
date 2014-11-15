@@ -12,7 +12,7 @@ package Modelo;
  */
 public class PreguntaSeguridad {
     private long idPreguntaSeguridad;
-    private String preguntaSeguridad;
+    private String pregunta;
     private boolean estado;
 
     /**
@@ -30,17 +30,17 @@ public class PreguntaSeguridad {
     }
 
     /**
-     * @return the preguntaSeguridad
+     * @return the pregunta
      */
-    public String getPreguntaSeguridad() {
-        return preguntaSeguridad;
+    public String getPregunta() {
+        return pregunta;
     }
 
     /**
-     * @param preguntaSeguridad the preguntaSeguridad to set
+     * @param pregunta the pregunta to set
      */
-    public void setPreguntaSeguridad(String preguntaSeguridad) {
-        this.preguntaSeguridad = preguntaSeguridad;
+    public void setPregunta(String pregunta) {
+        this.pregunta = pregunta;
     }
 
     /**

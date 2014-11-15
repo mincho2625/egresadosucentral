@@ -33,7 +33,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Mes.findAll", query = "SELECT m FROM Mes m"),
     @NamedQuery(name = "Mes.findByIdMes", query = "SELECT m FROM Mes m WHERE m.idMes = :idMes"),
     @NamedQuery(name = "Mes.findByMes", query = "SELECT m FROM Mes m WHERE m.mes = :mes"),
-    @NamedQuery(name = "Mes.findByEstado", query = "SELECT m FROM Mes m WHERE m.estado = :estado")})
+    @NamedQuery(name = "Mes.findByEstado", query = "SELECT m FROM Mes m WHERE m.estado = :estado"),
+    @NamedQuery(name = "Mes.findByNumero", query = "SELECT m FROM Mes m WHERE m.numero = :numero")})
 public class Mes implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -47,6 +48,9 @@ public class Mes implements Serializable {
     @Basic(optional = false)
     @Column(name = "ESTADO")
     private boolean estado;
+    @Basic(optional = false)
+    @Column(name = "NUMERO")
+    private int numero;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idMesIngreso")
     private Collection<ExperienciaLaboral> experienciaLaboralCollection;
     @OneToMany(mappedBy = "idMesFinalizacion")
@@ -63,10 +67,11 @@ public class Mes implements Serializable {
         this.idMes = idMes;
     }
 
-    public Mes(Long idMes, String mes, boolean estado) {
+    public Mes(Long idMes, String mes, boolean estado, int numero) {
         this.idMes = idMes;
         this.mes = mes;
         this.estado = estado;
+        this.numero = numero;
     }
 
     public Long getIdMes() {
@@ -91,6 +96,14 @@ public class Mes implements Serializable {
 
     public void setEstado(boolean estado) {
         this.estado = estado;
+    }
+
+    public int getNumero() {
+        return numero;
+    }
+
+    public void setNumero(int numero) {
+        this.numero = numero;
     }
 
     @XmlTransient

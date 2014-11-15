@@ -14,7 +14,6 @@ import Modelo.IntensidadHoraria;
 import Modelo.Mes;
 import Modelo.Modalidad;
 import Modelo.TipoEdNoFormal;
-import Util.Listas;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -45,7 +44,9 @@ public class EducacionNoFormalAction extends CrudAction<EducacionNoFormal> {
     private long modalidad;
     private long tipoEdNoFormal;
     private long intensidadHoraria;
-
+    private boolean checkOtraInstitucion;
+    private boolean checkOtroTipo;
+    
     public EducacionNoFormalAction() {
         super(EducacionNoFormal.class.getName());
         this.idObjeto = "getIdEducacion";
@@ -305,18 +306,46 @@ public class EducacionNoFormalAction extends CrudAction<EducacionNoFormal> {
     public void setIntensidadHoraria(long intensidadHoraria) {
         this.intensidadHoraria = intensidadHoraria;
     }
+    
+    /**
+     * @return the checkOtraInstitucion
+     */
+    public boolean isCheckOtraInstitucion() {
+        return checkOtraInstitucion;
+    }
+
+    /**
+     * @param checkOtraInstitucion the checkOtraInstitucion to set
+     */
+    public void setCheckOtraInstitucion(boolean checkOtraInstitucion) {
+        this.checkOtraInstitucion = checkOtraInstitucion;
+    }
+    
+    /**
+     * @return the checkOtroTipo
+     */
+    public boolean isCheckOtroTipo() {
+        return checkOtroTipo;
+    }
+
+    /**
+     * @param checkOtroTipo the checkOtroTipo to set
+     */
+    public void setCheckOtroTipo(boolean checkOtroTipo) {
+        this.checkOtroTipo = checkOtroTipo;
+    }
 
     @Override
     public String desplegar() {
-        this.setListaEstadosEducacion(Listas.obtenerListas().getListaEstadosEducacion());
-        this.setListaMeses(Listas.obtenerListas().getListaMeses());
-        this.setListaAnios(Listas.obtenerListas().getListaAnios());
-        this.setListaAreasEstudios(Listas.obtenerListas().getListaAreasEstudios());
-        this.setListaCiudades(Listas.obtenerListas().getListaCiudades());
-        this.setListaInstituciones(Listas.obtenerListas().getListaInstituciones());
-        this.setListaModalidades(Listas.obtenerListas().getListaModalidades());
-        this.setListaIntensidadesHorarias(Listas.obtenerListas().getListaIntensidadesHorarias());
-        this.setListaTiposEdNoFormal(Listas.obtenerListas().getListaTiposEdNoFormal());
+        this.setListaEstadosEducacion(listas.getListaEstadosEducacion());
+        this.setListaMeses(listas.getListaMeses());
+        this.setListaAnios(listas.getListaAnios());
+        this.setListaAreasEstudios(listas.getListaAreasEstudios());
+        this.setListaCiudades(listas.getListaCiudades());
+        this.setListaInstituciones(listas.getListaInstituciones());
+        this.setListaModalidades(listas.getListaModalidades());
+        this.setListaIntensidadesHorarias(listas.getListaIntensidadesHorarias());
+        this.setListaTiposEdNoFormal(listas.getListaTiposEdNoFormal());
 
         this.obtenerLista();
         this.editar = true;
@@ -325,28 +354,35 @@ public class EducacionNoFormalAction extends CrudAction<EducacionNoFormal> {
 
     @Override
     public void insertarTipos() {
-        this.objeto.setIdEstadoEducacion(Listas.obtenerListas().getListaEstadosEducacion().get(this.estadoEducacion));
-        this.objeto.setIdMesFinalizacion(Listas.obtenerListas().getListaMeses().get(this.mesFinalizacion));
-        this.objeto.setIdMesInicio(Listas.obtenerListas().getListaMeses().get(this.mesInicio));
-        this.objeto.setIdAreaEstudios(Listas.obtenerListas().getListaAreasEstudios().get(this.areaEstudios));
-        this.objeto.setIdCiudad(Listas.obtenerListas().getListaCiudades().get(this.ciudad));
-        this.objeto.setIdInstitucion(Listas.obtenerListas().getListaInstituciones().get(this.institucion));
-        this.objeto.setIdModalidad(Listas.obtenerListas().getListaModalidades().get(this.modalidad));
-        this.objeto.setIdIntensidadHoraria(Listas.obtenerListas().getListaIntensidadesHorarias().get(this.intensidadHoraria));
-        this.objeto.setIdTipoEdNoFormal(Listas.obtenerListas().getListaTiposEdNoFormal().get(this.tipoEdNoFormal));
+        this.objeto.setIdEstadoEducacion(listas.getListaEstadosEducacion().get(this.estadoEducacion));
+        this.objeto.setIdMesFinalizacion(listas.getListaMeses().get(this.mesFinalizacion));
+        this.objeto.setIdMesInicio(listas.getListaMeses().get(this.mesInicio));
+        this.objeto.setIdAreaEstudios(listas.getListaAreasEstudios().get(this.areaEstudios));
+        this.objeto.setIdCiudad(listas.getListaCiudades().get(this.ciudad));
+        this.objeto.setIdInstitucion(listas.getListaInstituciones().get(this.institucion));
+        this.objeto.setIdModalidad(listas.getListaModalidades().get(this.modalidad));
+        this.objeto.setIdIntensidadHoraria(listas.getListaIntensidadesHorarias().get(this.intensidadHoraria));
+        this.objeto.setIdTipoEdNoFormal(listas.getListaTiposEdNoFormal().get(this.tipoEdNoFormal));
+        if (this.institucion > 0)
+            this.checkOtraInstitucion = false;
+        if (this.tipoEdNoFormal > 0)
+            this.checkOtroTipo = false;
     }
 
     @Override
     public void consultarTipos() {
         this.setEstadoEducacion(objeto.getIdEstadoEducacion().getIdEstadoEducacion());
-        this.setMesFinalizacion(objeto.getIdMesFinalizacion().getIdMes());
         this.setMesInicio(objeto.getIdMesInicio().getIdMes());
         this.setAreaEstudios(objeto.getIdAreaEstudios().getIdAreaEstudios());
         this.setCiudad(objeto.getIdCiudad().getIdCiudad());
-        this.setInstitucion(objeto.getIdInstitucion().getIdInstitucion());
         this.setModalidad(objeto.getIdModalidad().getIdModalidad());
         this.setIntensidadHoraria(objeto.getIdIntensidadHoraria().getIdIntensidadHoraria());
         this.setTipoEdNoFormal(objeto.getIdTipoEdNoFormal().getIdTipoEdNoFormal());
+        
+        if (objeto.getIdMesFinalizacion() != null)
+            this.setMesFinalizacion(objeto.getIdMesFinalizacion().getIdMes());
+        if (objeto.getIdInstitucion() != null)
+            this.setInstitucion(objeto.getIdInstitucion().getIdInstitucion());
     }
 
     @Override
@@ -357,17 +393,66 @@ public class EducacionNoFormalAction extends CrudAction<EducacionNoFormal> {
     }
 
     @Override
-    public void validate() {
-        if (objeto.getTitulo() != null) {
-            if (objeto.getTitulo().equals("")) {
-                addFieldError("titulo", "Digite el titulo");
+    public void validar() {
+        if (mesInicio <= 0)
+            addFieldError("mesInicio", "El mes inicio es requerido.");
+        if (areaEstudios <= 0)
+            addFieldError("areaEstudios", "El área de estudios es requerido.");
+        if (ciudad <= 0)
+            addFieldError("ciudad", "La ciudad es requerida.");
+        if (modalidad <= 0)
+            addFieldError("modalidad", "La modalidad es requerida.");
+        if (objeto.getAnioInicio() <= 0)
+            addFieldError("anioInicio", "El año de inicio es requerido.");
+        if (objeto.getTitulo().isEmpty())
+            addFieldError("titulo", "El título es requerido.");
+        
+        // Estado educación
+        if (estadoEducacion <= 0)
+            addFieldError("estadoEducacion", "El estado es requerido.");
+        else {
+            // Configuración: Terminado
+            if (estadoEducacion == 2)
+            {
+                if (objeto.getAnioFinalizacion() <= 0)
+                    addFieldError("anioFinalizacion", "El año de finalización es requerido.");
+                else if (objeto.getAnioFinalizacion() < objeto.getAnioInicio())
+                    addFieldError("anioFinalizacion", "El año de finalización debe ser mayor al año de inicio.");
+                
+                if (mesFinalizacion <= 0)
+                    addFieldError("mesFinalizacion", "El mes de finalización es requerido.");
+                else if (objeto.getAnioFinalizacion() == objeto.getAnioInicio() &&
+                        objeto.getIdMesFinalizacion().getNumero() < objeto.getIdMesInicio().getNumero())
+                    addFieldError("mesFinalizacion", "El mes de finalización debe ser mayor o igual al mes de inicio.");
             }
         }
-        if (objeto.getDescripcion()!= null) {
-            if (objeto.getDescripcion().equals("")) {
-             addFieldError("descri", "Digite ladescripcion");   
-            }
+        
+        //otra institución
+        if (isCheckOtraInstitucion())
+        {
+            if (objeto.getOtraInstitucion().isEmpty())
+                addFieldError("otraInstitucion", "La institución es requerida.");
+        }
+        else
+        {
+            if (institucion <= 0)
+            addFieldError("institucion", "La institución es requerida.");
+        }
+        
+        if (isCheckOtroTipo())
+        {
+            if (objeto.getOtroTipoEdNoFormal().isEmpty())
+                addFieldError("otroTipoEdNoFormal", "El tipo de estudio es requerido.");
+        }
+        else
+        {
+            if (tipoEdNoFormal <= 0)
+                addFieldError("tipoEdNoFormal", "El tipo de estudio es requerido.");
         }
     }
 
+    @Override
+    public void validarLista() {
+        
+    }
 }

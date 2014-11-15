@@ -16,7 +16,8 @@ public class EducacionNoFormal extends Educacion {
     private String titulo;
     private IntensidadHoraria idIntensidadHoraria;
     private String descripcion;
-    private boolean estado;
+    private AreaEstudios idAreaEstudios;
+    private Modalidad idModalidad;
 
     /**
      * @return the idTipoEdNoFormal
@@ -89,16 +90,30 @@ public class EducacionNoFormal extends Educacion {
     }
 
     /**
-     * @return the estado
+     * @return the idAreaEstudios
      */
-    public boolean isEstado() {
-        return estado;
+    public AreaEstudios getIdAreaEstudios() {
+        return idAreaEstudios;
     }
 
     /**
-     * @param estado the estado to set
+     * @param idAreaEstudios the idAreaEstudios to set
      */
-    public void setEstado(boolean estado) {
-        this.estado = estado;
+    public void setIdAreaEstudios(AreaEstudios idAreaEstudios) {
+        this.idAreaEstudios = idAreaEstudios;
+    }
+
+    /**
+     * @return the idModalidad
+     */
+    public Modalidad getIdModalidad() {
+        return idModalidad;
+    }
+
+    /**
+     * @param idModalidad the idModalidad to set
+     */
+    public void setIdModalidad(Modalidad idModalidad) {
+        this.idModalidad = idModalidad;
     }
 }

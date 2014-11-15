@@ -120,4 +120,5 @@ public class Facultad implements Serializable {
     public String toString() {
         return "Persistencia.Facultad[ idFacultad=" + idFacultad + " ]";
     }
+    
 }

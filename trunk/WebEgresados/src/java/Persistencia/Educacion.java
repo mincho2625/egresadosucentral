@@ -42,30 +42,6 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Educacion.findByOtraInstitucion", query = "SELECT e FROM Educacion e WHERE e.otraInstitucion = :otraInstitucion"),
     @NamedQuery(name = "Educacion.findByEstado", query = "SELECT e FROM Educacion e WHERE e.estado = :estado")})
 public class Educacion implements Serializable {
-    @JoinColumn(name = "ID_AREA_ESTUDIOS", referencedColumnName = "ID_AREA_ESTUDIOS")
-    @ManyToOne(optional = false)
-    private AreaEstudios idAreaEstudios;
-    @JoinColumn(name = "ID_CIUDAD", referencedColumnName = "ID_CIUDAD")
-    @ManyToOne(optional = false)
-    private Ciudad idCiudad;
-    @JoinColumn(name = "ID_EGRESADO", referencedColumnName = "ID_EGRESADO")
-    @ManyToOne(optional = false)
-    private Egresado idEgresado;
-    @JoinColumn(name = "ID_ESTADO_EDUCACION", referencedColumnName = "ID_ESTADO_EDUCACION")
-    @ManyToOne(optional = false)
-    private EstadoEducacion idEstadoEducacion;
-    @JoinColumn(name = "ID_INSTITUCION", referencedColumnName = "ID_INSTITUCION")
-    @ManyToOne(optional = false)
-    private Institucion idInstitucion;
-    @JoinColumn(name = "ID_MES_INICIO", referencedColumnName = "ID_MES")
-    @ManyToOne(optional = false)
-    private Mes idMesInicio;
-    @JoinColumn(name = "ID_MES_FINALIZACION", referencedColumnName = "ID_MES")
-    @ManyToOne
-    private Mes idMesFinalizacion;
-    @JoinColumn(name = "ID_MODALIDAD", referencedColumnName = "ID_MODALIDAD")
-    @ManyToOne(optional = false)
-    private Modalidad idModalidad;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -90,13 +66,30 @@ public class Educacion implements Serializable {
     @Basic(optional = false)
     @Column(name = "ESTADO")
     private boolean estado;
-    @OneToOne(cascade = CascadeType.PERSIST, mappedBy = "educacion")
-    private EducacionFormal educacionFormal;
-    @OneToOne(cascade = CascadeType.PERSIST, mappedBy = "educacion")
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "educacion")
     private EducacionNoFormal educacionNoFormal;
-    @OneToOne(cascade = CascadeType.PERSIST, mappedBy = "educacion")
-    private LenguaExtranjera lenguaExtranjera;
-    
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "educacion")
+    private EducacionFormalUcentral educacionFormalUcentral;
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "educacion")
+    private EdFormalOtrasInstituciones edFormalOtrasInstituciones;
+    @JoinColumn(name = "ID_CIUDAD", referencedColumnName = "ID_CIUDAD")
+    @ManyToOne(optional = false)
+    private Ciudad idCiudad;
+    @JoinColumn(name = "ID_MES_INICIO", referencedColumnName = "ID_MES")
+    @ManyToOne(optional = false)
+    private Mes idMesInicio;
+    @JoinColumn(name = "ID_MES_FINALIZACION", referencedColumnName = "ID_MES")
+    @ManyToOne
+    private Mes idMesFinalizacion;
+    @JoinColumn(name = "ID_ESTADO_EDUCACION", referencedColumnName = "ID_ESTADO_EDUCACION")
+    @ManyToOne(optional = false)
+    private EstadoEducacion idEstadoEducacion;
+    @JoinColumn(name = "ID_INSTITUCION", referencedColumnName = "ID_INSTITUCION")
+    @ManyToOne
+    private Institucion idInstitucion;
+    @JoinColumn(name = "ID_EGRESADO", referencedColumnName = "ID_EGRESADO")
+    @ManyToOne(optional = false)
+    private Egresado idEgresado;
 
     public Educacion() {
     }
@@ -169,14 +162,6 @@ public class Educacion implements Serializable {
         this.estado = estado;
     }
 
-    public EducacionFormal getEducacionFormal() {
-        return educacionFormal;
-    }
-
-    public void setEducacionFormal(EducacionFormal educacionFormal) {
-        this.educacionFormal = educacionFormal;
-    }
-    
     public EducacionNoFormal getEducacionNoFormal() {
         return educacionNoFormal;
     }
@@ -184,13 +169,69 @@ public class Educacion implements Serializable {
     public void setEducacionNoFormal(EducacionNoFormal educacionNoFormal) {
         this.educacionNoFormal = educacionNoFormal;
     }
-    
-    public LenguaExtranjera getLenguaExtranjera() {
-        return lenguaExtranjera;
+
+    public EducacionFormalUcentral getEducacionFormalUcentral() {
+        return educacionFormalUcentral;
     }
-    
-    public void setLenguaExtranjera(LenguaExtranjera lenguaExtranjera){
-        this.lenguaExtranjera = lenguaExtranjera;
+
+    public void setEducacionFormalUcentral(EducacionFormalUcentral educacionFormalUcentral) {
+        this.educacionFormalUcentral = educacionFormalUcentral;
+    }
+
+    public EdFormalOtrasInstituciones getEdFormalOtrasInstituciones() {
+        return edFormalOtrasInstituciones;
+    }
+
+    public void setEdFormalOtrasInstituciones(EdFormalOtrasInstituciones edFormalOtrasInstituciones) {
+        this.edFormalOtrasInstituciones = edFormalOtrasInstituciones;
+    }
+
+    public Ciudad getIdCiudad() {
+        return idCiudad;
+    }
+
+    public void setIdCiudad(Ciudad idCiudad) {
+        this.idCiudad = idCiudad;
+    }
+
+    public Mes getIdMesInicio() {
+        return idMesInicio;
+    }
+
+    public void setIdMesInicio(Mes idMesInicio) {
+        this.idMesInicio = idMesInicio;
+    }
+
+    public Mes getIdMesFinalizacion() {
+        return idMesFinalizacion;
+    }
+
+    public void setIdMesFinalizacion(Mes idMesFinalizacion) {
+        this.idMesFinalizacion = idMesFinalizacion;
+    }
+
+    public EstadoEducacion getIdEstadoEducacion() {
+        return idEstadoEducacion;
+    }
+
+    public void setIdEstadoEducacion(EstadoEducacion idEstadoEducacion) {
+        this.idEstadoEducacion = idEstadoEducacion;
+    }
+
+    public Institucion getIdInstitucion() {
+        return idInstitucion;
+    }
+
+    public void setIdInstitucion(Institucion idInstitucion) {
+        this.idInstitucion = idInstitucion;
+    }
+
+    public Egresado getIdEgresado() {
+        return idEgresado;
+    }
+
+    public void setIdEgresado(Egresado idEgresado) {
+        this.idEgresado = idEgresado;
     }
 
     @Override
@@ -216,70 +257,6 @@ public class Educacion implements Serializable {
     @Override
     public String toString() {
         return "Persistencia.Educacion[ idEducacion=" + idEducacion + " ]";
-    }
-
-    public AreaEstudios getIdAreaEstudios() {
-        return idAreaEstudios;
-    }
-
-    public void setIdAreaEstudios(AreaEstudios idAreaEstudios) {
-        this.idAreaEstudios = idAreaEstudios;
-    }
-
-    public Ciudad getIdCiudad() {
-        return idCiudad;
-    }
-
-    public void setIdCiudad(Ciudad idCiudad) {
-        this.idCiudad = idCiudad;
-    }
-
-    public Egresado getIdEgresado() {
-        return idEgresado;
-    }
-
-    public void setIdEgresado(Egresado idEgresado) {
-        this.idEgresado = idEgresado;
-    }
-
-    public EstadoEducacion getIdEstadoEducacion() {
-        return idEstadoEducacion;
-    }
-
-    public void setIdEstadoEducacion(EstadoEducacion idEstadoEducacion) {
-        this.idEstadoEducacion = idEstadoEducacion;
-    }
-
-    public Institucion getIdInstitucion() {
-        return idInstitucion;
-    }
-
-    public void setIdInstitucion(Institucion idInstitucion) {
-        this.idInstitucion = idInstitucion;
-    }
-
-    public Mes getIdMesInicio() {
-        return idMesInicio;
-    }
-
-    public void setIdMesInicio(Mes idMesInicio) {
-        this.idMesInicio = idMesInicio;
-    }
-
-    public Mes getIdMesFinalizacion() {
-        return idMesFinalizacion;
-    }
-
-    public void setIdMesFinalizacion(Mes idMesFinalizacion) {
-        this.idMesFinalizacion = idMesFinalizacion;
-    }
-
-    public Modalidad getIdModalidad() {
-        return idModalidad;
-    }
-
-    public void setIdModalidad(Modalidad idModalidad) {
-        this.idModalidad = idModalidad;
     }
     
 }

@@ -3,19 +3,26 @@ html,body{
 }
 
 *{
-    margin:0px;
-    padding: 0px;
+	margin: auto;
+	padding: 0px;
+	width: auto;
+	font-family: Georgia, "Times New Roman", Times, serif;
+	color: #436600;
+	height: auto;
+	background-color: #F3E8CC;
+	border: 0px solid #F3E8CC;
 }
 
 #cabecera{
-    width: 100%;
-    height: 127px;
-    margin: 0 auto;
-    background:#f0e7cc url(imagenes/backCabeceraa.jpg) no-repeat right;
-    text-align: left;
-    padding: 25px 0px 0px 35px;
-    box-sizing:border-box; 
-    -moz-box-sizing:border-box;
+	width: 100%;
+	height: 127px;
+	margin: 0 auto;
+	background: #f0e7cc url(imagenes/backCabeceraa.jpg) no-repeat right;
+	text-align: left;
+	padding: 25px 0px 0px 35px;
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	border: 0px solid #436600;
 }
 
 #cabecera img{
@@ -34,36 +41,49 @@ h1{
 }
 
 #frameAbajo{
-    width: 101%;
-    height: auto;
-    border: 0px solid #000;
+	width: 101%;
+	height: auto;
+	border: 0px solid #000;
+
     //margin:0 auto;
-    text-align: justify;
+	text-align: justify;
+	background-color: #FFF;
 }
 .tituloMenu{
-    width: 98%;
-    height: 35px;
-    background: #436600;
-    color: #fff;
-    font-size: 18px;
-    font-family: verdana;
-    margin-top: 18px;
-    text-align: center;
-    padding: 10px 5px 5px 10px;
-    box-sizing:border-box;
-    float: left;
-    -moz-box-sizing:border-box;
+	width: 90%;
+	height: 35px;
+	background: #436600;
+	color: #fff;
+	font-size: 18px;
+	font-family: verdana;
+	margin-top: 18px;
+	text-align: center;
+	box-sizing: border-box;
+	float: left;
+	-moz-box-sizing: border-box;
+	padding-top: 10px;
+	padding-right: 5px;
+	padding-bottom: 5px;
+	padding-left: 10px;
 }
 
 li{
-    color: #616161;
-    font-size: 14px;
-    font-family: verdana;
-    border-bottom: 1px dotted #436600;
-    //height: 20px; 
-    padding: 5px 5px 5px 25px;
-    background: url(imagenes/arrow.png) no-repeat;
-    list-style:none;
+	color: #616161;
+	font-size: 14px;
+	font-family: verdana;
+	border-bottom: 1px dotted #436600;
+
+
+
+    //height: 20px;
+	list-style: none;
+	background-color: #F3E8CC;
+	background-image: url(imagenes/arrow.png);
+	background-repeat: no-repeat;
+	padding-top: 5px;
+	padding-right: 5px;
+	padding-bottom: 5px;
+	padding-left: 25px;
 }
 
 li:hover{
@@ -74,23 +94,27 @@ li:hover{
 a{text-decoration: none;}
 
 #menu{
-    width: 25%;
-    height: 120%;
-    background: #fff;
-    float: left;
-    text-align: justify;
-    border: 0px solid #000;
+	width: 350px;
+	height: auto;
+	float: left;
+	text-align: justify;
+	border: 2px solid #436600;
+	background-color: #FFFFFF;
+	color: #436600;
 }
 
 #contenido{
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 15px;
-    width: 74%;
-    height: 100%;
-    float: left;
-    text-align: center;
-    border-left: 1px solid #436600;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 15px;
+	width: 1000px;
+	height: 500px;
+	float: right;
+	text-align: center;
+	border-left: 1px solid #436600;
+	background-color: #F3E8CC;
+	font-family: Georgia, "Times New Roman", Times, serif;
+	color: #436600;
 
 }
 #contenido1{
@@ -115,25 +139,24 @@ a{text-decoration: none;}
 }
 
 #contenido iframe{
-    margin-left: auto;
-    margin-right: auto;
-    width: 74%;
-    height: 95%;
-    border: 0px;
-    padding: 0px;
-    text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+	width: 900px;
+	height: 450px;
+	border: 0px;
+	padding: 0px;
+	text-align: center;
 }
 
 table{
-    border: 1px solid #436600;
-    width: 80%;
-    height: 80%;
-    text-align: justify; 
-    margin-left: auto; 
-    margin-right: auto;
-    background: #e9e9e9;
-    border-radius:10px;
-    caption-side: top;
+	border: 1px solid #436600;
+	width: 80%;
+	height: 80%;
+	text-align: left;
+	margin-left: auto;
+	margin-right: auto;
+	caption-side: top;
+	background-color: #F3E8CC;
 }
 titulo{
     color: #000000;
@@ -165,24 +188,21 @@ caption{
     text-align: center
 }
 .tdatras{
-    color:#436600;
-    font-family:verdana;
-    font-size:12px;
-    font-weight:bold;
-    text-align: left;
+	color: #436600;
+	font-family: Georgia, "Times New Roman", Times, serif;
+	font-size: 12px;
+	font-weight: bold;
+	text-align: right;
 }
 .tduno{
-    color:#436600;
-    font-family:verdana;
-    font-size:12px;
-    font-weight:bold;
-    text-align: right;
+	color: #436600;
+	font-family: verdana;
+	font-size: 12px;
+	font-weight: bold;
+	text-align: right;
 }
 div {
-    text-align: center;
-}
-s{
-    text-align: center;  
+	text-align: center;
 }
 .tddos{
     background: #436600;
@@ -210,23 +230,26 @@ checkbox{
 }
 input{ 
     border:2px solid #456879;
-    border-radius:10px;
     height: 22px;
     width: 230px;
 }
 .center {
-    margin-left: auto;
-    margin-right: auto;
-    width: auto;
-    border:2px solid #456879;
-    border-radius:10px;
+	margin-left: auto;
+	margin-right: auto;
+	width: auto;
+	border: thin solid #456879;
+	color: #436600;
+	font-family: verdana;
+	font-size: 12px;
+	font-weight: bold;
+	text-align: left;
 }
 .center1 {
-    margin-left: auto;
-    margin-right: auto;
-    width: auto;
-    border:2px #456879;
-    border-radius:10px;
+	margin-left: auto;
+	margin-right: auto;
+	width: auto;
+	border: 1px none #456879;
+	color: #436600;
 }
 
 select{ width: 100%;
@@ -235,16 +258,20 @@ select{ width: 100%;
 }
 
 #footer{
-    width: 100%;
-    height: 25px;
-    background: #dda;
-    clear: both;
-    margin:0 auto;
-    color:#436600;
-    font-family:verdana;
-    font-size:12px;
-    font-weight:bold;
-    text-align: center;
+	width: 100%;
+	height: 30px;
+	clear: both;
+	color: #436600;
+	font-family: verdana;
+	font-size: 12px;
+	font-weight: bold;
+	text-align: center;
+	background-color: #EBDBC1;
+	border: thin solid #436600;
+	margin-top: 0;
+	margin-right: auto;
+	margin-bottom: 0;
+	margin-left: auto;
 }
 
 .menu{
@@ -409,4 +436,23 @@ button.positive, .buttons a.positive{
     background-color:#529214;
     border:1px solid #529214;
     color:#fff;
+}
+.tmenu {
+	font-family: Georgia, "Times New Roman", Times, serif;
+	color: #000000;
+	background-color: #F3E8CC;
+}
+#frameAbajo #menu #Ingreso center p .nuevo1 {
+	font-family: Georgia, Times New Roman, Times, serif;
+}
+.espacios {
+	font-family: Georgia, "Times New Roman", Times, serif;
+	color: #E7D7BD;
+}
+.revisar {
+	font-family: Georgia, "Times New Roman", Times, serif;
+	color: #F3E8CC;
+}
+.tdsiguiente {
+	text-align: left;
 }

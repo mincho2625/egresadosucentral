@@ -20,15 +20,12 @@ public class Educacion {
     private Date fechaRegistro;
     private Mes idMesFinalizacion;
     private EstadoEducacion idEstadoEducacion;
-    private AreaEstudios idAreaEstudios;
-    private Modalidad idModalidad;
     private int anioInicio;
     private int anioFinalizacion;
     private Institucion idInstitucion;
     private String otraInstitucion;
     private boolean estado;
     private long idEgresado;
-    private String tipo;
 
     /**
      * @return the idEducacion
@@ -129,34 +126,6 @@ public class Educacion {
     }
 
     /**
-     * @return the idAreaEstudios
-     */
-    public AreaEstudios getIdAreaEstudios() {
-        return idAreaEstudios;
-    }
-
-    /**
-     * @param idAreaEstudios the idAreaEstudios to set
-     */
-    public void setIdAreaEstudios(AreaEstudios idAreaEstudios) {
-        this.idAreaEstudios = idAreaEstudios;
-    }
-
-    /**
-     * @return the idModalidad
-     */
-    public Modalidad getIdModalidad() {
-        return idModalidad;
-    }
-
-    /**
-     * @param idModalidad the idModalidad to set
-     */
-    public void setIdModalidad(Modalidad idModalidad) {
-        this.idModalidad = idModalidad;
-    }
-
-    /**
      * @return the anioInicio
      */
     public int getAnioInicio() {
@@ -238,19 +207,5 @@ public class Educacion {
      */
     public void setIdEgresado(Long idEgresado) {
         this.idEgresado = idEgresado;
-    }
-
-    /**
-     * @return the tipo
-     */
-    public String getTipo() {
-        return tipo;
-    }
-
-    /**
-     * @param tipo the tipo to set
-     */
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
     }
 }

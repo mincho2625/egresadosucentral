@@ -17,6 +17,7 @@ public class Mes {
     private long idMes;
     private String mes;
     private boolean estado;
+    private int numero;
 
     /**
      * @return the idMes
@@ -58,5 +59,19 @@ public class Mes {
      */
     public void setEstado(boolean estado) {
         this.estado = estado;
+    }
+
+    /**
+     * @return the numero
+     */
+    public int getNumero() {
+        return numero;
+    }
+
+    /**
+     * @param numero the numero to set
+     */
+    public void setNumero(int numero) {
+        this.numero = numero;
     }
 }

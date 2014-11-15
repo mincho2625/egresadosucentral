@@ -33,7 +33,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "RedSocial.findAll", query = "SELECT r FROM RedSocial r"),
     @NamedQuery(name = "RedSocial.findByIdRedSocial", query = "SELECT r FROM RedSocial r WHERE r.idRedSocial = :idRedSocial"),
     @NamedQuery(name = "RedSocial.findByNombre", query = "SELECT r FROM RedSocial r WHERE r.nombre = :nombre"),
-    @NamedQuery(name = "RedSocial.findByEstado", query = "SELECT r FROM RedSocial r WHERE r.estado = :estado")})
+    @NamedQuery(name = "RedSocial.findByEstado", query = "SELECT r FROM RedSocial r WHERE r.estado = :estado"),
+    @NamedQuery(name = "RedSocial.findByObligatorio", query = "SELECT r FROM RedSocial r WHERE r.obligatorio = :obligatorio")})
 public class RedSocial implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -47,6 +48,9 @@ public class RedSocial implements Serializable {
     @Basic(optional = false)
     @Column(name = "ESTADO")
     private boolean estado;
+    @Basic(optional = false)
+    @Column(name = "OBLIGATORIO")
+    private boolean obligatorio;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idRedSocial")
     private Collection<EgresadoRedSocial> egresadoRedSocialCollection;
 
@@ -57,10 +61,11 @@ public class RedSocial implements Serializable {
         this.idRedSocial = idRedSocial;
     }
 
-    public RedSocial(Long idRedSocial, String nombre, boolean estado) {
+    public RedSocial(Long idRedSocial, String nombre, boolean estado, boolean obligatorio) {
         this.idRedSocial = idRedSocial;
         this.nombre = nombre;
         this.estado = estado;
+        this.obligatorio = obligatorio;
     }
 
     public Long getIdRedSocial() {
@@ -85,6 +90,14 @@ public class RedSocial implements Serializable {
 
     public void setEstado(boolean estado) {
         this.estado = estado;
+    }
+
+    public boolean getObligatorio() {
+        return obligatorio;
+    }
+
+    public void setObligatorio(boolean obligatorio) {
+        this.obligatorio = obligatorio;
     }
 
     @XmlTransient

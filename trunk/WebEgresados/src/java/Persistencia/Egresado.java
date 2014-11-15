@@ -6,7 +6,6 @@
 
 package Persistencia;
 
-import Util.Configuracion;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -48,11 +47,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Egresado.findByFechaUltimaAct", query = "SELECT e FROM Egresado e WHERE e.fechaUltimaAct = :fechaUltimaAct"),
     @NamedQuery(name = "Egresado.findByAceptaCondiciones", query = "SELECT e FROM Egresado e WHERE e.aceptaCondiciones = :aceptaCondiciones"),
     @NamedQuery(name = "Egresado.findByIdEgresado", query = "SELECT e FROM Egresado e WHERE e.idEgresado = :idEgresado"),
-    @NamedQuery(name = "Egresado.findByNombreUsuario", query = "SELECT e FROM Egresado e join Usuario u WHERE u.nombre = :nombreUsuario")})
+    @NamedQuery(name = "Egresado.findByNombreUsuario", query = "SELECT e FROM Egresado e inner join Usuario u on u = e.idUsuario WHERE u.nombre = :nombreUsuario")})
 public class Egresado implements Serializable {
-    @Lob
-    @Column(name = "FOTO")
-    private byte[] foto;
     private static final long serialVersionUID = 1L;
     @Basic(optional = false)
     @Column(name = "PRIMER_APELLIDO")
@@ -74,7 +70,9 @@ public class Egresado implements Serializable {
     @Column(name = "FECHA_EXPEDICION")
     @Temporal(TemporalType.DATE)
     private Date fechaExpedicion;
-    @Basic(optional = false)
+    @Lob
+    @Column(name = "FOTO")
+    private byte[] foto;
     @Column(name = "FECHA_ULTIMA_ACT")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaUltimaAct;
@@ -88,7 +86,7 @@ public class Egresado implements Serializable {
     private Long idEgresado;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idEgresado")
     private Collection<Asociacion> asociacionCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "egresado")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idEgresado")
     private Collection<EgresadoRespuesta> egresadoRespuestaCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idEgresado")
     private Collection<Residencia> residenciaCollection;
@@ -96,6 +94,8 @@ public class Egresado implements Serializable {
     private Collection<ExperienciaLaboral> experienciaLaboralCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idEgresado")
     private Collection<Reconocimiento> reconocimientoCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idEgresado")
+    private Collection<LenguaExtranjera> lenguaExtranjeraCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idEgresado")
     private Collection<Contacto> contactoCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idEgresado")
@@ -121,7 +121,7 @@ public class Egresado implements Serializable {
     @ManyToOne(optional = false)
     private TipoDocumento idTipoDocumento;
     @JoinColumn(name = "ID_USUARIO", referencedColumnName = "ID_USUARIO")
-    @ManyToOne(optional = false, cascade = CascadeType.PERSIST)
+    @ManyToOne(optional = false, cascade = CascadeType.ALL)
     private Usuario idUsuario;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idEgresado")
     private Collection<Educacion> educacionCollection;
@@ -193,6 +193,13 @@ public class Egresado implements Serializable {
         this.fechaExpedicion = fechaExpedicion;
     }
 
+    public byte[] getFoto() {
+        return foto;
+    }
+
+    public void setFoto(byte[] foto) {
+        this.foto = foto;
+    }
 
     public Date getFechaUltimaAct() {
         return fechaUltimaAct;
@@ -264,8 +271,21 @@ public class Egresado implements Serializable {
     }
 
     @XmlTransient
+    public Collection<LenguaExtranjera> getLenguaExtranjeraCollection() {
+        return lenguaExtranjeraCollection;
+    }
+
+    public void setLenguaExtranjeraCollection(Collection<LenguaExtranjera> lenguaExtranjeraCollection) {
+        this.lenguaExtranjeraCollection = lenguaExtranjeraCollection;
+    }
+
+    @XmlTransient
     public Collection<Contacto> getContactoCollection() {
         return contactoCollection;
+    }
+
+    public void setContactoCollection(Collection<Contacto> contactoCollection) {
+        this.contactoCollection = contactoCollection;
     }
 
     @XmlTransient
@@ -365,10 +385,7 @@ public class Egresado implements Serializable {
             return false;
         }
         Egresado other = (Egresado) object;
-        if ((this.idEgresado == null && other.idEgresado != null) || (this.idEgresado != null && !this.idEgresado.equals(other.idEgresado))) {
-            return false;
-        }
-        return true;
+        return (this.idEgresado != null || other.idEgresado == null) && (this.idEgresado == null || this.idEgresado.equals(other.idEgresado));
     }
 
     @Override
@@ -376,55 +393,35 @@ public class Egresado implements Serializable {
         return "Persistencia.Egresado[ idEgresado=" + idEgresado + " ]";
     }
     
-    public Collection<EducacionFormal> getEducacionFormalUcentral() {
-        Collection<EducacionFormal> coleccion = new ArrayList<>();
-        Configuracion configuracion = new Configuracion();
-        for (Educacion educacion : educacionCollection)
-        {
-            if (educacion.getEducacionFormal() != null && educacion.getIdInstitucion().getIdInstitucion().equals(configuracion.getIdInstitucionUcentral().getIdInstitucion()))
-                coleccion.add(educacion.getEducacionFormal());
+    public Collection<EducacionFormalUcentral> getEducacionFormalUcentral() {
+        Collection<EducacionFormalUcentral> coleccion = new ArrayList<>();
+        for (Educacion educacion : educacionCollection) {
+            if (educacion.getEducacionFormalUcentral() != null) {
+                coleccion.add(educacion.getEducacionFormalUcentral());
+            }
         }
         return coleccion;
     }
     
-    public Collection<EducacionFormal> getEducacionFormalOtrasInstituciones() {
-        Collection<EducacionFormal> coleccion = new ArrayList<>();
-        Configuracion configuracion = new Configuracion();
-        for (Educacion educacion : educacionCollection)
-        {
-            if (educacion.getEducacionFormal() != null && !educacion.getIdInstitucion().getIdInstitucion().equals(configuracion.getIdInstitucionUcentral().getIdInstitucion()))
-                coleccion.add(educacion.getEducacionFormal());
+    public Collection<EdFormalOtrasInstituciones> getEducacionFormalOtrasInstituciones() {
+        Collection<EdFormalOtrasInstituciones> coleccion = new ArrayList<>();
+        for (Educacion educacion : educacionCollection) {
+            if (educacion.getEdFormalOtrasInstituciones()!= null) {
+                coleccion.add(educacion.getEdFormalOtrasInstituciones());
+            }
         }
         return coleccion;
     }
     
     public Collection<EducacionNoFormal> getEducacionNoFormal()
     {
-        Collection<EducacionNoFormal> collection = new ArrayList<>();
+        Collection<EducacionNoFormal> coleccion = new ArrayList<>();
         for (Educacion educacion : educacionCollection) {
-            if (educacion.getEducacionNoFormal() != null)
-                collection.add(educacion.getEducacionNoFormal());
+            if (educacion.getEducacionNoFormal()!= null) {
+                coleccion.add(educacion.getEducacionNoFormal());
+            }
         }
         
-        return collection;
-    }
-    
-    public Collection<LenguaExtranjera> getLenguaExtranjera()
-    {
-        Collection<LenguaExtranjera> collection = new ArrayList<>();
-        for (Educacion educacion : educacionCollection) {
-            if (educacion.getLenguaExtranjera() != null)
-                collection.add(educacion.getLenguaExtranjera());
-        }
-        
-        return collection;
-    }
-
-    public byte[] getFoto() {
-        return foto;
-    }
-
-    public void setFoto(byte[] foto) {
-        this.foto = foto;
+        return coleccion;
     }
 }

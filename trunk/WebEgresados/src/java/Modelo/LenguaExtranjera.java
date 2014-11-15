@@ -6,13 +6,19 @@
 
 package Modelo;
 
+import java.util.Date;
+
 /**
  *
  * @author YURY
  */
-public class LenguaExtranjera extends Educacion {
+public class LenguaExtranjera {
     private DominioLenguaExt idDominio;
     private Idioma idIdioma;
+    private boolean estado;
+    private long idEgresado;
+    private long idLenguaExtranjera;
+    private Date fechaRegistro;
 
     /**
      * @return the idDominio
@@ -40,5 +46,61 @@ public class LenguaExtranjera extends Educacion {
      */
     public void setIdIdioma(Idioma idIdioma) {
         this.idIdioma = idIdioma;
+    }
+
+    /**
+     * @return the estado
+     */
+    public boolean isEstado() {
+        return estado;
+    }
+
+    /**
+     * @param estado the estado to set
+     */
+    public void setEstado(boolean estado) {
+        this.estado = estado;
+    }
+
+    /**
+     * @return the idEgresado
+     */
+    public long getIdEgresado() {
+        return idEgresado;
+    }
+
+    /**
+     * @param idEgresado the idEgresado to set
+     */
+    public void setIdEgresado(long idEgresado) {
+        this.idEgresado = idEgresado;
+    }
+
+    /**
+     * @return the idLenguaExtranjera
+     */
+    public long getIdLenguaExtranjera() {
+        return idLenguaExtranjera;
+    }
+
+    /**
+     * @param idLenguaExtranjera the idLenguaExtranjera to set
+     */
+    public void setIdLenguaExtranjera(long idLenguaExtranjera) {
+        this.idLenguaExtranjera = idLenguaExtranjera;
+    }
+
+    /**
+     * @return the fechaRegistro
+     */
+    public Date getFechaRegistro() {
+        return fechaRegistro;
+    }
+
+    /**
+     * @param fechaRegistro the fechaRegistro to set
+     */
+    public void setFechaRegistro(Date fechaRegistro) {
+        this.fechaRegistro = fechaRegistro;
     }
 }

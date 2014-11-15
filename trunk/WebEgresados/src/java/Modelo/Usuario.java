@@ -1,5 +1,7 @@
 package Modelo;
 
+import java.util.Date;
+
 /**
  * @author YURY
  * @version 1.0
@@ -8,11 +10,13 @@ package Modelo;
 public class Usuario {
 
     private String correoInstitucional;
-    private String nombreUsuario;
-    private String clave;
-    private long idPreguntaSeguridad;
+    private String nombre;
+    private String contrasenia;
+    private PreguntaSeguridad idPreguntaSeguridad;
     private String respuestaSeguridad;
     private long idUsuario;
+    private boolean estado;
+    private Date fechaRegistro;
 
     /**
      * @return the correoInstitucional
@@ -29,44 +33,44 @@ public class Usuario {
     }
 
     /**
-     * @return the nombreUsuario
+     * @return the nombre
      */
-    public String getNombreUsuario() {
-        return nombreUsuario;
+    public String getNombre() {
+        return nombre;
     }
 
     /**
-     * @param nombreUsuario the nombreUsuario to set
+     * @param nombre the nombre to set
      */
-    public void setNombreUsuario(String nombreUsuario) {
-        this.nombreUsuario = nombreUsuario;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     /**
-     * @return the clave
+     * @return the contrasenia
      */
-    public String getClave() {
-        return clave;
+    public String getContrasenia() {
+        return contrasenia;
     }
 
     /**
-     * @param clave the clave to set
+     * @param contrasenia the contrasenia to set
      */
-    public void setClave(String clave) {
-        this.clave = clave;
+    public void setContrasenia(String contrasenia) {
+        this.contrasenia = contrasenia;
     }
 
     /**
      * @return the idPreguntaSeguridad
      */
-    public long getIdPreguntaSeguridad() {
+    public PreguntaSeguridad getIdPreguntaSeguridad() {
         return idPreguntaSeguridad;
     }
 
     /**
      * @param idPreguntaSeguridad the idPreguntaSeguridad to set
      */
-    public void setIdPreguntaSeguridad(long idPreguntaSeguridad) {
+    public void setIdPreguntaSeguridad(PreguntaSeguridad idPreguntaSeguridad) {
         this.idPreguntaSeguridad = idPreguntaSeguridad;
     }
 
@@ -96,5 +100,33 @@ public class Usuario {
      */
     public void setIdUsuario(long idUsuario) {
         this.idUsuario = idUsuario;
+    }
+
+    /**
+     * @return the estado
+     */
+    public boolean isEstado() {
+        return estado;
+    }
+
+    /**
+     * @param estado the estado to set
+     */
+    public void setEstado(boolean estado) {
+        this.estado = estado;
+    }
+
+    /**
+     * @return the fechaRegistro
+     */
+    public Date getFechaRegistro() {
+        return fechaRegistro;
+    }
+
+    /**
+     * @param fechaRegistro the fechaRegistro to set
+     */
+    public void setFechaRegistro(Date fechaRegistro) {
+        this.fechaRegistro = fechaRegistro;
     }
 }

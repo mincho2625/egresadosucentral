@@ -41,11 +41,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "ExperienciaLaboral.findByTelefonoEmpresa", query = "SELECT e FROM ExperienciaLaboral e WHERE e.telefonoEmpresa = :telefonoEmpresa"),
     @NamedQuery(name = "ExperienciaLaboral.findByJefeInmediato", query = "SELECT e FROM ExperienciaLaboral e WHERE e.jefeInmediato = :jefeInmediato"),
     @NamedQuery(name = "ExperienciaLaboral.findByAnioIngreso", query = "SELECT e FROM ExperienciaLaboral e WHERE e.anioIngreso = :anioIngreso"),
-    @NamedQuery(name = "ExperienciaLaboral.findByAnioFinalizacion", query = "SELECT e FROM ExperienciaLaboral e WHERE e.anioFinalizacion = :anioFinalizacion")})
+    @NamedQuery(name = "ExperienciaLaboral.findByAnioFinalizacion", query = "SELECT e FROM ExperienciaLaboral e WHERE e.anioFinalizacion = :anioFinalizacion"),
+    @NamedQuery(name = "ExperienciaLaboral.findByEstado", query = "SELECT e FROM ExperienciaLaboral e WHERE e.estado = :estado")})
 public class ExperienciaLaboral implements Serializable {
-    @Basic(optional = false)
-    @Column(name = "ESTADO")
-    private boolean estado;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -77,6 +75,9 @@ public class ExperienciaLaboral implements Serializable {
     private int anioIngreso;
     @Column(name = "ANIO_FINALIZACION")
     private Integer anioFinalizacion;
+    @Basic(optional = false)
+    @Column(name = "ESTADO")
+    private boolean estado;
     @JoinColumn(name = "ID_TIPO_CONTRATO", referencedColumnName = "ID_TIPO_CONTRATO")
     @ManyToOne(optional = false)
     private TipoContrato idTipoContrato;
@@ -115,7 +116,7 @@ public class ExperienciaLaboral implements Serializable {
         this.idExperienciaLaboral = idExperienciaLaboral;
     }
 
-    public ExperienciaLaboral(Long idExperienciaLaboral, String nombreEmpresa, String cargo, boolean conexionInternet, Date fechaRegistro, String funcionesLogros, int anioIngreso) {
+    public ExperienciaLaboral(Long idExperienciaLaboral, String nombreEmpresa, String cargo, boolean conexionInternet, Date fechaRegistro, String funcionesLogros, int anioIngreso, boolean estado) {
         this.idExperienciaLaboral = idExperienciaLaboral;
         this.nombreEmpresa = nombreEmpresa;
         this.cargo = cargo;
@@ -123,6 +124,7 @@ public class ExperienciaLaboral implements Serializable {
         this.fechaRegistro = fechaRegistro;
         this.funcionesLogros = funcionesLogros;
         this.anioIngreso = anioIngreso;
+        this.estado = estado;
     }
 
     public Long getIdExperienciaLaboral() {
@@ -203,6 +205,14 @@ public class ExperienciaLaboral implements Serializable {
 
     public void setAnioFinalizacion(Integer anioFinalizacion) {
         this.anioFinalizacion = anioFinalizacion;
+    }
+
+    public boolean getEstado() {
+        return estado;
+    }
+
+    public void setEstado(boolean estado) {
+        this.estado = estado;
     }
 
     public TipoContrato getIdTipoContrato() {
@@ -308,14 +318,6 @@ public class ExperienciaLaboral implements Serializable {
     @Override
     public String toString() {
         return "Persistencia.ExperienciaLaboral[ idExperienciaLaboral=" + idExperienciaLaboral + " ]";
-    }
-
-    public boolean getEstado() {
-        return estado;
-    }
-
-    public void setEstado(boolean estado) {
-        this.estado = estado;
     }
     
 }

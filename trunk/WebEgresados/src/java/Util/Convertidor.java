@@ -21,9 +21,9 @@ import org.apache.commons.lang.ArrayUtils;
  */
 public class Convertidor {
     public Object convertirAModelo(Object origen, Object origenBase, String claseDestino) {
-        Class claseSet;
-        Object valor;
-        String metodoGet;
+        Class claseSet = null;
+        Object valor = null;
+        String metodoGet = null;
         
         Object destino = instanciar(claseDestino);
         
@@ -54,7 +54,8 @@ public class Convertidor {
                         
                 }
             } catch (SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
-                Logger.getLogger(Convertidor.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(Convertidor.class.getName()).log(Level.SEVERE, null, ex + ". Valor: " + valor.getClass() + ", Get: " + metodoGet + ", Set: " + claseSet);
+                return null;
             }
         }
 
@@ -184,7 +185,8 @@ public class Convertidor {
                 valor = metodo.invoke(objeto);
             }
             return valor;
-        } catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
+        }
+        catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
             Logger.getLogger(ControladorEgresado.class.getName()).log(Level.SEVERE, null, ex);
         }
         
@@ -202,7 +204,8 @@ public class Convertidor {
                 metodo = objeto.getClass().getSuperclass().getDeclaredMethod(nombreMetodo);
                 valor = metodo.invoke(objeto);
             }
-        } catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
+        }
+        catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
             Logger.getLogger(ControladorEgresado.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

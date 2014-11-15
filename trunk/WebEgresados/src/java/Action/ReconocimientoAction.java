@@ -121,9 +121,9 @@ public class ReconocimientoAction extends CrudAction<Reconocimiento>{
     
     @Override
     public String desplegar() {
-        this.setListaCiudades(Listas.obtenerListas().getListaCiudades());
-        this.setListaClasesReconocimiento(Listas.obtenerListas().getListaClasesReconocimiento());
-        this.setListaTiposReconocimiento(Listas.obtenerListas().getListaTiposReconocimiento());
+        this.setListaCiudades(listas.getListaCiudades());
+        this.setListaClasesReconocimiento(listas.getListaClasesReconocimiento());
+        this.setListaTiposReconocimiento(listas.getListaTiposReconocimiento());
         
         this.obtenerLista();
         this.editar = true;
@@ -132,9 +132,9 @@ public class ReconocimientoAction extends CrudAction<Reconocimiento>{
 
     @Override
     public void insertarTipos() {
-        this.objeto.setIdClaseReconocimiento(Listas.obtenerListas().getListaClasesReconocimiento().get(this.claseReconocimiento));
-        this.objeto.setIdCiudad(Listas.obtenerListas().getListaCiudades().get(this.ciudad));
-        this.objeto.setIdTipoReconocimiento(Listas.obtenerListas().getListaTiposReconocimiento().get(this.tipoReconocimiento));
+        this.objeto.setIdClaseReconocimiento(listas.getListaClasesReconocimiento().get(this.claseReconocimiento));
+        this.objeto.setIdCiudad(listas.getListaCiudades().get(this.ciudad));
+        this.objeto.setIdTipoReconocimiento(listas.getListaTiposReconocimiento().get(this.tipoReconocimiento));
     }
 
     @Override
@@ -151,22 +151,21 @@ public class ReconocimientoAction extends CrudAction<Reconocimiento>{
     }
 
     @Override
-    public void validate() {
-       if (objeto.getDescripcion()!= null) {
-            if (objeto.getDescripcion().equals("")) {
-             addFieldError("descrip", "Digite la descripcion");   
-            }
-        }
-       if (objeto.getEntidadOtorgante()!= null) {
-            if (objeto.getEntidadOtorgante().equals("")) {
-             addFieldError("entiotor", "Digite la entidad otorgante");   
-            }
-        }
-       if (objeto.getFechaRegistro()!= null) {
-            if (objeto.getFechaRegistro().equals("")) {
-             addFieldError("fecharegistro", "Digite la fecha de registro");   
-            }
-        }
+    public void validar() {
+        if (tipoReconocimiento <= 0)
+            addFieldError("tipoReconocimiento", "El tipo de reconocimiento es requerido.");
+        if (claseReconocimiento <= 0)
+            addFieldError("claseReconocimiento", "La clase de reconocimiento es requerida.");
+        if (objeto.getEntidadOtorgante().isEmpty())
+            addFieldError("entidadOtorgante", "La entidad otorgante es requerida.");
+        if (objeto.getFechaReconocimiento() == null)
+            addFieldError("fechaReconocimiento", "La fecha de reconocimiento es requerida.");
+        if (ciudad <= 0)
+            addFieldError("ciudad", "La ciudad es requerida.");
     }
-    
+
+    @Override
+    public void validarLista() {
+        
+    }   
 }

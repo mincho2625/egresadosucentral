@@ -7,33 +7,25 @@ package Action;
 
 import Controlador.ControladorEgresado;
 import Modelo.Ciudad;
-import Modelo.Departamento;
 import Modelo.Egresado;
 import Modelo.EstadoCivil;
 import Modelo.Genero;
 import Modelo.GrupoSanguineo;
-import Modelo.Pais;
 import Modelo.PreguntaSeguridad;
 import Modelo.TipoDocumento;
 import Util.Listas;
-import static com.opensymphony.xwork2.Action.SUCCESS;
-import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.util.Collection;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import org.apache.struts2.convention.annotation.Action;
-import org.apache.struts2.convention.annotation.Actions;
-import org.apache.struts2.convention.annotation.Result;
 
 /**
  *
  * @author YURY
  */
-public class RegistroAction implements ModelDriven<Egresado> {
+public class RegistroAction extends ActionSupport implements ModelDriven<Egresado> {
 
 //    private Map<Long, Pais> listaPaises;
 //    private Map<Long, Departamento> listaDepartamentos;
@@ -46,22 +38,26 @@ public class RegistroAction implements ModelDriven<Egresado> {
     private long ciudadNacimiento;
     private long ciudadExpedicion;
     private long tipoDocumento;
+    private long grupoSanguineo;
     private long genero;
     private long estadoCivil;
     private long preguntaSeguridad;
     private String confirmacionClave;
-    private Egresado egresado;
+    private Egresado egresado = new Egresado();
+    private boolean terminos;
     private ControladorEgresado controladorEgresado;
+    private Listas listas;
 
     public RegistroAction() {
-        
+        controladorEgresado = new ControladorEgresado();
+        listas = new Listas();
     }
 
     /**
      * @return the listaCiudades
      */
-    public Map<Long, Ciudad> getListaCiudades() {
-        return listaCiudades;
+    public Collection<Ciudad> getListaCiudades() {
+        return listaCiudades.values();
     }
 
     /**
@@ -74,8 +70,8 @@ public class RegistroAction implements ModelDriven<Egresado> {
     /**
      * @return the listaTiposDocumento
      */
-    public Map<Long, TipoDocumento> getListaTiposDocumento() {
-        return listaTiposDocumento;
+    public Collection<TipoDocumento> getListaTiposDocumento() {
+        return listaTiposDocumento.values();
     }
 
     /**
@@ -88,8 +84,8 @@ public class RegistroAction implements ModelDriven<Egresado> {
     /**
      * @return the listaGruposSanguineos
      */
-    public Map<Long, GrupoSanguineo> getListaGruposSanguineos() {
-        return listaGruposSanguineos;
+    public Collection<GrupoSanguineo> getListaGruposSanguineos() {
+        return listaGruposSanguineos.values();
     }
 
     /**
@@ -102,8 +98,8 @@ public class RegistroAction implements ModelDriven<Egresado> {
     /**
      * @return the listaGeneros
      */
-    public Map<Long, Genero> getListaGeneros() {
-        return listaGeneros;
+    public Collection<Genero> getListaGeneros() {
+        return listaGeneros.values();
     }
 
     /**
@@ -116,8 +112,8 @@ public class RegistroAction implements ModelDriven<Egresado> {
     /**
      * @return the listaEstadosCiviles
      */
-    public Map<Long, EstadoCivil> getListaEstadosCiviles() {
-        return listaEstadosCiviles;
+    public Collection<EstadoCivil> getListaEstadosCiviles() {
+        return listaEstadosCiviles.values();
     }
 
     /**
@@ -130,8 +126,8 @@ public class RegistroAction implements ModelDriven<Egresado> {
     /**
      * @return the listaPreguntas
      */
-    public Map<Long, PreguntaSeguridad> getListaPreguntas() {
-        return listaPreguntas;
+    public Collection<PreguntaSeguridad> getListaPreguntas() {
+        return listaPreguntas.values();
     }
 
     /**
@@ -181,6 +177,20 @@ public class RegistroAction implements ModelDriven<Egresado> {
      */
     public void setTipoDocumento(long tipoDocumento) {
         this.tipoDocumento = tipoDocumento;
+    }
+
+    /**
+     * @return the grupoSanguineo
+     */
+    public long getGrupoSanguineo() {
+        return grupoSanguineo;
+    }
+
+    /**
+     * @param grupoSanguineo the grupoSanguineo to set
+     */
+    public void setGrupoSanguineo(long grupoSanguineo) {
+        this.grupoSanguineo = grupoSanguineo;
     }
 
     /**
@@ -238,7 +248,21 @@ public class RegistroAction implements ModelDriven<Egresado> {
     public void setConfirmacionClave(String confirmacionClave) {
         this.confirmacionClave = confirmacionClave;
     }
-    
+
+    /**
+     * @return the terminos
+     */
+    public boolean isTerminos() {
+        return terminos;
+    }
+
+    /**
+     * @param terminos the terminos to set
+     */
+    public void setTerminos(boolean terminos) {
+        this.terminos = terminos;
+    }
+
     /**
      * @return the egresado
      */
@@ -252,49 +276,123 @@ public class RegistroAction implements ModelDriven<Egresado> {
     public void setEgresado(Egresado egresado) {
         this.egresado = egresado;
     }
+    
+    /**
+     * @return the listas
+     */
+    public Listas getListas() {
+        return listas;
+    }
+
+    /**
+     * @param listas the listas to set
+     */
+    public void setListas(Listas listas) {
+        this.listas = listas;
+    }
 
     @Override
     public Egresado getModel() {
         return this.egresado;
     }
 
-    private String desplegar() {
-        setListaCiudades(Listas.obtenerListas().getListaCiudades());
-        setListaEstadosCiviles(Listas.obtenerListas().getListaEstadosCiviles());
-        setListaGeneros(Listas.obtenerListas().getListaGeneros());
-        setListaGruposSanguineos(Listas.obtenerListas().getListaGruposSanguineos());
-        setListaTiposDocumento(Listas.obtenerListas().getListaTiposDocumento());
-        setListaPreguntas(Listas.obtenerListas().getListaPreguntas());
+    public String desplegar() {
+        setListaCiudades(listas.getListaCiudades());
+        setListaEstadosCiviles(listas.getListaEstadosCiviles());
+        setListaGeneros(listas.getListaGeneros());
+        setListaGruposSanguineos(listas.getListaGruposSanguineos());
+        setListaTiposDocumento(listas.getListaTiposDocumento());
+        setListaPreguntas(listas.getListaPreguntas());
 
-        return "nuevo";
+        return "crear";
     }
 
-    public String obtenerEgresado() {
-        Map session = ActionContext.getContext().getSession();
-        String usuario = (String) session.get("usuario");
-        ControladorEgresado controladorEgresado = new ControladorEgresado(usuario);
-       //setEgresado(controladorEgresado.obtenerInformacionBasica());
-        desplegar();
-        
-
-        return "actual";
+    public String guardar() {
+        validar();
+        if (!this.hasErrors()) {
+            insertarTipos();
+            insertarValoresDefecto();
+            controladorEgresado.actualizar(getEgresado());
+            return SUCCESS;
+        } else {
+            desplegar();
+            return ERROR;
+        }
     }
-//
-//    public String crearEgresado() {
-//        if (terminos) {
-//            if (getEgresado().getClave().equals(getConfirmacionClave())) {
-//                ControladorEgresado controladorEgresado = new ControladorEgresado();
-//                controladorEgresado.crearEgresado(getEgresado());
-//                return "successNuevo";
-//            } else {
-//                addActionError("La confirmación de contraseña es incorrecta");
-//                return "errorNuevo";
-//            }
-//        } else {
-//            addActionError("Debe aceptar términos y condiciones");
-//            return "errorNuevo";
-//        }
-//    }
+
+    public void validar() {
+        if (egresado.getPrimerApellido().equals("")) {
+            addFieldError("primerApellido", "El primer apellido es requerido.");
+        }
+
+        if (egresado.getNombres().equals("")) {
+            addFieldError("nombres", "Los nombres son requeridos.");
+        }
+
+        if (egresado.getFechaNacimiento() == null) {
+            addFieldError("fechaNacimiento", "La fecha de nacimiento es requerida.");
+        }
+
+        if (egresado.getNumeroDocumento().equals("")) {
+            addFieldError("numeroDocumento", "El número de documento es requerido.");
+        }
+
+        if (egresado.getFechaExpedicion() == null) {
+            addFieldError("fechaExpedicion", "La fecha de expedición del documento es requerida.");
+        }
+
+        if (ciudadExpedicion <= 0) {
+            addFieldError("ciudadExpedicion", "La ciudad de expedición del documento es requerida.");
+        }
+
+        if (ciudadNacimiento <= 0) {
+            addFieldError("ciudadNacimiento", "La ciudad de nacimiento es requerida.");
+        }
+
+        if (tipoDocumento <= 0) {
+            addFieldError("tipoDocumento", "El tipo de documento es requerido.");
+        }
+
+        if (genero <= 0) {
+            addFieldError("genero", "El género es requerido.");
+        }
+
+        if (grupoSanguineo <= 0) {
+            addFieldError("grupoSanguineo", "El grupo sanguíneo es requerido.");
+        }
+
+        if (estadoCivil <= 0) {
+            addFieldError("estadoCivil", "El estado civil es requerido.");
+        }
+
+        if (egresado.getNombre().equals("")) {
+            addFieldError("nombre", "El nombre de usuario es requerido");
+        }
+
+        if (egresado.getCorreoInstitucional().equals("")) {
+            addFieldError("correoInstitucional", "El correo institucional es requerido");
+        }
+
+        if (egresado.getContrasenia().equals("")) {
+            addFieldError("contrasenia", "La contrasenia es requerida");
+        }
+
+        if (!egresado.getContrasenia().equals(confirmacionClave)) {
+            addFieldError("confirmacionClave", "La confirmación de contraseña es incorrecta.");
+        }
+
+        if (preguntaSeguridad <= 0) {
+            addFieldError("preguntaSeguridad", "La pregunta de seguridad es requerida.");
+        }
+
+        if (egresado.getRespuestaSeguridad().equals("")) {
+            addFieldError("respuestaSeguridad", "La respuesta de seguridad es requerida.");
+        }
+
+        if (!terminos) {
+            addFieldError("terminos", "Debe aceptar términos y condiciones");
+        }
+    }
 //
 //    public String actualizarEgresado() {
 //        if (terminos) {
@@ -307,18 +405,26 @@ public class RegistroAction implements ModelDriven<Egresado> {
 //        }
 //    }
 //
-//    @Override
-//    public void insertarTipos() {
-//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-//    }
+
+    public void insertarTipos() {
+        this.egresado.setIdCiudadExpedicion(listas.getListaCiudades().get(ciudadExpedicion));
+        this.egresado.setIdCiudadNacimiento(listas.getListaCiudades().get(ciudadNacimiento));
+        this.egresado.setIdEstadoCivil(listas.getListaEstadosCiviles().get(estadoCivil));
+        this.egresado.setIdGenero(listas.getListaGeneros().get(genero));
+        this.egresado.setIdGrupoSanguineo(listas.getListaGruposSanguineos().get(grupoSanguineo));
+        this.egresado.setIdPreguntaSeguridad(listas.getListaPreguntas().get(preguntaSeguridad));
+        this.egresado.setIdTipoDocumento(listas.getListaTiposDocumento().get(tipoDocumento));
+    }
 //
 //    @Override
 //    public void consultarTipos() {
 //        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
 //    }
 //
-//    @Override
-//    public void insertarValoresDefecto() {
-//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-//    }
+
+    public void insertarValoresDefecto() {
+        this.egresado.setAceptaCondiciones(true);
+        this.egresado.setFechaRegistro(Date.valueOf(LocalDate.now()));
+        this.egresado.setEstado(true);
+    }
 }

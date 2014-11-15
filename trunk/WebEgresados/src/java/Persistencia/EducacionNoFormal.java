@@ -31,8 +31,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "EducacionNoFormal.findByIdEducacion", query = "SELECT e FROM EducacionNoFormal e WHERE e.educacion = :educacion"),
     @NamedQuery(name = "EducacionNoFormal.findByOtroTipoEdNoFormal", query = "SELECT e FROM EducacionNoFormal e WHERE e.otroTipoEdNoFormal = :otroTipoEdNoFormal"),
     @NamedQuery(name = "EducacionNoFormal.findByTitulo", query = "SELECT e FROM EducacionNoFormal e WHERE e.titulo = :titulo"),
-    @NamedQuery(name = "EducacionNoFormal.findByDescripcion", query = "SELECT e FROM EducacionNoFormal e WHERE e.descripcion = :descripcion"),
-    @NamedQuery(name = "EducacionNoFormal.findByEstado", query = "SELECT e FROM EducacionNoFormal e WHERE e.estado = :estado")})
+    @NamedQuery(name = "EducacionNoFormal.findByDescripcion", query = "SELECT e FROM EducacionNoFormal e WHERE e.descripcion = :descripcion")})
 public class EducacionNoFormal implements Serializable {
     private static final long serialVersionUID = 1L;
     @Column(name = "OTRO_TIPO_ED_NO_FORMAL")
@@ -42,19 +41,22 @@ public class EducacionNoFormal implements Serializable {
     private String titulo;
     @Column(name = "DESCRIPCION")
     private String descripcion;
-    @Basic(optional = false)
-    @Column(name = "ESTADO")
-    private boolean estado;
-    @Id
-    @JoinColumn(name = "ID_EDUCACION", referencedColumnName = "ID_EDUCACION")
-    @OneToOne(optional = false)
-    private Educacion educacion;
     @JoinColumn(name = "ID_TIPO_ED_NO_FORMAL", referencedColumnName = "ID_TIPO_ED_NO_FORMAL")
     @ManyToOne(optional = false)
     private TipoEdNoFormal idTipoEdNoFormal;
     @JoinColumn(name = "ID_INTENSIDAD_HORARIA", referencedColumnName = "ID_INTENSIDAD_HORARIA")
     @ManyToOne(optional = false)
     private IntensidadHoraria idIntensidadHoraria;
+    @Id
+    @JoinColumn(name = "ID_EDUCACION", referencedColumnName = "ID_EDUCACION")
+    @OneToOne(optional = false)
+    private Educacion educacion;
+    @JoinColumn(name = "ID_AREA_ESTUDIOS", referencedColumnName = "ID_AREA_ESTUDIOS")
+    @ManyToOne(optional = false)
+    private AreaEstudios idAreaEstudios;
+    @JoinColumn(name = "ID_MODALIDAD", referencedColumnName = "ID_MODALIDAD")
+    @ManyToOne(optional = false)
+    private Modalidad idModalidad;
 
     public EducacionNoFormal() {
     }
@@ -83,22 +85,6 @@ public class EducacionNoFormal implements Serializable {
         this.descripcion = descripcion;
     }
 
-    public boolean getEstado() {
-        return estado;
-    }
-
-    public void setEstado(boolean estado) {
-        this.estado = estado;
-    }
-
-    public Educacion getEducacion() {
-        return educacion;
-    }
-
-    public void setEducacion(Educacion educacion) {
-        this.educacion = educacion;
-    }
-
     public TipoEdNoFormal getIdTipoEdNoFormal() {
         return idTipoEdNoFormal;
     }
@@ -113,5 +99,34 @@ public class EducacionNoFormal implements Serializable {
 
     public void setIdIntensidadHoraria(IntensidadHoraria idIntensidadHoraria) {
         this.idIntensidadHoraria = idIntensidadHoraria;
+    }
+
+    public Educacion getEducacion() {
+        return educacion;
+    }
+
+    public void setEducacion(Educacion educacion) {
+        this.educacion = educacion;
+    }
+
+    public AreaEstudios getIdAreaEstudios() {
+        return idAreaEstudios;
+    }
+
+    public void setIdAreaEstudios(AreaEstudios idAreaEstudios) {
+        this.idAreaEstudios = idAreaEstudios;
+    }
+
+    public Modalidad getIdModalidad() {
+        return idModalidad;
+    }
+
+    public void setIdModalidad(Modalidad idModalidad) {
+        this.idModalidad = idModalidad;
+    }
+
+    public boolean getEstado()
+    {
+        return educacion.getEstado();
     }
 }
