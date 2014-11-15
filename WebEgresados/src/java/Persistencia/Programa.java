@@ -53,7 +53,7 @@ public class Programa implements Serializable {
     @ManyToOne(optional = false)
     private Facultad idFacultad;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idPrograma")
-    private Collection<EducacionFormal> educacionFormalCollection;
+    private Collection<EducacionFormalUcentral> educacionFormalUcentralCollection;
 
     public Programa() {
     }
@@ -101,12 +101,12 @@ public class Programa implements Serializable {
     }
 
     @XmlTransient
-    public Collection<EducacionFormal> getEducacionFormalCollection() {
-        return educacionFormalCollection;
+    public Collection<EducacionFormalUcentral> getEducacionFormalUcentralCollection() {
+        return educacionFormalUcentralCollection;
     }
 
-    public void setEducacionFormalCollection(Collection<EducacionFormal> educacionFormalCollection) {
-        this.educacionFormalCollection = educacionFormalCollection;
+    public void setEducacionFormalUcentralCollection(Collection<EducacionFormalUcentral> educacionFormalUcentralCollection) {
+        this.educacionFormalUcentralCollection = educacionFormalUcentralCollection;
     }
 
     @Override

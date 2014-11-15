@@ -48,7 +48,9 @@ public class AreaEstudios implements Serializable {
     @Column(name = "ESTADO")
     private boolean estado;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idAreaEstudios")
-    private Collection<Educacion> educacionCollection;
+    private Collection<EducacionNoFormal> educacionNoFormalCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idAreaEstudios")
+    private Collection<EdFormalOtrasInstituciones> edFormalOtrasInstitucionesCollection;
 
     public AreaEstudios() {
     }
@@ -88,12 +90,21 @@ public class AreaEstudios implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Educacion> getEducacionCollection() {
-        return educacionCollection;
+    public Collection<EducacionNoFormal> getEducacionNoFormalCollection() {
+        return educacionNoFormalCollection;
     }
 
-    public void setEducacionCollection(Collection<Educacion> educacionCollection) {
-        this.educacionCollection = educacionCollection;
+    public void setEducacionNoFormalCollection(Collection<EducacionNoFormal> educacionNoFormalCollection) {
+        this.educacionNoFormalCollection = educacionNoFormalCollection;
+    }
+
+    @XmlTransient
+    public Collection<EdFormalOtrasInstituciones> getEdFormalOtrasInstitucionesCollection() {
+        return edFormalOtrasInstitucionesCollection;
+    }
+
+    public void setEdFormalOtrasInstitucionesCollection(Collection<EdFormalOtrasInstituciones> edFormalOtrasInstitucionesCollection) {
+        this.edFormalOtrasInstitucionesCollection = edFormalOtrasInstitucionesCollection;
     }
 
     @Override

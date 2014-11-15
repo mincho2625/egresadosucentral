@@ -6,13 +6,13 @@
 
 package Action;
 
-import Modelo.EducacionFormal;
+import Modelo.EducacionFormalUCentral;
 import Modelo.EstadoEducacion;
 import Modelo.Jornada;
 import Modelo.Mes;
+import Modelo.NivelEstudios;
 import Modelo.Programa;
 import Util.Configuracion;
-import Util.Listas;
 import static com.opensymphony.xwork2.Action.SUCCESS;
 import java.sql.Date;
 import java.time.LocalDate;
@@ -24,23 +24,25 @@ import java.util.Map;
  *
  * @author YURY
  */
-public class EducacionFormalUCentralAction extends CrudAction<EducacionFormal> {
+public class EducacionFormalUCentralAction extends CrudAction<EducacionFormalUCentral> {
     private Map<Long, Mes> listaMeses;
     private Map<Long, EstadoEducacion> listaEstadosEducacion;
     private Map<Long, Jornada> listaJornadas;
     private Map<Long, Programa> listaProgramas;
     private ArrayList<Integer> listaAnios;
+    private Map<Long, NivelEstudios> listaNivelesEstudios;
     private long mesInicio;
     private long mesFinalizacion;
     private long estadoEducacion;
     private long programa;
     private long jornada;
+    private long nivelEstudios;
 
     public EducacionFormalUCentralAction() {
-        super(EducacionFormal.class.getName());
+        super(EducacionFormalUCentral.class.getName());
         this.idObjeto = "getIdEducacion";
         this.coleccion = "getEducacionFormalUcentral";
-        this.claseConcretaPersistencia = Persistencia.EducacionFormal.class;
+        this.claseConcretaPersistencia = Persistencia.EducacionFormalUcentral.class;
         this.claseBasePersistencia = Persistencia.Educacion.class;
     }
 
@@ -113,6 +115,20 @@ public class EducacionFormalUCentralAction extends CrudAction<EducacionFormal> {
     public void setListaAnios(ArrayList<Integer> listaAnios) {
         this.listaAnios = listaAnios;
     }
+    
+    /**
+     * @return the listaNivelesEstudios
+     */
+    public Collection<NivelEstudios> getListaNivelesEstudios() {
+        return listaNivelesEstudios.values();
+    }
+
+    /**
+     * @param listaNivelesEstudios the listaNivelesEstudios to set
+     */
+    public void setListaNivelesEstudios(Map<Long, NivelEstudios> listaNivelesEstudios) {
+        this.listaNivelesEstudios = listaNivelesEstudios;
+    }
 
     /**
      * @return the mesInicio
@@ -183,14 +199,29 @@ public class EducacionFormalUCentralAction extends CrudAction<EducacionFormal> {
     public void setJornada(long jornada) {
         this.jornada = jornada;
     }
+
+    /**
+     * @return the nivelEstudios
+     */
+    public long getNivelEstudios() {
+        return nivelEstudios;
+    }
+
+    /**
+     * @param nivelEstudios the nivelEstudios to set
+     */
+    public void setNivelEstudios(long nivelEstudios) {
+        this.nivelEstudios = nivelEstudios;
+    }
     
     @Override
     public String desplegar() {
-        this.setListaEstadosEducacion(Listas.obtenerListas().getListaEstadosEducacion());
-        this.setListaMeses(Listas.obtenerListas().getListaMeses());
-        this.setListaJornadas(Listas.obtenerListas().getListaJornadas());
-        this.setListaProgramas(Listas.obtenerListas().getListaProgramas());
-        this.setListaAnios(Listas.obtenerListas().getListaAnios());
+        this.setListaEstadosEducacion(listas.getListaEstadosEducacion());
+        this.setListaMeses(listas.getListaMeses());
+        this.setListaJornadas(listas.getListaJornadas());
+        this.setListaProgramas(listas.getListaProgramas());
+        this.setListaAnios(listas.getListaAnios());
+        this.setListaNivelesEstudios(listas.getListaNivelesEstudiosUCentral());
         
         this.obtenerLista();
         this.editar = true;
@@ -199,20 +230,24 @@ public class EducacionFormalUCentralAction extends CrudAction<EducacionFormal> {
 
     @Override
     public void insertarTipos() {
-        this.objeto.setIdEstadoEducacion(Listas.obtenerListas().getListaEstadosEducacion().get(this.estadoEducacion));
-        this.objeto.setIdJornada(Listas.obtenerListas().getListaJornadas().get(this.jornada));
-        this.objeto.setIdMesFinalizacion(Listas.obtenerListas().getListaMeses().get(this.mesFinalizacion));
-        this.objeto.setIdMesInicio(Listas.obtenerListas().getListaMeses().get(this.mesInicio));
-        this.objeto.setIdPrograma(Listas.obtenerListas().getListaProgramas().get(this.programa));
+        this.objeto.setIdEstadoEducacion(listas.getListaEstadosEducacion().get(this.estadoEducacion));
+        this.objeto.setIdJornada(listas.getListaJornadas().get(this.jornada));
+        this.objeto.setIdMesFinalizacion(listas.getListaMeses().get(this.mesFinalizacion));
+        this.objeto.setIdMesInicio(listas.getListaMeses().get(this.mesInicio));
+        this.objeto.setIdPrograma(listas.getListaProgramas().get(this.programa));
+        this.objeto.setIdNivelEstudios(listas.getListaNivelesEstudiosUCentral().get(this.nivelEstudios));
     }
 
     @Override
     public void consultarTipos() {
         this.setEstadoEducacion(objeto.getIdEstadoEducacion().getIdEstadoEducacion());
         this.setJornada(objeto.getIdJornada().getIdJornada());
-        this.setMesFinalizacion(objeto.getIdMesFinalizacion().getIdMes());
         this.setMesInicio(objeto.getIdMesInicio().getIdMes());
         this.setPrograma(objeto.getIdPrograma().getIdPrograma());
+        this.setNivelEstudios(objeto.getIdNivelEstudios().getIdNivelEstudios());
+        
+        if (objeto.getIdMesFinalizacion() != null)
+            this.setMesFinalizacion(objeto.getIdMesFinalizacion().getIdMes());
     }
 
     @Override
@@ -221,10 +256,55 @@ public class EducacionFormalUCentralAction extends CrudAction<EducacionFormal> {
         this.objeto.setEstado(true);
         this.objeto.setFechaRegistro(Date.valueOf(LocalDate.now()));
         this.objeto.setFechaActEstado(Date.valueOf(LocalDate.now()));
-        this.objeto.setIdAreaEstudios(configuracion.getIdAreaEstudios());
         this.objeto.setIdCiudad(configuracion.getIdCiudadUcentral());
         this.objeto.setIdInstitucion(configuracion.getIdInstitucionUcentral());
-        this.objeto.setIdModalidad(configuracion.getIdModalidadUcentral());
-        this.objeto.setIdNivelEstudios(configuracion.getIdNivelEstudios());
+    }
+
+    @Override
+    public void validar() {
+        if (mesInicio <= 0)
+            addFieldError("mesInicio", "El mes inicio es requerido.");
+        if (programa <= 0)
+            addFieldError("programa", "El programa es requerido.");
+        if (jornada <= 0)
+            addFieldError("jornada", "La jornada es requerida.");
+        if (objeto.getAnioInicio() <= 0)
+            addFieldError("anioInicio", "El año de inicio es requerido.");
+        
+        // Estado educación
+        if (estadoEducacion <= 0)
+            addFieldError("estadoEducacion", "El estado es requerido.");
+        else {
+            // Configuración: Terminado
+            if (estadoEducacion == 2)
+            {
+                if (objeto.getAnioFinalizacion() <= 0)
+                    addFieldError("anioFinalizacion", "El año de finalización es requerido.");
+                else if (objeto.getAnioFinalizacion() < objeto.getAnioInicio())
+                    addFieldError("anioFinalizacion", "El año de finalización debe ser mayor al año de inicio.");
+                
+                if (mesFinalizacion <= 0)
+                    addFieldError("mesFinalizacion", "El mes de finalización es requerido.");
+                else if (objeto.getAnioFinalizacion() == objeto.getAnioInicio() &&
+                        objeto.getIdMesFinalizacion().getNumero() < objeto.getIdMesInicio().getNumero())
+                    addFieldError("mesFinalizacion", "El mes de finalización debe ser mayor o igual al mes de inicio.");
+            }
+        }
+    }
+
+    @Override
+    public void validarLista() {
+        this.setListaNivelesEstudios(listas.getListaNivelesEstudiosUCentral());
+        
+        Collection<Long> lista = new ArrayList<>();
+        for (EducacionFormalUCentral ed : listaObjetos.values()) {
+            lista.add(ed.getIdNivelEstudios().getIdNivelEstudios());
+        }
+
+        for (NivelEstudios nivel : listaNivelesEstudios.values()) {
+            if (nivel.isObligatorioUCentral() && !lista.contains(nivel.getIdNivelEstudios())) {
+                addActionError(String.format("Ingrese al menos un estudio de tipo %s", nivel.getNombre()));
+            }
+        }
     }
 }

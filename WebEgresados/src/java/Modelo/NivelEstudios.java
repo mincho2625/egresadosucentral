@@ -14,6 +14,9 @@ public class NivelEstudios {
     private long idNivelEstudios;
     private String nombre;
     private boolean estado;
+    private boolean aplicaUCentral;
+    private boolean obligatorioUCentral;
+    private boolean obligatorioOtrasInst;
 
     /**
      * @return the idNivelEstudios
@@ -55,5 +58,47 @@ public class NivelEstudios {
      */
     public void setEstado(boolean estado) {
         this.estado = estado;
+    }
+
+    /**
+     * @return the aplicaUCentral
+     */
+    public boolean isAplicaUCentral() {
+        return aplicaUCentral;
+    }
+
+    /**
+     * @param aplicaUCentral the aplicaUCentral to set
+     */
+    public void setAplicaUCentral(boolean aplicaUCentral) {
+        this.aplicaUCentral = aplicaUCentral;
+    }
+
+    /**
+     * @return the obligatorioUCentral
+     */
+    public boolean isObligatorioUCentral() {
+        return obligatorioUCentral;
+    }
+
+    /**
+     * @param obligatorioUCentral the obligatorioUCentral to set
+     */
+    public void setObligatorioUCentral(boolean obligatorioUCentral) {
+        this.obligatorioUCentral = obligatorioUCentral;
+    }
+
+    /**
+     * @return the obligatorioOtrasInst
+     */
+    public boolean isObligatorioOtrasInst() {
+        return obligatorioOtrasInst;
+    }
+
+    /**
+     * @param obligatorioOtrasInst the obligatorioOtrasInst to set
+     */
+    public void setObligatorioOtrasInst(boolean obligatorioOtrasInst) {
+        this.obligatorioOtrasInst = obligatorioOtrasInst;
     }
 }

@@ -9,7 +9,6 @@ package Persistencia;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -33,7 +32,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Institucion.findAll", query = "SELECT i FROM Institucion i"),
     @NamedQuery(name = "Institucion.findByIdInstitucion", query = "SELECT i FROM Institucion i WHERE i.idInstitucion = :idInstitucion"),
     @NamedQuery(name = "Institucion.findByNombre", query = "SELECT i FROM Institucion i WHERE i.nombre = :nombre"),
-    @NamedQuery(name = "Institucion.findByEstado", query = "SELECT i FROM Institucion i WHERE i.estado = :estado")})
+    @NamedQuery(name = "Institucion.findByEstado", query = "SELECT i FROM Institucion i WHERE i.estado = :estado"),
+    @NamedQuery(name = "Institucion.findOtras", query = "SELECT i FROM Institucion i WHERE i.idInstitucion != :idInstitucion")})
 public class Institucion implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -47,7 +47,7 @@ public class Institucion implements Serializable {
     @Basic(optional = false)
     @Column(name = "ESTADO")
     private boolean estado;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idInstitucion")
+    @OneToMany(mappedBy = "idInstitucion")
     private Collection<Educacion> educacionCollection;
 
     public Institucion() {

@@ -33,7 +33,10 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "NivelEstudios.findAll", query = "SELECT n FROM NivelEstudios n"),
     @NamedQuery(name = "NivelEstudios.findByIdNivelEstudios", query = "SELECT n FROM NivelEstudios n WHERE n.idNivelEstudios = :idNivelEstudios"),
     @NamedQuery(name = "NivelEstudios.findByNombre", query = "SELECT n FROM NivelEstudios n WHERE n.nombre = :nombre"),
-    @NamedQuery(name = "NivelEstudios.findByEstado", query = "SELECT n FROM NivelEstudios n WHERE n.estado = :estado")})
+    @NamedQuery(name = "NivelEstudios.findByEstado", query = "SELECT n FROM NivelEstudios n WHERE n.estado = :estado"),
+    @NamedQuery(name = "NivelEstudios.findByAplicaUCentral", query = "SELECT n FROM NivelEstudios n WHERE n.aplicaUCentral = :aplicaUCentral"),
+    @NamedQuery(name = "NivelEstudios.findByObligatorioUCentral", query = "SELECT n FROM NivelEstudios n WHERE n.obligatorioUCentral = :obligatorioUCentral"),
+    @NamedQuery(name = "NivelEstudios.findByObligatorioOtrasInst", query = "SELECT n FROM NivelEstudios n WHERE n.obligatorioOtrasInst = :obligatorioOtrasInst")})
 public class NivelEstudios implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -47,8 +50,19 @@ public class NivelEstudios implements Serializable {
     @Basic(optional = false)
     @Column(name = "ESTADO")
     private boolean estado;
+    @Basic(optional = false)
+    @Column(name = "APLICA_U_CENTRAL")
+    private boolean aplicaUCentral;
+    @Basic(optional = false)
+    @Column(name = "OBLIGATORIO_U_CENTRAL")
+    private boolean obligatorioUCentral;
+    @Basic(optional = false)
+    @Column(name = "OBLIGATORIO_OTRAS_INST")
+    private boolean obligatorioOtrasInst;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idNivelEstudios")
-    private Collection<EducacionFormal> educacionFormalCollection;
+    private Collection<EducacionFormalUcentral> educacionFormalUcentralCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idNivelEstudios")
+    private Collection<EdFormalOtrasInstituciones> edFormalOtrasInstitucionesCollection;
 
     public NivelEstudios() {
     }
@@ -57,10 +71,13 @@ public class NivelEstudios implements Serializable {
         this.idNivelEstudios = idNivelEstudios;
     }
 
-    public NivelEstudios(Long idNivelEstudios, String nombre, boolean estado) {
+    public NivelEstudios(Long idNivelEstudios, String nombre, boolean estado, boolean aplicaUCentral, boolean obligatorioUCentral, boolean obligatorioOtrasInst) {
         this.idNivelEstudios = idNivelEstudios;
         this.nombre = nombre;
         this.estado = estado;
+        this.aplicaUCentral = aplicaUCentral;
+        this.obligatorioUCentral = obligatorioUCentral;
+        this.obligatorioOtrasInst = obligatorioOtrasInst;
     }
 
     public Long getIdNivelEstudios() {
@@ -87,13 +104,46 @@ public class NivelEstudios implements Serializable {
         this.estado = estado;
     }
 
-    @XmlTransient
-    public Collection<EducacionFormal> getEducacionFormalCollection() {
-        return educacionFormalCollection;
+    public boolean getAplicaUCentral() {
+        return aplicaUCentral;
     }
 
-    public void setEducacionFormalCollection(Collection<EducacionFormal> educacionFormalCollection) {
-        this.educacionFormalCollection = educacionFormalCollection;
+    public void setAplicaUCentral(boolean aplicaUCentral) {
+        this.aplicaUCentral = aplicaUCentral;
+    }
+
+    public boolean getObligatorioUCentral() {
+        return obligatorioUCentral;
+    }
+
+    public void setObligatorioUCentral(boolean obligatorioUCentral) {
+        this.obligatorioUCentral = obligatorioUCentral;
+    }
+
+    public boolean getObligatorioOtrasInst() {
+        return obligatorioOtrasInst;
+    }
+
+    public void setObligatorioOtrasInst(boolean obligatorioOtrasInst) {
+        this.obligatorioOtrasInst = obligatorioOtrasInst;
+    }
+
+    @XmlTransient
+    public Collection<EducacionFormalUcentral> getEducacionFormalUcentralCollection() {
+        return educacionFormalUcentralCollection;
+    }
+
+    public void setEducacionFormalUcentralCollection(Collection<EducacionFormalUcentral> educacionFormalUcentralCollection) {
+        this.educacionFormalUcentralCollection = educacionFormalUcentralCollection;
+    }
+
+    @XmlTransient
+    public Collection<EdFormalOtrasInstituciones> getEdFormalOtrasInstitucionesCollection() {
+        return edFormalOtrasInstitucionesCollection;
+    }
+
+    public void setEdFormalOtrasInstitucionesCollection(Collection<EdFormalOtrasInstituciones> edFormalOtrasInstitucionesCollection) {
+        this.edFormalOtrasInstitucionesCollection = edFormalOtrasInstitucionesCollection;
     }
 
     @Override

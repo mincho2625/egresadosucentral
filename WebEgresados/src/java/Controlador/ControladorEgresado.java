@@ -21,7 +21,6 @@ import javax.persistence.Query;
  */
 public class ControladorEgresado {
 
-    private String nombreUsuario;
     private final EntityManagerFactory emf = Persistence.createEntityManagerFactory("WebEgresadosPU");
     private EntityManager em;
     private Persistencia.Egresado e;
@@ -32,12 +31,10 @@ public class ControladorEgresado {
     }
 
     public ControladorEgresado(String nombreUsuario) {
-        this.nombreUsuario = nombreUsuario;
         em = emf.createEntityManager();
-        
         Query query = em.createNamedQuery("Egresado.findByNombreUsuario");
         query.setParameter("nombreUsuario", nombreUsuario);
-        e = (Persistencia.Egresado) query.getSingleResult();
+        e = (Persistencia.Egresado)query.getSingleResult();
     }
     
     public Egresado consultar()
@@ -103,7 +100,8 @@ public class ControladorEgresado {
         e = (Persistencia.Egresado) convertidor.convertirAPersistencia(egresado, Persistencia.Egresado.class.getName(), "getIdEgresado", em);
         Persistencia.Usuario u = (Persistencia.Usuario) convertidor.convertirAPersistencia(egresado, Persistencia.Usuario.class.getName(), "getIdUsuario", em);
         e.setIdUsuario(u);
-
+        
+        em.persist(u);
         em.persist(e);
         em.getTransaction().commit();
 

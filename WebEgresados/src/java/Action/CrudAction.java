@@ -7,6 +7,7 @@
 package Action;
 
 import Controlador.ControladorEgresado;
+import Util.Listas;
 import static com.opensymphony.xwork2.Action.SUCCESS;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
@@ -25,9 +26,9 @@ import org.apache.struts2.ServletActionContext;
  * @param <T>
  */
 public abstract class CrudAction<T> extends ActionSupport implements ModelDriven<T> {
-    private Map<Long, T> listaObjetos = new HashMap<Long, T>();
     private ControladorEgresado controladorEgresado;
-    
+    protected Map<Long, T> listaObjetos = new HashMap<>();
+    protected Listas listas;
     protected T objeto;
     protected String coleccion;
     protected String idObjeto;
@@ -35,6 +36,7 @@ public abstract class CrudAction<T> extends ActionSupport implements ModelDriven
     protected Class claseBasePersistencia;
     protected Class claseConcretaPersistencia;
     protected boolean editar = false;
+    protected int cantidadObjetos;
     
     /**
      * @return the objeto
@@ -67,10 +69,11 @@ public abstract class CrudAction<T> extends ActionSupport implements ModelDriven
     public CrudAction(String clase)
     {
         this.claseModelo = clase;
-        objeto = (T)instanciar();        
+        objeto = (T)instanciar();
         Map session = ActionContext.getContext().getSession();
         String usuario = (String) session.get("usuario");
         controladorEgresado = new ControladorEgresado(usuario);
+        listas = new Listas();
     }
     
     public abstract String desplegar();
@@ -80,6 +83,10 @@ public abstract class CrudAction<T> extends ActionSupport implements ModelDriven
     public abstract void consultarTipos();
     
     public abstract void insertarValoresDefecto();
+    
+    public abstract void validar();
+    
+    public abstract void validarLista();
     
     private Object instanciar() {
         try {
@@ -112,21 +119,28 @@ public abstract class CrudAction<T> extends ActionSupport implements ModelDriven
     {
         try {
             insertarTipos();
-            insertarValoresDefecto();
+            validar();
             
-            if (claseBasePersistencia != null)
-                controladorEgresado.actualizar(objeto, claseConcretaPersistencia.getName(), idObjeto, claseBasePersistencia.getName(), "set" + claseBasePersistencia.getSimpleName());
+            if (!hasErrors()){
+                insertarValoresDefecto();
+                if (claseBasePersistencia != null)
+                    controladorEgresado.actualizar(objeto, claseConcretaPersistencia.getName(), idObjeto, claseBasePersistencia.getName(), "set" + claseBasePersistencia.getSimpleName());
+                else
+                    controladorEgresado.actualizar(objeto, claseConcretaPersistencia.getName(), idObjeto);
+
+                obtenerLista();
+                this.setEditar(false);
+                return SUCCESS;
+            }
             else
-                controladorEgresado.actualizar(objeto, claseConcretaPersistencia.getName(), idObjeto);
-            
-            obtenerLista();
-            this.setEditar(false);
-            return SUCCESS;
+            {
+                desplegar();
+                return ERROR;
+            }
         } catch (SecurityException | IllegalArgumentException ex) {
             Logger.getLogger(CrudAction.class.getName()).log(Level.SEVERE, null, ex);
+            return ERROR;
         }
-        
-        return SUCCESS;
     }
     
     public String obtenerLista()
@@ -138,19 +152,24 @@ public abstract class CrudAction<T> extends ActionSupport implements ModelDriven
             else
                 setListaObjetos((Map<Long, T>) controladorEgresado.consultar(coleccion, idObjeto, claseModelo));
             
+            this.cantidadObjetos = this.listaObjetos.size();            
             return SUCCESS;
         } catch (SecurityException | IllegalArgumentException ex) {
             Logger.getLogger(CrudAction.class.getName()).log(Level.SEVERE, null, ex);
+            return ERROR;
         }
-        
-        return SUCCESS;
     }
     
     public String borrar()
     {
         try {
             HttpServletRequest request = (HttpServletRequest) ActionContext.getContext().get(ServletActionContext.HTTP_REQUEST);
-            this.controladorEgresado.borrar(claseConcretaPersistencia.getName(), Long.parseLong( request.getParameter("idObjeto")));
+            
+            if (claseBasePersistencia != null)
+                this.controladorEgresado.borrar(claseBasePersistencia.getName(), Long.parseLong( request.getParameter("idObjeto")));
+            else
+                this.controladorEgresado.borrar(claseConcretaPersistencia.getName(), Long.parseLong( request.getParameter("idObjeto")));
+            
             this.obtenerLista();
             this.setEditar(false);
             return SUCCESS;
@@ -168,6 +187,28 @@ public abstract class CrudAction<T> extends ActionSupport implements ModelDriven
         this.setObjeto(this.listaObjetos.get(Long.parseLong( request.getParameter("idObjeto"))));
         this.consultarTipos();
         return SUCCESS;
+    }
+    
+    public String anterior() {
+        obtenerLista();
+        validarLista();
+        if (!hasErrors())
+            return "anterior";
+        else {
+            obtenerLista();
+            return ERROR;
+        }
+    }
+    
+    public String siguiente() {
+        obtenerLista();
+        validarLista();
+        if (!hasErrors())
+            return "siguiente";
+        else {
+            obtenerLista();
+            return ERROR;
+        }
     }
 
     @Override

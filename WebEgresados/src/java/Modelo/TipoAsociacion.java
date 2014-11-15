@@ -13,7 +13,7 @@ package Modelo;
 public class TipoAsociacion {
     private long idTipoAsociacion;
     private String nombre;
-    private String estado;
+    private boolean estado;
 
     /**
      * @return the idTipoAsociacion
@@ -46,14 +46,14 @@ public class TipoAsociacion {
     /**
      * @return the estado
      */
-    public String getEstado() {
+    public boolean isEstado() {
         return estado;
     }
 
     /**
      * @param estado the estado to set
      */
-    public void setEstado(String estado) {
+    public void setEstado(boolean estado) {
         this.estado = estado;
     }
 }

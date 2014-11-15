@@ -8,8 +8,8 @@ package Persistencia;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.Date;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -21,6 +21,8 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -35,7 +37,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "RespuestaEncuesta.findAll", query = "SELECT r FROM RespuestaEncuesta r"),
     @NamedQuery(name = "RespuestaEncuesta.findByIdRespuestaEncuesta", query = "SELECT r FROM RespuestaEncuesta r WHERE r.idRespuestaEncuesta = :idRespuestaEncuesta"),
     @NamedQuery(name = "RespuestaEncuesta.findByRespuesta", query = "SELECT r FROM RespuestaEncuesta r WHERE r.respuesta = :respuesta"),
-    @NamedQuery(name = "RespuestaEncuesta.findByEstado", query = "SELECT r FROM RespuestaEncuesta r WHERE r.estado = :estado")})
+    @NamedQuery(name = "RespuestaEncuesta.findByEstado", query = "SELECT r FROM RespuestaEncuesta r WHERE r.estado = :estado"),
+    @NamedQuery(name = "RespuestaEncuesta.findByFechaRegistro", query = "SELECT r FROM RespuestaEncuesta r WHERE r.fechaRegistro = :fechaRegistro"),
+    @NamedQuery(name = "RespuestaEncuesta.findByOrden", query = "SELECT r FROM RespuestaEncuesta r WHERE r.orden = :orden")})
 public class RespuestaEncuesta implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -49,7 +53,14 @@ public class RespuestaEncuesta implements Serializable {
     @Basic(optional = false)
     @Column(name = "ESTADO")
     private boolean estado;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "respuestaEncuesta")
+    @Basic(optional = false)
+    @Column(name = "FECHA_REGISTRO")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date fechaRegistro;
+    @Basic(optional = false)
+    @Column(name = "ORDEN")
+    private int orden;
+    @OneToMany(mappedBy = "idRespuestaEncuesta")
     private Collection<EgresadoRespuesta> egresadoRespuestaCollection;
     @JoinColumn(name = "ID_PREGUNTA_ENCUESTA", referencedColumnName = "ID_PREGUNTA_ENCUESTA")
     @ManyToOne(optional = false)
@@ -62,10 +73,12 @@ public class RespuestaEncuesta implements Serializable {
         this.idRespuestaEncuesta = idRespuestaEncuesta;
     }
 
-    public RespuestaEncuesta(Long idRespuestaEncuesta, String respuesta, boolean estado) {
+    public RespuestaEncuesta(Long idRespuestaEncuesta, String respuesta, boolean estado, Date fechaRegistro, int orden) {
         this.idRespuestaEncuesta = idRespuestaEncuesta;
         this.respuesta = respuesta;
         this.estado = estado;
+        this.fechaRegistro = fechaRegistro;
+        this.orden = orden;
     }
 
     public Long getIdRespuestaEncuesta() {
@@ -90,6 +103,22 @@ public class RespuestaEncuesta implements Serializable {
 
     public void setEstado(boolean estado) {
         this.estado = estado;
+    }
+
+    public Date getFechaRegistro() {
+        return fechaRegistro;
+    }
+
+    public void setFechaRegistro(Date fechaRegistro) {
+        this.fechaRegistro = fechaRegistro;
+    }
+
+    public int getOrden() {
+        return orden;
+    }
+
+    public void setOrden(int orden) {
+        this.orden = orden;
     }
 
     @XmlTransient

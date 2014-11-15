@@ -15,6 +15,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -33,7 +35,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "TipoContacto.findAll", query = "SELECT t FROM TipoContacto t"),
     @NamedQuery(name = "TipoContacto.findByIdTipoContacto", query = "SELECT t FROM TipoContacto t WHERE t.idTipoContacto = :idTipoContacto"),
     @NamedQuery(name = "TipoContacto.findByNombre", query = "SELECT t FROM TipoContacto t WHERE t.nombre = :nombre"),
-    @NamedQuery(name = "TipoContacto.findByEstado", query = "SELECT t FROM TipoContacto t WHERE t.estado = :estado")})
+    @NamedQuery(name = "TipoContacto.findByEstado", query = "SELECT t FROM TipoContacto t WHERE t.estado = :estado"),
+    @NamedQuery(name = "TipoContacto.findByObligatorio", query = "SELECT t FROM TipoContacto t WHERE t.obligatorio = :obligatorio"),
+    @NamedQuery(name = "TipoContacto.findByLongitud", query = "SELECT t FROM TipoContacto t WHERE t.longitud = :longitud")})
 public class TipoContacto implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -47,6 +51,15 @@ public class TipoContacto implements Serializable {
     @Basic(optional = false)
     @Column(name = "ESTADO")
     private boolean estado;
+    @Basic(optional = false)
+    @Column(name = "OBLIGATORIO")
+    private boolean obligatorio;
+    @Basic(optional = false)
+    @Column(name = "LONGITUD")
+    private int longitud;
+    @JoinColumn(name = "ID_TIPO_CAMPO", referencedColumnName = "ID_TIPO_CAMPO")
+    @ManyToOne(optional = false)
+    private TipoCampo idTipoCampo;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idTipoContacto")
     private Collection<Contacto> contactoCollection;
 
@@ -57,10 +70,12 @@ public class TipoContacto implements Serializable {
         this.idTipoContacto = idTipoContacto;
     }
 
-    public TipoContacto(Long idTipoContacto, String nombre, boolean estado) {
+    public TipoContacto(Long idTipoContacto, String nombre, boolean estado, boolean obligatorio, int longitud) {
         this.idTipoContacto = idTipoContacto;
         this.nombre = nombre;
         this.estado = estado;
+        this.obligatorio = obligatorio;
+        this.longitud = longitud;
     }
 
     public Long getIdTipoContacto() {
@@ -85,6 +100,30 @@ public class TipoContacto implements Serializable {
 
     public void setEstado(boolean estado) {
         this.estado = estado;
+    }
+
+    public boolean getObligatorio() {
+        return obligatorio;
+    }
+
+    public void setObligatorio(boolean obligatorio) {
+        this.obligatorio = obligatorio;
+    }
+
+    public int getLongitud() {
+        return longitud;
+    }
+
+    public void setLongitud(int longitud) {
+        this.longitud = longitud;
+    }
+
+    public TipoCampo getIdTipoCampo() {
+        return idTipoCampo;
+    }
+
+    public void setIdTipoCampo(TipoCampo idTipoCampo) {
+        this.idTipoCampo = idTipoCampo;
     }
 
     @XmlTransient

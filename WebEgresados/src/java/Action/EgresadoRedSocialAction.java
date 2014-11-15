@@ -60,7 +60,7 @@ public class EgresadoRedSocialAction extends CrudAction<EgresadoRedSocial>{
     
     @Override
     public String desplegar() {
-        this.setListaRedesSociales(Listas.obtenerListas().getListaRedesSociales());
+        this.setListaRedesSociales(listas.getListaRedesSociales());
         this.obtenerLista();
         this.editar = true;
         return SUCCESS;
@@ -68,7 +68,7 @@ public class EgresadoRedSocialAction extends CrudAction<EgresadoRedSocial>{
 
     @Override
     public void insertarTipos() {
-        this.objeto.setIdRedSocial(Listas.obtenerListas().getListaRedesSociales().get(this.redSocial));
+        this.objeto.setIdRedSocial(listas.getListaRedesSociales().get(this.redSocial));
     }
 
     @Override
@@ -83,11 +83,15 @@ public class EgresadoRedSocialAction extends CrudAction<EgresadoRedSocial>{
     }
 
     @Override
-    public void validate() {
-        if (objeto.getUrl() != null) {
-            if (objeto.getUrl().equals("")) {
-             addFieldError("url", "Digite una url");   
-            }
-        }
+    public void validar() {
+        if (objeto.getUrl().isEmpty())
+            addFieldError("url", "La url es requerida");
+        if (redSocial <= 0)
+            addFieldError("redSocial", "La red social es requerida");
+    }
+
+    @Override
+    public void validarLista() {
+        
     }
 }

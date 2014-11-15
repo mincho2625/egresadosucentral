@@ -3,12 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Action;
 
 import Modelo.Aficion;
 import Modelo.TipoActividad;
-import Util.Listas;
 import static com.opensymphony.xwork2.Action.SUCCESS;
 import java.sql.Date;
 import java.time.LocalDate;
@@ -19,18 +17,18 @@ import java.util.Map;
  *
  * @author JERONIMO
  */
-public class AficionAction  extends CrudAction<Aficion>{
+public class AficionAction extends CrudAction<Aficion> {
 
-    private Map<Long,TipoActividad> listaTiposActividades;
+    private Map<Long, TipoActividad> listaTiposActividades;
     private long tipoActividad;
-    
+
     public AficionAction() {
         super(Aficion.class.getName());
         this.idObjeto = "getIdAficion";
         this.coleccion = "getAficionesCollection";
         this.claseConcretaPersistencia = Persistencia.Aficiones.class;
     }
-    
+
     /**
      * @return the listaTiposActividades
      */
@@ -41,10 +39,10 @@ public class AficionAction  extends CrudAction<Aficion>{
     /**
      * @param listaTiposActividades the listaTiposActividades to set
      */
-    public void setListaTiposActividades(Map<Long,TipoActividad> listaTiposActividades) {
+    public void setListaTiposActividades(Map<Long, TipoActividad> listaTiposActividades) {
         this.listaTiposActividades = listaTiposActividades;
     }
-    
+
     /**
      * @return the tipoActividad
      */
@@ -61,7 +59,7 @@ public class AficionAction  extends CrudAction<Aficion>{
 
     @Override
     public String desplegar() {
-        this.setListaTiposActividades(Listas.obtenerListas().getListaTiposActividades());
+        this.setListaTiposActividades(listas.getListaTiposActividades());
         this.obtenerLista();
         this.editar = true;
         return SUCCESS;
@@ -69,7 +67,7 @@ public class AficionAction  extends CrudAction<Aficion>{
 
     @Override
     public void insertarTipos() {
-        this.objeto.setIdTipoActividad(Listas.obtenerListas().getListaTiposActividades().get(this.tipoActividad));
+        this.objeto.setIdTipoActividad(listas.getListaTiposActividades().get(this.tipoActividad));
     }
 
     @Override
@@ -84,13 +82,19 @@ public class AficionAction  extends CrudAction<Aficion>{
     }
 
     @Override
-    public void validate() {
-    if (objeto.getListaActividades()!= null) {
-            if (objeto.getListaActividades().equals("")) {
-             addFieldError("lisacti", "Digite la lista de activiades");   
-            }
+    public void validar() {
+        if (objeto.getListaActividades().equals("")) {
+            addFieldError("listaActividades", "La lista de actividades es requerida");
         }
         
+        if (tipoActividad <= 0) {
+            addFieldError("tipoActividad", "El tipo de actividad es requerido");
+        }
     }
-    
+
+    @Override
+    public void validarLista() {
+        if (cantidadObjetos == 0)
+            addActionError("Ingrese al menos un deporte o afición");
+    }
 }

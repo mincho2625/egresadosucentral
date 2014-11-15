@@ -12,9 +12,6 @@ import Modelo.Ciudad;
 import Modelo.Institucion;
 import Modelo.Modalidad;
 import Modelo.NivelEstudios;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
@@ -35,6 +32,7 @@ public class Configuracion {
     private Modalidad idModalidadUcentral;
     private NivelEstudios idNivelEstudios;
     
+    // Configuración: Universidad Central
     public Configuracion()
     {
         this.idAreaEstudios = (AreaEstudios)consultar("AreaEstudios.findByIdAreaEstudios", "idAreaEstudios", 1, AreaEstudios.class.getName());

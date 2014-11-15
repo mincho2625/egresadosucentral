@@ -7,12 +7,11 @@ package Action;
 
 import Modelo.Contacto;
 import Modelo.TipoContacto;
-import Util.Listas;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -59,17 +58,8 @@ public class UbicacionAction extends CrudAction<Contacto> {
     }
 
     @Override
-    public void validate() {
-        if (objeto.getDescripcion() != null) {
-            if (objeto.getDescripcion().equals("")) {
-             addFieldError("descripcion", "Digite una Descripcion");   
-            }
-        }
-    }
-
-    @Override
     public String desplegar() {
-        this.setListaTiposContacto(Listas.obtenerListas().getListaTiposContacto());
+        this.setListaTiposContacto(listas.getListaTiposContacto());
         this.obtenerLista();
         this.editar = true;
         return SUCCESS;
@@ -77,7 +67,7 @@ public class UbicacionAction extends CrudAction<Contacto> {
 
     @Override
     public void insertarTipos() {
-        this.objeto.setIdTipoContacto(Listas.obtenerListas().getListaTiposContacto().get(this.tipoContacto));
+        this.objeto.setIdTipoContacto(listas.getListaTiposContacto().get(this.tipoContacto));
     }
 
     @Override
@@ -89,5 +79,51 @@ public class UbicacionAction extends CrudAction<Contacto> {
     public void insertarValoresDefecto() {
         this.objeto.setEstado(true);
         this.objeto.setFechaRegistro(Date.valueOf(LocalDate.now()));
+    }
+
+    @Override
+    public void validar() {
+        if (objeto.getIdTipoContacto() == null)
+            addFieldError("tipoContacto", "El tipo de contacto es requerido.");
+        else
+        {
+            if (objeto.getDescripcion().isEmpty())
+                addFieldError("descripcion", "La descripción es requerida.");
+            else
+            {
+                if (objeto.getDescripcion().length() > objeto.getIdTipoContacto().getLongitud())
+                    addFieldError("descripcion", String.format("La longitud máxima para el tipo de contacto es %i", objeto.getIdTipoContacto().getLongitud()));
+                
+                switch((int)objeto.getIdTipoContacto().getIdTipoCampo().getIdTipoCampo())
+                {
+                    case 1:
+                        if (!objeto.getDescripcion().matches("[1-9]\\\\d{7}|[1-9]\\\\d{10}")) {
+                            addFieldError("descripcion", "Ingrese un teléfono válido.");
+                        }
+                        break;
+                    case 2:
+                        if (!objeto.getDescripcion().matches("^[_A-Za-z0-9-\\\\+]+(\\\\.[_A-Za-z0-9-]+)*@\"\n+[A-Za-z0-9-]+(\\\\.[A-Za-z0-9]+)*(\\\\.[A-Za-z]{2,})$")) {
+                            addFieldError("descripcion", "Ingrese un email válido.");
+                        }
+                        break;
+                }
+            }
+        }
+    }
+
+    @Override
+    public void validarLista() {
+        this.setListaTiposContacto(listas.getListaTiposContacto());
+        
+        Collection<Long> lista = new ArrayList<>();
+        for (Contacto co : listaObjetos.values()) {
+            lista.add(co.getIdTipoContacto().getIdTipoContacto());
+        }
+
+        for (TipoContacto tipo : listaTiposContacto.values()) {
+            if (tipo.isObligatorio() && !lista.contains(tipo.getIdTipoContacto())) {
+                addActionError(String.format("Ingrese al menos un contacto de tipo %s", tipo.getNombre()));
+            }
+        }
     }
 }

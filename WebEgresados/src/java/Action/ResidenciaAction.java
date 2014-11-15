@@ -11,7 +11,6 @@ import Modelo.Estrato;
 import Modelo.Residencia;
 import Modelo.TipoTenenciaVivienda;
 import Modelo.TipoVivienda;
-import Util.Listas;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.Collection;
@@ -155,20 +154,20 @@ public class ResidenciaAction extends CrudAction<Residencia> {
     public String desplegar()
     {
         this.obtenerLista();
-        this.setListaTiposVivienda(Listas.obtenerListas().getListaTiposVivienda());
-        this.setListaTiposTenenciaVivienda(Listas.obtenerListas().getListaTiposTenenciaVivienda());
-        this.setListaEstratos(Listas.obtenerListas().getListaEstratos());
-        this.setListaCiudades(Listas.obtenerListas().getListaCiudades());
+        this.setListaTiposVivienda(listas.getListaTiposVivienda());
+        this.setListaTiposTenenciaVivienda(listas.getListaTiposTenenciaVivienda());
+        this.setListaEstratos(listas.getListaEstratos());
+        this.setListaCiudades(listas.getListaCiudades());
         this.editar = true;
         return SUCCESS;
     }
 
     @Override
     public void insertarTipos() {
-        this.objeto.setIdCiudadResidencia(Listas.obtenerListas().getListaCiudades().get(this.ciudad));
-        this.objeto.setIdTipoTenenciaVivienda(Listas.obtenerListas().getListaTiposTenenciaVivienda().get(this.tipoTenenciaVivienda));
-        this.objeto.setIdTipoVivienda(Listas.obtenerListas().getListaTiposVivienda().get(this.tipoVivienda));
-        this.objeto.setIdEstrato(Listas.obtenerListas().getListaEstratos().get(this.estrato));
+        this.objeto.setIdCiudadResidencia(listas.getListaCiudades().get(this.ciudad));
+        this.objeto.setIdTipoTenenciaVivienda(listas.getListaTiposTenenciaVivienda().get(this.tipoTenenciaVivienda));
+        this.objeto.setIdTipoVivienda(listas.getListaTiposVivienda().get(this.tipoVivienda));
+        this.objeto.setIdEstrato(listas.getListaEstratos().get(this.estrato));
     }
 
     @Override
@@ -186,12 +185,22 @@ public class ResidenciaAction extends CrudAction<Residencia> {
     }
 
     @Override
-    public void validate() {
-        if (objeto.getDireccion() != null) {
-            if (objeto.getDireccion().equals("")) {
-             addFieldError("direccion", "Digite una direccion");   
-            }
-        }
+    public void validar() {
+        if (ciudad <= 0)
+            addFieldError("ciudad", "La ciudad es requerida.");
+        if (tipoVivienda <= 0)
+            addFieldError("tipoVivienda", "El tipo de vivienda es requerido.");
+        if (tipoTenenciaVivienda <= 0)
+            addFieldError("tipoTenenciaVivienda", "Tipo de tenencia vivienda es requerido.");
+        if (objeto.getDireccion().isEmpty())
+            addFieldError("direccion", "La dirección es requerida.");
+        if (estrato <= 0)
+            addFieldError("estrato", "El estrato es requerido.");
     }
-    
+
+    @Override
+    public void validarLista() {
+        if (cantidadObjetos == 0)
+            addActionError("Ingrese al menos una dirección de residencia.");
+    }
 }
