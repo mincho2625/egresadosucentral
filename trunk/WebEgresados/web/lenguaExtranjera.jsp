@@ -17,11 +17,9 @@
             <!--<div id="default-example" data-collapse>
                         <h3>Informacion</h3>-->
             <div align="center" class="tabla" id="Tabla">
-                <div align="center" class="tabla" id="Tabla">
                     <table rules="all" class="table2" >
                         <caption>&nbsp;</caption>
                         <tr>
-                                </div></td>
                             <td class="texfield"><div align="center" class="fuentetabla">Dominio<br>
                                 </div></td>
                             <td class="texfield"><div align="center" class="fuentetabla">Idioma<br>
@@ -30,26 +28,27 @@
                                 </div></td>
                         </tr>
 
-<s:hidden name="cantidadObjetos"></s:hidden>
+                    <s:hidden name="cantidadObjetos"></s:hidden>
                     <s:iterator value="listaObjetos">
                         <tr>
-                                <td class="texfield"><s:property value="idDominio.dominioLenguaExt"></s:property><br>
+                            <td class="texfield"><s:property value="idDominio.dominioLenguaExt"></s:property><br>
                                 </td>
                                 <td class="texfield"><s:property value="idIdioma.nombre"></s:property><br>
                                 </td>
                                 <td class="tdtres">
-                                <s:url id="editarURL" action="editarLenguaExtranjera.action">
-                                    <s:param name="idObjeto" value="%{idLenguaExtranjera}"></s:param>
-                                </s:url>
-                                <s:a href="%{editarURL}">
-                                    <div class="fuentetabla2"><img style="width: 20px; height: 19px;" title="Editar" alt="Editar" src="imagenes/Icono_de_editar.png" align="top">Editar</div><br>
+                                    <div class="fuentetabla2">
+                                    <s:url id="editarURL" action="editarLenguaExtranjera.action">
+                                        <s:param name="idObjeto" value="%{idLenguaExtranjera}" ></s:param>
+                                    </s:url>
+                                    <s:a href="%{editarURL}">
+                                        <img style="width: 20px; height: 19px;" title="Editar" alt="Editar" src="imagenes/editar-icono-8419-16.png" align="top">
                                     </s:a>
                                     <s:url id="borrarURL" action="borrarLenguaExtranjera.action">
                                         <s:param name="idObjeto" value="%{idLenguaExtranjera}"></s:param>
                                     </s:url>
                                     <s:a href="%{borrarURL}">
-                                    <div class="fuentetabla2"><img style="width: 20px; height: 19px;" title="Borrar" alt="Borrar" src="imagenes/Icono_de_editar.png" align="top">Borrar</div><br>
-                                    </s:a>
+                                        <img style="width: 20px; height: 19px;" title="Borrar" alt="Borrar" src="imagenes/eliminar.png" align="top">
+                                    </s:a></div>
                             </td>
                         </tr>
                     </s:iterator>
@@ -75,13 +74,13 @@
                                             <td>
                                             <s:select label="Dominio" cssClass="texfield" name="dominio" list="listaDominioLenguaExt" listKey="idDominioLenguaExt" listValue="dominioLenguaExt" headerKey="-1" headerValue="- Seleccione -"></s:select>
                                             </td>
-                                    </tr>
+                                        </tr>
                                         <tr>
                                             <td>
-                                                <s:select label="Idioma" cssClass="texfield" name="idioma" list="listaIdiomas" listKey="idIdioma" listValue="nombre" headerKey="-1" headerValue="- Seleccione -"></s:select>
+                                            <s:select label="Idioma" cssClass="texfield" name="idioma" list="listaIdiomas" listKey="idIdioma" listValue="nombre" headerKey="-1" headerValue="- Seleccione -"></s:select>
                                             </td>
                                         </tr>
-                                        <s:actionerror></s:actionerror>
+                                    <s:actionerror></s:actionerror>
                                     <s:submit cssClass="center1" value="Guardar">
                                         <br>
                                     </s:submit>
@@ -90,16 +89,15 @@
                         </s:form>
                     </s:if>
                 </div>
-                <br>
-                <a href="siguienteLenguaExtranjera.action"><div class="tdsiguiente"><img src="imagenes/button_next_89675.jpg" width="21" height="21"></div></a>
-                <br>
-                <a href="anteriorLenguaExtranjera.action" class="tdatras"><div class="tdatras"><img src="imagenes/boton_atras.png" width="24" height="24"></div></a>
-                <br>
-                <br>
-                <s:if test="hasActionErrors()">
-                    <div class="errors">
-                       <s:actionerror/>
-                    </div>
-                </s:if>
-                </body>
-                </html>
+            </div>
+            <div class="enlaces">
+                <div class="tdsiguiente"><a href="siguienteLenguaExtranjera.action"><img src="imagenes/next.png" width="24" height="24"></a></div>
+                <div class="tdatras"><a href="anteriorLenguaExtranjera.action" class="tdatras"><img src="imagenes/atras.jpg" width="24" height="24"></a></div>
+            </div>
+            <s:if test="hasActionErrors()">
+                <div class="errors">
+                    <s:actionerror/>
+                </div>
+            </s:if>
+    </body>
+</html>

@@ -44,18 +44,19 @@
                             <td class="texfield"><s:property value="idPais.nombre"></s:property><br>
                             </td>
                             <td class="texfield">
+                            <div class="fuentetabla2">
                             <s:url id="editarURL" action="editarAsociacion.action">
-                                <s:param name="idObjeto" value="%{idAsociacion}"></s:param>
+                                <s:param name="idObjeto" value="%{idAsociacion}" ></s:param>
                             </s:url>
                             <s:a href="%{editarURL}">
-                                <div class="fuentetabla2"><img style="width: 20px; height: 19px;" title="Editar" alt="Editar" src="imagenes/Icono_de_editar.png" align="top">Editar</div><br>
+                                <img style="width: 20px; height: 19px;" title="Editar" alt="Editar" src="imagenes/editar-icono-8419-16.png" align="top">
                                 </s:a>
                                 <s:url id="borrarURL" action="borrarAsociacion.action">
                                     <s:param name="idObjeto" value="%{idAsociacion}"></s:param>
                                 </s:url>
                                 <s:a href="%{borrarURL}">
-                                <div class="fuentetabla2"><img style="width: 20px; height: 19px;" title="Borrar" alt="Borrar" src="imagenes/Icono_de_editar.png" align="top">Borrar</div><br>
-                                </s:a>
+                                    <img style="width: 20px; height: 19px;" title="Borrar" alt="Borrar" src="imagenes/eliminar.png" align="top">
+                                </s:a></div>
                         </td>
                     </tr>
                 </s:iterator>
@@ -112,16 +113,10 @@
                 </s:if>
             </div>
         </div>
-        <!--</div>-->
-        <p></p>
-        <p><br>
-        </p>
-        <a href="siguienteAsociacion.action"><div class="tdsiguiente"><img src="imagenes/button_next_89675.jpg" width="21" height="21"></div></a>
-        <br>
-        <a href="anteriorAsociacion.action" class="tdatras"><div class="tdatras"><img src="imagenes/boton_atras.png" width="24" height="24"></div></a>
-        <br>
-        <br>
-        <br>
+<div class="enlaces">
+            <div class="tdsiguiente"><a href="siguienteAsociacion.action"><img src="imagenes/next.png" width="24" height="24"></a></div>
+            <div class="tdatras"><a href="anteriorAsociacion.action" class="tdatras"><img src="imagenes/atras.jpg" width="24" height="24"></a></div>
+        </div>
         <s:if test="hasActionErrors()">
             <div class="errors">
                <s:actionerror/>

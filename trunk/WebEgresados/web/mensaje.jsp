@@ -4,22 +4,24 @@
     <head>
         <title>Formulario Principal Nuevos</title>
         <meta charset="utf-8"/>
-        <link rel="stylesheet" href="estilo.css">
+        <link rel="stylesheet" href="estilo2.css">
         </head>
 
         <body>
-            <div id="cabecera"><img src="imagenes/logosimbolo-ucentral-v1-large.png">
+            <div class="imagentitulo" id="cabecera"><img src="imagenes/logosimbolo-ucentral-v1-large.png">
             </div>
 
-            <div id="Tabla" align="center">
+            <div align="center" class="mensaje" id="Tabla">
                 Felicidades! Usted se ha registrado exitosamente en nuestra base de datos de egresados.
-                En un plazo no mayor a 24 horas se activará su cuenta.
+                En un plazo no mayor a 24 horas se activarï¿½ su cuenta.
             </div>
-            <div>
-                <a href="entrada.jsp">Inicio</a>
+            <div class="mensaje">
+                <div align="center"><a href="entrada.jsp">Inicio</a>
+                </div>
             </div>
-        <br>
-        <br>
+        <div align="center" class="mensaje"><br>
+          <br>
+        </div>
 
     </body>
 </html>

@@ -22,33 +22,33 @@
                     </caption>
                     <tr>
                         <td class="texfield"><div align="center" class="fuentetabla">Red Social<br>
-                        </div></td>
+                            </div></td>
                         <td class="texfield"><div align="center" class="fuentetabla">URL<br>
-                        </div></td>
+                            </div></td>
                         <td class="texfield"><div align="center" class="fuentetabla">Accion<br>
-                        </div></td>
+                            </div></td>
                     </tr>
 
                 <s:hidden name="cantidadObjetos"></s:hidden>
                 <s:iterator value="listaObjetos">
                     <tr>
-                        <td class="tdtres"><s:property value="idRedSocial.nombre"></s:property><br>
+                        <td class="texfield"><s:property value="idRedSocial.nombre"></s:property><br>
                             </td>
-                            <td class="tdtres"><s:property value="url"></s:property><br>
+                            <td class="texfield"><s:property value="url"></s:property><br>
                             </td>
-                            <td class="tdtres">
-                            <s:url id="editarURL" action="editarEgresadoRedSocial.action">
-                                <s:param name="idObjeto" value="%{idEgresadoRedSocial}"></s:param>
+                            <td class="texfield">
+                            <s:url id="editarURL" action="editarUbicacion.action">
+                                <s:param name="idObjeto" value="%{idContacto}" ></s:param>
                             </s:url>
                             <s:a href="%{editarURL}">
-                                <div class="fuentetabla2"><img style="width: 20px; height: 19px;" title="Editar" alt="Editar" src="imagenes/Icono_de_editar.png" align="top">Editar</div><br>
-                            </s:a>
-                            <s:url id="borrarURL" action="borrarEgresadoRedSocial.action">
-                                <s:param name="idObjeto" value="%{idEgresadoRedSocial}"></s:param>
-                            </s:url>
-                            <s:a href="%{borrarURL}">
-                                <div class="fuentetabla2"><img style="width: 20px; height: 19px;" title="Borrar" alt="Borrar" src="imagenes/Icono_de_editar.png" align="top">Borrar</div><br>
-                            </s:a>
+                                <div class="fuentetabla2"><img style="width: 20px; height: 19px;" title="Editar" alt="Editar" src="imagenes/editar-icono-8419-16.png" align="top">
+                                </s:a>
+                                <s:url id="borrarURL" action="borrarUbicacion.action">
+                                    <s:param name="idObjeto" value="%{idContacto}"></s:param>
+                                </s:url>
+                                <s:a href="%{borrarURL}">
+                                    <img style="width: 20px; height: 19px;" title="Borrar" alt="Borrar" src="imagenes/eliminar.png" align="top">
+                                </s:a></div>
                         </td>
                     </tr>
                 </s:iterator>
@@ -66,13 +66,13 @@
             </div>
             <div id="contenido1">
                 <span class="fuente2">
-              </span>
+                </span>
                 <s:if test="editar">
                     <s:form action="guardarEgresadoRedSocial.action">
                         <s:push value="objeto">
                             <s:hidden name="idEgresadoRedSocial"></s:hidden>
                                 <div class="tdun">
-                                  <div align="center" class="fuente2">Agregar Nueva Red Social</div>
+                                    <div align="center" class="fuente2">Agregar Nueva Red Social</div>
                                 </div>
                                 <br>
                                 <table>
@@ -85,13 +85,13 @@
                                     </tr>
                                     <tr>
                                         <td>
-                                        <span class="texfield">
-                                        <s:textfield label="URL" name="url" cssClass="center"></s:textfield>
-                                        </span>
+                                            <span class="texfield">
+                                            <s:textfield label="URL" name="url" cssClass="center"></s:textfield>
+                                            </span>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <s:actionerror></s:actionerror>
+                                    <s:actionerror></s:actionerror>
                                     <s:submit cssClass="center1" value="Guardar">
                                     </s:submit>
                                 </tr>
@@ -101,16 +101,15 @@
                     </s:form>
                 </s:if>
             </div>
-            <br>
-            <a href="siguienteEgresadoRedSocial.action"><div class="tdsiguiente"><img src="imagenes/button_next_89675.jpg" width="21" height="21"></div></a>
-            <br>
-            <a href="anteriorEgresadoRedSocial.action" class="tdatras"><div class="tdatras"><img src="imagenes/boton_atras.png" width="24" height="24"></div></a>
-            <br>
-            <br>
+            </div>
+            <div class="enlaces">
+                <div class="tdsiguiente"><a href="siguienteEgresadoRedSocial.action"><img src="imagenes/next.png" width="21" height="21"></a></div>
+                <div class="tdatras"><a href="anteriorEgresadoRedSocial.action" class="tdatras"><img src="imagenes/atras.jpg" width="24" height="24"></a></div>
+            </div>
             <s:if test="hasActionErrors()">
                 <div class="errors">
-                   <s:actionerror/>
+                    <s:actionerror/>
                 </div>
             </s:if>
-            </body>
-            </html>
+    </body>
+</html>

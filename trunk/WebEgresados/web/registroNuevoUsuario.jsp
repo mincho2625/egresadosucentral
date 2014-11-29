@@ -1,129 +1,120 @@
 <!DOCTYPE html>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@taglib uri="/struts-tags" prefix="s"%>
 <%@taglib uri="/struts-jquery-tags" prefix="jq" %>
 <html lang="es">
-    <head>
-        <title>Formulario Principal Nuevos</title>
-        <meta charset="utf-8"/>
-        <link rel="stylesheet" href="estilo.css">
+    <head><title>Registro Sistema</title>
+        <meta charset="utf-8">
+        <link href="estilo2.css" rel="stylesheet" type="text/css">
         <jq:head></jq:head>
         </head>
-
         <body>
-            <div id="cabecera"><img src="imagenes/logosimbolo-ucentral-v1-large.png">
-            </div>
+            <div class="from2">
+                <div id="contenido">
+                    <div class="TituloPrincipal" style="/* [disabled]margin-left:10px; */ font-size: 20px">
+                        <div align="center">Portal Egresados  Universidad Central</div>
+                    </div>
+                    <div class="titu">
+                        <p align="left"><img src="imagenes/document-open.png" width="107" height="94">
+                            <span class="titu2">a a a</span><img src="imagenes/logosimbolo-ucentral-v1-medium.png" width="273" height="62">  <span class="titu2">a asda sd</span> Registro Usuario </p>
+                    </div>
+                    <div align="center" class="tabla" id="Tabla">
+                    <s:form action="Egresado">
+                        <s:push value="egresado">
+                            <s:hidden name="idEgresado"></s:hidden>
+                                <div align="center" class="tabla">
+                                    <table cellpadding="2" cellspacing="12">
+                                        <caption class="fuente2">
+                                            REGISTRO EN EL SISTEMA</caption>
+                                        <tr>
+                                            <td class="texfield"> <div align="center">
+                                                <s:textfield name="primerApellido" cssClass="texfield" label="Primer Apellido"/>
+                                            </div></td>
+                                        <td> <s:textfield cssClass="texfield" name="segundoApellido" label=" Segundo Apellido"/></td>
+                                        <td> <s:textfield name="nombres" cssClass="texfield" label="Nombres"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td > <jq:datepicker label="Fecha Nacimiento:" name="fechaNacimiento" changeMonth="true" changeYear="true" showButtonPanel="true"></jq:datepicker></td>
+                                        <td> <s:textfield label="Numero Documento:" name="numeroDocumento" cssClass="texfield"></s:textfield></td>
+                                        <td> <jq:datepicker label="Fecha Expedicion:" name="fechaExpedicion" changeMonth="true" changeYear="true" showButtonPanel="true"></jq:datepicker></td>
 
-            <div id="Tabla" align="center">
-            <s:form action="guardarRegistro.action" id="formRegistro"> <br>
+                                        </tr>
+                                        <tr>
 
-                <table cellpadding="2" cellspacing="12">
-                    <caption>REGISTRO EN EL SISTEMA</caption>
-                    <tr>
-                        <td><s:textfield name="primerApellido" label="Primer Apellido:"/></td>
-                        <td><s:textfield name="segundoApellido" label="Segundo Apellido:"/></td>
-                        <td colspan="2"><s:textfield name="nombres" label="Nombres:"/></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <jq:datepicker name="fechaNacimiento" label="Fecha Nacimiento:" changeMonth="true" changeYear="true" showButtonPanel="true"></jq:datepicker>
-                                <br>
-                            </td>
-                            <td>
-                            <s:textfield name="numeroDocumento" label="Numero Documento:"></s:textfield>
-                                <br>
-                            </td>
-                            <td>
-                            <jq:datepicker name="fechaExpedicion" label="Fecha Expedicion:" changeMonth="true" changeYear="true" showButtonPanel="true"></jq:datepicker>
-                                <br>
-                            </td>
-                            <td>
-                            <s:url var="refrescarPaisesURL" action="refrescarPaises"></s:url>
-                            
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <br>
-                            </td>
-                            <td>
-                            <s:select
-                                id="ciudadExpedicion"
-                                name="ciudadExpedicion"
-                                label="Ciudad Expedicion:"
-                                list="listaCiudades"
-                                listKey="idCiudad"
-                                listValue="nombre"
-                                headerKey="-1"
-                                headerValue="- Seleccione - "/>
-                            <br>
-                        </td>
-                        <td>
-                            <s:select name="tipoDocumento" label="Tipo Documento:" list="listaTiposDocumento" listKey="idTipoDocumento" listValue="nombre" headerKey="-1" headerValue="- Seleccione - "/>
-                            <br>
-                        </td>
-                        <td>
-                            <s:select name="grupoSanguineo" label="Grupo Sanguineo:" list="listaGruposSanguineos" listKey="idGrupoSanguineo" listValue="grupoSanguineo" headerKey="-1" headerValue="- Seleccione - "/>
-                            <br>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <s:select
-                                id="ciudadNacimiento"
-                                name="ciudadNacimiento"
-                                label="Ciudad Nacimiento:"
-                                list="listaCiudades"
-                                listKey="idCiudad"
-                                listValue="nombre"
-                                headerKey="-1"
-                                headerValue="- Seleccione - "/>
-                        </td>
-                        <td>
-                            <s:select name="genero" label="Genero:" list="listaGeneros" listKey="idGenero" listValue="nombre" headerKey="-1" headerValue="- Seleccione - "/>
-                            <br>
-                        </td>
-                        <td>
-                            <s:select name="estadoCivil" label="Estado Civil:" list="listaEstadosCiviles" listKey="idEstadoCivil" listValue="estadoCivil" headerKey="-1" headerValue="- Seleccione - "/>
-                            <br>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="2"><s:textfield name="nombre" label="Usuario:"></s:textfield><br>
-                            </td>
-                            <td colspan="2"><s:textfield name="correoInstitucional" label="Correo Institucional:"></s:textfield><br>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="2"><s:password name="contrasenia" label="Contraseña:"></s:password><br>
-                            </td>
-                            <td colspan="2"><s:password name="confirmacionClave" label="Confirmar contraseña:"></s:password><br>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="2"><s:select name="preguntaSeguridad" label="Pregunta Seguridad:" list="listaPreguntas" listKey="idPreguntaSeguridad" listValue="pregunta" headerKey="-1" headerValue="- Seleccione - "/><br>
-                        </td>
-                        <td colspan="2"><s:password name="respuestaSeguridad" label="Respuesta Secreta:"></s:password><br>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                            <s:checkbox cssClass="checkbox" name="terminos" label="Terminos y Condiciones."></s:checkbox>
-                            </td>
+                                            <td>
+                                            <s:select
+                                                label="Ciudad Expedicion:"   
+                                                id="ciudadExpedicion"
+                                                name="ciudadExpedicion"
+                                                list="listaCiudades"
+                                                listKey="idCiudad"
+                                                listValue="nombre"
+                                                headerKey="-1"
+                                                headerValue="- Seleccione - "/>
+                                        </td>
+                                        <td><s:select label="Tipo Documento:" name="tipoDocumento" list="listaTiposDocumento" listKey="idTipoDocumento" listValue="nombre" headerKey="-1" headerValue="- Seleccione - "/></td>
+                                        <td><s:select label="Grupo Sanguineo:" name="grupoSanguineo" list="listaGruposSanguineos" listKey="idGrupoSanguineo" listValue="grupoSanguineo" headerKey="-1" headerValue="- Seleccione - "/></td>
+                                    </tr>
+                                    <tr>
 
-                            <td>
-                            <s:actionerror />
-                        </td>
-                        <td>
-                            <div class="buttons">
-                                <s:submit cssClass="positive" src="imagenes/btnGuardar.png"></s:submit>
+                                        <td class="tduno"> <s:select
+                                                label="Ciudad Nacimiento:"
+                                                id="ciudadNacimiento"
+                                                name="ciudadNacimiento"
+                                                list="listaCiudades"
+                                                listKey="idCiudad"
+                                                listValue="nombre"
+                                                headerKey="-1"
+                                                headerValue="- Seleccione - "/>
+                                        </td>
+                                        <td><s:select label="Genero:" name="genero" list="listaGeneros" listKey="idGenero" listValue="nombre" headerKey="-1" headerValue="- Seleccione - "/></td>
+                                        <td> <s:select  label="Estado Civil:" name="estadoCivil" list="listaEstadosCiviles" listKey="idEstadoCivil" listValue="estadoCivil" headerKey="-1" headerValue="- Seleccione - "/></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td colspan="2"><s:textfield name="nombre" label="Usuario:"></s:textfield><br>
+                                            </td>
+                                            <td colspan="2"><s:textfield name="correoInstitucional" label="Correo Institucional:"></s:textfield><br>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2"><s:password name="contrasenia" label="Contraseï¿½a:"></s:password><br>
+                                            </td>
+                                            <td colspan="2"><s:password name="confirmacionClave" label="Confirmar contraseï¿½a:"></s:password><br>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2"><s:select name="preguntaSeguridad" label="Pregunta Seguridad:" list="listaPreguntas" listKey="idPreguntaSeguridad" listValue="pregunta" headerKey="-1" headerValue="- Seleccione - "/><br>
+                                        </td>
+                                        <td colspan="2"><s:password name="respuestaSeguridad" label="Respuesta Secreta:"></s:password><br>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                            <s:checkbox cssClass="checkbox" name="terminos" label="Terminos y Condiciones."></s:checkbox>
+                                            </td>
+
+                                            <td>
+                                            <s:actionerror />
+                                        </td>
+                                        <td>
+                                            <div class="buttons">
+                                                <s:submit value="Guardar" cssClass="positive" src="imagenes/btnGuardar.png"></s:submit>
+                                                </div>
+                                            </td>
+                                            <td>
+                                    </table>
+
                                 </div>
-                            </td>
-                            <td><br>
-                    </table>
-            </s:form>
+
+                                <div align="center">
+                                </div>
+                        </s:push>    
+                    </s:form>
+                </div>
+                <br>
+                <br>
+            </div>
+            <p>&nbsp;</p>
         </div>
-        <br>
-        <br>
     </body>
 </html>
