@@ -5,7 +5,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>Entrada</title>
         <meta charset="utf-8"/>
-        <link rel="stylesheet" href="estilo2.css">
+        <link rel="stylesheet" href="estilo2.css"/>
     </head>
 
     <body class="fondo">
@@ -30,40 +30,28 @@
                                 <table style="border:hidden;text-align:center;width:100%;font-size:14px;">
                                     <tbody>
                                         <tr>
-                                            <td class="tipo1">
-                                                Usuario:                                                
-                                            </td>
-                                        </tr>
-                                        <tr>
                                             <td>
-                                                <s:textfield name="usuario" id="Ingreso_usuario" style="height:30px;border:1px solid #636f07;width:98%;display :block;"></s:textfield>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                Contrasena:                                                
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <s:password name="contrasenia" id="Ingreso_contrasenia" style="height:30px;border:1px solid #636f07;width:98%;display :block;"></s:password>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="text-align:right">
-                                            <s:actionerror></s:actionerror>
+                                                <s:textfield label="Usuario" name="usuario" id="Ingreso_usuario" style="height:30px;border:1px solid #636f07;width:98%;display :block;"></s:textfield>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                <s:password label="Contraseña" name="contrasenia" id="Ingreso_contrasenia" style="height:30px;border:1px solid #636f07;width:98%;display :block;"></s:password>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="text-align:right">
+                                                <s:actionerror></s:actionerror>
                                                 <s:submit value="ENTRAR" id="Ingreso_0"></s:submit>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                             </s:form>
                         </div></li>
-
-
                 </div>
                 <div class="menu">
-                    <p>Si no dispone de una cuenta, haga clic <s:a href="desplegarRegistro.action">aquí</s:a>. </p>
+                    <p>Si no dispone de una cuenta, haga clic <s:a href="desplegarRegistro.action" target="contenido" >aquí</s:a>.</p>
                 </div>
                 <p>&nbsp;</p>
                 <p>&nbsp;</p>
@@ -82,7 +70,7 @@
                             <p>de ser de esta dependencia, por lo cual es fundamental mantener actualizados sus datos de contacto, con el fin de mantenerlos informados sobre las</p>
                             <p>diferentes actividades academicas, culturales y sociales que se programan, asi como de los servicios que les ofrecemos</p>
                             <p>&nbsp;</p>
-                            <p>ParaÂ <strong>ActualizarÂ </strong><strong>sus datos</strong>, Ingresa al sistema</p>
+                            <p>Para <strong>Actualizará </strong><strong>sus datos</strong>, Ingresa al sistema</p>
                         </div>
                     </div>
                     <p align="justify">&nbsp;</p>

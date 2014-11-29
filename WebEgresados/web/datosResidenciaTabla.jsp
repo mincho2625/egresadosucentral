@@ -17,7 +17,6 @@
             <!--<div id="default-example" data-collapse>
                         <h3>Informacion</h3>-->
             <div align="center" class="tabla" id="Tabla">
-                <div align="center" class="tabla" id="Tabla">
                     <table rules="all" class="table2" >
                         <caption>&nbsp;</caption>
                         <tr>
@@ -49,17 +48,17 @@
                                 <td class="texfield"><s:property value="idEstrato.estratoLetras"></s:property><br>
                                 </td>
                                 <td class="tdtres">
-                                <s:url id="editarURL" action="editarResidencia.action">
-                                    <s:param name="idObjeto" value="%{idResidencia}"></s:param>
+                                <s:url id="editarURL" action="editarUbicacion.action">
+                                    <s:param name="idObjeto" value="%{idContacto}" ></s:param>
                                 </s:url>
                                 <s:a href="%{editarURL}">
-                                    <div class="fuentetabla2"><img style="width: 20px; height: 19px;" title="Editar" alt="Editar" src="imagenes/Icono_de_editar.png" align="top">Editar</div><br>
+                                    <div class="fuentetabla2"><img style="width: 20px; height: 19px;" title="Editar" alt="Editar" src="imagenes/editar-icono-8419-16.png" align="top">
                                     </s:a>
-                                    <s:url id="borrarURL" action="borrarResidencia.action">
-                                        <s:param name="idObjeto" value="%{idResidencia}"></s:param>
+                                    <s:url id="borrarURL" action="borrarUbicacion.action">
+                                        <s:param name="idObjeto" value="%{idContacto}"></s:param>
                                     </s:url>
                                     <s:a href="%{borrarURL}">
-                                    <div class="fuentetabla2"><img style="width: 20px; height: 19px;" title="Borrar" alt="Borrar" src="imagenes/Icono_de_editar.png" align="top">Borrar</div><br>
+                                        <img style="width: 20px; height: 19px;" title="Borrar" alt="Borrar" src="imagenes/eliminar.png" align="top"></div>
                                     </s:a>
                             </td>
                         </tr>
@@ -135,16 +134,15 @@
                         </s:form>
                     </s:if>
                 </div>
-                <br>
-                <a href="siguienteResidencia.action"><div class="tdsiguiente"><img src="imagenes/button_next_89675.jpg" width="21" height="21"></div></a>
-                <br>
-                <a href="anteriorResidencia.action" class="tdatras"><div class="tdatras"><img src="imagenes/boton_atras.png" width="24" height="24"></div></a>
-                <br>
-                <br>
-                <s:if test="hasActionErrors()">
-                    <div class="errors">
-                        <s:actionerror/>
-                    </div>
-                </s:if>
-                </body>
-                </html>
+            </div>
+            <div class="enlaces">
+                <div class="tdsiguiente"><a href="siguienteResidencia.action"><img src="imagenes/next.png" width="24" height="24"></a></div>
+                <div class="tdatras"><a href="anteriorResidencia.action" class="tdatras"><img src="imagenes/atras.jpg" width="24" height="24"></a></div>
+            </div>
+            <s:if test="hasActionErrors()">
+                <div class="errors">
+                    <s:actionerror/>
+                </div>
+            </s:if>
+    </body>
+</html>

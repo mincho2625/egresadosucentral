@@ -63,17 +63,18 @@
                             <td class="texfield"><s:property value="idEstadoEducacion.nombre"></s:property><br>
                             </td>
                             <td class="texfield">
+                            <div class="fuentetabla2">
                             <s:url id="editarURL" action="editarEducacionFormalOtrasInstituciones.action">
-                                <s:param name="idObjeto" value="%{idEducacion}"></s:param>
+                                <s:param name="idObjeto" value="%{idEducacion}" ></s:param>
                             </s:url>
                             <s:a href="%{editarURL}">
-                                <div class="fuentetabla2"><img style="width: 20px; height: 19px;" title="Editar" alt="Editar" src="imagenes/Icono_de_editar.png" align="top">Editar</div><br>
+                                <img style="width: 20px; height: 19px;" title="Editar" alt="Editar" src="imagenes/editar-icono-8419-16.png" align="top">
                                 </s:a>
                                 <s:url id="borrarURL" action="borrarEducacionFormalOtrasInstituciones.action">
                                     <s:param name="idObjeto" value="%{idEducacion}"></s:param>
                                 </s:url>
                                 <s:a href="%{borrarURL}">
-                                <div class="fuentetabla2"><img style="width: 20px; height: 19px;" title="Borrar" alt="Borrar" src="imagenes/Icono_de_editar.png" align="top">Borrar</div><br>
+                                    <img style="width: 20px; height: 19px;" title="Borrar" alt="Borrar" src="imagenes/eliminar.png" align="top"></div>
                                 </s:a>
                         </td>
                     </tr>
@@ -97,7 +98,7 @@
                                 <table>
                                     <tr>
                                         <td>
-                                        <s:textfield cssClass="center" label="Título" name="titulo"></s:textfield>
+                                        <s:textfield cssClass="center" label="Tï¿½tulo" name="titulo"></s:textfield>
                                         </td>
                                     </tr>
                                     <tr>
@@ -108,7 +109,7 @@
                                     <tr>
                                         <td>
                                             <s:select label="Institucion" cssClass="center" name="institucion" id="institucion" list="listaInstituciones" listKey="idInstitucion" listValue="nombre" headerKey="-1" headerValue="- Seleccione -"></s:select>
-                                            <s:checkbox cssClass="texfield" name="checkOtraInstitucion" onchange="fnOtraInstitucion(this.checked);" label="Otra Institución"></s:checkbox>
+                                            <s:checkbox cssClass="texfield" name="checkOtraInstitucion" onchange="fnOtraInstitucion(this.checked);" label="Otra Instituciï¿½n"></s:checkbox>
                                         </td>
                                     </tr>
                                     <tr>
@@ -171,16 +172,10 @@
                 </s:if>
             </div>
         </div>
-        <!--</div>-->
-        <p></p>
-        <p><br>
-        </p>
-        <a href="siguienteEducacionFormalOtrasInstituciones.action"><div class="tdsiguiente"><img src="imagenes/button_next_89675.jpg" width="21" height="21"></div></a>
-        <br>
-        <a href="anteriorEducacionFormalOtrasInstituciones.action" class="tdatras"><div class="tdatras"><img src="imagenes/boton_atras.png" width="24" height="24"></div></a>
-        <br>
-        <br>
-        <br>
+<div class="enlaces">
+            <div class="tdsiguiente"><a href="siguienteEducacionFormalOtrasInstituciones.action"><img src="imagenes/next.png" width="24" height="24"></a></div>
+            <div class="tdatras"><a href="anteriorEducacionFormalOtrasInstituciones.action" class="tdatras"><img src="imagenes/atras.jpg" width="24" height="24"></a></div>
+        </div>
         <s:if test="hasActionErrors()">
             <div class="errors">
                <s:actionerror/>

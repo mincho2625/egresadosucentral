@@ -27,7 +27,7 @@ h3 {
 }
 
 h3 a {
-  background: url("sprite.png") 15px 13px no-repeat;  
+  background: url("sprite.png") 10px 8px no-repeat;  
   display: block;
   padding: 5px;
   padding-left: 32px;
@@ -41,8 +41,10 @@ h3 a {
 h3:hover {
 }
 h3.open  { background: rgb(154,205,50); }
-h3.open a { background-position: 13px -25px; }
-h3 + div { padding: 10px; }
+h3.open a { background-position: 8px -25px; }
+h3 + div {
+
+}
 
 h2 {
   margin: 10px 0;
@@ -215,7 +217,7 @@ h3+div {
 }
 .letra {
 	font-family: Arial, Helvetica, sans-serif;
-	font-size: 18px;
+	font-size: 12px;
 	color: #5B6906;
 }
 #contenido iframe{
@@ -242,7 +244,7 @@ h3+div {
 }
 .texfield {
 	font-family: Arial, Helvetica, sans-serif;
-	font-size: 12px;
+	font-size: 9px;
 	width: 105;
 }
 .titu {
@@ -271,16 +273,19 @@ h3+div {
 	font-size: 18px;
 }
 .tdsiguiente {
-	text-align: left;
-	width: 650px;
+	text-align: right;
+	width: 25px;
+	margin-left: 625px;
+	margin-top: 5px;
 }
 .tdatras{
 	color: #436600;
 	font-family: Georgia, "Times New Roman", Times, serif;
 	font-size: 12px;
 	font-weight: bold;
-	text-align: right;
-	width: 650px;
+	text-align: left;
+	width: 25px;
+	margin-top: -24px;
 }
 .fromtables {
 	width: 650px;
@@ -291,11 +296,11 @@ h3+div {
 }
 .fuente2 {
 	font-family: Arial, Helvetica, sans-serif;
-	font-size: 24px;
+	font-size: 16px;
 }
 .fuentetabla {
 	font-family: Arial, Helvetica, sans-serif;
-	font-size: 19px;
+	font-size: 14px;
 	color: #F00;
 }
 
@@ -338,7 +343,7 @@ h3+div {
 	transition: all 0.3s ease;
 }
 #css3-animated-example .content {
-  padding: 10px;
+  padding: 5px;
 }
 
 #css3-animated-example h3.open + div {
@@ -354,4 +359,13 @@ h3+div {
 }
 .errors li{ 
 	list-style: none; 
+}
+.enlaces {
+	width: 650px;
+}
+.mensaje {
+	margin-left: 220px;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color: #063;
 }
