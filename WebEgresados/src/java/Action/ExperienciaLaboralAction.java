@@ -311,15 +311,15 @@ public class ExperienciaLaboralAction extends CrudAction<ExperienciaLaboral> {
     @Override
     public String desplegar() {
         this.obtenerLista();
-        this.setListaAreasEmpresa(listas.getListaAreasEmpresa());
-        this.setListaCargosEquivalentes(listas.getListaCargosEquivalentes());
-        this.setListaMeses(listas.getListaMeses());
-        this.setListaNivelesCargo(listas.getListaNivelesCargo());
-        this.setListaRangosSalariales(listas.getListaRangosSalariales());
-        this.setListaSubsectores(listas.getListaSubsectores());
-        this.setListaTiposContrato(listas.getListaTiposContrato());
-        this.setListaCiudades(listas.getListaCiudades());
-        this.setListaAnios(listas.getListaAnios());
+        this.setListaAreasEmpresa(listas.consultarAreasEmpresa());
+        this.setListaCargosEquivalentes(listas.consultarCargosEquivalentes());
+        this.setListaMeses(listas.consultarMeses());
+        this.setListaNivelesCargo(listas.consultarNivelesCargo());
+        this.setListaRangosSalariales(listas.consultarRangosSalariales());
+        this.setListaSubsectores(listas.consultarSubsectores());
+        this.setListaTiposContrato(listas.consultarTiposContrato());
+        //this.setListaCiudades(listas.c());
+        this.setListaAnios(listas.consultarAnios());
 
         this.editar = true;
         return SUCCESS;
@@ -327,15 +327,15 @@ public class ExperienciaLaboralAction extends CrudAction<ExperienciaLaboral> {
 
     @Override
     public void insertarTipos() {
-        this.objeto.setIdAreaEmpresa(listas.getListaAreasEmpresa().get(this.areaEmpresa));
-        this.objeto.setIdCargoEquivalente(listas.getListaCargosEquivalentes().get(this.cargoEquivalente));
-        this.objeto.setIdCiudad(listas.getListaCiudades().get(this.ciudad));
-        this.objeto.setIdMesFinalizacion(listas.getListaMeses().get(this.mesFinalizacion));
-        this.objeto.setIdMesIngreso(listas.getListaMeses().get(this.mesIngreso));
-        this.objeto.setIdNivelCargo(listas.getListaNivelesCargo().get(this.nivelCargo));
-        this.objeto.setIdRangoSalarial(listas.getListaRangosSalariales().get(this.rangoSalarial));
-        this.objeto.setIdSubsector(listas.getListaSubsectores().get(this.subsector));
-        this.objeto.setIdTipoContrato(listas.getListaTiposContrato().get(this.tipoContrato));
+        this.objeto.setIdAreaEmpresa(listas.consultarAreasEmpresa().get(this.areaEmpresa));
+        this.objeto.setIdCargoEquivalente(listas.consultarCargosEquivalentes().get(this.cargoEquivalente));
+        //this.objeto.setIdCiudad(listas.consultarciud().get(this.ciudad));
+        this.objeto.setIdMesFinalizacion(listas.consultarMeses().get(this.mesFinalizacion));
+        this.objeto.setIdMesIngreso(listas.consultarMeses().get(this.mesIngreso));
+        this.objeto.setIdNivelCargo(listas.consultarNivelesCargo().get(this.nivelCargo));
+        this.objeto.setIdRangoSalarial(listas.consultarRangosSalariales().get(this.rangoSalarial));
+        this.objeto.setIdSubsector(listas.consultarSubsectores().get(this.subsector));
+        this.objeto.setIdTipoContrato(listas.consultarTiposContrato().get(this.tipoContrato));
     }
 
     @Override

@@ -10,23 +10,23 @@ package Modelo;
  *
  * @author YURY
  */
-public class TipoEdNoFormal {
-    private long idTipoEdNoFormal;
+public class Facultad {
+    private long idFacultad;
     private String nombre;
     private boolean estado;
 
     /**
-     * @return the idTipoEdNoFormal
+     * @return the idFacultad
      */
-    public long getIdTipoEdNoFormal() {
-        return idTipoEdNoFormal;
+    public long getIdFacultad() {
+        return idFacultad;
     }
 
     /**
-     * @param idTipoEdNoFormal the idTipoEdNoFormal to set
+     * @param idFacultad the idFacultad to set
      */
-    public void setIdTipoEdNoFormal(long idTipoEdNoFormal) {
-        this.idTipoEdNoFormal = idTipoEdNoFormal;
+    public void setIdFacultad(long idFacultad) {
+        this.idFacultad = idFacultad;
     }
 
     /**

@@ -9,10 +9,20 @@ import Util.Equivalencia;
  */
 @Equivalencia(nombre = "getIdCiudad")
 public class Ciudad {
+    
+    public Ciudad()
+    {
+    }
+    
+    public Ciudad(long idCiudad)
+    {
+        this.idCiudad = idCiudad;
+    }
 
     private long idCiudad;
     private String nombre;
     private boolean estado;
+    private Departamento idDepartamento;
 
     /**
      * @return the idCiudad
@@ -56,4 +66,17 @@ public class Ciudad {
         this.estado = estado;
     }
 
+    /**
+     * @return the idDepartamento
+     */
+    public Departamento getIdDepartamento() {
+        return idDepartamento;
+    }
+
+    /**
+     * @param idDepartamento the idDepartamento to set
+     */
+    public void setIdDepartamento(Departamento idDepartamento) {
+        this.idDepartamento = idDepartamento;
+    }
 }

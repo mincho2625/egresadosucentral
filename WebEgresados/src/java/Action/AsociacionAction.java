@@ -90,8 +90,8 @@ public class AsociacionAction extends CrudAction<Asociacion> {
     
     @Override
     public String desplegar() {
-        this.setListaTiposAsociaciones(listas.getListaTiposAsociaciones());
-        this.setListaPaises(listas.getListaPaises());
+        this.setListaTiposAsociaciones(listas.consultarTiposAsociaciones());
+        this.setListaPaises(listas.consultarPaises());
         this.obtenerLista();
         this.editar = true;
         return SUCCESS;
@@ -99,8 +99,8 @@ public class AsociacionAction extends CrudAction<Asociacion> {
 
     @Override
     public void insertarTipos() {
-        this.objeto.setIdTipoAsociacion(listas.getListaTiposAsociaciones().get(this.tipoAsociacion));
-        this.objeto.setIdPais(listas.getListaPaises().get(this.pais));
+        this.objeto.setIdTipoAsociacion(listas.consultarTiposAsociaciones().get(this.tipoAsociacion));
+        this.objeto.setIdPais(listas.consultarPaises().get(this.pais));
     }
 
     @Override

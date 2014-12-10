@@ -59,7 +59,7 @@ public class UbicacionAction extends CrudAction<Contacto> {
 
     @Override
     public String desplegar() {
-        this.setListaTiposContacto(listas.getListaTiposContacto());
+        this.setListaTiposContacto(listas.consultarTiposContacto());
         this.obtenerLista();
         this.editar = true;
         return SUCCESS;
@@ -67,7 +67,7 @@ public class UbicacionAction extends CrudAction<Contacto> {
 
     @Override
     public void insertarTipos() {
-        this.objeto.setIdTipoContacto(listas.getListaTiposContacto().get(this.tipoContacto));
+        this.objeto.setIdTipoContacto(listas.consultarTiposContacto().get(this.tipoContacto));
     }
 
     @Override
@@ -92,7 +92,7 @@ public class UbicacionAction extends CrudAction<Contacto> {
             else
             {
                 if (objeto.getDescripcion().length() > objeto.getIdTipoContacto().getLongitud())
-                    addFieldError("descripcion", String.format("La longitud máxima para el tipo de contacto es %i", objeto.getIdTipoContacto().getLongitud()));
+                    addFieldError("descripcion", String.format("La longitud máxima para el tipo de contacto es %d", objeto.getIdTipoContacto().getLongitud()));
                 
                 switch((int)objeto.getIdTipoContacto().getIdTipoCampo().getIdTipoCampo())
                 {
@@ -113,7 +113,7 @@ public class UbicacionAction extends CrudAction<Contacto> {
 
     @Override
     public void validarLista() {
-        this.setListaTiposContacto(listas.getListaTiposContacto());
+        this.setListaTiposContacto(listas.consultarTiposContacto());
         
         Collection<Long> lista = new ArrayList<>();
         for (Contacto co : listaObjetos.values()) {

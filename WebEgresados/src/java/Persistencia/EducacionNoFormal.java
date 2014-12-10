@@ -29,21 +29,18 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "EducacionNoFormal.findAll", query = "SELECT e FROM EducacionNoFormal e"),
     @NamedQuery(name = "EducacionNoFormal.findByIdEducacion", query = "SELECT e FROM EducacionNoFormal e WHERE e.educacion = :educacion"),
-    @NamedQuery(name = "EducacionNoFormal.findByOtroTipoEdNoFormal", query = "SELECT e FROM EducacionNoFormal e WHERE e.otroTipoEdNoFormal = :otroTipoEdNoFormal"),
+    @NamedQuery(name = "EducacionNoFormal.findByOtroNivelEstudios", query = "SELECT e FROM EducacionNoFormal e WHERE e.otroNivelEstudios = :otroNivelEstudios"),
     @NamedQuery(name = "EducacionNoFormal.findByTitulo", query = "SELECT e FROM EducacionNoFormal e WHERE e.titulo = :titulo"),
     @NamedQuery(name = "EducacionNoFormal.findByDescripcion", query = "SELECT e FROM EducacionNoFormal e WHERE e.descripcion = :descripcion")})
 public class EducacionNoFormal implements Serializable {
     private static final long serialVersionUID = 1L;
-    @Column(name = "OTRO_TIPO_ED_NO_FORMAL")
-    private String otroTipoEdNoFormal;
+    @Column(name = "OTRO_NIVEL_ESTUDIOS")
+    private String otroNivelEstudios;
     @Basic(optional = false)
     @Column(name = "TITULO")
     private String titulo;
     @Column(name = "DESCRIPCION")
     private String descripcion;
-    @JoinColumn(name = "ID_TIPO_ED_NO_FORMAL", referencedColumnName = "ID_TIPO_ED_NO_FORMAL")
-    @ManyToOne(optional = false)
-    private TipoEdNoFormal idTipoEdNoFormal;
     @JoinColumn(name = "ID_INTENSIDAD_HORARIA", referencedColumnName = "ID_INTENSIDAD_HORARIA")
     @ManyToOne(optional = false)
     private IntensidadHoraria idIntensidadHoraria;
@@ -51,22 +48,25 @@ public class EducacionNoFormal implements Serializable {
     @JoinColumn(name = "ID_EDUCACION", referencedColumnName = "ID_EDUCACION")
     @OneToOne(optional = false)
     private Educacion educacion;
-    @JoinColumn(name = "ID_AREA_ESTUDIOS", referencedColumnName = "ID_AREA_ESTUDIOS")
-    @ManyToOne(optional = false)
-    private AreaEstudios idAreaEstudios;
     @JoinColumn(name = "ID_MODALIDAD", referencedColumnName = "ID_MODALIDAD")
     @ManyToOne(optional = false)
     private Modalidad idModalidad;
+    @JoinColumn(name = "ID_AREA_ESTUDIOS", referencedColumnName = "ID_AREA_ESTUDIOS")
+    @ManyToOne(optional = false)
+    private AreaEstudios idAreaEstudios;
+    @JoinColumn(name = "ID_NIVEL_ESTUDIOS", referencedColumnName = "ID_NIVEL_ESTUDIOS")
+    @ManyToOne(optional = false)
+    private NivelEstudios idNivelEstudios;
 
     public EducacionNoFormal() {
     }
 
-    public String getOtroTipoEdNoFormal() {
-        return otroTipoEdNoFormal;
+    public String getOtroNivelEstudios() {
+        return otroNivelEstudios;
     }
 
-    public void setOtroTipoEdNoFormal(String otroTipoEdNoFormal) {
-        this.otroTipoEdNoFormal = otroTipoEdNoFormal;
+    public void setOtroNivelEstudios(String otroNivelEstudios) {
+        this.otroNivelEstudios = otroNivelEstudios;
     }
 
     public String getTitulo() {
@@ -85,14 +85,6 @@ public class EducacionNoFormal implements Serializable {
         this.descripcion = descripcion;
     }
 
-    public TipoEdNoFormal getIdTipoEdNoFormal() {
-        return idTipoEdNoFormal;
-    }
-
-    public void setIdTipoEdNoFormal(TipoEdNoFormal idTipoEdNoFormal) {
-        this.idTipoEdNoFormal = idTipoEdNoFormal;
-    }
-
     public IntensidadHoraria getIdIntensidadHoraria() {
         return idIntensidadHoraria;
     }
@@ -109,14 +101,6 @@ public class EducacionNoFormal implements Serializable {
         this.educacion = educacion;
     }
 
-    public AreaEstudios getIdAreaEstudios() {
-        return idAreaEstudios;
-    }
-
-    public void setIdAreaEstudios(AreaEstudios idAreaEstudios) {
-        this.idAreaEstudios = idAreaEstudios;
-    }
-
     public Modalidad getIdModalidad() {
         return idModalidad;
     }
@@ -125,6 +109,22 @@ public class EducacionNoFormal implements Serializable {
         this.idModalidad = idModalidad;
     }
 
+    public AreaEstudios getIdAreaEstudios() {
+        return idAreaEstudios;
+    }
+
+    public void setIdAreaEstudios(AreaEstudios idAreaEstudios) {
+        this.idAreaEstudios = idAreaEstudios;
+    }
+
+    public NivelEstudios getIdNivelEstudios() {
+        return idNivelEstudios;
+    }
+
+    public void setIdNivelEstudios(NivelEstudios idNivelEstudios) {
+        this.idNivelEstudios = idNivelEstudios;
+    }
+    
     public boolean getEstado()
     {
         return educacion.getEstado();

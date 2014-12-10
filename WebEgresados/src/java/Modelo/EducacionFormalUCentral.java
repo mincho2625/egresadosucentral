@@ -13,7 +13,6 @@ package Modelo;
 public class EducacionFormalUCentral extends Educacion {
     private Programa idPrograma;
     private Jornada idJornada;
-    private NivelEstudios idNivelEstudios;
 
     /**
      * @return the idPrograma
@@ -41,19 +40,5 @@ public class EducacionFormalUCentral extends Educacion {
      */
     public void setIdJornada(Jornada idJornada) {
         this.idJornada = idJornada;
-    }
-
-    /**
-     * @return the idNivelEstudios
-     */
-    public NivelEstudios getIdNivelEstudios() {
-        return idNivelEstudios;
-    }
-
-    /**
-     * @param idNivelEstudios the idNivelEstudios to set
-     */
-    public void setIdNivelEstudios(NivelEstudios idNivelEstudios) {
-        this.idNivelEstudios = idNivelEstudios;
     }
 }

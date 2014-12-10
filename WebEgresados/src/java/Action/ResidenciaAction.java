@@ -154,20 +154,20 @@ public class ResidenciaAction extends CrudAction<Residencia> {
     public String desplegar()
     {
         this.obtenerLista();
-        this.setListaTiposVivienda(listas.getListaTiposVivienda());
-        this.setListaTiposTenenciaVivienda(listas.getListaTiposTenenciaVivienda());
-        this.setListaEstratos(listas.getListaEstratos());
-        this.setListaCiudades(listas.getListaCiudades());
+        this.setListaTiposVivienda(listas.consultarTiposVivienda());
+        this.setListaTiposTenenciaVivienda(listas.consultarTiposTenenciaVivienda());
+        this.setListaEstratos(listas.consultarEstratos());
+        //this.setListaCiudades(listas.consultarciud());
         this.editar = true;
         return SUCCESS;
     }
 
     @Override
     public void insertarTipos() {
-        this.objeto.setIdCiudadResidencia(listas.getListaCiudades().get(this.ciudad));
-        this.objeto.setIdTipoTenenciaVivienda(listas.getListaTiposTenenciaVivienda().get(this.tipoTenenciaVivienda));
-        this.objeto.setIdTipoVivienda(listas.getListaTiposVivienda().get(this.tipoVivienda));
-        this.objeto.setIdEstrato(listas.getListaEstratos().get(this.estrato));
+        //this.objeto.setIdCiudadResidencia(listas.co().get(this.ciudad));
+        this.objeto.setIdTipoTenenciaVivienda(listas.consultarTiposTenenciaVivienda().get(this.tipoTenenciaVivienda));
+        this.objeto.setIdTipoVivienda(listas.consultarTiposVivienda().get(this.tipoVivienda));
+        this.objeto.setIdEstrato(listas.consultarEstratos().get(this.estrato));
     }
 
     @Override

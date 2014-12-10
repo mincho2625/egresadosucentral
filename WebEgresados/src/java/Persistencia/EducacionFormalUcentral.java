@@ -39,9 +39,6 @@ public class EducacionFormalUcentral implements Serializable {
     @JoinColumn(name = "ID_EDUCACION", referencedColumnName = "ID_EDUCACION")
     @OneToOne(optional = false)
     private Educacion educacion;
-    @JoinColumn(name = "ID_NIVEL_ESTUDIOS", referencedColumnName = "ID_NIVEL_ESTUDIOS")
-    @ManyToOne(optional = false)
-    private NivelEstudios idNivelEstudios;
 
     public EducacionFormalUcentral() {
     }
@@ -69,15 +66,7 @@ public class EducacionFormalUcentral implements Serializable {
     public void setEducacion(Educacion educacion) {
         this.educacion = educacion;
     }
-
-    public NivelEstudios getIdNivelEstudios() {
-        return idNivelEstudios;
-    }
-
-    public void setIdNivelEstudios(NivelEstudios idNivelEstudios) {
-        this.idNivelEstudios = idNivelEstudios;
-    }
-
+    
     public boolean getEstado()
     {
         return educacion.getEstado();

@@ -248,10 +248,7 @@ public class Educacion implements Serializable {
             return false;
         }
         Educacion other = (Educacion) object;
-        if ((this.idEducacion == null && other.idEducacion != null) || (this.idEducacion != null && !this.idEducacion.equals(other.idEducacion))) {
-            return false;
-        }
-        return true;
+        return (this.idEducacion != null || other.idEducacion == null) && (this.idEducacion == null || this.idEducacion.equals(other.idEducacion));
     }
 
     @Override

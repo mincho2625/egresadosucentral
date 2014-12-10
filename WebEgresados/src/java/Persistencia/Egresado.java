@@ -133,7 +133,7 @@ public class Egresado implements Serializable {
         this.idEgresado = idEgresado;
     }
 
-    public Egresado(Long idEgresado, String primerApellido, String segundoApellido, String nombres, Date fechaNacimiento, String numeroDocumento, Date fechaExpedicion, Date fechaUltimaAct, boolean aceptaCondiciones) {
+    public Egresado(Long idEgresado, String primerApellido, String segundoApellido, String nombres, Date fechaNacimiento, String numeroDocumento, Date fechaExpedicion, boolean aceptaCondiciones) {
         this.idEgresado = idEgresado;
         this.primerApellido = primerApellido;
         this.segundoApellido = segundoApellido;
@@ -141,7 +141,6 @@ public class Egresado implements Serializable {
         this.fechaNacimiento = fechaNacimiento;
         this.numeroDocumento = numeroDocumento;
         this.fechaExpedicion = fechaExpedicion;
-        this.fechaUltimaAct = fechaUltimaAct;
         this.aceptaCondiciones = aceptaCondiciones;
     }
 

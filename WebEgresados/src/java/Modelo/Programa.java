@@ -14,6 +14,8 @@ public class Programa {
     private long idPrograma;
     private String nombre;
     private boolean estado;
+    private NivelEstudios idNivelEstudios;
+    private Facultad idFacultad;
 
     /**
      * @return the idPrograma
@@ -55,5 +57,33 @@ public class Programa {
      */
     public void setEstado(boolean estado) {
         this.estado = estado;
+    }
+
+    /**
+     * @return the idNivelEstudios
+     */
+    public NivelEstudios getIdNivelEstudios() {
+        return idNivelEstudios;
+    }
+
+    /**
+     * @param idNivelEstudios the idNivelEstudios to set
+     */
+    public void setIdNivelEstudios(NivelEstudios idNivelEstudios) {
+        this.idNivelEstudios = idNivelEstudios;
+    }
+
+    /**
+     * @return the idFacultad
+     */
+    public Facultad getIdFacultad() {
+        return idFacultad;
+    }
+
+    /**
+     * @param idFacultad the idFacultad to set
+     */
+    public void setIdFacultad(Facultad idFacultad) {
+        this.idFacultad = idFacultad;
     }
 }

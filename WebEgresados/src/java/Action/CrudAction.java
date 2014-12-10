@@ -26,7 +26,7 @@ import org.apache.struts2.ServletActionContext;
  * @param <T>
  */
 public abstract class CrudAction<T> extends ActionSupport implements ModelDriven<T> {
-    private ControladorEgresado controladorEgresado;
+    private final ControladorEgresado controladorEgresado;
     protected Map<Long, T> listaObjetos = new HashMap<>();
     protected Listas listas;
     protected T objeto;

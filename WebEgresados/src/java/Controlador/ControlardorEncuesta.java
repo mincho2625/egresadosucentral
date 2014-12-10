@@ -77,24 +77,24 @@ public class ControlardorEncuesta {
         try {
             Persistencia.Encuesta en = em.getReference(Persistencia.Encuesta.class, idEncuesta);
             if (en != null) {
-                for (Persistencia.PreguntaEncuesta pe : en.getPreguntaEncuestaCollection()) {
-                    if (pe.getEstado()){
-                        PreguntaEncuesta preguntaEncuesta = (PreguntaEncuesta)convertidor.convertirAModelo(pe, null, Modelo.PreguntaEncuesta.class.getName());
-                        for (Persistencia.RespuestaEncuesta pre : pe.getRespuestaEncuestaCollection()) {
-                            if (pre.getEstado()){
-                                preguntaEncuesta.agregarPosibleRespuestaEncuesta((RespuestaEncuesta)convertidor.convertirAModelo(pre, null, Modelo.RespuestaEncuesta.class.getName()));
-                            }
-                        }
-                        
-                        for (Persistencia.EgresadoRespuesta re : e.getEgresadoRespuestaCollection()) {
-                            if (re.getIdPreguntaEncuesta().equals(pe) && re.getEstado()){
-                                preguntaEncuesta.getListaRespuestasEncuesta().add((EgresadoRespuesta) convertidor.convertirAModelo(re, null, Modelo.EgresadoRespuesta.class.getName()));
-                            }
-                        }
-
-                        listaPreguntas.put(pe.getIdPreguntaEncuesta(), preguntaEncuesta);
-                    }
-                }
+//                for (Persistencia.PreguntaEncuesta pe : en.getPreguntaEncuestaCollection()) {
+//                    if (pe.getEstado()){
+//                        PreguntaEncuesta preguntaEncuesta = (PreguntaEncuesta)convertidor.convertirAModelo(pe, null, Modelo.PreguntaEncuesta.class.getName());
+//                        for (Persistencia.RespuestaEncuesta pre : pe.getRespuestaEncuestaCollection()) {
+//                            if (pre.getEstado()){
+//                                preguntaEncuesta.agregarPosibleRespuestaEncuesta((RespuestaEncuesta)convertidor.convertirAModelo(pre, null, Modelo.RespuestaEncuesta.class.getName()));
+//                            }
+//                        }
+//                        
+//                        for (Persistencia.EgresadoRespuesta re : e.getEgresadoRespuestaCollection()) {
+//                            if (re.getIdPreguntaEncuesta().equals(pe) && re.getEstado()){
+//                                preguntaEncuesta.getListaRespuestasEncuesta().add((EgresadoRespuesta) convertidor.convertirAModelo(re, null, Modelo.EgresadoRespuesta.class.getName()));
+//                            }
+//                        }
+//
+//                        listaPreguntas.put(pe.getIdPreguntaEncuesta(), preguntaEncuesta);
+//                    }
+//                }
             }
 
             return listaPreguntas;

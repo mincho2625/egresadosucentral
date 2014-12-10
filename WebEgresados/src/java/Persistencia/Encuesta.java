@@ -71,7 +71,7 @@ public class Encuesta implements Serializable {
     @Column(name = "ORDEN")
     private int orden;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idEncuesta")
-    private Collection<PreguntaEncuesta> preguntaEncuestaCollection;
+    private Collection<SeccionEncuesta> seccionEncuestaCollection;
 
     public Encuesta() {
     }
@@ -155,12 +155,12 @@ public class Encuesta implements Serializable {
     }
 
     @XmlTransient
-    public Collection<PreguntaEncuesta> getPreguntaEncuestaCollection() {
-        return preguntaEncuestaCollection;
+    public Collection<SeccionEncuesta> getSeccionEncuestaCollection() {
+        return seccionEncuestaCollection;
     }
 
-    public void setPreguntaEncuestaCollection(Collection<PreguntaEncuesta> preguntaEncuestaCollection) {
-        this.preguntaEncuestaCollection = preguntaEncuestaCollection;
+    public void setSeccionEncuestaCollection(Collection<SeccionEncuesta> seccionEncuestaCollection) {
+        this.seccionEncuestaCollection = seccionEncuestaCollection;
     }
 
     @Override

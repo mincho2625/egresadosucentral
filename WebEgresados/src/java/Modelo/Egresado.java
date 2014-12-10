@@ -24,7 +24,7 @@ public class Egresado extends Usuario {
     private Genero idGenero;
     private TipoDocumento idTipoDocumento;
     private long idEgresado;
-    private boolean aceptaCondiciones;    
+    private boolean aceptaCondiciones;
 
     /**
      * @return the fechaExpedicion
