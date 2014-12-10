@@ -110,10 +110,7 @@ public class Institucion implements Serializable {
             return false;
         }
         Institucion other = (Institucion) object;
-        if ((this.idInstitucion == null && other.idInstitucion != null) || (this.idInstitucion != null && !this.idInstitucion.equals(other.idInstitucion))) {
-            return false;
-        }
-        return true;
+        return (this.idInstitucion != null || other.idInstitucion == null) && (this.idInstitucion == null || this.idInstitucion.equals(other.idInstitucion));
     }
 
     @Override

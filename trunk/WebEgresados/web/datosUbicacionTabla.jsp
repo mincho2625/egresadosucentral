@@ -46,13 +46,13 @@
                             </s:url>
                             <s:a href="%{editarURL}">
                                 <img style="width: 20px; height: 19px;" title="Editar" alt="Editar" src="imagenes/editar-icono-8419-16.png" align="top">
-                                </s:a>
-                                <s:url id="borrarURL" action="borrarUbicacion.action">
-                                    <s:param name="idObjeto" value="%{idContacto}"></s:param>
-                                </s:url>
-                                <s:a href="%{borrarURL}">
-                                    <img style="width: 20px; height: 19px;" title="Borrar" alt="Borrar" src="imagenes/eliminar.png" align="top">
-                                </s:a></div>
+                            </s:a>
+                            <s:url id="borrarURL" action="borrarUbicacion.action">
+                                <s:param name="idObjeto" value="%{idContacto}"></s:param>
+                            </s:url>
+                            <s:a href="%{borrarURL}">
+                                <img style="width: 20px; height: 19px;" title="Borrar" alt="Borrar" src="imagenes/eliminar.png" align="top">
+                            </s:a></div>
                         </td>
                     </tr>
                 </s:iterator>

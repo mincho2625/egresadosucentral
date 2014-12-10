@@ -61,12 +61,12 @@ public class PreguntaEncuesta implements Serializable {
     private Collection<EgresadoRespuesta> egresadoRespuestaCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idPreguntaEncuesta")
     private Collection<RespuestaEncuesta> respuestaEncuestaCollection;
-    @JoinColumn(name = "ID_ENCUESTA", referencedColumnName = "ID_ENCUESTA")
-    @ManyToOne(optional = false)
-    private Encuesta idEncuesta;
     @JoinColumn(name = "ID_TIPO_RESPUESTA", referencedColumnName = "ID_TIPO_RESPUESTA")
     @ManyToOne(optional = false)
     private TipoRespuesta idTipoRespuesta;
+    @JoinColumn(name = "ID_SECCION_ENCUESTA", referencedColumnName = "ID_SECCION_ENCUESTA")
+    @ManyToOne(optional = false)
+    private SeccionEncuesta idSeccionEncuesta;
 
     public PreguntaEncuesta() {
     }
@@ -141,20 +141,20 @@ public class PreguntaEncuesta implements Serializable {
         this.respuestaEncuestaCollection = respuestaEncuestaCollection;
     }
 
-    public Encuesta getIdEncuesta() {
-        return idEncuesta;
-    }
-
-    public void setIdEncuesta(Encuesta idEncuesta) {
-        this.idEncuesta = idEncuesta;
-    }
-
     public TipoRespuesta getIdTipoRespuesta() {
         return idTipoRespuesta;
     }
 
     public void setIdTipoRespuesta(TipoRespuesta idTipoRespuesta) {
         this.idTipoRespuesta = idTipoRespuesta;
+    }
+
+    public SeccionEncuesta getIdSeccionEncuesta() {
+        return idSeccionEncuesta;
+    }
+
+    public void setIdSeccionEncuesta(SeccionEncuesta idSeccionEncuesta) {
+        this.idSeccionEncuesta = idSeccionEncuesta;
     }
 
     @Override

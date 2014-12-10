@@ -31,10 +31,9 @@ import java.util.logging.Logger;
  */
 public class EgresadoAction extends ActionSupport implements ModelDriven<Egresado> {
     
-    private ControladorEgresado controladorEgresado;
-    private Listas listas;
+    private final ControladorEgresado controladorEgresado;
+    private final Listas listas;
     private Egresado egresado;
-    private Map<Long, Ciudad> listaCiudades;
     private Map<Long, TipoDocumento> listaTiposDocumento;
     private Map<Long, GrupoSanguineo> listaGruposSanguineos;
     private Map<Long, Genero> listaGeneros;
@@ -46,6 +45,10 @@ public class EgresadoAction extends ActionSupport implements ModelDriven<Egresad
     private long genero;
     private long estadoCivil;
     private boolean terminos;
+    private long departamentoNacimiento;
+    private long departamentoExpedicion;
+    private long paisNacimiento;
+    private long paisExpedicion;
         
     public EgresadoAction()
     {
@@ -54,20 +57,6 @@ public class EgresadoAction extends ActionSupport implements ModelDriven<Egresad
         controladorEgresado = new ControladorEgresado(usuario);
         this.egresado = controladorEgresado.consultar();
         this.listas = new Listas();
-    }
-
-    /**
-     * @return the listaCiudades
-     */
-    public Collection<Ciudad> getListaCiudades() {
-        return listaCiudades.values();
-    }
-
-    /**
-     * @param listaCiudades the listaCiudades to set
-     */
-    public void setListaCiudades(Map<Long, Ciudad> listaCiudades) {
-        this.listaCiudades = listaCiudades;
     }
 
     /**
@@ -238,13 +227,69 @@ public class EgresadoAction extends ActionSupport implements ModelDriven<Egresad
         this.terminos = terminos;
     }
     
+    /**
+     * @return the departamentoNacimiento
+     */
+    public long getDepartamentoNacimiento() {
+        return departamentoNacimiento;
+    }
+
+    /**
+     * @param departamentoNacimiento the departamentoNacimiento to set
+     */
+    public void setDepartamentoNacimiento(long departamentoNacimiento) {
+        this.departamentoNacimiento = departamentoNacimiento;
+    }
+
+    /**
+     * @return the departamentoExpedicion
+     */
+    public long getDepartamentoExpedicion() {
+        return departamentoExpedicion;
+    }
+
+    /**
+     * @param departamentoExpedicion the departamentoExpedicion to set
+     */
+    public void setDepartamentoExpedicion(long departamentoExpedicion) {
+        this.departamentoExpedicion = departamentoExpedicion;
+    }
+
+    /**
+     * @return the paisNacimiento
+     */
+    public long getPaisNacimiento() {
+        return paisNacimiento;
+    }
+
+    /**
+     * @param paisNacimiento the paisNacimiento to set
+     */
+    public void setPaisNacimiento(long paisNacimiento) {
+        this.paisNacimiento = paisNacimiento;
+    }
+
+    /**
+     * @return the paisExpedicion
+     */
+    public long getPaisExpedicion() {
+        return paisExpedicion;
+    }
+
+    /**
+     * @param paisExpedicion the paisExpedicion to set
+     */
+    public void setPaisExpedicion(long paisExpedicion) {
+        this.paisExpedicion = paisExpedicion;
+    }
+    
     public void insertarTipos() {
-        this.getEgresado().setIdCiudadExpedicion(listas.getListaCiudades().get(ciudadExpedicion));
-        this.getEgresado().setIdCiudadNacimiento(listas.getListaCiudades().get(ciudadNacimiento));
-        this.getEgresado().setIdEstadoCivil(listas.getListaEstadosCiviles().get(estadoCivil));
-        this.getEgresado().setIdGenero(listas.getListaGeneros().get(genero));
-        this.getEgresado().setIdGrupoSanguineo(listas.getListaGruposSanguineos().get(grupoSanguineo));
-        this.getEgresado().setIdTipoDocumento(listas.getListaTiposDocumento().get(tipoDocumento));
+        this.getEgresado().setIdCiudadExpedicion(new Ciudad(ciudadExpedicion));
+        this.getEgresado().setIdCiudadNacimiento(new Ciudad(ciudadNacimiento));
+        this.getEgresado().setIdEstadoCivil(listas.consultarEstadosCiviles().get(estadoCivil));
+        this.getEgresado().setIdGenero(listas.consultarGeneros().get(genero));
+        this.getEgresado().setIdGrupoSanguineo(listas.consultarGruposSanguineos().get(grupoSanguineo));
+        this.getEgresado().setIdTipoDocumento(listas.consultarTiposDocumento().get(tipoDocumento));
     }
 
     public void consultarTipos() {
@@ -263,11 +308,10 @@ public class EgresadoAction extends ActionSupport implements ModelDriven<Egresad
         
     public String editar()
     {
-        this.setListaCiudades(listas.getListaCiudades());
-        this.setListaEstadosCiviles(listas.getListaEstadosCiviles());
-        this.setListaGeneros(listas.getListaGeneros());
-        this.setListaGruposSanguineos(listas.getListaGruposSanguineos());
-        this.setListaTiposDocumento(listas.getListaTiposDocumento());
+        this.setListaEstadosCiviles(listas.consultarEstadosCiviles());
+        this.setListaGeneros(listas.consultarGeneros());
+        this.setListaGruposSanguineos(listas.consultarGruposSanguineos());
+        this.setListaTiposDocumento(listas.consultarTiposDocumento());
         
         this.consultarTipos();
         return INPUT;

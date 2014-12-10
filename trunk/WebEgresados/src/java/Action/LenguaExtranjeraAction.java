@@ -90,8 +90,8 @@ public class LenguaExtranjeraAction extends CrudAction<LenguaExtranjera> {
 
     @Override
     public String desplegar() {
-        this.setListaDominioLenguaExt(listas.getListaDominioLenguaExt());
-        this.setListaIdiomas(listas.getListaIdiomas());
+        this.setListaDominioLenguaExt(listas.consultarDominioLenguaExt());
+        this.setListaIdiomas(listas.consultarIdiomas());
         
         this.obtenerLista();
         this.editar = true;
@@ -100,8 +100,8 @@ public class LenguaExtranjeraAction extends CrudAction<LenguaExtranjera> {
 
     @Override
     public void insertarTipos() {
-        this.objeto.setIdDominio(listas.getListaDominioLenguaExt().get(this.dominio));
-        this.objeto.setIdIdioma(listas.getListaIdiomas().get(this.idioma));
+        this.objeto.setIdDominio(listas.consultarDominioLenguaExt().get(this.dominio));
+        this.objeto.setIdIdioma(listas.consultarIdiomas().get(this.idioma));
     }
 
     @Override

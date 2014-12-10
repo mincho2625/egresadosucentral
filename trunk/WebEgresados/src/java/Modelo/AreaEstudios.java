@@ -14,6 +14,7 @@ public class AreaEstudios {
     private long idAreaEstudios;
     private String nombre;
     private boolean estado;
+    private NivelEstudios idNivelEstudios;
 
     /**
      * @return the idAreaEstudios
@@ -55,5 +56,19 @@ public class AreaEstudios {
      */
     public void setEstado(boolean estado) {
         this.estado = estado;
+    }
+
+    /**
+     * @return the idNivelEstudios
+     */
+    public NivelEstudios getIdNivelEstudios() {
+        return idNivelEstudios;
+    }
+
+    /**
+     * @param idNivelEstudios the idNivelEstudios to set
+     */
+    public void setIdNivelEstudios(NivelEstudios idNivelEstudios) {
+        this.idNivelEstudios = idNivelEstudios;
     }
 }

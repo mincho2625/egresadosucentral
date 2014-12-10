@@ -49,6 +49,9 @@ public class Programa implements Serializable {
     @Basic(optional = false)
     @Column(name = "ESTADO")
     private boolean estado;
+    @JoinColumn(name = "ID_NIVEL_ESTUDIOS", referencedColumnName = "ID_NIVEL_ESTUDIOS")
+    @ManyToOne(optional = false)
+    private NivelEstudios idNivelEstudios;
     @JoinColumn(name = "ID_FACULTAD", referencedColumnName = "ID_FACULTAD")
     @ManyToOne(optional = false)
     private Facultad idFacultad;
@@ -90,6 +93,14 @@ public class Programa implements Serializable {
 
     public void setEstado(boolean estado) {
         this.estado = estado;
+    }
+
+    public NivelEstudios getIdNivelEstudios() {
+        return idNivelEstudios;
+    }
+
+    public void setIdNivelEstudios(NivelEstudios idNivelEstudios) {
+        this.idNivelEstudios = idNivelEstudios;
     }
 
     public Facultad getIdFacultad() {

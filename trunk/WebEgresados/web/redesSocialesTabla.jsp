@@ -37,14 +37,14 @@
                             <td class="texfield"><s:property value="url"></s:property><br>
                             </td>
                             <td class="texfield">
-                            <s:url id="editarURL" action="editarUbicacion.action">
-                                <s:param name="idObjeto" value="%{idContacto}" ></s:param>
+                            <s:url id="editarURL" action="editarEgresadoRedSocial.action">
+                                <s:param name="idObjeto" value="%{idEgresadoRedSocial}" ></s:param>
                             </s:url>
                             <s:a href="%{editarURL}">
                                 <div class="fuentetabla2"><img style="width: 20px; height: 19px;" title="Editar" alt="Editar" src="imagenes/editar-icono-8419-16.png" align="top">
                                 </s:a>
-                                <s:url id="borrarURL" action="borrarUbicacion.action">
-                                    <s:param name="idObjeto" value="%{idContacto}"></s:param>
+                                <s:url id="borrarURL" action="borrarEgresadoRedSocial.action">
+                                    <s:param name="idObjeto" value="%{idEgresadoRedSocial}"></s:param>
                                 </s:url>
                                 <s:a href="%{borrarURL}">
                                     <img style="width: 20px; height: 19px;" title="Borrar" alt="Borrar" src="imagenes/eliminar.png" align="top">

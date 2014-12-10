@@ -59,7 +59,7 @@ public class AficionAction extends CrudAction<Aficion> {
 
     @Override
     public String desplegar() {
-        this.setListaTiposActividades(listas.getListaTiposActividades());
+        this.setListaTiposActividades(listas.consultarTiposActividades());
         this.obtenerLista();
         this.editar = true;
         return SUCCESS;
@@ -67,7 +67,7 @@ public class AficionAction extends CrudAction<Aficion> {
 
     @Override
     public void insertarTipos() {
-        this.objeto.setIdTipoActividad(listas.getListaTiposActividades().get(this.tipoActividad));
+        this.objeto.setIdTipoActividad(listas.consultarTiposActividades().get(this.tipoActividad));
     }
 
     @Override

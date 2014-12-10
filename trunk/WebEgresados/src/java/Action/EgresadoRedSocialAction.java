@@ -60,7 +60,7 @@ public class EgresadoRedSocialAction extends CrudAction<EgresadoRedSocial>{
     
     @Override
     public String desplegar() {
-        this.setListaRedesSociales(listas.getListaRedesSociales());
+        this.setListaRedesSociales(listas.consultarRedesSociales());
         this.obtenerLista();
         this.editar = true;
         return SUCCESS;
@@ -68,7 +68,7 @@ public class EgresadoRedSocialAction extends CrudAction<EgresadoRedSocial>{
 
     @Override
     public void insertarTipos() {
-        this.objeto.setIdRedSocial(listas.getListaRedesSociales().get(this.redSocial));
+        this.objeto.setIdRedSocial(listas.consultarRedesSociales().get(this.redSocial));
     }
 
     @Override

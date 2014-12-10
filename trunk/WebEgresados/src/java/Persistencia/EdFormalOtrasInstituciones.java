@@ -10,8 +10,6 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -37,12 +35,6 @@ public class EdFormalOtrasInstituciones implements Serializable {
     @Basic(optional = false)
     @Column(name = "TITULO")
     private String titulo;
-    @JoinColumn(name = "ID_NIVEL_ESTUDIOS", referencedColumnName = "ID_NIVEL_ESTUDIOS")
-    @ManyToOne(optional = false)
-    private NivelEstudios idNivelEstudios;
-    @JoinColumn(name = "ID_AREA_ESTUDIOS", referencedColumnName = "ID_AREA_ESTUDIOS")
-    @ManyToOne(optional = false)
-    private AreaEstudios idAreaEstudios;
     @JoinColumn(name = "ID_MODALIDAD", referencedColumnName = "ID_MODALIDAD")
     @ManyToOne(optional = false)
     private Modalidad idModalidad;
@@ -50,6 +42,12 @@ public class EdFormalOtrasInstituciones implements Serializable {
     @JoinColumn(name = "ID_EDUCACION", referencedColumnName = "ID_EDUCACION")
     @OneToOne(optional = false)
     private Educacion educacion;
+    @JoinColumn(name = "ID_AREA_ESTUDIOS", referencedColumnName = "ID_AREA_ESTUDIOS")
+    @ManyToOne(optional = false)
+    private AreaEstudios idAreaEstudios;
+    @JoinColumn(name = "ID_NIVEL_ESTUDIOS", referencedColumnName = "ID_NIVEL_ESTUDIOS")
+    @ManyToOne(optional = false)
+    private NivelEstudios idNivelEstudios;
 
     public EdFormalOtrasInstituciones() {
     }
@@ -60,22 +58,6 @@ public class EdFormalOtrasInstituciones implements Serializable {
 
     public void setTitulo(String titulo) {
         this.titulo = titulo;
-    }
-
-    public NivelEstudios getIdNivelEstudios() {
-        return idNivelEstudios;
-    }
-
-    public void setIdNivelEstudios(NivelEstudios idNivelEstudios) {
-        this.idNivelEstudios = idNivelEstudios;
-    }
-
-    public AreaEstudios getIdAreaEstudios() {
-        return idAreaEstudios;
-    }
-
-    public void setIdAreaEstudios(AreaEstudios idAreaEstudios) {
-        this.idAreaEstudios = idAreaEstudios;
     }
 
     public Modalidad getIdModalidad() {
@@ -94,6 +76,22 @@ public class EdFormalOtrasInstituciones implements Serializable {
         this.educacion = educacion;
     }
 
+    public AreaEstudios getIdAreaEstudios() {
+        return idAreaEstudios;
+    }
+
+    public void setIdAreaEstudios(AreaEstudios idAreaEstudios) {
+        this.idAreaEstudios = idAreaEstudios;
+    }
+
+    public NivelEstudios getIdNivelEstudios() {
+        return idNivelEstudios;
+    }
+
+    public void setIdNivelEstudios(NivelEstudios idNivelEstudios) {
+        this.idNivelEstudios = idNivelEstudios;
+    }
+    
     public boolean getEstado()
     {
         return educacion.getEstado();

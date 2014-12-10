@@ -325,15 +325,15 @@ public class EducacionFormalOtrasInstitucionesAction extends CrudAction<EdFormal
 
     @Override
     public String desplegar() {
-        this.setListaEstadosEducacion(listas.getListaEstadosEducacion());
-        this.setListaMeses(listas.getListaMeses());
-        this.setListaJornadas(listas.getListaJornadas());
-        this.setListaAnios(listas.getListaAnios());
-        this.setListaAreasEstudios(listas.getListaAreasEstudios());
-        this.setListaCiudades(listas.getListaCiudades());
-        this.setListaInstituciones(listas.getListaOtrasInstituciones());
-        this.setListaModalidades(listas.getListaModalidades());
-        this.setListaNivelesEstudios(listas.getListaNivelesEstudios());
+        this.setListaEstadosEducacion(listas.consultarEstadosEducacion());
+        this.setListaMeses(listas.consultarMeses());
+        this.setListaJornadas(listas.consultarJornadas());
+        this.setListaAnios(listas.consultarAnios());
+        this.setListaAreasEstudios(listas.consultarAreasEstudios());
+        //this.setListaCiudades(listas.consultarCiudades(1));
+        this.setListaInstituciones(listas.consultarOtrasInstituciones());
+        this.setListaModalidades(listas.consultarModalidades());
+        this.setListaNivelesEstudios(listas.consultarNivelesEstudios());
 
         this.obtenerLista();
         this.editar = true;
@@ -342,14 +342,14 @@ public class EducacionFormalOtrasInstitucionesAction extends CrudAction<EdFormal
 
     @Override
     public void insertarTipos() {
-        this.objeto.setIdEstadoEducacion(listas.getListaEstadosEducacion().get(this.estadoEducacion));
-        this.objeto.setIdMesFinalizacion(listas.getListaMeses().get(this.mesFinalizacion));
-        this.objeto.setIdMesInicio(listas.getListaMeses().get(this.mesInicio));
-        this.objeto.setIdAreaEstudios(listas.getListaAreasEstudios().get(this.areaEstudios));
-        this.objeto.setIdCiudad(listas.getListaCiudades().get(this.ciudad));
-        this.objeto.setIdInstitucion(listas.getListaInstituciones().get(this.institucion));
-        this.objeto.setIdModalidad(listas.getListaModalidades().get(this.modalidad));
-        this.objeto.setIdNivelEstudios(listas.getListaNivelesEstudios().get(this.nivelEstudios));
+        this.objeto.setIdEstadoEducacion(listas.consultarEstadosEducacion().get(this.estadoEducacion));
+        this.objeto.setIdMesFinalizacion(listas.consultarMeses().get(this.mesFinalizacion));
+        this.objeto.setIdMesInicio(listas.consultarMeses().get(this.mesInicio));
+        this.objeto.setIdAreaEstudios(listas.consultarAreasEstudios().get(this.areaEstudios));
+        //this.objeto.setIdCiudad(listas.getListaCiudades().get(this.ciudad));
+        this.objeto.setIdInstitucion(listas.consultarInstituciones().get(this.institucion));
+        this.objeto.setIdModalidad(listas.consultarModalidades().get(this.modalidad));
+        this.objeto.setIdNivelEstudios(listas.consultarNivelesEstudios().get(this.nivelEstudios));
         if (this.institucion > 0) {
             this.checkOtraInstitucion = false;
         }
@@ -439,7 +439,7 @@ public class EducacionFormalOtrasInstitucionesAction extends CrudAction<EdFormal
 
     @Override
     public void validarLista() {
-        this.setListaNivelesEstudios(listas.getListaNivelesEstudios());
+        this.setListaNivelesEstudios(listas.consultarNivelesEstudios());
 
         Collection<Long> lista = new ArrayList<>();
         for (EdFormalOtrasInstituciones ed : listaObjetos.values()) {

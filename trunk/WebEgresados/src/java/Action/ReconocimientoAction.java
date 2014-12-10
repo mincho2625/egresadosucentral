@@ -121,9 +121,9 @@ public class ReconocimientoAction extends CrudAction<Reconocimiento>{
     
     @Override
     public String desplegar() {
-        this.setListaCiudades(listas.getListaCiudades());
-        this.setListaClasesReconocimiento(listas.getListaClasesReconocimiento());
-        this.setListaTiposReconocimiento(listas.getListaTiposReconocimiento());
+        //this.setListaCiudades(listas.getListaCiudades());
+        this.setListaClasesReconocimiento(listas.consultarClasesReconocimiento());
+        this.setListaTiposReconocimiento(listas.consultarTiposReconocimiento());
         
         this.obtenerLista();
         this.editar = true;
@@ -132,9 +132,9 @@ public class ReconocimientoAction extends CrudAction<Reconocimiento>{
 
     @Override
     public void insertarTipos() {
-        this.objeto.setIdClaseReconocimiento(listas.getListaClasesReconocimiento().get(this.claseReconocimiento));
-        this.objeto.setIdCiudad(listas.getListaCiudades().get(this.ciudad));
-        this.objeto.setIdTipoReconocimiento(listas.getListaTiposReconocimiento().get(this.tipoReconocimiento));
+        this.objeto.setIdClaseReconocimiento(listas.consultarClasesReconocimiento().get(this.claseReconocimiento));
+        //this.objeto.setIdCiudad(listas.getListaCiudades().get(this.ciudad));
+        this.objeto.setIdTipoReconocimiento(listas.consultarTiposReconocimiento().get(this.tipoReconocimiento));
     }
 
     @Override

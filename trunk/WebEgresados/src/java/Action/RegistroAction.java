@@ -27,9 +27,6 @@ import java.util.Map;
  */
 public class RegistroAction extends ActionSupport implements ModelDriven<Egresado> {
 
-//    private Map<Long, Pais> listaPaises;
-//    private Map<Long, Departamento> listaDepartamentos;
-    private Map<Long, Ciudad> listaCiudades;
     private Map<Long, TipoDocumento> listaTiposDocumento;
     private Map<Long, GrupoSanguineo> listaGruposSanguineos;
     private Map<Long, Genero> listaGeneros;
@@ -45,28 +42,14 @@ public class RegistroAction extends ActionSupport implements ModelDriven<Egresad
     private String confirmacionClave;
     private Egresado egresado = new Egresado();
     private boolean terminos;
-    private ControladorEgresado controladorEgresado;
+    private final ControladorEgresado controladorEgresado;
     private Listas listas;
 
     public RegistroAction() {
         controladorEgresado = new ControladorEgresado();
         listas = new Listas();
     }
-
-    /**
-     * @return the listaCiudades
-     */
-    public Collection<Ciudad> getListaCiudades() {
-        return listaCiudades.values();
-    }
-
-    /**
-     * @param listaCiudades the listaCiudades to set
-     */
-    public void setListaCiudades(Map<Long, Ciudad> listaCiudades) {
-        this.listaCiudades = listaCiudades;
-    }
-
+    
     /**
      * @return the listaTiposDocumento
      */
@@ -296,18 +279,17 @@ public class RegistroAction extends ActionSupport implements ModelDriven<Egresad
         return this.egresado;
     }
 
-    public String desplegar() {
-        setListaCiudades(listas.getListaCiudades());
-        setListaEstadosCiviles(listas.getListaEstadosCiviles());
-        setListaGeneros(listas.getListaGeneros());
-        setListaGruposSanguineos(listas.getListaGruposSanguineos());
-        setListaTiposDocumento(listas.getListaTiposDocumento());
-        setListaPreguntas(listas.getListaPreguntas());
+    public String desplegar() throws Exception {
+        setListaEstadosCiviles(listas.consultarEstadosCiviles());
+        setListaGeneros(listas.consultarGeneros());
+        setListaGruposSanguineos(listas.consultarGruposSanguineos());
+        setListaTiposDocumento(listas.consultarTiposDocumento());
+        setListaPreguntas(listas.consultarPreguntas());
 
         return "crear";
     }
 
-    public String guardar() {
+    public String guardar() throws Exception {
         validar();
         if (!this.hasErrors()) {
             insertarTipos();
@@ -393,34 +375,16 @@ public class RegistroAction extends ActionSupport implements ModelDriven<Egresad
             addFieldError("terminos", "Debe aceptar términos y condiciones");
         }
     }
-//
-//    public String actualizarEgresado() {
-//        if (terminos) {
-//            ControladorEgresado controladorEgresado = new ControladorEgresado();
-//            controladorEgresado.actualizarInformacionBasica(getEgresado());
-//            return "successActual";
-//        } else {
-//            addActionError("Debe aceptar términos y condiciones");
-//            return "errorActual";
-//        }
-//    }
-//
 
     public void insertarTipos() {
-        this.egresado.setIdCiudadExpedicion(listas.getListaCiudades().get(ciudadExpedicion));
-        this.egresado.setIdCiudadNacimiento(listas.getListaCiudades().get(ciudadNacimiento));
-        this.egresado.setIdEstadoCivil(listas.getListaEstadosCiviles().get(estadoCivil));
-        this.egresado.setIdGenero(listas.getListaGeneros().get(genero));
-        this.egresado.setIdGrupoSanguineo(listas.getListaGruposSanguineos().get(grupoSanguineo));
-        this.egresado.setIdPreguntaSeguridad(listas.getListaPreguntas().get(preguntaSeguridad));
-        this.egresado.setIdTipoDocumento(listas.getListaTiposDocumento().get(tipoDocumento));
+        this.egresado.setIdCiudadExpedicion(new Ciudad(ciudadExpedicion));
+        this.egresado.setIdCiudadNacimiento(new Ciudad(ciudadNacimiento));
+        this.egresado.setIdEstadoCivil(listas.consultarEstadosCiviles().get(estadoCivil));
+        this.egresado.setIdGenero(listas.consultarGeneros().get(genero));
+        this.egresado.setIdGrupoSanguineo(listas.consultarGruposSanguineos().get(grupoSanguineo));
+        this.egresado.setIdPreguntaSeguridad(listas.consultarPreguntas().get(preguntaSeguridad));
+        this.egresado.setIdTipoDocumento(listas.consultarTiposDocumento().get(tipoDocumento));
     }
-//
-//    @Override
-//    public void consultarTipos() {
-//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-//    }
-//
 
     public void insertarValoresDefecto() {
         this.egresado.setAceptaCondiciones(true);

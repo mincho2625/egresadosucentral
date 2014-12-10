@@ -121,10 +121,7 @@ public class Pais implements Serializable {
             return false;
         }
         Pais other = (Pais) object;
-        if ((this.idPais == null && other.idPais != null) || (this.idPais != null && !this.idPais.equals(other.idPais))) {
-            return false;
-        }
-        return true;
+        return (this.idPais != null || other.idPais == null) && (this.idPais == null || this.idPais.equals(other.idPais));
     }
 
     @Override

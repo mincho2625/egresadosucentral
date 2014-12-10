@@ -36,7 +36,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Asociacion.findByDescripcion", query = "SELECT a FROM Asociacion a WHERE a.descripcion = :descripcion"),
     @NamedQuery(name = "Asociacion.findByFechaVinculacion", query = "SELECT a FROM Asociacion a WHERE a.fechaVinculacion = :fechaVinculacion"),
     @NamedQuery(name = "Asociacion.findByFechaRegistro", query = "SELECT a FROM Asociacion a WHERE a.fechaRegistro = :fechaRegistro"),
-    @NamedQuery(name = "Asociacion.findByEstado", query = "SELECT a FROM Asociacion a WHERE a.estado = :estado")})
+    @NamedQuery(name = "Asociacion.findByEstado", query = "SELECT a FROM Asociacion a WHERE a.estado = :estado"),
+    @NamedQuery(name = "Asociacion.findByOtra", query = "SELECT a FROM Asociacion a WHERE a.otra = :otra")})
 public class Asociacion implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -58,8 +59,10 @@ public class Asociacion implements Serializable {
     @Basic(optional = false)
     @Column(name = "ESTADO")
     private boolean estado;
+    @Column(name = "OTRA")
+    private String otra;
     @JoinColumn(name = "ID_TIPO_ASOCIACION", referencedColumnName = "ID_TIPO_ASOCIACION")
-    @ManyToOne(optional = false)
+    @ManyToOne
     private TipoAsociacion idTipoAsociacion;
     @JoinColumn(name = "ID_PAIS", referencedColumnName = "ID_PAIS")
     @ManyToOne(optional = false)
@@ -121,6 +124,14 @@ public class Asociacion implements Serializable {
 
     public void setEstado(boolean estado) {
         this.estado = estado;
+    }
+
+    public String getOtra() {
+        return otra;
+    }
+
+    public void setOtra(String otra) {
+        this.otra = otra;
     }
 
     public TipoAsociacion getIdTipoAsociacion() {

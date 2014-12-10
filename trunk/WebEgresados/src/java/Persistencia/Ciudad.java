@@ -36,7 +36,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Ciudad.findByIdCiudad", query = "SELECT c FROM Ciudad c WHERE c.idCiudad = :idCiudad"),
     @NamedQuery(name = "Ciudad.findByNombre", query = "SELECT c FROM Ciudad c WHERE c.nombre = :nombre"),
     @NamedQuery(name = "Ciudad.findByEstado", query = "SELECT c FROM Ciudad c WHERE c.estado = :estado"),
-    @NamedQuery(name = "Ciudad.findByIdDepartamento", query = "SELECT c FROM Ciudad c WHERE c.idDepartamento = :idDepartamento")})
+    @NamedQuery(name = "Ciudad.findByIdDepartamento", query = "SELECT c FROM Ciudad c inner join Departamento d on d = c.idDepartamento WHERE d.idDepartamento = :idDepartamento")})
 public class Ciudad implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -179,10 +179,7 @@ public class Ciudad implements Serializable {
             return false;
         }
         Ciudad other = (Ciudad) object;
-        if ((this.idCiudad == null && other.idCiudad != null) || (this.idCiudad != null && !this.idCiudad.equals(other.idCiudad))) {
-            return false;
-        }
-        return true;
+        return (this.idCiudad != null || other.idCiudad == null) && (this.idCiudad == null || this.idCiudad.equals(other.idCiudad));
     }
 
     @Override

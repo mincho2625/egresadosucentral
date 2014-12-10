@@ -11,40 +11,26 @@ package Modelo;
  * @author YURY
  */
 public class EducacionNoFormal extends Educacion {
-    private TipoEdNoFormal idTipoEdNoFormal;
-    private String otroTipoEdNoFormal;
+    private String otroNivelEstudios;
     private String titulo;
     private IntensidadHoraria idIntensidadHoraria;
     private String descripcion;
     private AreaEstudios idAreaEstudios;
     private Modalidad idModalidad;
+    private NivelEstudios idNivelEstudios;
 
     /**
-     * @return the idTipoEdNoFormal
+     * @return the otroNivelEstudios
      */
-    public TipoEdNoFormal getIdTipoEdNoFormal() {
-        return idTipoEdNoFormal;
+    public String getOtroNivelEstudios() {
+        return otroNivelEstudios;
     }
 
     /**
-     * @param idTipoEdNoFormal the idTipoEdNoFormal to set
+     * @param otroNivelEstudios the otroNivelEstudios to set
      */
-    public void setIdTipoEdNoFormal(TipoEdNoFormal idTipoEdNoFormal) {
-        this.idTipoEdNoFormal = idTipoEdNoFormal;
-    }
-
-    /**
-     * @return the otroTipoEdNoFormal
-     */
-    public String getOtroTipoEdNoFormal() {
-        return otroTipoEdNoFormal;
-    }
-
-    /**
-     * @param otroTipoEdNoFormal the otroTipoEdNoFormal to set
-     */
-    public void setOtroTipoEdNoFormal(String otroTipoEdNoFormal) {
-        this.otroTipoEdNoFormal = otroTipoEdNoFormal;
+    public void setOtroNivelEstudios(String otroNivelEstudios) {
+        this.otroNivelEstudios = otroNivelEstudios;
     }
 
     /**
@@ -115,5 +101,19 @@ public class EducacionNoFormal extends Educacion {
      */
     public void setIdModalidad(Modalidad idModalidad) {
         this.idModalidad = idModalidad;
+    }
+
+    /**
+     * @return the idNivelEstudios
+     */
+    public NivelEstudios getIdNivelEstudios() {
+        return idNivelEstudios;
+    }
+
+    /**
+     * @param idNivelEstudios the idNivelEstudios to set
+     */
+    public void setIdNivelEstudios(NivelEstudios idNivelEstudios) {
+        this.idNivelEstudios = idNivelEstudios;
     }
 }

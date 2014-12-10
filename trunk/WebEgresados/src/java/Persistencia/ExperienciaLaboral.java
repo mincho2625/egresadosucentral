@@ -42,7 +42,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "ExperienciaLaboral.findByJefeInmediato", query = "SELECT e FROM ExperienciaLaboral e WHERE e.jefeInmediato = :jefeInmediato"),
     @NamedQuery(name = "ExperienciaLaboral.findByAnioIngreso", query = "SELECT e FROM ExperienciaLaboral e WHERE e.anioIngreso = :anioIngreso"),
     @NamedQuery(name = "ExperienciaLaboral.findByAnioFinalizacion", query = "SELECT e FROM ExperienciaLaboral e WHERE e.anioFinalizacion = :anioFinalizacion"),
-    @NamedQuery(name = "ExperienciaLaboral.findByEstado", query = "SELECT e FROM ExperienciaLaboral e WHERE e.estado = :estado")})
+    @NamedQuery(name = "ExperienciaLaboral.findByEstado", query = "SELECT e FROM ExperienciaLaboral e WHERE e.estado = :estado"),
+    @NamedQuery(name = "ExperienciaLaboral.findByActual", query = "SELECT e FROM ExperienciaLaboral e WHERE e.actual = :actual")})
 public class ExperienciaLaboral implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -78,6 +79,9 @@ public class ExperienciaLaboral implements Serializable {
     @Basic(optional = false)
     @Column(name = "ESTADO")
     private boolean estado;
+    @Basic(optional = false)
+    @Column(name = "ACTUAL")
+    private boolean actual;
     @JoinColumn(name = "ID_TIPO_CONTRATO", referencedColumnName = "ID_TIPO_CONTRATO")
     @ManyToOne(optional = false)
     private TipoContrato idTipoContrato;
@@ -116,7 +120,7 @@ public class ExperienciaLaboral implements Serializable {
         this.idExperienciaLaboral = idExperienciaLaboral;
     }
 
-    public ExperienciaLaboral(Long idExperienciaLaboral, String nombreEmpresa, String cargo, boolean conexionInternet, Date fechaRegistro, String funcionesLogros, int anioIngreso, boolean estado) {
+    public ExperienciaLaboral(Long idExperienciaLaboral, String nombreEmpresa, String cargo, boolean conexionInternet, Date fechaRegistro, String funcionesLogros, int anioIngreso, boolean estado, boolean actual) {
         this.idExperienciaLaboral = idExperienciaLaboral;
         this.nombreEmpresa = nombreEmpresa;
         this.cargo = cargo;
@@ -125,6 +129,7 @@ public class ExperienciaLaboral implements Serializable {
         this.funcionesLogros = funcionesLogros;
         this.anioIngreso = anioIngreso;
         this.estado = estado;
+        this.actual = actual;
     }
 
     public Long getIdExperienciaLaboral() {
@@ -213,6 +218,14 @@ public class ExperienciaLaboral implements Serializable {
 
     public void setEstado(boolean estado) {
         this.estado = estado;
+    }
+
+    public boolean getActual() {
+        return actual;
+    }
+
+    public void setActual(boolean actual) {
+        this.actual = actual;
     }
 
     public TipoContrato getIdTipoContrato() {

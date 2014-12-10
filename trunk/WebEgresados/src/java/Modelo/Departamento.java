@@ -10,6 +10,7 @@ public class Departamento {
     private long idDepartamento;
     private String nombre;
     private boolean estado;
+    private Pais idPais;
 
     /**
      * @return the idDepartamento
@@ -53,4 +54,17 @@ public class Departamento {
         this.estado = estado;
     }
 
+    /**
+     * @return the idPais
+     */
+    public Pais getIdPais() {
+        return idPais;
+    }
+
+    /**
+     * @param idPais the idPais to set
+     */
+    public void setIdPais(Pais idPais) {
+        this.idPais = idPais;
+    }
 }

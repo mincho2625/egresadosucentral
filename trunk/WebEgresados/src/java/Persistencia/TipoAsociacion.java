@@ -9,7 +9,6 @@ package Persistencia;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -47,7 +46,7 @@ public class TipoAsociacion implements Serializable {
     @Basic(optional = false)
     @Column(name = "ESTADO")
     private boolean estado;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idTipoAsociacion")
+    @OneToMany(mappedBy = "idTipoAsociacion")
     private Collection<Asociacion> asociacionCollection;
 
     public TipoAsociacion() {

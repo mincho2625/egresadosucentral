@@ -34,9 +34,10 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "NivelEstudios.findByIdNivelEstudios", query = "SELECT n FROM NivelEstudios n WHERE n.idNivelEstudios = :idNivelEstudios"),
     @NamedQuery(name = "NivelEstudios.findByNombre", query = "SELECT n FROM NivelEstudios n WHERE n.nombre = :nombre"),
     @NamedQuery(name = "NivelEstudios.findByEstado", query = "SELECT n FROM NivelEstudios n WHERE n.estado = :estado"),
-    @NamedQuery(name = "NivelEstudios.findByAplicaUCentral", query = "SELECT n FROM NivelEstudios n WHERE n.aplicaUCentral = :aplicaUCentral"),
+    @NamedQuery(name = "NivelEstudios.findByFormal", query = "SELECT n FROM NivelEstudios n WHERE n.formal = :formal"),
     @NamedQuery(name = "NivelEstudios.findByObligatorioUCentral", query = "SELECT n FROM NivelEstudios n WHERE n.obligatorioUCentral = :obligatorioUCentral"),
-    @NamedQuery(name = "NivelEstudios.findByObligatorioOtrasInst", query = "SELECT n FROM NivelEstudios n WHERE n.obligatorioOtrasInst = :obligatorioOtrasInst")})
+    @NamedQuery(name = "NivelEstudios.findByObligatorioOtrasInst", query = "SELECT n FROM NivelEstudios n WHERE n.obligatorioOtrasInst = :obligatorioOtrasInst"),
+    @NamedQuery(name = "NivelEstudios.findByObligatorioNoFormal", query = "SELECT n FROM NivelEstudios n WHERE n.obligatorioNoFormal = :obligatorioNoFormal")})
 public class NivelEstudios implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -51,16 +52,23 @@ public class NivelEstudios implements Serializable {
     @Column(name = "ESTADO")
     private boolean estado;
     @Basic(optional = false)
-    @Column(name = "APLICA_U_CENTRAL")
-    private boolean aplicaUCentral;
+    @Column(name = "FORMAL")
+    private boolean formal;
     @Basic(optional = false)
     @Column(name = "OBLIGATORIO_U_CENTRAL")
     private boolean obligatorioUCentral;
     @Basic(optional = false)
     @Column(name = "OBLIGATORIO_OTRAS_INST")
     private boolean obligatorioOtrasInst;
+    @Basic(optional = false)
+    @Column(name = "OBLIGATORIO_NO_FORMAL")
+    private boolean obligatorioNoFormal;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idNivelEstudios")
-    private Collection<EducacionFormalUcentral> educacionFormalUcentralCollection;
+    private Collection<Programa> programaCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idNivelEstudios")
+    private Collection<EducacionNoFormal> educacionNoFormalCollection;
+    @OneToMany(mappedBy = "idNivelEstudios")
+    private Collection<AreaEstudios> areaEstudiosCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idNivelEstudios")
     private Collection<EdFormalOtrasInstituciones> edFormalOtrasInstitucionesCollection;
 
@@ -71,13 +79,14 @@ public class NivelEstudios implements Serializable {
         this.idNivelEstudios = idNivelEstudios;
     }
 
-    public NivelEstudios(Long idNivelEstudios, String nombre, boolean estado, boolean aplicaUCentral, boolean obligatorioUCentral, boolean obligatorioOtrasInst) {
+    public NivelEstudios(Long idNivelEstudios, String nombre, boolean estado, boolean formal, boolean obligatorioUCentral, boolean obligatorioOtrasInst, boolean obligatorioNoFormal) {
         this.idNivelEstudios = idNivelEstudios;
         this.nombre = nombre;
         this.estado = estado;
-        this.aplicaUCentral = aplicaUCentral;
+        this.formal = formal;
         this.obligatorioUCentral = obligatorioUCentral;
         this.obligatorioOtrasInst = obligatorioOtrasInst;
+        this.obligatorioNoFormal = obligatorioNoFormal;
     }
 
     public Long getIdNivelEstudios() {
@@ -104,12 +113,12 @@ public class NivelEstudios implements Serializable {
         this.estado = estado;
     }
 
-    public boolean getAplicaUCentral() {
-        return aplicaUCentral;
+    public boolean getFormal() {
+        return formal;
     }
 
-    public void setAplicaUCentral(boolean aplicaUCentral) {
-        this.aplicaUCentral = aplicaUCentral;
+    public void setFormal(boolean formal) {
+        this.formal = formal;
     }
 
     public boolean getObligatorioUCentral() {
@@ -128,13 +137,39 @@ public class NivelEstudios implements Serializable {
         this.obligatorioOtrasInst = obligatorioOtrasInst;
     }
 
-    @XmlTransient
-    public Collection<EducacionFormalUcentral> getEducacionFormalUcentralCollection() {
-        return educacionFormalUcentralCollection;
+    public boolean getObligatorioNoFormal() {
+        return obligatorioNoFormal;
     }
 
-    public void setEducacionFormalUcentralCollection(Collection<EducacionFormalUcentral> educacionFormalUcentralCollection) {
-        this.educacionFormalUcentralCollection = educacionFormalUcentralCollection;
+    public void setObligatorioNoFormal(boolean obligatorioNoFormal) {
+        this.obligatorioNoFormal = obligatorioNoFormal;
+    }
+
+    @XmlTransient
+    public Collection<Programa> getProgramaCollection() {
+        return programaCollection;
+    }
+
+    public void setProgramaCollection(Collection<Programa> programaCollection) {
+        this.programaCollection = programaCollection;
+    }
+
+    @XmlTransient
+    public Collection<EducacionNoFormal> getEducacionNoFormalCollection() {
+        return educacionNoFormalCollection;
+    }
+
+    public void setEducacionNoFormalCollection(Collection<EducacionNoFormal> educacionNoFormalCollection) {
+        this.educacionNoFormalCollection = educacionNoFormalCollection;
+    }
+
+    @XmlTransient
+    public Collection<AreaEstudios> getAreaEstudiosCollection() {
+        return areaEstudiosCollection;
+    }
+
+    public void setAreaEstudiosCollection(Collection<AreaEstudios> areaEstudiosCollection) {
+        this.areaEstudiosCollection = areaEstudiosCollection;
     }
 
     @XmlTransient
