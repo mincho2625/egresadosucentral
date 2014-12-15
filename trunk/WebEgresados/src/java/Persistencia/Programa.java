@@ -35,7 +35,12 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Programa.findAll", query = "SELECT p FROM Programa p"),
     @NamedQuery(name = "Programa.findByIdPrograma", query = "SELECT p FROM Programa p WHERE p.idPrograma = :idPrograma"),
     @NamedQuery(name = "Programa.findByNombre", query = "SELECT p FROM Programa p WHERE p.nombre = :nombre"),
-    @NamedQuery(name = "Programa.findByEstado", query = "SELECT p FROM Programa p WHERE p.estado = :estado")})
+    @NamedQuery(name = "Programa.findByEstado", query = "SELECT p FROM Programa p WHERE p.estado = :estado"),
+    @NamedQuery(name = "Programa.findByFacultadYNivelEstudios",
+            query = "SELECT p FROM Programa p "
+                    + "inner join Facultad f on f = p.idFacultad "
+                    + "inner join NivelEstudios n on n = p.idNivelEstudios "
+                    + "WHERE f.idFacultad = :idFacultad and n.idNivelEstudios = :idNivelEstudios")})
 public class Programa implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -134,10 +139,7 @@ public class Programa implements Serializable {
             return false;
         }
         Programa other = (Programa) object;
-        if ((this.idPrograma == null && other.idPrograma != null) || (this.idPrograma != null && !this.idPrograma.equals(other.idPrograma))) {
-            return false;
-        }
-        return true;
+        return (this.idPrograma != null || other.idPrograma == null) && (this.idPrograma == null || this.idPrograma.equals(other.idPrograma));
     }
 
     @Override

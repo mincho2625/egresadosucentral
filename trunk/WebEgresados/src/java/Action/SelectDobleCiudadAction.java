@@ -8,7 +8,6 @@ package Action;
 
 import Modelo.ItemLista;
 import Util.Listas;
-import static com.opensymphony.xwork2.Action.SUCCESS;
 import com.opensymphony.xwork2.ActionSupport;
 import java.util.List;
 
@@ -177,7 +176,7 @@ public class SelectDobleCiudadAction extends ActionSupport {
     //http://stackoverflow.com/questions/23746323/3-or-more-dependent-drop-down-using-struts2
     @Override
     public String execute() throws Exception {
-        setListaPaises(listas.consultarNombresPaises());
+        setListaPaises(listas.consultarPaises());
         if (getPais() > 0){
             setListaDepartamentos(listas.consultarDepartamentosPorPais(getPais()));
             System.out.println("Pais: " + pais + ", Departamentos: " + listaDepartamentos.size());
@@ -185,7 +184,7 @@ public class SelectDobleCiudadAction extends ActionSupport {
         if (getDepartamento() > 0)
             setListaCiudades(listas.consultarCiudadesPorDepartamento(getDepartamento()));
         
-        setListaPaises2(listas.consultarNombresPaises());
+        setListaPaises2(listas.consultarPaises());
         if (getPais2() > 0)
             setListaDepartamentos2(listas.consultarDepartamentosPorPais(getPais2()));
         if (getDepartamento2() > 0)

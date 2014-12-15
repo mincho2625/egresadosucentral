@@ -208,11 +208,19 @@
     
     <package name="json" extends="json-default">
         <action name="SelectCiudad" class="Action.SelectCiudadAction">
-             <result type="json" name="input"/>
+             <result type="json"/>
         </action>
         
         <action name="SelectDobleCiudad" class="Action.SelectDobleCiudadAction">
              <result type="json"/>
+        </action>
+        
+        <action name="SelectPrograma" class="Action.SelectProgramaAction">
+            <result type="json"/>
+        </action>
+        
+        <action name="SelectAreaEstudios" class="Action.SelectAreaEstudiosAction">
+            <result type="json"/>
         </action>
     </package>
 </struts>

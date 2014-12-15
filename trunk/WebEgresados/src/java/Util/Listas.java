@@ -8,9 +8,7 @@ package Util;
 
 import Controlador.ControladorEgresado;
 import Modelo.AreaEmpresa;
-import Modelo.AreaEstudios;
 import Modelo.CargoEquivalente;
-import Modelo.Ciudad;
 import Modelo.ClaseReconocimiento;
 import Modelo.DominioLenguaExt;
 import Modelo.EstadoCivil;
@@ -26,10 +24,7 @@ import Modelo.Jornada;
 import Modelo.Mes;
 import Modelo.Modalidad;
 import Modelo.NivelCargo;
-import Modelo.NivelEstudios;
-import Modelo.Pais;
 import Modelo.PreguntaSeguridad;
-import Modelo.Programa;
 import Modelo.RangoSalarial;
 import Modelo.RedSocial;
 import Modelo.Subsector;
@@ -98,15 +93,6 @@ public class Listas {
     }
 
     /**
-     * @return the listaAreasEstudios
-     */
-    public Map<Long, AreaEstudios> consultarAreasEstudios() {
-        Map<Long, AreaEstudios> listaAreasEstudios = new HashMap<>();
-        consultar(listaAreasEstudios, "AreaEstudios.findAll", "getIdAreaEstudios", Modelo.AreaEstudios.class.getName());
-        return listaAreasEstudios;
-    }
-
-    /**
      * @return the listaModalidades
      */
     public Map<Long, Modalidad> consultarModalidades() {
@@ -131,24 +117,6 @@ public class Listas {
         Map<Long, Jornada> listaJornadas = new HashMap<>();
         consultar(listaJornadas, "Jornada.findAll", "getIdJornada", Modelo.Jornada.class.getName());
         return listaJornadas;
-    }
-
-    /**
-     * @return the listaProgramas
-     */
-    public Map<Long, Programa> consultarProgramas() {
-        Map<Long, Programa> listaProgramas = new HashMap<>();
-        consultar(listaProgramas, "Programa.findAll", "getIdPrograma", Modelo.Programa.class.getName());
-        return listaProgramas;
-    }
-
-    /**
-     * @return the listaNivelesEstudios
-     */
-    public Map<Long, NivelEstudios> consultarNivelesEstudios() {
-        Map<Long, NivelEstudios> listaNivelesEstudios = new HashMap<>();
-        consultar(listaNivelesEstudios, "NivelEstudios.findAll", "getIdNivelEstudios", Modelo.NivelEstudios.class.getName());
-        return listaNivelesEstudios;
     }
 
     /**
@@ -307,16 +275,7 @@ public class Listas {
     /**
      * @return the listaPaises
      */
-    public Map<Long, Pais> consultarPaises() {
-        Map<Long, Pais> listaPaises = new HashMap<>();
-        consultar(listaPaises, "Pais.findAll", "getIdPais", Modelo.Pais.class.getName());
-        return listaPaises;
-    }
-    
-    /**
-     * @return the listaPaises
-     */
-    public List<ItemLista> consultarNombresPaises() {
+    public List<ItemLista> consultarPaises() {
         return consultar("Pais.findAll", "getIdPais");
     }
     
@@ -376,15 +335,65 @@ public class Listas {
         return listaIdiomas;
     }
 
+    public List<ItemLista> consultarNivelesEstudios() {        
+        return consultar("NivelEstudios.findAll", "getIdNivelEstudios");
+    }
+    
+    public List<ItemLista> consultarNivelesEstudiosFormal() {
+        HashMap<String, Object> parametros = new HashMap<>();
+        parametros.put("formal", true);
+        return consultar("NivelEstudios.findByFormal", "getIdNivelEstudios", parametros);
+    }
+    
+    public List<ItemLista> consultarNivelesEstudiosNoFormal() {
+        HashMap<String, Object> parametros = new HashMap<>();
+        parametros.put("formal", false);
+        return consultar("NivelEstudios.findByFormal", "getIdNivelEstudios", parametros);
+    }
+    
     /**
      * @return the listaNivelesEstudiosUCentral
      */
-    public Map<Long, NivelEstudios> consultarNivelesEstudiosUCentral() {
-        Map<Long, NivelEstudios> listaNivelesEstudiosUCentral = new HashMap<>();
+    public List<ItemLista> consultarNivelesEstudiosAplicaUCentral() {        
+        return consultar("NivelEstudios.findByAplicaUCentral", "getIdNivelEstudios");
+    }
+    
+    public List<ItemLista> consultarNivelesEstudiosObligatorioUCentral() { 
         HashMap<String, Object> parametros = new HashMap<>();
-        parametros.put("aplicaUCentral", true);
-        consultar(listaNivelesEstudiosUCentral, "NivelEstudios.findByAplicaUCentral", "getIdNivelEstudios", Modelo.NivelEstudios.class.getName(), parametros);
-        return listaNivelesEstudiosUCentral;
+        parametros.put("obligatorioUCentral", true);
+        return consultar("NivelEstudios.findByObligatorioUCentral", "getIdNivelEstudios", parametros);
+    }
+    
+    public List<ItemLista> consultarNivelesEstudiosObligatorioOtrasInst() { 
+        HashMap<String, Object> parametros = new HashMap<>();
+        parametros.put("obligatorioOtrasInst", true);
+        return consultar("NivelEstudios.findByObligatorioOtrasInst", "getIdNivelEstudios", parametros);
+    }
+    
+    public List<ItemLista> consultarFacultades() {        
+        return consultar("Facultad.findAll", "getIdFacultad");
+    }
+    
+    /**
+     * @param idFacultad
+     * @param idNivelEstudios
+     * @return the listaProgramas
+     */
+    public List<ItemLista> consultarProgramasPorFacultadYNivelEstudios(long idFacultad, long idNivelEstudios) {
+        HashMap<String, Object> parametros = new HashMap<>();
+        parametros.put("idFacultad", idFacultad);
+        parametros.put("idNivelEstudios", idNivelEstudios);
+        return consultar("Programa.findByFacultadYNivelEstudios", "getIdPrograma", parametros);
+    }
+    
+    public List<ItemLista> consultarAreasEstudiosPorNivelEstudiosNull() {
+        return consultar("AreaEstudios.findByIdNivelEstudiosNull", "getIdAreaEstudios");
+    }
+    
+    public List<ItemLista> consultarAreasEstudiosPorNivelEstudios(long idNivelEstudios) {
+        HashMap<String, Object> parametros = new HashMap<>();
+        parametros.put("idNivelEstudios", idNivelEstudios);
+        return consultar("AreaEstudios.findByIdNivelEstudios", "getIdAreaEstudios", parametros);
     }
 
     /**
@@ -403,7 +412,9 @@ public class Listas {
     {
         ArrayList<Integer> listaAnios = new ArrayList<>();
         Calendar calendario = Calendar.getInstance(Locale.ROOT);
-        for (int i = calendario.getMaximum(Calendar.YEAR); i <= calendario.getMinimum(Calendar.YEAR); i++) {
+        int anio = calendario.get(Calendar.YEAR);
+        
+        for (int i = 1900; i <= anio; i++) {
             listaAnios.add(i);
         }
         return listaAnios;
@@ -413,7 +424,7 @@ public class Listas {
     {
         Convertidor convertidor = new Convertidor();
         EntityManager em = emf.createEntityManager();
-        List<ItemLista> listaObjetos = new ArrayList<ItemLista>();
+        List<ItemLista> listaObjetos = new ArrayList<>();
         
         try {
             Query query = em.createNamedQuery(consulta);

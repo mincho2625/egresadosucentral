@@ -98,7 +98,7 @@
                                     </tr>
                                     <tr>
                                         <td>
-                                            <s:select label="Pais" cssClass="texfield" name="pais" list="listaPaises" listKey="idPais" listValue="nombre" headerKey="-1" headerValue="- Seleccione -"></s:select>
+                                            <s:select label="Pais" cssClass="texfield" name="pais" list="listaPaises" listKey="id" listValue="nombre" headerKey="-1" headerValue="- Seleccione -"></s:select>
                                         </td>
                                     </tr>
                                     <tr>

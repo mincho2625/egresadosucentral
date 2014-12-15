@@ -15,6 +15,12 @@ public class AreaEstudios {
     private String nombre;
     private boolean estado;
     private NivelEstudios idNivelEstudios;
+    
+    public AreaEstudios() {}
+    
+    public AreaEstudios(long idAreaEstudios) {
+        this.idAreaEstudios = idAreaEstudios;
+    }
 
     /**
      * @return the idAreaEstudios

@@ -7,12 +7,14 @@
 package Action;
 
 import Modelo.Asociacion;
+import Modelo.ItemLista;
 import Modelo.Pais;
 import Modelo.TipoAsociacion;
 import static com.opensymphony.xwork2.Action.SUCCESS;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -21,7 +23,7 @@ import java.util.Map;
  */
 public class AsociacionAction extends CrudAction<Asociacion> {
     private Map<Long, TipoAsociacion> listaTiposAsociaciones;
-    private Map<Long, Pais> listaPaises;
+    private List<ItemLista> listaPaises;
     private long tipoAsociacion;
     private long pais;
     
@@ -63,14 +65,14 @@ public class AsociacionAction extends CrudAction<Asociacion> {
     /**
      * @return the listaPaises
      */
-    public Collection<Pais> getListaPaises() {
-        return listaPaises.values();
+    public List<ItemLista> getListaPaises() {
+        return listaPaises;
     }
 
     /**
      * @param listaPaises the listaPaises to set
      */
-    public void setListaPaises(Map<Long, Pais> listaPaises) {
+    public void setListaPaises(List<ItemLista> listaPaises) {
         this.listaPaises = listaPaises;
     }
 
@@ -100,7 +102,7 @@ public class AsociacionAction extends CrudAction<Asociacion> {
     @Override
     public void insertarTipos() {
         this.objeto.setIdTipoAsociacion(listas.consultarTiposAsociaciones().get(this.tipoAsociacion));
-        this.objeto.setIdPais(listas.consultarPaises().get(this.pais));
+        this.objeto.setIdPais(new Pais(this.pais));
     }
 
     @Override

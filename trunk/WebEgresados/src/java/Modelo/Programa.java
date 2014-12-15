@@ -16,6 +16,13 @@ public class Programa {
     private boolean estado;
     private NivelEstudios idNivelEstudios;
     private Facultad idFacultad;
+    
+    public Programa() {}
+    
+    public Programa(long idPrograma)
+    {
+        this.idPrograma = idPrograma;
+    }
 
     /**
      * @return the idPrograma
