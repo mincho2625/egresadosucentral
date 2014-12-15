@@ -11,12 +11,15 @@ import Modelo.EducacionNoFormal;
 import Modelo.EstadoEducacion;
 import Modelo.Institucion;
 import Modelo.IntensidadHoraria;
+import Modelo.ItemLista;
 import Modelo.Mes;
 import Modelo.Modalidad;
+import Modelo.NivelEstudios;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -27,8 +30,8 @@ public class EducacionNoFormalAction extends CrudAction<EducacionNoFormal> {
 
     private Map<Long, Mes> listaMeses;
     private Map<Long, EstadoEducacion> listaEstadosEducacion;
-    private Map<Long, AreaEstudios> listaAreasEstudios;
-    private Map<Long, Ciudad> listaCiudades;
+    private List<ItemLista> listaAreasEstudios;
+    private List<ItemLista> listaNivelesEstudios;
     private Map<Long, Institucion> listaInstituciones;
     private Map<Long, Modalidad> listaModalidades;
     private ArrayList<Integer> listaAnios;
@@ -37,6 +40,7 @@ public class EducacionNoFormalAction extends CrudAction<EducacionNoFormal> {
     private long mesFinalizacion;
     private long estadoEducacion;
     private long areaEstudios;
+    private long nivelEstudios;
     private long ciudad;
     private long institucion;
     private long modalidad;
@@ -79,33 +83,33 @@ public class EducacionNoFormalAction extends CrudAction<EducacionNoFormal> {
     public void setListaEstadosEducacion(Map<Long, EstadoEducacion> listaEstadosEducacion) {
         this.listaEstadosEducacion = listaEstadosEducacion;
     }
-
+    
     /**
      * @return the listaAreasEstudios
      */
-    public Collection<AreaEstudios> getListaAreasEstudios() {
-        return listaAreasEstudios.values();
+    public List<ItemLista> getListaAreasEstudios() {
+        return listaAreasEstudios;
     }
 
     /**
      * @param listaAreasEstudios the listaAreasEstudios to set
      */
-    public void setListaAreasEstudios(Map<Long, AreaEstudios> listaAreasEstudios) {
+    public void setListaAreasEstudios(List<ItemLista> listaAreasEstudios) {
         this.listaAreasEstudios = listaAreasEstudios;
     }
 
     /**
-     * @return the listaCiudades
+     * @return the listaNivelesEstudios
      */
-    public Collection<Ciudad> getListaCiudades() {
-        return listaCiudades.values();
+    public List<ItemLista> getListaNivelesEstudios() {
+        return listaNivelesEstudios;
     }
 
     /**
-     * @param listaCiudades the listaCiudades to set
+     * @param listaNivelesEstudios the listaNivelesEstudios to set
      */
-    public void setListaCiudades(Map<Long, Ciudad> listaCiudades) {
-        this.listaCiudades = listaCiudades;
+    public void setListaNivelesEstudios(List<ItemLista> listaNivelesEstudios) {
+        this.listaNivelesEstudios = listaNivelesEstudios;
     }
 
     /**
@@ -219,6 +223,20 @@ public class EducacionNoFormalAction extends CrudAction<EducacionNoFormal> {
     public void setAreaEstudios(long areaEstudios) {
         this.areaEstudios = areaEstudios;
     }
+    
+    /**
+     * @return the nivelEstudios
+     */
+    public long getNivelEstudios() {
+        return nivelEstudios;
+    }
+
+    /**
+     * @param nivelEstudios the nivelEstudios to set
+     */
+    public void setNivelEstudios(long nivelEstudios) {
+        this.nivelEstudios = nivelEstudios;
+    }
 
     /**
      * @return the ciudad
@@ -309,8 +327,8 @@ public class EducacionNoFormalAction extends CrudAction<EducacionNoFormal> {
         this.setListaEstadosEducacion(listas.consultarEstadosEducacion());
         this.setListaMeses(listas.consultarMeses());
         this.setListaAnios(listas.consultarAnios());
-        this.setListaAreasEstudios(listas.consultarAreasEstudios());
-        //this.setListaCiudades(listas.consultarCiudadesPorDepartamento(mesInicio));
+        this.setListaAreasEstudios(listas.consultarAreasEstudiosPorNivelEstudiosNull());
+        this.setListaNivelesEstudios(listas.consultarNivelesEstudiosNoFormal());
         this.setListaInstituciones(listas.consultarInstituciones());
         this.setListaModalidades(listas.consultarModalidades());
         this.setListaIntensidadesHorarias(listas.consultarIntensidadesHorarias());
@@ -325,15 +343,16 @@ public class EducacionNoFormalAction extends CrudAction<EducacionNoFormal> {
         this.objeto.setIdEstadoEducacion(listas.consultarEstadosEducacion().get(this.estadoEducacion));
         this.objeto.setIdMesFinalizacion(listas.consultarMeses().get(this.mesFinalizacion));
         this.objeto.setIdMesInicio(listas.consultarMeses().get(this.mesInicio));
-        this.objeto.setIdAreaEstudios(listas.consultarAreasEstudios().get(this.areaEstudios));
-        //this.objeto.setIdCiudad(listas.getListaCiudades().get(this.ciudad));
+        this.objeto.setIdAreaEstudios(new AreaEstudios(this.areaEstudios));
+        this.objeto.setIdNivelEstudios(new NivelEstudios(this.getNivelEstudios()));
+        this.objeto.setIdCiudad(new Ciudad(this.ciudad));
         this.objeto.setIdInstitucion(listas.consultarInstituciones().get(this.institucion));
         this.objeto.setIdModalidad(listas.consultarModalidades().get(this.modalidad));
         this.objeto.setIdIntensidadHoraria(listas.consultarIntensidadesHorarias().get(this.intensidadHoraria));
         if (this.institucion > 0)
             this.checkOtraInstitucion = false;
-//        if (this.tipoEdNoFormal > 0)
-//            this.checkOtroTipo = false;
+        if (this.getNivelEstudios() > 0)
+            this.checkOtroTipo = false;
     }
 
     @Override
@@ -341,6 +360,7 @@ public class EducacionNoFormalAction extends CrudAction<EducacionNoFormal> {
         this.setEstadoEducacion(objeto.getIdEstadoEducacion().getIdEstadoEducacion());
         this.setMesInicio(objeto.getIdMesInicio().getIdMes());
         this.setAreaEstudios(objeto.getIdAreaEstudios().getIdAreaEstudios());
+        this.setNivelEstudios(objeto.getIdNivelEstudios().getIdNivelEstudios());
         this.setCiudad(objeto.getIdCiudad().getIdCiudad());
         this.setModalidad(objeto.getIdModalidad().getIdModalidad());
         this.setIntensidadHoraria(objeto.getIdIntensidadHoraria().getIdIntensidadHoraria());
@@ -405,16 +425,16 @@ public class EducacionNoFormalAction extends CrudAction<EducacionNoFormal> {
             addFieldError("institucion", "La institución es requerida.");
         }
         
-//        if (isCheckOtroTipo())
-//        {
-//            if (objeto.getOtroTipoEdNoFormal().isEmpty())
-//                addFieldError("otroTipoEdNoFormal", "El tipo de estudio es requerido.");
-//        }
-//        else
-//        {
-//            if (tipoEdNoFormal <= 0)
-//                addFieldError("tipoEdNoFormal", "El tipo de estudio es requerido.");
-//        }
+        if (isCheckOtroTipo())
+        {
+            if (objeto.getOtroNivelEstudios().isEmpty())
+                addFieldError("otroNivelEstudios", "El tipo de estudio es requerido.");
+        }
+        else
+        {
+            if (nivelEstudios <= 0)
+                addFieldError("nivelEstudios", "El tipo de estudio es requerido.");
+        }
     }
 
     @Override

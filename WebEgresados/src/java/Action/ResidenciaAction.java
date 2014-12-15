@@ -24,7 +24,6 @@ public class ResidenciaAction extends CrudAction<Residencia> {
     private Map<Long, TipoVivienda> listaTiposVivienda;
     private Map<Long, TipoTenenciaVivienda> listaTiposTenenciaVivienda;
     private Map<Long, Estrato> listaEstratos;
-    private Map<Long, Ciudad> listaCiudades;
     private long tipoVivienda;
     private long tipoTenenciaVivienda;
     private long estrato;
@@ -78,20 +77,6 @@ public class ResidenciaAction extends CrudAction<Residencia> {
      */
     public void setListaEstratos(Map<Long, Estrato> listaEstratos) {
         this.listaEstratos = listaEstratos;
-    }
-
-    /**
-     * @return the listaCiudades
-     */
-    public Collection<Ciudad> getListaCiudades() {
-        return listaCiudades.values();
-    }
-
-    /**
-     * @param listaCiudades the listaCiudades to set
-     */
-    public void setListaCiudades(Map<Long, Ciudad> listaCiudades) {
-        this.listaCiudades = listaCiudades;
     }
 
     /**
@@ -157,14 +142,13 @@ public class ResidenciaAction extends CrudAction<Residencia> {
         this.setListaTiposVivienda(listas.consultarTiposVivienda());
         this.setListaTiposTenenciaVivienda(listas.consultarTiposTenenciaVivienda());
         this.setListaEstratos(listas.consultarEstratos());
-        //this.setListaCiudades(listas.consultarciud());
         this.editar = true;
         return SUCCESS;
     }
 
     @Override
     public void insertarTipos() {
-        //this.objeto.setIdCiudadResidencia(listas.co().get(this.ciudad));
+        this.objeto.setIdCiudadResidencia(new Ciudad(ciudad));
         this.objeto.setIdTipoTenenciaVivienda(listas.consultarTiposTenenciaVivienda().get(this.tipoTenenciaVivienda));
         this.objeto.setIdTipoVivienda(listas.consultarTiposVivienda().get(this.tipoVivienda));
         this.objeto.setIdEstrato(listas.consultarEstratos().get(this.estrato));
@@ -186,6 +170,7 @@ public class ResidenciaAction extends CrudAction<Residencia> {
 
     @Override
     public void validar() {
+        System.out.println("Ciudad: " + ciudad);
         if (ciudad <= 0)
             addFieldError("ciudad", "La ciudad es requerida.");
         if (tipoVivienda <= 0)

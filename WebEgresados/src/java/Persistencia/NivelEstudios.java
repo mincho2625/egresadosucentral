@@ -37,7 +37,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "NivelEstudios.findByFormal", query = "SELECT n FROM NivelEstudios n WHERE n.formal = :formal"),
     @NamedQuery(name = "NivelEstudios.findByObligatorioUCentral", query = "SELECT n FROM NivelEstudios n WHERE n.obligatorioUCentral = :obligatorioUCentral"),
     @NamedQuery(name = "NivelEstudios.findByObligatorioOtrasInst", query = "SELECT n FROM NivelEstudios n WHERE n.obligatorioOtrasInst = :obligatorioOtrasInst"),
-    @NamedQuery(name = "NivelEstudios.findByObligatorioNoFormal", query = "SELECT n FROM NivelEstudios n WHERE n.obligatorioNoFormal = :obligatorioNoFormal")})
+    @NamedQuery(name = "NivelEstudios.findByObligatorioNoFormal", query = "SELECT n FROM NivelEstudios n WHERE n.obligatorioNoFormal = :obligatorioNoFormal"),
+    @NamedQuery(name = "NivelEstudios.findByAplicaUCentral", query = "SELECT distinct n FROM NivelEstudios n inner join Programa p on p.idNivelEstudios = n")})
 public class NivelEstudios implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -195,10 +196,7 @@ public class NivelEstudios implements Serializable {
             return false;
         }
         NivelEstudios other = (NivelEstudios) object;
-        if ((this.idNivelEstudios == null && other.idNivelEstudios != null) || (this.idNivelEstudios != null && !this.idNivelEstudios.equals(other.idNivelEstudios))) {
-            return false;
-        }
-        return true;
+        return (this.idNivelEstudios != null || other.idNivelEstudios == null) && (this.idNivelEstudios == null || this.idNivelEstudios.equals(other.idNivelEstudios));
     }
 
     @Override

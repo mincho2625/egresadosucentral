@@ -101,11 +101,14 @@ public class SelectCiudadAction extends ActionSupport {
     //http://stackoverflow.com/questions/23746323/3-or-more-dependent-drop-down-using-struts2
     @Override
     public String execute() throws Exception {
-        setListaPaises(listas.consultarNombresPaises());
-        if (pais > 0)
-            listaDepartamentos = listas.consultarDepartamentosPorPais(pais);
-        if (departamento > 0)
-            listaCiudades = listas.consultarCiudadesPorDepartamento(departamento);
+        setListaPaises(listas.consultarPaises());
+        System.out.println("Paises: " + listaPaises.size());
+        if (getPais() > 0){
+            setListaDepartamentos(listas.consultarDepartamentosPorPais(getPais()));
+            System.out.println("Pais: " + pais + ", Departamentos: " + listaDepartamentos.size());
+        }
+        if (getDepartamento() > 0)
+            setListaCiudades(listas.consultarCiudadesPorDepartamento(getDepartamento()));
         
         return SUCCESS;
     }

@@ -22,7 +22,7 @@ import javax.persistence.Query;
 public class ControladorEgresado {
 
     private final EntityManagerFactory emf = Persistence.createEntityManagerFactory("WebEgresadosPU");
-    private EntityManager em;
+    private final EntityManager em;
     private Persistencia.Egresado e;
     
     public ControladorEgresado()

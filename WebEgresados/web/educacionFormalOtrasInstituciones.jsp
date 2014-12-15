@@ -1,11 +1,13 @@
-    <!DOCTYPE html>
+<!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@taglib uri="/struts-tags" prefix="s"%>
 <%@taglib uri="/struts-jquery-tags" prefix="jq" %>
 <html lang="es">
     <head><title>Registro Sistema</title>
         <meta charset="utf-8">
         <link href="estilo2.css" rel="stylesheet" type="text/css">
-        <jq:head></jq:head>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+        <jq:head jqueryui="true" />
         
         <script type="text/javascript">
             function fnOtraInstitucion(checked)
@@ -39,8 +41,6 @@
                             </div></td>
                         <td class="texfield"><div align="center" class="fuentetabla">Institucion<br>
                             </div></td>
-                        <td class="texfield"><div align="center" class="fuentetabla">Jornada<br>
-                            </div></td>
                         <td class="texfield"><div align="center" class="fuentetabla">Ano Finalizacion<br>
                             </div></td>
                         <td class="texfield"><div align="center" class="fuentetabla">Estado<br>
@@ -55,8 +55,6 @@
                         <td class="texfield"><s:property value="idCiudad.nombre"></s:property><br>
                             </td>
                             <td class="texfield"><s:property value="idInstitucion.nombre"></s:property><br>
-                            </td>
-                            <td class="texfield"><s:property value="idJornada.nombre"></s:property><br>
                             </td>
                             <td class="texfield"><s:property value="anioFinalizacion"></s:property><br>
                             </td>
@@ -91,19 +89,29 @@
             </div>
             <div class="fromtables" id="contenido1">
                 <s:if test="editar">
-                    <s:form action="guardarEducacionFormalOtrasInstituciones.action">
+                    <s:form action="guardarEducacionFormalOtrasInstituciones.action" id="formEducacion">
+                        <s:url id="ciudadURL" action="SelectCiudad"/>
+                        <s:url id="areaEstudiosURL" action="SelectAreaEstudios"/>
                         <s:push value="objeto">
                             <s:hidden name="idEducacion"></s:hidden>
                                 <div class="fuente2">Generar Nuevo Registro</div>
                                 <table>
                                     <tr>
-                                        <td>
-                                        <s:textfield cssClass="center" label="Tï¿½tulo" name="titulo"></s:textfield>
+                                        <td class="tduno">
+                                            <jq:select href="%{ciudadURL}" onChangeTopics="reloadsecondlist" name="pais" id="pais"
+                                                       list="listaPaises" listKey="id" listValue="nombre"
+                                                       headerKey="-1" headerValue="- Seleccione -" label="País:"/>
                                         </td>
-                                    </tr>
-                                    <tr>
                                         <td>
-                                        <s:select cssClass="center" label="Ciudad" name="ciudad" list="listaCiudades" listKey="idCiudad" listValue="nombre" headerKey="-1" headerValue="- Seleccione -"></s:select>
+                                            <jq:select href="%{ciudadURL}" onChangeTopics="reloadThirdlist" onCompleteTopics="reloadThirdlist"
+                                                       formIds="formEducacion" reloadTopics="reloadsecondlist" name="departamento" id="departamento"
+                                                       list="listaDepartamentos" listKey="id" listValue="nombre" headerKey="-1"
+                                                       headerValue="- Seleccione -" label="Departamento:"/>
+                                        </td>
+                                        <td>
+                                            <jq:select href="%{ciudadURL}" formIds="formEducacion" reloadTopics="reloadThirdlist"
+                                                       name="ciudad" list="listaCiudades" listKey="id" listValue="nombre" headerKey="-1"
+                                                       headerValue="- Seleccione -" id="ciudad" label="Ciudad:"/>
                                         </td>
                                     </tr>
                                     <tr>
@@ -119,23 +127,24 @@
                                     </tr>
                                     <tr>
                                         <td>
-                                            <s:select label="Area estudios" cssClass="center" name="areaEstudios" list="listaAreasEstudios" listKey="idAreaEstudios" listValue="nombre" headerKey="-1" headerValue="- Seleccione -"></s:select>
+                                        <s:textfield cssClass="center" label="Título" name="titulo"></s:textfield>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="tduno">
+                                            <jq:select href="%{areaEstudiosURL}" onChangeTopics="reloadsecondlist2" name="nivelEstudios" id="nivelEstudios"
+                                                       list="listaNivelesEstudios" listKey="id" listValue="nombre"
+                                                       headerKey="-1" headerValue="- Seleccione -" label="Nivel estudios:"/>
+                                        </td>
+                                        <td>
+                                            <jq:select href="%{areaEstudiosURL}" formIds="formEducacion" reloadTopics="reloadsecondlist2"
+                                                       name="areaEstudios" id="areaEstudios" list="listaAreasEstudios" listKey="id" 
+                                                       listValue="nombre" headerKey="-1" headerValue="- Seleccione -" label="Área estudios:"/>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
                                             <s:select label="Modalidad" cssClass="center" name="modalidad" list="listaModalidades" listKey="idModalidad" listValue="nombre" headerKey="-1" headerValue="- Seleccione -"></s:select>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <s:select label="Nivel de estudios" cssClass="center" name="nivelEstudios" list="listaNivelesEstudios" listKey="idNivelEstudios" listValue="nombre" headerKey="-1" headerValue="- Seleccione -"></s:select>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>
-                                        <s:select label="Jornada" cssClass="center" name="jornada" list="listaJornadas" listKey="idJornada" listValue="nombre" headerKey="-1" headerValue="- Seleccione -"></s:select>
                                         </td>
                                     </tr>
                                     <tr>

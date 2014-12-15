@@ -1,11 +1,14 @@
 <!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@taglib uri="/struts-tags" prefix="s"%>
 <%@taglib uri="/struts-jquery-tags" prefix="jq" %>
 <html lang="es">
     <head><title>Registro Sistema</title>
         <meta charset="utf-8">
         <link href="estilo2.css" rel="stylesheet" type="text/css">
-        <jq:head></jq:head>
+        <s:head />
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+        <jq:head jqueryui="true" />
         </head>
         <body>
             <div class="TituloPrincipal" style="/* [disabled]margin-left:10px; */ font-size: 20px">
@@ -16,21 +19,21 @@
             </div>
             <!--<div id="default-example" data-collapse>
                 <h3>Informacion</h3>-->
-                <div align="center" class="tabla" id="Tabla">
-                    <table rules="all" class="table2" >
-                <caption>&nbsp;</caption>
-                <tr>
-                    <td class="texfield"><div align="center" class="fuentetabla">Programa<br>
-                    </div></td>
-                    <td class="texfield"><div align="center" class="fuentetabla">Jornada<br>
-                    </div></td>
-                    <td class="texfield"><div align="center" class="fuentetabla">Ano Finalizacion<br>
-                    </div></td>
-                    <td class="texfield"><div align="center" class="fuentetabla">Estado<br>
-                    </div></td>
-                    <td class="texfield"><div align="center" class="fuentetabla">Accion<br>
-                    </div></td>
-                </tr>
+            <div align="center" class="tabla" id="Tabla">
+                <table rules="all" class="table2" >
+                    <caption>&nbsp;</caption>
+                    <tr>
+                        <td class="texfield"><div align="center" class="fuentetabla">Programa<br>
+                            </div></td>
+                        <td class="texfield"><div align="center" class="fuentetabla">Jornada<br>
+                            </div></td>
+                        <td class="texfield"><div align="center" class="fuentetabla">Ano Finalizacion<br>
+                            </div></td>
+                        <td class="texfield"><div align="center" class="fuentetabla">Estado<br>
+                            </div></td>
+                        <td class="texfield"><div align="center" class="fuentetabla">Accion<br>
+                            </div></td>
+                    </tr>
 
                 <s:hidden name="listaObjetos"></s:hidden>
                 <s:iterator value="listaObjetos">
@@ -60,7 +63,7 @@
                     </tr>
                 </s:iterator>
             </table>
-                <br>
+            <br>
             <div class="buttons">
                 <a href="desplegarEducacionFormalUCentral.action" target="contenido">
                     <button type="submit" class="positive" name="nuevo">
@@ -69,70 +72,78 @@
                     </button>
                 </a><br>
             </div>
-                <div class="fromtables" id="contenido1">
-                    <s:if test="editar">
-                <s:form action="guardarEducacionFormalUCentral.action">
-                    <s:push value="objeto">
-                        <s:hidden name="idEducacion"></s:hidden>
-                        <div class="fuente2">Generar Nuevo Registro</div>
-                            <table>
-                                <tr>
+            <div class="fromtables" id="contenido1">
+                <s:if test="editar">
+                    <s:form action="guardarEducacionFormalUCentral.action" id="formEducacion">
+                        <s:url id="programaURL" action="SelectPrograma"/>
+                        <s:push value="objeto">
+                            <s:hidden name="idEducacion"></s:hidden>
+                                <div class="fuente2">Generar Nuevo Registro</div>
+                                <table>
+                                    <tr>
+                                        <td>
+                                        <jq:select href="%{programaURL}" onChangeTopics="reloadThirdlist" name="nivelEstudios" id="nivelEstudios"
+                                                   list="listaNivelesEstudios" listKey="id" listValue="nombre"
+                                                   headerKey="-1" headerValue="- Seleccione -" label="Nivel de estudios"/>
+                                    </td>
                                     <td>
-                                    <s:select label="Programa" cssClass="texfield" name="programa" list="listaProgramas" listKey="idPrograma" listValue="nombre" headerKey="-1" headerValue="- Seleccione -"></s:select>
+                                        <jq:select href="%{programaURL}" onChangeTopics="reloadThirdlist" name="facultad" id="facultad"
+                                                   formIds="formEducacion" list="listaFacultades" listKey="id" listValue="nombre"
+                                                   headerKey="-1" headerValue="- Seleccione -" label="Facultad"/>
+                                    </td>
+                                    <td>
+                                        <jq:select href="%{programaURL}" reloadTopics="reloadThirdlist"
+                                                   name="programa" list="listaProgramas" listKey="id" listValue="nombre" headerKey="-1"
+                                                   headerValue="- Seleccione -" id="programa" formIds="formEducacion" label="Programa"/>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
                                         <s:select label="Jornada" cssClass="texfield" name="jornada" list="listaJornadas" listKey="idJornada" listValue="nombre" headerKey="-1" headerValue="- Seleccione -"></s:select>
-                                    </td>
-                                </tr>
-                                <tr>
-                                        <td>
-                                            <s:select label="Nivel de estudios" cssClass="center" name="nivelEstudios" list="listaNivelesEstudios" listKey="idNivelEstudios" listValue="nombre" headerKey="-1" headerValue="- Seleccione -"></s:select>
                                         </td>
                                     </tr>
-                                <tr>
-                                    <td>
+                                    <tr>
+                                        <td>
                                         <s:select label="Ano Inicio" cssClass="texfield" name="anioInicio" list="listaAnios" headerKey="-1" headerValue="- Seleccione -"></s:select>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                    <s:select label="Mes Inicio" cssClass="texfield" name="mesInicio" list="listaMeses" listKey="idMes" listValue="mes" headerKey="-1" headerValue="- Seleccione -"></s:select>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                       <s:select label="Ano Finalizacion" cssClass="texfield" name="anioFinalizacion" list="listaAnios" headerKey="-1" headerValue="- Seleccione -"></s:select>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                        <s:select label="Mes Inicio" cssClass="texfield" name="mesInicio" list="listaMeses" listKey="idMes" listValue="mes" headerKey="-1" headerValue="- Seleccione -"></s:select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                        <s:select label="Ano Finalizacion" cssClass="texfield" name="anioFinalizacion" list="listaAnios" headerKey="-1" headerValue="- Seleccione -"></s:select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
                                         <s:select label="Mes Finalizacion" cssClass="texfield" name="mesFinalizacion" list="listaMeses" listKey="idMes" listValue="mes" headerKey="-1" headerValue="- Seleccione -"></s:select>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                    <s:select label="Estado" cssClass="texfield" name="estadoEducacion" list="listaEstadosEducacion" listKey="idEstadoEducacion" listValue="nombre" headerKey="-1" headerValue="- Seleccione -"></s:select>
-                                    </td>
-                                </tr>
-                            <s:actionerror></s:actionerror>
-                            <s:submit cssClass="center1" value="Guardar">
-                                <br>
-                            </s:submit>
-                        </table>
-                    </s:push>
-                </s:form>
-            </s:if>
-                </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                        <s:select label="Estado" cssClass="texfield" name="estadoEducacion" list="listaEstadosEducacion" listKey="idEstadoEducacion" listValue="nombre" headerKey="-1" headerValue="- Seleccione -"></s:select>
+                                        </td>
+                                    </tr>
+                                <s:actionerror></s:actionerror>
+                                <s:submit cssClass="center1" value="Guardar">
+                                    <br>
+                                </s:submit>
+                            </table>
+                        </s:push>
+                    </s:form>
+                </s:if>
             </div>
+        </div>
         <div class="enlaces">
             <div class="tdsiguiente"><a href="siguienteEducacionFormalUCentral.action"><img src="imagenes/next.png" width="24" height="24"></a></div>
             <div class="tdatras"><a href="anteriorEducacionFormalUCentral.action" class="tdatras"><img src="imagenes/atras.jpg" width="24" height="24"></a></div>
         </div>
         <s:if test="hasActionErrors()">
             <div class="errors">
-               <s:actionerror/>
+                <s:actionerror/>
             </div>
         </s:if>
         <br>

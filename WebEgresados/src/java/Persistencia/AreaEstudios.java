@@ -35,7 +35,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "AreaEstudios.findAll", query = "SELECT a FROM AreaEstudios a"),
     @NamedQuery(name = "AreaEstudios.findByIdAreaEstudios", query = "SELECT a FROM AreaEstudios a WHERE a.idAreaEstudios = :idAreaEstudios"),
     @NamedQuery(name = "AreaEstudios.findByNombre", query = "SELECT a FROM AreaEstudios a WHERE a.nombre = :nombre"),
-    @NamedQuery(name = "AreaEstudios.findByEstado", query = "SELECT a FROM AreaEstudios a WHERE a.estado = :estado")})
+    @NamedQuery(name = "AreaEstudios.findByEstado", query = "SELECT a FROM AreaEstudios a WHERE a.estado = :estado"),
+    @NamedQuery(name = "AreaEstudios.findByIdNivelEstudios", query = "SELECT a FROM AreaEstudios a inner join NivelEstudios n on n = a.idNivelEstudios WHERE n.idNivelEstudios = :idNivelEstudios"),
+    @NamedQuery(name = "AreaEstudios.findByIdNivelEstudiosNull", query = "SELECT a FROM AreaEstudios a WHERE a.idNivelEstudios is null")})
 public class AreaEstudios implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -134,10 +136,7 @@ public class AreaEstudios implements Serializable {
             return false;
         }
         AreaEstudios other = (AreaEstudios) object;
-        if ((this.idAreaEstudios == null && other.idAreaEstudios != null) || (this.idAreaEstudios != null && !this.idAreaEstudios.equals(other.idAreaEstudios))) {
-            return false;
-        }
-        return true;
+        return (this.idAreaEstudios != null || other.idAreaEstudios == null) && (this.idAreaEstudios == null || this.idAreaEstudios.equals(other.idAreaEstudios));
     }
 
     @Override

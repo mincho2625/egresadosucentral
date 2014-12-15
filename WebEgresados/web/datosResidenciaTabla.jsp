@@ -1,11 +1,13 @@
 <!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@taglib uri="/struts-tags" prefix="s"%>
 <%@taglib uri="/struts-jquery-tags" prefix="jq" %>
 <html lang="es">
     <head><title>Registro Sistema</title>
         <meta charset="utf-8">
         <link href="estilo2.css" rel="stylesheet" type="text/css">
-        <jq:head></jq:head>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+        <jq:head jqueryui="true" />
         </head>
         <body>
             <div class="TituloPrincipal" style="/* [disabled]margin-left:10px; */ font-size: 20px">
@@ -48,14 +50,14 @@
                                 <td class="texfield"><s:property value="idEstrato.estratoLetras"></s:property><br>
                                 </td>
                                 <td class="tdtres">
-                                <s:url id="editarURL" action="editarUbicacion.action">
-                                    <s:param name="idObjeto" value="%{idContacto}" ></s:param>
+                                <s:url id="editarURL" action="editarResidencia.action">
+                                    <s:param name="idObjeto" value="%{idResidencia}" ></s:param>
                                 </s:url>
                                 <s:a href="%{editarURL}">
                                     <div class="fuentetabla2"><img style="width: 20px; height: 19px;" title="Editar" alt="Editar" src="imagenes/editar-icono-8419-16.png" align="top">
                                     </s:a>
-                                    <s:url id="borrarURL" action="borrarUbicacion.action">
-                                        <s:param name="idObjeto" value="%{idContacto}"></s:param>
+                                    <s:url id="borrarURL" action="borrarResidencia.action">
+                                        <s:param name="idObjeto" value="%{idResidencia}"></s:param>
                                     </s:url>
                                     <s:a href="%{borrarURL}">
                                         <img style="width: 20px; height: 19px;" title="Borrar" alt="Borrar" src="imagenes/eliminar.png" align="top"></div>
@@ -76,18 +78,33 @@
                 <br>
                 <div id="contenido1">
                     <s:if test="editar">
-                        <s:form action="guardarResidencia.action">
+                        <s:form action="guardarResidencia.action" id="formResidencia">
+                            <s:url id="ciudadURL" action="SelectCiudad"/>
                             <s:push value="objeto">
                                 <s:hidden name="idResidencia"></s:hidden>
                                     <div class="fuente2">Agregar Nueva Residencia</div>
                                     <br>
                                     <table>
                                         <tr>
+                                            <td class="tduno">
+                                                
+                                                <jq:select href="%{ciudadURL}" onChangeTopics="reloadsecondlist" name="pais" id="pais"
+                                                           list="listaPaises" listKey="id" listValue="nombre" cssClass="center"
+                                                           headerKey="-1" headerValue="- Seleccione -" label="País Residencia"/>
+                                            </td>
                                             <td>
-                                                <span class="tabla">
-                                                <s:select label="Ciudad Residencia" cssClass="center" name="ciudad" list="listaCiudades" listKey="idCiudad" listValue="nombre" headerKey="-1" headerValue="- Seleccione -"></s:select>
-                                                </span></td>
-                                        </tr>
+                                                <jq:select href="%{ciudadURL}" onChangeTopics="reloadThirdlist" onCompleteTopics="reloadThirdlist"
+                                                           formIds="formResidencia" reloadTopics="reloadsecondlist" name="departamento" id="departamento"
+                                                           list="listaDepartamentos" listKey="id" listValue="nombre" headerKey="-1"
+                                                           headerValue="- Seleccione -" label="Departamento Residencia" cssClass="center"/>
+                                            </td>
+                                            <td>
+                                                <jq:select href="%{ciudadURL}" formIds="formResidencia" reloadTopics="reloadThirdlist"
+                                                           name="ciudad" list="listaCiudades" listKey="id" listValue="nombre" headerKey="-1"
+                                                           headerValue="- Seleccione -" id="ciudad" label="Ciudad Residencia" cssClass="center"/>
+                                            </td>
+                                        </tr
+                                        
                                         <tr>
                                             <td>
                                                 <span class="tabla">

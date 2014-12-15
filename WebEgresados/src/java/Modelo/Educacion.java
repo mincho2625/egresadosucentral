@@ -21,7 +21,7 @@ public class Educacion {
     private Mes idMesFinalizacion;
     private EstadoEducacion idEstadoEducacion;
     private int anioInicio;
-    private int anioFinalizacion;
+    private Integer anioFinalizacion;
     private Institucion idInstitucion;
     private String otraInstitucion;
     private boolean estado;
@@ -142,14 +142,14 @@ public class Educacion {
     /**
      * @return the anioFinalizacion
      */
-    public int getAnioFinalizacion() {
+    public Integer getAnioFinalizacion() {
         return anioFinalizacion;
     }
 
     /**
      * @param anioFinalizacion the anioFinalizacion to set
      */
-    public void setAnioFinalizacion(int anioFinalizacion) {
+    public void setAnioFinalizacion(Integer anioFinalizacion) {
         this.anioFinalizacion = anioFinalizacion;
     }
 

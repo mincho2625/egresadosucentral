@@ -19,6 +19,12 @@ public class NivelEstudios {
     private boolean obligatorioOtrasInst;
     private boolean obligatorioNoFormal;
 
+    public NivelEstudios() {}
+    
+    public NivelEstudios(long idNivelEstudios) {
+        this.idNivelEstudios = idNivelEstudios;
+    }
+    
     /**
      * @return the idNivelEstudios
      */

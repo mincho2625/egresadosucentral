@@ -10,16 +10,16 @@ import Modelo.Ciudad;
 import Modelo.EdFormalOtrasInstituciones;
 import Modelo.EstadoEducacion;
 import Modelo.Institucion;
-import Modelo.Jornada;
+import Modelo.ItemLista;
 import Modelo.Mes;
 import Modelo.Modalidad;
 import Modelo.NivelEstudios;
-import Modelo.Programa;
 import static com.opensymphony.xwork2.Action.SUCCESS;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -30,18 +30,13 @@ public class EducacionFormalOtrasInstitucionesAction extends CrudAction<EdFormal
 
     private Map<Long, Mes> listaMeses;
     private Map<Long, EstadoEducacion> listaEstadosEducacion;
-    private Map<Long, Jornada> listaJornadas;
-    private Map<Long, AreaEstudios> listaAreasEstudios;
-    private Map<Long, Ciudad> listaCiudades;
     private Map<Long, Institucion> listaInstituciones;
     private Map<Long, Modalidad> listaModalidades;
-    private Map<Long, NivelEstudios> listaNivelesEstudios;
     private ArrayList<Integer> listaAnios;
 
     private long mesInicio;
     private long mesFinalizacion;
     private long estadoEducacion;
-    private long jornada;
     private long areaEstudios;
     private long ciudad;
     private long institucion;
@@ -83,20 +78,6 @@ public class EducacionFormalOtrasInstitucionesAction extends CrudAction<EdFormal
      */
     public void setListaEstadosEducacion(Map<Long, EstadoEducacion> listaEstadosEducacion) {
         this.listaEstadosEducacion = listaEstadosEducacion;
-    }
-
-    /**
-     * @return the listaJornadas
-     */
-    public Collection<Jornada> getListaJornadas() {
-        return listaJornadas.values();
-    }
-
-    /**
-     * @param listaJornadas the listaJornadas to set
-     */
-    public void setListaJornadas(Map<Long, Jornada> listaJornadas) {
-        this.listaJornadas = listaJornadas;
     }
 
     /**
@@ -156,48 +137,6 @@ public class EducacionFormalOtrasInstitucionesAction extends CrudAction<EdFormal
     }
 
     /**
-     * @return the jornada
-     */
-    public long getJornada() {
-        return jornada;
-    }
-
-    /**
-     * @param jornada the jornada to set
-     */
-    public void setJornada(long jornada) {
-        this.jornada = jornada;
-    }
-
-    /**
-     * @return the listaAreasEstudios
-     */
-    public Collection<AreaEstudios> getListaAreasEstudios() {
-        return listaAreasEstudios.values();
-    }
-
-    /**
-     * @param listaAreasEstudios the listaAreasEstudios to set
-     */
-    public void setListaAreasEstudios(Map<Long, AreaEstudios> listaAreasEstudios) {
-        this.listaAreasEstudios = listaAreasEstudios;
-    }
-
-    /**
-     * @return the listaCiudades
-     */
-    public Collection<Ciudad> getListaCiudades() {
-        return listaCiudades.values();
-    }
-
-    /**
-     * @param listaCiudades the listaCiudades to set
-     */
-    public void setListaCiudades(Map<Long, Ciudad> listaCiudades) {
-        this.listaCiudades = listaCiudades;
-    }
-
-    /**
      * @return the listaInstituciones
      */
     public Collection<Institucion> getListaInstituciones() {
@@ -223,20 +162,6 @@ public class EducacionFormalOtrasInstitucionesAction extends CrudAction<EdFormal
      */
     public void setListaModalidades(Map<Long, Modalidad> listaModalidades) {
         this.listaModalidades = listaModalidades;
-    }
-
-    /**
-     * @return the listaNivelesEstudios
-     */
-    public Collection<NivelEstudios> getListaNivelesEstudios() {
-        return listaNivelesEstudios.values();
-    }
-
-    /**
-     * @param listaNivelesEstudios the listaNivelesEstudios to set
-     */
-    public void setListaNivelesEstudios(Map<Long, NivelEstudios> listaNivelesEstudios) {
-        this.listaNivelesEstudios = listaNivelesEstudios;
     }
 
     /**
@@ -327,13 +252,9 @@ public class EducacionFormalOtrasInstitucionesAction extends CrudAction<EdFormal
     public String desplegar() {
         this.setListaEstadosEducacion(listas.consultarEstadosEducacion());
         this.setListaMeses(listas.consultarMeses());
-        this.setListaJornadas(listas.consultarJornadas());
         this.setListaAnios(listas.consultarAnios());
-        this.setListaAreasEstudios(listas.consultarAreasEstudios());
-        //this.setListaCiudades(listas.consultarCiudades(1));
         this.setListaInstituciones(listas.consultarOtrasInstituciones());
         this.setListaModalidades(listas.consultarModalidades());
-        this.setListaNivelesEstudios(listas.consultarNivelesEstudios());
 
         this.obtenerLista();
         this.editar = true;
@@ -345,11 +266,11 @@ public class EducacionFormalOtrasInstitucionesAction extends CrudAction<EdFormal
         this.objeto.setIdEstadoEducacion(listas.consultarEstadosEducacion().get(this.estadoEducacion));
         this.objeto.setIdMesFinalizacion(listas.consultarMeses().get(this.mesFinalizacion));
         this.objeto.setIdMesInicio(listas.consultarMeses().get(this.mesInicio));
-        this.objeto.setIdAreaEstudios(listas.consultarAreasEstudios().get(this.areaEstudios));
-        //this.objeto.setIdCiudad(listas.getListaCiudades().get(this.ciudad));
+        this.objeto.setIdAreaEstudios(new AreaEstudios(this.areaEstudios));
+        this.objeto.setIdCiudad(new Ciudad(this.ciudad));
         this.objeto.setIdInstitucion(listas.consultarInstituciones().get(this.institucion));
         this.objeto.setIdModalidad(listas.consultarModalidades().get(this.modalidad));
-        this.objeto.setIdNivelEstudios(listas.consultarNivelesEstudios().get(this.nivelEstudios));
+        this.objeto.setIdNivelEstudios(new NivelEstudios(this.nivelEstudios));
         if (this.institucion > 0) {
             this.checkOtraInstitucion = false;
         }
@@ -381,9 +302,6 @@ public class EducacionFormalOtrasInstitucionesAction extends CrudAction<EdFormal
     public void validar() {
         if (mesInicio <= 0) {
             addFieldError("mesInicio", "El mes inicio es requerido.");
-        }
-        if (jornada <= 0) {
-            addFieldError("jornada", "La jornada es requerida.");
         }
         if (areaEstudios <= 0) {
             addFieldError("areaEstudios", "El área de estudios es requerido.");
@@ -439,15 +357,15 @@ public class EducacionFormalOtrasInstitucionesAction extends CrudAction<EdFormal
 
     @Override
     public void validarLista() {
-        this.setListaNivelesEstudios(listas.consultarNivelesEstudios());
+        List<ItemLista> listaNivelesEstudios = listas.consultarNivelesEstudiosObligatorioOtrasInst();
 
         Collection<Long> lista = new ArrayList<>();
         for (EdFormalOtrasInstituciones ed : listaObjetos.values()) {
             lista.add(ed.getIdNivelEstudios().getIdNivelEstudios());
         }
 
-        for (NivelEstudios nivel : listaNivelesEstudios.values()) {
-            if (nivel.isObligatorioOtrasInst() && !lista.contains(nivel.getIdNivelEstudios())) {
+        for (ItemLista nivel : listaNivelesEstudios) {
+            if (!lista.contains(nivel.getId())) {
                 addActionError(String.format("Ingrese al menos un estudio de tipo %s", nivel.getNombre()));
             }
         }

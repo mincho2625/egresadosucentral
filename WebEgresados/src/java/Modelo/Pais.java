@@ -10,6 +10,14 @@ public class Pais {
     private long idPais;
     private String nombre;
     private boolean estado;
+    
+    public Pais() {}
+    
+    public Pais(long idPais)
+    {
+        this.idPais = idPais;
+    }
+    
     /**
      * @return the idPais
      */
