@@ -36,6 +36,8 @@ public class EducacionFormalUCentralAction extends CrudAction<EducacionFormalUCe
     private long estadoEducacion;
     private long programa;
     private long jornada;
+    private long nivelEstudios;
+    private long facultad;
 
     public EducacionFormalUCentralAction() {
         super(EducacionFormalUCentral.class.getName());
@@ -185,6 +187,34 @@ public class EducacionFormalUCentralAction extends CrudAction<EducacionFormalUCe
         this.jornada = jornada;
     }
     
+    /**
+     * @return the nivelEstudios
+     */
+    public long getNivelEstudios() {
+        return nivelEstudios;
+    }
+
+    /**
+     * @param nivelEstudios the nivelEstudios to set
+     */
+    public void setNivelEstudios(long nivelEstudios) {
+        this.nivelEstudios = nivelEstudios;
+    }
+
+    /**
+     * @return the facultad
+     */
+    public long getFacultad() {
+        return facultad;
+    }
+
+    /**
+     * @param facultad the facultad to set
+     */
+    public void setFacultad(long facultad) {
+        this.facultad = facultad;
+    }
+    
     @Override
     public String desplegar() {
         this.setListaEstadosEducacion(listas.consultarEstadosEducacion());
@@ -208,6 +238,8 @@ public class EducacionFormalUCentralAction extends CrudAction<EducacionFormalUCe
 
     @Override
     public void consultarTipos() {
+        this.setNivelEstudios(objeto.getIdPrograma().getIdNivelEstudios().getIdNivelEstudios());
+        this.setFacultad(objeto.getIdPrograma().getIdFacultad().getIdFacultad());
         this.setEstadoEducacion(objeto.getIdEstadoEducacion().getIdEstadoEducacion());
         this.setJornada(objeto.getIdJornada().getIdJornada());
         this.setMesInicio(objeto.getIdMesInicio().getIdMes());

@@ -10,7 +10,6 @@ import Modelo.Ciudad;
 import Modelo.ClaseReconocimiento;
 import Modelo.Reconocimiento;
 import Modelo.TipoReconocimiento;
-import Util.Listas;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.Collection;
@@ -21,32 +20,19 @@ import java.util.Map;
  * @author YURY
  */
 public class ReconocimientoAction extends CrudAction<Reconocimiento>{
-    private Map<Long, Ciudad> listaCiudades;
     private Map<Long, TipoReconocimiento> listaTiposReconocimiento;
     private Map<Long, ClaseReconocimiento> listaClasesReconocimiento;
     private long ciudad;
     private long tipoReconocimiento;
     private long claseReconocimiento;
+    private long pais;
+    private long departamento;
     
     public ReconocimientoAction() {
         super(Reconocimiento.class.getName());
         this.idObjeto = "getIdReconocimiento";
         this.coleccion = "getReconocimientoCollection";
         this.claseConcretaPersistencia = Persistencia.Reconocimiento.class;
-    }
-
-    /**
-     * @return the listaCiudades
-     */
-    public Collection<Ciudad> getListaCiudades() {
-        return listaCiudades.values();
-    }
-
-    /**
-     * @param listaCiudades the listaCiudades to set
-     */
-    public void setListaCiudades(Map<Long, Ciudad> listaCiudades) {
-        this.listaCiudades = listaCiudades;
     }
 
     /**
@@ -119,9 +105,36 @@ public class ReconocimientoAction extends CrudAction<Reconocimiento>{
         this.claseReconocimiento = claseReconocimiento;
     }
     
+    /**
+     * @return the pais
+     */
+    public long getPais() {
+        return pais;
+    }
+
+    /**
+     * @param pais the pais to set
+     */
+    public void setPais(long pais) {
+        this.pais = pais;
+    }
+
+    /**
+     * @return the departamento
+     */
+    public long getDepartamento() {
+        return departamento;
+    }
+
+    /**
+     * @param departamento the departamento to set
+     */
+    public void setDepartamento(long departamento) {
+        this.departamento = departamento;
+    }
+    
     @Override
     public String desplegar() {
-        //this.setListaCiudades(listas.getListaCiudades());
         this.setListaClasesReconocimiento(listas.consultarClasesReconocimiento());
         this.setListaTiposReconocimiento(listas.consultarTiposReconocimiento());
         
@@ -133,12 +146,14 @@ public class ReconocimientoAction extends CrudAction<Reconocimiento>{
     @Override
     public void insertarTipos() {
         this.objeto.setIdClaseReconocimiento(listas.consultarClasesReconocimiento().get(this.claseReconocimiento));
-        //this.objeto.setIdCiudad(listas.getListaCiudades().get(this.ciudad));
+        this.objeto.setIdCiudad(new Ciudad(this.ciudad));
         this.objeto.setIdTipoReconocimiento(listas.consultarTiposReconocimiento().get(this.tipoReconocimiento));
     }
 
     @Override
     public void consultarTipos() {
+        this.setPais(objeto.getIdCiudad().getIdDepartamento().getIdPais().getIdPais());
+        this.setDepartamento(objeto.getIdCiudad().getIdDepartamento().getIdDepartamento());
         this.setCiudad(objeto.getIdCiudad().getIdCiudad());
         this.setTipoReconocimiento(objeto.getIdTipoReconocimiento().getIdTipoReconocimiento());
         this.setClaseReconocimiento(objeto.getIdClaseReconocimiento().getIdClaseReconocimiento());
@@ -167,5 +182,5 @@ public class ReconocimientoAction extends CrudAction<Reconocimiento>{
     @Override
     public void validarLista() {
         
-    }   
+    }
 }

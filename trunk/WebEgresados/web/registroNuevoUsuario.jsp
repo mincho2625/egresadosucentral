@@ -38,7 +38,7 @@
 
                                         <td class="tduno">
                                         <jq:select href="%{ciudadURL}" onChangeTopics="reloadsecondlist" name="pais" id="pais"
-                                                   list="listaPaises" listKey="id" listValue="nombre"
+                                                   list="listaPaises" listKey="id" listValue="nombre" onCompleteTopics="reloadsecondlist"
                                                    headerKey="-1" headerValue="- Seleccione -" label="País Nacimiento:"/>
                                     </td>
                                     <td>
@@ -60,7 +60,7 @@
                                     <tr>
                                         <td>
                                         <jq:select href="%{ciudadURL}" onChangeTopics="reloadsecondlist2" name="pais2" id="pais2"
-                                                   list="listaPaises2" listKey="id" listValue="nombre"
+                                                   list="listaPaises2" listKey="id" listValue="nombre" onCompleteTopics="reloadsecondlist2"
                                                    headerKey="-1" headerValue="- Seleccione -" label="País Expedición"/>
                                     </td>
                                     <td>

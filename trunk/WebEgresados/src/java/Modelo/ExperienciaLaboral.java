@@ -39,7 +39,7 @@ public class ExperienciaLaboral {
     private Mes idMesIngreso;
     private Mes idMesFinalizacion;
     private int anioIngreso;
-    private int anioFinalizacion;
+    private Integer anioFinalizacion;
     private long idEgresado;
     private boolean estado;
 
@@ -298,14 +298,14 @@ public class ExperienciaLaboral {
     /**
      * @return the anioFinalizacion
      */
-    public int getAnioFinalizacion() {
+    public Integer getAnioFinalizacion() {
         return anioFinalizacion;
     }
 
     /**
      * @param anioFinalizacion the anioFinalizacion to set
      */
-    public void setAnioFinalizacion(int anioFinalizacion) {
+    public void setAnioFinalizacion(Integer anioFinalizacion) {
         this.anioFinalizacion = anioFinalizacion;
     }
 

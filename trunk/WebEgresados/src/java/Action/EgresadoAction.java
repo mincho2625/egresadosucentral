@@ -38,17 +38,17 @@ public class EgresadoAction extends ActionSupport implements ModelDriven<Egresad
     private Map<Long, GrupoSanguineo> listaGruposSanguineos;
     private Map<Long, Genero> listaGeneros;
     private Map<Long, EstadoCivil> listaEstadosCiviles;
-    private long ciudadExpedicion;
-    private long ciudadNacimiento;
     private long tipoDocumento;
     private long grupoSanguineo;
     private long genero;
     private long estadoCivil;
     private boolean terminos;
-    private long departamentoNacimiento;
-    private long departamentoExpedicion;
-    private long paisNacimiento;
-    private long paisExpedicion;
+    private long ciudad; //Nacimiento
+    private long ciudad2; //Expedición
+    private long departamento;
+    private long departamento2;
+    private long pais;
+    private long pais2;
         
     public EgresadoAction()
     {
@@ -113,34 +113,6 @@ public class EgresadoAction extends ActionSupport implements ModelDriven<Egresad
      */
     public void setListaEstadosCiviles(Map<Long, EstadoCivil> listaEstadosCiviles) {
         this.listaEstadosCiviles = listaEstadosCiviles;
-    }
-    
-    /**
-     * @return the ciudadExpedicion
-     */
-    public long getCiudadExpedicion() {
-        return ciudadExpedicion;
-    }
-
-    /**
-     * @param ciudadExpedicion the ciudadExpedicion to set
-     */
-    public void setCiudadExpedicion(long ciudadExpedicion) {
-        this.ciudadExpedicion = ciudadExpedicion;
-    }
-
-    /**
-     * @return the ciudadNacimiento
-     */
-    public long getCiudadNacimiento() {
-        return ciudadNacimiento;
-    }
-
-    /**
-     * @param ciudadNacimiento the ciudadNacimiento to set
-     */
-    public void setCiudadNacimiento(long ciudadNacimiento) {
-        this.ciudadNacimiento = ciudadNacimiento;
     }
 
     /**
@@ -228,64 +200,92 @@ public class EgresadoAction extends ActionSupport implements ModelDriven<Egresad
     }
     
     /**
-     * @return the departamentoNacimiento
+     * @return the ciudad
      */
-    public long getDepartamentoNacimiento() {
-        return departamentoNacimiento;
+    public long getCiudad() {
+        return ciudad;
     }
 
     /**
-     * @param departamentoNacimiento the departamentoNacimiento to set
+     * @param ciudad the ciudad to set
      */
-    public void setDepartamentoNacimiento(long departamentoNacimiento) {
-        this.departamentoNacimiento = departamentoNacimiento;
+    public void setCiudad(long ciudad) {
+        this.ciudad = ciudad;
     }
 
     /**
-     * @return the departamentoExpedicion
+     * @return the ciudad2
      */
-    public long getDepartamentoExpedicion() {
-        return departamentoExpedicion;
+    public long getCiudad2() {
+        return ciudad2;
     }
 
     /**
-     * @param departamentoExpedicion the departamentoExpedicion to set
+     * @param ciudad2 the ciudad2 to set
      */
-    public void setDepartamentoExpedicion(long departamentoExpedicion) {
-        this.departamentoExpedicion = departamentoExpedicion;
+    public void setCiudad2(long ciudad2) {
+        this.ciudad2 = ciudad2;
     }
 
     /**
-     * @return the paisNacimiento
+     * @return the departamento
      */
-    public long getPaisNacimiento() {
-        return paisNacimiento;
+    public long getDepartamento() {
+        return departamento;
     }
 
     /**
-     * @param paisNacimiento the paisNacimiento to set
+     * @param departamento the departamento to set
      */
-    public void setPaisNacimiento(long paisNacimiento) {
-        this.paisNacimiento = paisNacimiento;
+    public void setDepartamento(long departamento) {
+        this.departamento = departamento;
     }
 
     /**
-     * @return the paisExpedicion
+     * @return the departamento2
      */
-    public long getPaisExpedicion() {
-        return paisExpedicion;
+    public long getDepartamento2() {
+        return departamento2;
     }
 
     /**
-     * @param paisExpedicion the paisExpedicion to set
+     * @param departamento2 the departamento2 to set
      */
-    public void setPaisExpedicion(long paisExpedicion) {
-        this.paisExpedicion = paisExpedicion;
+    public void setDepartamento2(long departamento2) {
+        this.departamento2 = departamento2;
+    }
+
+    /**
+     * @return the pais
+     */
+    public long getPais() {
+        return pais;
+    }
+
+    /**
+     * @param pais the pais to set
+     */
+    public void setPais(long pais) {
+        this.pais = pais;
+    }
+
+    /**
+     * @return the pais2
+     */
+    public long getPais2() {
+        return pais2;
+    }
+
+    /**
+     * @param pais2 the pais2 to set
+     */
+    public void setPais2(long pais2) {
+        this.pais2 = pais2;
     }
     
     public void insertarTipos() {
-        this.getEgresado().setIdCiudadExpedicion(new Ciudad(ciudadExpedicion));
-        this.getEgresado().setIdCiudadNacimiento(new Ciudad(ciudadNacimiento));
+        this.getEgresado().setIdCiudadExpedicion(new Ciudad(ciudad2));
+        this.getEgresado().setIdCiudadNacimiento(new Ciudad(ciudad));
         this.getEgresado().setIdEstadoCivil(listas.consultarEstadosCiviles().get(estadoCivil));
         this.getEgresado().setIdGenero(listas.consultarGeneros().get(genero));
         this.getEgresado().setIdGrupoSanguineo(listas.consultarGruposSanguineos().get(grupoSanguineo));
@@ -293,8 +293,12 @@ public class EgresadoAction extends ActionSupport implements ModelDriven<Egresad
     }
 
     public void consultarTipos() {
-        this.setCiudadExpedicion(this.getEgresado().getIdCiudadExpedicion().getIdCiudad());
-        this.setCiudadNacimiento(this.getEgresado().getIdCiudadNacimiento().getIdCiudad());
+        this.setPais(this.getEgresado().getIdCiudadNacimiento().getIdDepartamento().getIdPais().getIdPais());
+        this.setDepartamento(this.getEgresado().getIdCiudadNacimiento().getIdDepartamento().getIdDepartamento());
+        this.setCiudad(this.getEgresado().getIdCiudadNacimiento().getIdCiudad());
+        this.setPais2(this.getEgresado().getIdCiudadExpedicion().getIdDepartamento().getIdPais().getIdPais());
+        this.setDepartamento2(this.getEgresado().getIdCiudadExpedicion().getIdDepartamento().getIdDepartamento());
+        this.setCiudad2(this.getEgresado().getIdCiudadExpedicion().getIdCiudad());
         this.setEstadoCivil(this.getEgresado().getIdEstadoCivil().getIdEstadoCivil());
         this.setGenero(this.getEgresado().getIdGenero().getIdGenero());
         this.setGrupoSanguineo(this.getEgresado().getIdGrupoSanguineo().getIdGrupoSanguineo());
@@ -359,10 +363,10 @@ public class EgresadoAction extends ActionSupport implements ModelDriven<Egresad
         if (egresado.getFechaExpedicion() == null) {
             addFieldError("fechaExpedicion", "La fecha de expedición del documento es requerida.");
         }
-        if (ciudadExpedicion <= 0) {
+        if (ciudad2 <= 0) {
             addFieldError("ciudadExpedicion", "La ciudad de expedición del documento es requerida.");
         }
-        if (ciudadNacimiento <= 0) {
+        if (ciudad <= 0) {
             addFieldError("ciudadNacimiento", "La ciudad de nacimiento es requerida.");
         }
         if (tipoDocumento <= 0) {

@@ -28,6 +28,8 @@ public class ResidenciaAction extends CrudAction<Residencia> {
     private long tipoTenenciaVivienda;
     private long estrato;
     private long ciudad;
+    private long pais;
+    private long departamento;
     
     public ResidenciaAction()
     {
@@ -135,6 +137,34 @@ public class ResidenciaAction extends CrudAction<Residencia> {
         this.ciudad = ciudad;
     }
     
+    /**
+     * @return the pais
+     */
+    public long getPais() {
+        return pais;
+    }
+
+    /**
+     * @param pais the pais to set
+     */
+    public void setPais(long pais) {
+        this.pais = pais;
+    }
+
+    /**
+     * @return the departamento
+     */
+    public long getDepartamento() {
+        return departamento;
+    }
+
+    /**
+     * @param departamento the departamento to set
+     */
+    public void setDepartamento(long departamento) {
+        this.departamento = departamento;
+    }
+    
     @Override
     public String desplegar()
     {
@@ -156,6 +186,8 @@ public class ResidenciaAction extends CrudAction<Residencia> {
 
     @Override
     public void consultarTipos() {
+        this.setPais(objeto.getIdCiudadResidencia().getIdDepartamento().getIdPais().getIdPais());
+        this.setDepartamento(objeto.getIdCiudadResidencia().getIdDepartamento().getIdDepartamento());
         this.setCiudad(objeto.getIdCiudadResidencia().getIdCiudad());
         this.setTipoTenenciaVivienda(objeto.getIdTipoTenenciaVivienda().getIdTipoTenenciaVivienda());
         this.setTipoVivienda(objeto.getIdTipoVivienda().getIdTipoVivienda());

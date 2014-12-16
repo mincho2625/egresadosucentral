@@ -37,9 +37,9 @@
         </action>
         
         <action name="*Ubicacion" method="{1}" class="Action.UbicacionAction">
-            <result name="success">/datosUbicacionTabla.jsp</result>
-            <result name="input" >/datosUbicacionTabla.jsp</result>
-            <result name="error" >/datosUbicacionTabla.jsp</result>
+            <result name="success">/ubicacion.jsp</result>
+            <result name="input" >/ubicacion.jsp</result>
+            <result name="error" >/ubicacion.jsp</result>
             
             <result name="anterior" type="chain">
                 <param name="actionName">Egresado</param>
@@ -52,9 +52,9 @@
         </action>
         
         <action name="*EgresadoRedSocial" method="{1}" class="Action.EgresadoRedSocialAction">
-            <result name="success">/redesSocialesTabla.jsp</result>
-            <result name="input" >/redesSocialesTabla.jsp</result>
-            <result name="error">/redesSocialesTabla.jsp</result>
+            <result name="success">/redesSociales.jsp</result>
+            <result name="input" >/redesSociales.jsp</result>
+            <result name="error">/redesSociales.jsp</result>
             
             <result name="anterior" type="chain">
                 <param name="actionName">Ubicacion</param>
@@ -67,9 +67,9 @@
         </action>
         
         <action name="*Residencia" method="{1}" class="Action.ResidenciaAction">
-            <result name="success">/datosResidenciaTabla.jsp</result>
-            <result name="input" >/datosResidenciaTabla.jsp</result>
-            <result name="error" >/datosResidenciaTabla.jsp</result>
+            <result name="success">/residencia.jsp</result>
+            <result name="input" >/residencia.jsp</result>
+            <result name="error" >/residencia.jsp</result>
             
             <result name="anterior" type="chain">
                 <param name="actionName">EgresadoRedSocial</param>

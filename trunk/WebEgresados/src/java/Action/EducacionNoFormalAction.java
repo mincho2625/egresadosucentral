@@ -47,6 +47,8 @@ public class EducacionNoFormalAction extends CrudAction<EducacionNoFormal> {
     private long intensidadHoraria;
     private boolean checkOtraInstitucion;
     private boolean checkOtroTipo;
+    private long pais;
+    private long departamento;
     
     public EducacionNoFormalAction() {
         super(EducacionNoFormal.class.getName());
@@ -321,6 +323,34 @@ public class EducacionNoFormalAction extends CrudAction<EducacionNoFormal> {
     public void setCheckOtroTipo(boolean checkOtroTipo) {
         this.checkOtroTipo = checkOtroTipo;
     }
+    
+    /**
+     * @return the pais
+     */
+    public long getPais() {
+        return pais;
+    }
+
+    /**
+     * @param pais the pais to set
+     */
+    public void setPais(long pais) {
+        this.pais = pais;
+    }
+
+    /**
+     * @return the departamento
+     */
+    public long getDepartamento() {
+        return departamento;
+    }
+
+    /**
+     * @param departamento the departamento to set
+     */
+    public void setDepartamento(long departamento) {
+        this.departamento = departamento;
+    }
 
     @Override
     public String desplegar() {
@@ -357,6 +387,8 @@ public class EducacionNoFormalAction extends CrudAction<EducacionNoFormal> {
 
     @Override
     public void consultarTipos() {
+        this.setPais(objeto.getIdCiudad().getIdDepartamento().getIdPais().getIdPais());
+        this.setDepartamento(objeto.getIdCiudad().getIdDepartamento().getIdDepartamento());
         this.setEstadoEducacion(objeto.getIdEstadoEducacion().getIdEstadoEducacion());
         this.setMesInicio(objeto.getIdMesInicio().getIdMes());
         this.setAreaEstudios(objeto.getIdAreaEstudios().getIdAreaEstudios());
@@ -412,6 +444,9 @@ public class EducacionNoFormalAction extends CrudAction<EducacionNoFormal> {
                     addFieldError("mesFinalizacion", "El mes de finalización debe ser mayor o igual al mes de inicio.");
             }
         }
+        
+        if (objeto.getAnioFinalizacion() == -1)
+            objeto.setAnioFinalizacion(null);
         
         //otra institución
         if (isCheckOtraInstitucion())
