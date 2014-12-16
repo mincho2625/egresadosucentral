@@ -83,13 +83,13 @@
                                     <tr>
                                         <td>
                                         <jq:select href="%{programaURL}" onChangeTopics="reloadThirdlist" name="nivelEstudios" id="nivelEstudios"
-                                                   list="listaNivelesEstudios" listKey="id" listValue="nombre"
+                                                   list="listaNivelesEstudios" listKey="id" listValue="nombre" onCompleteTopics="reloadThirdlist"
                                                    headerKey="-1" headerValue="- Seleccione -" label="Nivel de estudios"/>
                                     </td>
                                     <td>
                                         <jq:select href="%{programaURL}" onChangeTopics="reloadThirdlist" name="facultad" id="facultad"
                                                    formIds="formEducacion" list="listaFacultades" listKey="id" listValue="nombre"
-                                                   headerKey="-1" headerValue="- Seleccione -" label="Facultad"/>
+                                                   headerKey="-1" headerValue="- Seleccione -" label="Facultad" onCompleteTopics="reloadThirdlist"/>
                                     </td>
                                     <td>
                                         <jq:select href="%{programaURL}" reloadTopics="reloadThirdlist"

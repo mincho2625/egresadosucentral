@@ -43,6 +43,8 @@ public class EducacionFormalOtrasInstitucionesAction extends CrudAction<EdFormal
     private long modalidad;
     private long nivelEstudios;
     private boolean checkOtraInstitucion;
+    private long pais;
+    private long departamento;
 
     public EducacionFormalOtrasInstitucionesAction() {
         super(EdFormalOtrasInstituciones.class.getName());
@@ -247,6 +249,34 @@ public class EducacionFormalOtrasInstitucionesAction extends CrudAction<EdFormal
     public void setCheckOtraInstitucion(boolean checkOtraInstitucion) {
         this.checkOtraInstitucion = checkOtraInstitucion;
     }
+    
+    /**
+     * @return the pais
+     */
+    public long getPais() {
+        return pais;
+    }
+
+    /**
+     * @param pais the pais to set
+     */
+    public void setPais(long pais) {
+        this.pais = pais;
+    }
+
+    /**
+     * @return the departamento
+     */
+    public long getDepartamento() {
+        return departamento;
+    }
+
+    /**
+     * @param departamento the departamento to set
+     */
+    public void setDepartamento(long departamento) {
+        this.departamento = departamento;
+    }
 
     @Override
     public String desplegar() {
@@ -278,12 +308,14 @@ public class EducacionFormalOtrasInstitucionesAction extends CrudAction<EdFormal
 
     @Override
     public void consultarTipos() {
+        this.setPais(objeto.getIdCiudad().getIdDepartamento().getIdPais().getIdPais());
+        this.setDepartamento(objeto.getIdCiudad().getIdDepartamento().getIdDepartamento());
         this.setEstadoEducacion(objeto.getIdEstadoEducacion().getIdEstadoEducacion());
         this.setMesInicio(objeto.getIdMesInicio().getIdMes());
+        this.setNivelEstudios(objeto.getIdNivelEstudios().getIdNivelEstudios());
         this.setAreaEstudios(objeto.getIdAreaEstudios().getIdAreaEstudios());
         this.setCiudad(objeto.getIdCiudad().getIdCiudad());
         this.setModalidad(objeto.getIdModalidad().getIdModalidad());
-        this.setNivelEstudios(objeto.getIdNivelEstudios().getIdNivelEstudios());
         
         if (objeto.getIdMesFinalizacion() != null)
             this.setMesFinalizacion(objeto.getIdMesFinalizacion().getIdMes());

@@ -39,7 +39,7 @@
 
                                     <td class="tduno">
                                     <jq:select href="%{ciudadURL}" onChangeTopics="reloadsecondlist" name="pais" id="pais"
-                                               list="listaPaises" listKey="id" listValue="nombre"
+                                               list="listaPaises" listKey="id" listValue="nombre" onCompleteTopics="reloadsecondlist"
                                                headerKey="-1" headerValue="- Seleccione -" label="País Nacimiento:"/>
                                 </td>
                                 <td>
@@ -50,7 +50,7 @@
                                 </td>
                                 <td>
                                     <jq:select href="%{ciudadURL}" formIds="formRegistro" reloadTopics="reloadThirdlist"
-                                               name="ciudadNacimiento" list="listaCiudades" listKey="id" listValue="nombre" headerKey="-1"
+                                               name="ciudad" list="listaCiudades" listKey="id" listValue="nombre" headerKey="-1"
                                                headerValue="- Seleccione -" id="ciudad" label="Ciudad Nacimiento:"/>
                                 </td>
 
@@ -63,7 +63,7 @@
 
                                     <td>
                                     <jq:select href="%{ciudadURL}" onChangeTopics="reloadsecondlist2" name="pais2" id="pais2"
-                                               list="listaPaises2" listKey="id" listValue="nombre"
+                                               list="listaPaises2" listKey="id" listValue="nombre" onCompleteTopics="reloadsecondlist2"
                                                headerKey="-1" headerValue="- Seleccione -" label="País Expedición"/>
                                 </td>
                                 <td>
@@ -74,7 +74,7 @@
                                 </td>
                                 <td>
                                     <jq:select href="%{ciudadURL}" reloadTopics="reloadThirdlist2"
-                                               name="ciudadExpedicion" list="listaCiudades2" listKey="id" listValue="nombre" headerKey="-1"
+                                               name="ciudad2" list="listaCiudades2" listKey="id" listValue="nombre" headerKey="-1"
                                                headerValue="- Seleccione -" id="ciudad2" formIds="formRegistro" label="Ciudad Expedición"/>
                                 </td>
 

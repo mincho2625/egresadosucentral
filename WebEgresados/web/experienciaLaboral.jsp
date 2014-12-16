@@ -1,11 +1,12 @@
 <!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@taglib uri="/struts-tags" prefix="s"%>
 <%@taglib uri="/struts-jquery-tags" prefix="jq" %>
 <html lang="es">
     <head><title>Registro Sistema</title>
         <meta charset="utf-8">
         <link href="estilo2.css" rel="stylesheet" type="text/css">
-        <jq:head></jq:head>
+        <jq:head jqueryui="true" />
         </head>
         <body>
             <div class="TituloPrincipal" style="/* [disabled]margin-left:10px; */ font-size: 20px">
@@ -44,10 +45,7 @@
                             </td>
                             <td class="tdtres"><s:property value="anioIngreso"></s:property><br>
                             </td>
-                            <td class="tdtres">
-                            <s:if test="anioFinalizacion > 0">
-                                <s:property value="anioFinalizacion"></s:property>
-                            </s:if>
+                            <td class="tdtres"><s:property value="anioFinalizacion"></s:property>
                             <br>
                         </td>
                         <td class="tdtres">  
@@ -80,7 +78,8 @@
             <br>
             <div class="tabla" id="contenido1">
                 <s:if test="editar">
-                    <s:form action="guardarExperienciaLaboral.action">
+                    <s:form action="guardarExperienciaLaboral.action" id="formExperienciaLaboral">
+                        <s:url id="ciudadURL" action="SelectCiudad"/>
                         <s:push value="objeto">
                             <s:hidden name="idExperienciaLaboral"></s:hidden>
                                 <div class="fuente2">Agregar Nueva Experiencia Laboral</div>
@@ -96,7 +95,21 @@
                                             </div><s:textfield label="Nombre Empresa" cssClass="texfield" name="nombreEmpresa"></s:textfield>                                        </td>
                                     </tr>
                                     <tr>
-                                        <td class="texfield"><s:select label="Ciudad" cssClass="texfield" name="ciudad" list="listaCiudades" listKey="idCiudad" listValue="nombre" headerKey="-1" headerValue="- Seleccione -"></s:select>
+                                        <td class="tduno">
+                                            <jq:select href="%{ciudadURL}" onChangeTopics="reloadsecondlist" name="pais" id="pais"
+                                                       list="listaPaises" listKey="id" listValue="nombre" onCompleteTopics="reloadsecondlist"
+                                                       headerKey="-1" headerValue="- Seleccione -" label="País:"/>
+                                        </td>
+                                        <td>
+                                            <jq:select href="%{ciudadURL}" onChangeTopics="reloadThirdlist" onCompleteTopics="reloadThirdlist"
+                                                       formIds="formExperienciaLaboral" reloadTopics="reloadsecondlist" name="departamento" id="departamento"
+                                                       list="listaDepartamentos" listKey="id" listValue="nombre" headerKey="-1"
+                                                       headerValue="- Seleccione -" label="Departamento:"/>
+                                        </td>
+                                        <td>
+                                            <jq:select href="%{ciudadURL}" formIds="formExperienciaLaboral" reloadTopics="reloadThirdlist"
+                                                       name="ciudad" list="listaCiudades" listKey="id" listValue="nombre" headerKey="-1"
+                                                       headerValue="- Seleccione -" id="ciudad" label="Ciudad:"/>
                                         </td>
                                     </tr>
                                     <tr>

@@ -6,7 +6,6 @@
     <head><title>Registro Sistema</title>
         <meta charset="utf-8">
         <link href="estilo2.css" rel="stylesheet" type="text/css">
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
         <jq:head jqueryui="true" />
         
         <script type="text/javascript">
@@ -99,7 +98,7 @@
                                     <tr>
                                         <td class="tduno">
                                             <jq:select href="%{ciudadURL}" onChangeTopics="reloadsecondlist" name="pais" id="pais"
-                                                       list="listaPaises" listKey="id" listValue="nombre"
+                                                       list="listaPaises" listKey="id" listValue="nombre" onCompleteTopics="reloadsecondlist"
                                                        headerKey="-1" headerValue="- Seleccione -" label="País:"/>
                                         </td>
                                         <td>
@@ -133,7 +132,7 @@
                                     <tr>
                                         <td class="tduno">
                                             <jq:select href="%{areaEstudiosURL}" onChangeTopics="reloadsecondlist2" name="nivelEstudios" id="nivelEstudios"
-                                                       list="listaNivelesEstudios" listKey="id" listValue="nombre"
+                                                       list="listaNivelesEstudios" listKey="id" listValue="nombre" onCompleteTopics="reloadsecondlist2"
                                                        headerKey="-1" headerValue="- Seleccione -" label="Nivel estudios:"/>
                                         </td>
                                         <td>

@@ -8,14 +8,8 @@
         <link href="estilo2.css" rel="stylesheet" type="text/css">
         <s:head/>
         <jq:head jqueryui="true" />
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
         <script>document.documentElement.className = "js";</script>
-        <script src="vendor/jquery-1.9.1.js"></script>
-        <script src="vendor/json2.js"></script>
-        <script src="src/jquery.collapse.js"></script>
-        <script src="src/jquery.collapse_storage.js"></script>
-        <script src="src/jquery.collapse_cookie_storage.js"></script>
-
+        
         <script type="text/javascript">
             function fnOtraInstitucion(checked)
             {
@@ -32,12 +26,12 @@
             function fnOtroTipoEdNoFormal(checked)
             {
                 if (checked) {
-                    tipoEdNoFormal.disabled = true;
-                    otroTipoEdNoFormal.disabled = false;
+                    nivelEstudios.disabled = true;
+                    otroNivelEstudios.disabled = false;
                 }
                 else {
-                    tipoEdNoFormal.disabled = false;
-                    otroTipoEdNoFormal.disabled = true;
+                    nivelEstudios.disabled = false;
+                    otroNivelEstudios.disabled = true;
                 }
             }
         </script>
@@ -79,7 +73,7 @@
                             </td>
                             <td class="tdtres"><s:property value="idInstitucion.nombre"></s:property><br>
                             </td>
-                            <td class="tdtres"><s:property value="idTipoEdNoFormal.nombre"></s:property><br>
+                            <td class="tdtres"><s:property value="idNivelEstudios.nombre"></s:property><br>
                             </td>
                             <td class="tdtres"><s:property value="idIntensidadHoraria.nombre"></s:property><br>
                             </td>
@@ -127,7 +121,7 @@
                                     <tr>
                                         <td class="tduno">
                                             <jq:select href="%{ciudadURL}" onChangeTopics="reloadsecondlist" name="pais" id="pais"
-                                                       list="listaPaises" listKey="id" listValue="nombre"
+                                                       list="listaPaises" listKey="id" listValue="nombre" onCompleteTopics="reloadsecondlist"
                                                        headerKey="-1" headerValue="- Seleccione -" label="País:"/>
                                         </td>
                                         <td>
@@ -166,7 +160,7 @@
                                     </tr>
                                     <tr>
                                         <td>
-                                        <s:select label="Area estudios " cssClass="texfield" name="areaEstudios" list="listaAreasEstudios" listKey="idAreaEstudios" listValue="nombre" headerKey="-1" headerValue="- Seleccione -"></s:select>
+                                        <s:select label="Area estudios " cssClass="texfield" name="areaEstudios" list="listaAreasEstudios" listKey="id" listValue="nombre" headerKey="-1" headerValue="- Seleccione -"></s:select>
                                         </td>
                                     </tr>
                                     <tr>

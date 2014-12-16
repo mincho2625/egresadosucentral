@@ -14,7 +14,6 @@ import Modelo.NivelCargo;
 import Modelo.RangoSalarial;
 import Modelo.Subsector;
 import Modelo.TipoContrato;
-import Util.Listas;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -37,7 +36,6 @@ public class ExperienciaLaboralAction extends CrudAction<ExperienciaLaboral> {
     private Map<Long, RangoSalarial> listaRangosSalariales;
     private Map<Long, CargoEquivalente> listaCargosEquivalentes;
     private Map<Long, Mes> listaMeses;
-    private Map<Long, Ciudad> listaCiudades;
     private ArrayList<Integer> listaAnios;
     private long tipoContrato;
     private long subsector;
@@ -48,6 +46,8 @@ public class ExperienciaLaboralAction extends CrudAction<ExperienciaLaboral> {
     private long ciudad;
     private long mesIngreso;
     private long mesFinalizacion;
+    private long pais;
+    private long departamento;
 
     public ExperienciaLaboralAction() {
         super(ExperienciaLaboral.class.getName());
@@ -239,20 +239,6 @@ public class ExperienciaLaboralAction extends CrudAction<ExperienciaLaboral> {
     }
 
     /**
-     * @return the listaCiudades
-     */
-    public Collection<Ciudad> getListaCiudades() {
-        return listaCiudades.values();
-    }
-
-    /**
-     * @param listaCiudades the listaCiudades to set
-     */
-    public void setListaCiudades(Map<Long, Ciudad> listaCiudades) {
-        this.listaCiudades = listaCiudades;
-    }
-
-    /**
      * @return the ciudad
      */
     public long getCiudad() {
@@ -307,6 +293,34 @@ public class ExperienciaLaboralAction extends CrudAction<ExperienciaLaboral> {
     public void setListaAnios(ArrayList<Integer> listaAnios) {
         this.listaAnios = listaAnios;
     }
+    
+    /**
+     * @return the pais
+     */
+    public long getPais() {
+        return pais;
+    }
+
+    /**
+     * @param pais the pais to set
+     */
+    public void setPais(long pais) {
+        this.pais = pais;
+    }
+
+    /**
+     * @return the departamento
+     */
+    public long getDepartamento() {
+        return departamento;
+    }
+
+    /**
+     * @param departamento the departamento to set
+     */
+    public void setDepartamento(long departamento) {
+        this.departamento = departamento;
+    }
 
     @Override
     public String desplegar() {
@@ -318,7 +332,6 @@ public class ExperienciaLaboralAction extends CrudAction<ExperienciaLaboral> {
         this.setListaRangosSalariales(listas.consultarRangosSalariales());
         this.setListaSubsectores(listas.consultarSubsectores());
         this.setListaTiposContrato(listas.consultarTiposContrato());
-        //this.setListaCiudades(listas.c());
         this.setListaAnios(listas.consultarAnios());
 
         this.editar = true;
@@ -329,7 +342,7 @@ public class ExperienciaLaboralAction extends CrudAction<ExperienciaLaboral> {
     public void insertarTipos() {
         this.objeto.setIdAreaEmpresa(listas.consultarAreasEmpresa().get(this.areaEmpresa));
         this.objeto.setIdCargoEquivalente(listas.consultarCargosEquivalentes().get(this.cargoEquivalente));
-        //this.objeto.setIdCiudad(listas.consultarciud().get(this.ciudad));
+        this.objeto.setIdCiudad(new Ciudad(this.ciudad));
         this.objeto.setIdMesFinalizacion(listas.consultarMeses().get(this.mesFinalizacion));
         this.objeto.setIdMesIngreso(listas.consultarMeses().get(this.mesIngreso));
         this.objeto.setIdNivelCargo(listas.consultarNivelesCargo().get(this.nivelCargo));
@@ -340,6 +353,8 @@ public class ExperienciaLaboralAction extends CrudAction<ExperienciaLaboral> {
 
     @Override
     public void consultarTipos() {
+        this.setPais(objeto.getIdCiudad().getIdDepartamento().getIdPais().getIdPais());
+        this.setDepartamento(objeto.getIdCiudad().getIdDepartamento().getIdDepartamento());
         this.setAreaEmpresa(objeto.getIdAreaEmpresa().getIdAreaEmpresa());
         this.setCargoEquivalente(objeto.getIdCargoEquivalente().getIdCargoEquivalente());
         this.setCiudad(objeto.getIdCiudad().getIdCiudad());
@@ -404,6 +419,9 @@ public class ExperienciaLaboralAction extends CrudAction<ExperienciaLaboral> {
             else if (objeto.getAnioFinalizacion() == objeto.getAnioIngreso() && mesFinalizacion < mesIngreso)
                 addFieldError("mesFinalizacion", "El mes de finalización debe ser mayor o igual al mes de ingreso.");
         }
+        
+        if (objeto.getAnioFinalizacion() == -1)
+            objeto.setAnioFinalizacion(null);
     }
 
     @Override
