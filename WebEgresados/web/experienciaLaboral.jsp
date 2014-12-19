@@ -7,49 +7,51 @@
         <meta charset="utf-8">
         <link href="estilo2.css" rel="stylesheet" type="text/css">
         <jq:head jqueryui="true" />
-        </head>
-        <body>
-            <div class="TituloPrincipal" style="/* [disabled]margin-left:10px; */ font-size: 20px">
-                <div align="center">Portal Egresados  Universidad Central</div>
-            </div>
-            <div class="titu">
-                <p align="left"><img src="imagenes/document-open.png" width="107" height="94">		      <span class="titu2">a a a</span><img src="imagenes/logosimbolo-ucentral-v1-medium.png" width="273" height="62">  <span class="titu2">a asda </span>Datos de Ubicacion</p>
-            </div>
-            <!--<div id="default-example" data-collapse>
-                <h3>Informacion</h3>-->
-            <div align="center" class="tabla" id="Tabla">
-                <table rules="all" class="table2" >
-                    <caption>Experiencia Laboral</caption>
-                    <tr>
-                        <td class="texfield"><div align="center" class="fuentetabla">Tipo Contrato<br>
-                            </div></td>
-                        <td class="texfield"><div align="center" class="fuentetabla">Empresa<br>
-                            </div></td>
-                        <td class="texfield"><div align="center" class="fuentetabla">Cargo<br>
-                            </div></td>
-                        <td class="texfield"><div align="center" class="fuentetabla">Ingreso<br>
-                            </div></td>
-                        <td class="texfield"><div align="center" class="fuentetabla">Finalizacion<br>
-                            </div></td>
+    </head>
+    <body>
+        <div class="TituloPrincipal" style="/* [disabled]margin-left:10px; */ font-size: 20px">
+            <div align="center">Portal Egresados  Universidad Central</div>
+        </div>
+        <div class="titu">
+            <p align="left"><img src="imagenes/document-open.png" width="107" height="94">		      <span class="titu2">a a a</span><img src="imagenes/logosimbolo-ucentral-v1-medium.png" width="273" height="62">  <span class="titu2">a asda </span>Datos de Ubicacion</p>
+        </div>
+        <!--<div id="default-example" data-collapse>
+            <h3>Informacion</h3>-->
+        <div align="center" class="tabla" id="Tabla">
+            <table rules="all" class="table2" >
+                <caption>Experiencia Laboral</caption>
+                <tr>
+                    <td class="texfield"><div align="center" class="fuentetabla">Tipo Contrato<br>
+                        </div></td>
+                    <td class="texfield"><div align="center" class="fuentetabla">Empresa<br>
+                        </div></td>
+                    <td class="texfield"><div align="center" class="fuentetabla">Cargo<br>
+                        </div></td>
+                    <td class="texfield"><div align="center" class="fuentetabla">Ingreso<br>
+                        </div></td>
+                    <td class="texfield"><div align="center" class="fuentetabla">Finalizacion<br>
+                        </div></td>
+                    <td class="texfield"><div align="center" class="fuentetabla">Accion<br>
+                        </div></td>
 
-                    </tr>
+                </tr>
 
                 <s:hidden name="cantidadObjetos"></s:hidden>
                 <s:iterator value="listaObjetos">
                     <tr>
-                        <td class="tdtres"><s:property value="idTipoContrato.nombre"></s:property><br>
+                        <td class="texfield"><s:property value="idTipoContrato.nombre"></s:property><br>
                             </td>
-                            <td class="tdtres"><s:property value="nombreEmpresa"></s:property><br>
+                            <td class="texfield"><s:property value="nombreEmpresa"></s:property><br>
                             </td>
-                            <td class="tdtres"><s:property value="cargo"></s:property><br>
+                            <td class="texfield"><s:property value="cargo"></s:property><br>
                             </td>
-                            <td class="tdtres"><s:property value="anioIngreso"></s:property><br>
+                            <td class="texfield"><s:property value="anioIngreso"></s:property><br>
                             </td>
-                            <td class="tdtres"><s:property value="anioFinalizacion"></s:property>
-                            <br>
-                        </td>
-                        <td class="tdtres">  
-                            <div class="fuentetabla2">
+                            <td class="texfield"><s:property value="anioFinalizacion"></s:property>
+                                <br>
+                            </td>
+                            <td class="texfield">  
+                                <div class="fuentetabla2">
                                 <s:url id="editarURL" action="editarExperienciaLaboral.action">
                                     <s:param name="idObjeto" value="%{idExperienciaLaboral}" ></s:param>
                                 </s:url>
@@ -96,25 +98,25 @@
                                     </tr>
                                     <tr>
                                         <td class="tduno">
-                                            <jq:select href="%{ciudadURL}" onChangeTopics="reloadsecondlist" name="pais" id="pais"
-                                                       list="listaPaises" listKey="id" listValue="nombre" onCompleteTopics="reloadsecondlist"
-                                                       headerKey="-1" headerValue="- Seleccione -" label="País:"/>
-                                        </td>
-                                        <td>
-                                            <jq:select href="%{ciudadURL}" onChangeTopics="reloadThirdlist" onCompleteTopics="reloadThirdlist"
-                                                       formIds="formExperienciaLaboral" reloadTopics="reloadsecondlist" name="departamento" id="departamento"
-                                                       list="listaDepartamentos" listKey="id" listValue="nombre" headerKey="-1"
-                                                       headerValue="- Seleccione -" label="Departamento:"/>
-                                        </td>
-                                        <td>
-                                            <jq:select href="%{ciudadURL}" formIds="formExperienciaLaboral" reloadTopics="reloadThirdlist"
-                                                       name="ciudad" list="listaCiudades" listKey="id" listValue="nombre" headerKey="-1"
-                                                       headerValue="- Seleccione -" id="ciudad" label="Ciudad:"/>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><div align="center">
-                                            </div>
+                                        <jq:select href="%{ciudadURL}" onChangeTopics="reloadsecondlist" name="pais" id="pais"
+                                                   list="listaPaises" listKey="id" listValue="nombre" onCompleteTopics="reloadsecondlist"
+                                                   headerKey="-1" headerValue="- Seleccione -" label="País:"/>
+                                    </td>
+                                    <td>
+                                        <jq:select href="%{ciudadURL}" onChangeTopics="reloadThirdlist" onCompleteTopics="reloadThirdlist"
+                                                   formIds="formExperienciaLaboral" reloadTopics="reloadsecondlist" name="departamento" id="departamento"
+                                                   list="listaDepartamentos" listKey="id" listValue="nombre" headerKey="-1"
+                                                   headerValue="- Seleccione -" label="Departamento:"/>
+                                    </td>
+                                    <td>
+                                        <jq:select href="%{ciudadURL}" formIds="formExperienciaLaboral" reloadTopics="reloadThirdlist"
+                                                   name="ciudad" list="listaCiudades" listKey="id" listValue="nombre" headerKey="-1"
+                                                   headerValue="- Seleccione -" id="ciudad" label="Ciudad:"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><div align="center">
+                                        </div>
                                         <s:textfield label="Telefono de la Empresa" cssClass="texfield" name="telefonoEmpresa"></s:textfield>
                                         </td>
                                     </tr>

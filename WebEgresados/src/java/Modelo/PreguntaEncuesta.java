@@ -18,7 +18,7 @@ import java.util.Map;
 public class PreguntaEncuesta {
     private long idPreguntaEncuesta;
     private String pregunta;
-    private Encuesta idEncuesta;
+    private SeccionEncuesta idSeccionEncuesta;
     private boolean estado;
     private TipoRespuesta idTipoRespuesta;
     private Map<Long, RespuestaEncuesta> listaPosiblesRespuestasEncuesta;
@@ -56,20 +56,6 @@ public class PreguntaEncuesta {
      */
     public void setPregunta(String pregunta) {
         this.pregunta = pregunta;
-    }
-
-    /**
-     * @return the idEncuesta
-     */
-    public Encuesta getIdEncuesta() {
-        return idEncuesta;
-    }
-
-    /**
-     * @param idEncuesta the idEncuesta to set
-     */
-    public void setIdEncuesta(Encuesta idEncuesta) {
-        this.idEncuesta = idEncuesta;
     }
 
     /**
@@ -126,6 +112,20 @@ public class PreguntaEncuesta {
      */
     public void setOrden(int orden) {
         this.orden = orden;
+    }
+    
+    /**
+     * @return the idSeccionEncuesta
+     */
+    public SeccionEncuesta getIdSeccionEncuesta() {
+        return idSeccionEncuesta;
+    }
+
+    /**
+     * @param idSeccionEncuesta the idSeccionEncuesta to set
+     */
+    public void setIdSeccionEncuesta(SeccionEncuesta idSeccionEncuesta) {
+        this.idSeccionEncuesta = idSeccionEncuesta;
     }
 
     /**

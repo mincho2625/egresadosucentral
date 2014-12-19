@@ -9,7 +9,7 @@
         <s:head/>
         <jq:head jqueryui="true" />
         <script>document.documentElement.className = "js";</script>
-        
+
         <script type="text/javascript">
             function fnOtraInstitucion(checked)
             {
@@ -49,39 +49,35 @@
         <div align="center" class="tabla" id="Tabla">
             <table rules="all" class="table2" >
                 <caption>&nbsp;</caption>
-                <tr class="fuentetabla">
-                    <td class="tddos">Ciudad<br>
-                    </td>
-                    <td class="tddos">Institucion<br>
-                    </td>
-                    <td class="tddos">Tipo Educacion no Formal<br>
-                    </td>
-                    <td class="tddos">Intensidad Horaria<br>
-                    </td>
-                    <td class="tddos">Ano Finalizacion<br>
-                    </td>
-                    <td class="tddos">Estado<br>
-                    </td>
-                    <td class="tddos">Accion<br>
-                    </td>
+                <tr>
+                    <td class="texfield"><div align="center" class="fuentetabla">Ciudad<br>
+                        </div></td>
+                    <td class="texfield"><div align="center" class="fuentetabla">Institucion<br>
+                        </div></td>
+                    <td class="texfield"><div align="center" class="fuentetabla">Tipo<br>
+                        </div></td>
+                    <td class="texfield"><div align="center" class="fuentetabla">Ano Finalizacion<br>
+                        </div></td>
+                    <td class="texfield"><div align="center" class="fuentetabla">Estado<br>
+                        </div></td>
+                    <td class="texfield"><div align="center" class="fuentetabla">Accion<br>
+                        </div></td>
                 </tr>
 
                 <s:hidden name="cantidadObjetos"></s:hidden>
                 <s:iterator value="listaObjetos">
                     <tr>
-                        <td class="tdtres"><s:property value="idCiudad.nombre"></s:property><br>
+                        <td class="texfield"><s:property value="idCiudad.nombre"></s:property><br>
                             </td>
-                            <td class="tdtres"><s:property value="idInstitucion.nombre"></s:property><br>
+                            <td class="texfield"><s:property value="idInstitucion.nombre"></s:property><br>
                             </td>
-                            <td class="tdtres"><s:property value="idNivelEstudios.nombre"></s:property><br>
+                            <td class="texfield"><s:property value="idNivelEstudios.nombre"></s:property><br>
                             </td>
-                            <td class="tdtres"><s:property value="idIntensidadHoraria.nombre"></s:property><br>
+                            <td class="texfield"><s:property value="anioFinalizacion"></s:property><br>
                             </td>
-                            <td class="tdtres"><s:property value="anioFinalizacion"></s:property><br>
+                            <td class="texfield"><s:property value="idEstadoEducacion.nombre"></s:property><br>
                             </td>
-                            <td class="tdtres"><s:property value="idEstadoEducacion.nombre"></s:property><br>
-                            </td>
-                            <td class="tdtres">
+                            <td class="texfield">
                                 <div class="fuentetabla2">
                                 <s:url id="editarURL" action="editarEducacionNoFormal.action">
                                     <s:param name="idObjeto" value="%{idEducacion}" ></s:param>
@@ -120,24 +116,24 @@
                                 <table >
                                     <tr>
                                         <td class="tduno">
-                                            <jq:select href="%{ciudadURL}" onChangeTopics="reloadsecondlist" name="pais" id="pais"
-                                                       list="listaPaises" listKey="id" listValue="nombre" onCompleteTopics="reloadsecondlist"
-                                                       headerKey="-1" headerValue="- Seleccione -" label="País:"/>
-                                        </td>
-                                        <td>
-                                            <jq:select href="%{ciudadURL}" onChangeTopics="reloadThirdlist" onCompleteTopics="reloadThirdlist"
-                                                       formIds="formEducacion" reloadTopics="reloadsecondlist" name="departamento" id="departamento"
-                                                       list="listaDepartamentos" listKey="id" listValue="nombre" headerKey="-1"
-                                                       headerValue="- Seleccione -" label="Departamento:"/>
-                                        </td>
-                                        <td>
-                                            <jq:select href="%{ciudadURL}" formIds="formEducacion" reloadTopics="reloadThirdlist"
-                                                       name="ciudad" list="listaCiudades" listKey="id" listValue="nombre" headerKey="-1"
-                                                       headerValue="- Seleccione -" id="ciudad" label="Ciudad:"/>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
+                                        <jq:select href="%{ciudadURL}" onChangeTopics="reloadsecondlist" name="pais" id="pais"
+                                                   list="listaPaises" listKey="id" listValue="nombre" onCompleteTopics="reloadsecondlist"
+                                                   headerKey="-1" headerValue="- Seleccione -" label="País:"/>
+                                    </td>
+                                    <td>
+                                        <jq:select href="%{ciudadURL}" onChangeTopics="reloadThirdlist" onCompleteTopics="reloadThirdlist"
+                                                   formIds="formEducacion" reloadTopics="reloadsecondlist" name="departamento" id="departamento"
+                                                   list="listaDepartamentos" listKey="id" listValue="nombre" headerKey="-1"
+                                                   headerValue="- Seleccione -" label="Departamento:"/>
+                                    </td>
+                                    <td>
+                                        <jq:select href="%{ciudadURL}" formIds="formEducacion" reloadTopics="reloadThirdlist"
+                                                   name="ciudad" list="listaCiudades" listKey="id" listValue="nombre" headerKey="-1"
+                                                   headerValue="- Seleccione -" id="ciudad" label="Ciudad:"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
                                         <s:select label="Institucion" cssClass="texfield" name="institucion" id="institucion" list="listaInstituciones" listKey="idInstitucion" listValue="nombre" headerKey="-1" headerValue="- Seleccione -"></s:select>
                                         <s:checkbox cssClass="texfield" name="checkOtraInstitucion" onchange="fnOtraInstitucion(this.checked);" label="Otra Instituciï¿½n"></s:checkbox>
                                         </td>
