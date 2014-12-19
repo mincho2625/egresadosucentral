@@ -86,16 +86,6 @@
                             </tr>
 
                             <tr>
-                                <td class="texfield"><div align="center"></div></td>
-                                <td><div class="buttons">
-                                        <button type="submit" class="texfield" name="cambioClave">
-                                            <img src="imagenes/btnCambioClave.png" alt=""/>
-                                            Cambio Clave
-                                        </button><br>
-                                    </div></td>
-                                <td></td>
-                            </tr>
-                            <tr>
                                 <td>
                                     <s:actionerror />
                                 </td>

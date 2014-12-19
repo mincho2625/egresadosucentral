@@ -9,7 +9,6 @@ package Action;
 import Controlador.ControladorEgresado;
 import Controlador.ControlardorEncuesta;
 import Modelo.EgresadoRespuesta;
-import Modelo.Encuesta;
 import Modelo.PreguntaEncuesta;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
@@ -28,13 +27,11 @@ import org.apache.struts2.ServletActionContext;
  */
 public class EncuestaAction extends ActionSupport {
     private Map<Long, PreguntaEncuesta> listaPreguntasEncuesta;
-    private ControlardorEncuesta controlardorEncuesta;
-    private long idEncuesta;
-    private long anterior;
-    private long siguiente;
+    private final ControlardorEncuesta controlardorEncuesta;
+    private long orden;
     private ArrayList<EgresadoRespuesta> listaRespuestas;
-    private Map<String, String[]> parameterMap;
-    private HttpServletRequest request;
+    private final Map<String, String[]> parameterMap;
+    private final HttpServletRequest request;
     
     public EncuestaAction()
     {
@@ -61,79 +58,53 @@ public class EncuestaAction extends ActionSupport {
     }
     
     /**
-     * @return the idEncuesta
+     * @return the orden
      */
-    public long getIdEncuesta() {
-        return idEncuesta;
+    public long getOrden() {
+        return orden;
     }
 
     /**
-     * @param idEncuesta the idEncuesta to set
+     * @param orden the orden to set
      */
-    public void setIdEncuesta(long idEncuesta) {
-        this.idEncuesta = idEncuesta;
-    }
-    
-    /**
-     * @return the anterior
-     */
-    public long getAnterior() {
-        return anterior;
-    }
-
-    /**
-     * @param anterior the anterior to set
-     */
-    public void setAnterior(long anterior) {
-        this.anterior = anterior;
-    }
-
-    /**
-     * @return the siguiente
-     */
-    public long getSiguiente() {
-        return siguiente;
-    }
-
-    /**
-     * @param siguiente the siguiente to set
-     */
-    public void setSiguiente(long siguiente) {
-        this.siguiente = siguiente;
+    public void setOrden(long orden) {
+        this.orden = orden;
     }
     
     public String editar()
     {
-        if (request.getParameter("idEncuesta") == null)
+        if (request.getParameter("orden") != null)
         {
-            this.anterior = 0;
-            ArrayList<Encuesta> listaEncuestas = controlardorEncuesta.consultarEncuestas();
-            
-            if (listaEncuestas.size() > 0) {
-                this.idEncuesta = listaEncuestas.get(0).getIdEncuesta();
-            }
-            if (listaEncuestas.size() > 1) {
-                this.siguiente = listaEncuestas.get(1).getIdEncuesta();
-            }
-        }
-        else {
-            this.idEncuesta = Long.parseLong( request.getParameter("idEncuesta"));
-            this.setAnterior(request.getParameter("anterior") == null ? 0 : Long.parseLong(request.getParameter("anterior")));
-            this.setSiguiente(request.getParameter("siguiente") == null ? 0 : Long.parseLong(request.getParameter("siguiente")));
-            this.setListaPreguntasEncuesta(controlardorEncuesta.consularPreguntasEncuesta(this.idEncuesta));
+            this.orden = Long.parseLong(request.getParameter("orden"));
+            this.setListaPreguntasEncuesta(controlardorEncuesta.consularPreguntasSeccionEncuesta(orden, 1));
+            System.out.println("Preguntas: " + listaPreguntasEncuesta.size());
         }
         return SUCCESS;
     }
     
-    public String guardar()
+    public void guardar(int incremento)
     {
-        this.setListaPreguntasEncuesta(controlardorEncuesta.consularPreguntasEncuesta(this.idEncuesta));
+        this.setListaPreguntasEncuesta(controlardorEncuesta.consularPreguntasSeccionEncuesta(this.orden, 1));
         this.obtenerRespuestas();
         this.controlardorEncuesta.guardar(listaRespuestas);
-        this.setAnterior(idEncuesta);
-        this.idEncuesta = getSiguiente();
+        this.orden+=incremento;
         controlardorEncuesta.refrescar();
-        this.setListaPreguntasEncuesta(controlardorEncuesta.consularPreguntasEncuesta(this.idEncuesta));
+        this.setListaPreguntasEncuesta(controlardorEncuesta.consularPreguntasSeccionEncuesta(this.orden, 1));
+    }
+    
+    public String anterior()
+    {
+        System.out.println("Anterior antes, orden:" + orden);
+        guardar(-1);
+        System.out.println("Anterior despues, orden:" + orden);
+        return SUCCESS;
+    }
+    
+    public String siguiente()
+    {
+        System.out.println("Siguiente antes, orden:" + orden);
+        guardar(1);
+        System.out.println("Siguiente despues, orden:" + orden);
         return SUCCESS;
     }
     
@@ -185,7 +156,7 @@ public class EncuestaAction extends ActionSupport {
                         }
                         listaRespuestas.add(egresadoRespuesta);
                         
-                    }catch(Exception ex)
+                    }catch(NumberFormatException ex)
                     {
                         Logger.getLogger(ControladorEgresado.class.getName()).log(Level.SEVERE, null, ex);
                     }

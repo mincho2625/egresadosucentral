@@ -26,6 +26,7 @@
                 </form>
                 <div class="menu">
                     <p>Bienvenido al portal de egeresados de la Universidad Central</p>
+                    <p><s:property value="nombre"></s:property></p>
                 </div>
                 <s:if test="primeraVez">
                     <s:div cssClass="col">
@@ -37,7 +38,7 @@
                             <h3>Experiecia Laboral</h3><div></div>
                             <h3>Datos Adicionales</h3><div></div>
                             <h3>Encuesta</h3><div></div>
-                            <h3><a href="entrada.jsp">Salir</a></h3><div></div>
+                            <a href="entrada.jsp"><h3>Salir</h3></a>
                         </div>
                     </s:div>
                 </s:if>
@@ -91,18 +92,12 @@
                             <div>
                                 <div class="content">                            
                                     <p>
-                                        <s:iterator value="listaEncuestas" status="estado">
-                                            <s:url id="encuestaURL" action="editarEncuesta.action" escapeAmp="false">
-                                                <s:param name="idEncuesta" value="%{idEncuesta}"></s:param>
-                                                <s:param name="anterior" value="%{listaEncuestas[#estado.index - 1].idEncuesta}"></s:param>
-                                                <s:param name="siguiente" value="%{listaEncuestas[#estado.index + 1].idEncuesta}"></s:param>
-                                            </s:url>
-                                            <a href="<s:property value="#encuestaURL" />" target="contenido">
-                                                <li class="letra">
-                                                    <s:property value="nombre"></s:property>
-                                                </li>
-                                            </a>
-                                        </s:iterator>
+                                        <s:url id="encuestaURL" action="editarEncuesta.action">
+                                            <s:param name="orden" value="1"></s:param>
+                                        </s:url>
+                                        <a href="<s:property value="#encuestaURL" />" target="contenido">
+                                            <li class="letra">Encuesta</li>
+                                        </a>
                                     </p>
                                 </div>
                             </div>

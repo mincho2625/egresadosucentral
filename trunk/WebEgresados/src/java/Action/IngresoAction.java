@@ -25,6 +25,7 @@ public class IngresoAction extends ActionSupport{
     private String contrasenia;
     private ArrayList<Encuesta> listaEncuestas;
     private boolean primeraVez;
+    private String nombre;
 
     /**
      * @return the usuario
@@ -82,6 +83,20 @@ public class IngresoAction extends ActionSupport{
         this.primeraVez = primeraVez;
     }
     
+    /**
+     * @return the nombre
+     */
+    public String getNombre() {
+        return nombre;
+    }
+
+    /**
+     * @param nombre the nombre to set
+     */
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+    
     @Override
     public String execute() throws Exception {
         ControladorUsuario controladorUsuario = new ControladorUsuario();
@@ -93,6 +108,7 @@ public class IngresoAction extends ActionSupport{
             this.listaEncuestas = controlardorEncuesta.consultarEncuestas();
             ControladorEgresado controladorEgresado = new ControladorEgresado(usuario);
             Egresado egresado = controladorEgresado.consultar();
+            this.setNombre(String.format("%s %s %s", egresado.getNombres(), egresado.getPrimerApellido(), egresado.getSegundoApellido()));
             if (egresado != null && egresado.getFechaUltimaAct() == null){
                 this.primeraVez = true;
             }

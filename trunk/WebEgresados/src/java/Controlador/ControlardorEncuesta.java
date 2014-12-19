@@ -69,32 +69,35 @@ public class ControlardorEncuesta {
         return null;
     }
     
-    public Map<Long, PreguntaEncuesta> consularPreguntasEncuesta(long idEncuesta)
+    public Map<Long, PreguntaEncuesta> consularPreguntasSeccionEncuesta(long orden, long idEncuesta)
     {
+        System.out.println("orden: " + orden);
         Convertidor convertidor = new Convertidor();
         Map<Long, PreguntaEncuesta> listaPreguntas = new HashMap<>();
         
         try {
-            Persistencia.Encuesta en = em.getReference(Persistencia.Encuesta.class, idEncuesta);
-            if (en != null) {
-//                for (Persistencia.PreguntaEncuesta pe : en.getPreguntaEncuestaCollection()) {
-//                    if (pe.getEstado()){
-//                        PreguntaEncuesta preguntaEncuesta = (PreguntaEncuesta)convertidor.convertirAModelo(pe, null, Modelo.PreguntaEncuesta.class.getName());
-//                        for (Persistencia.RespuestaEncuesta pre : pe.getRespuestaEncuestaCollection()) {
-//                            if (pre.getEstado()){
-//                                preguntaEncuesta.agregarPosibleRespuestaEncuesta((RespuestaEncuesta)convertidor.convertirAModelo(pre, null, Modelo.RespuestaEncuesta.class.getName()));
-//                            }
-//                        }
-//                        
-//                        for (Persistencia.EgresadoRespuesta re : e.getEgresadoRespuestaCollection()) {
-//                            if (re.getIdPreguntaEncuesta().equals(pe) && re.getEstado()){
-//                                preguntaEncuesta.getListaRespuestasEncuesta().add((EgresadoRespuesta) convertidor.convertirAModelo(re, null, Modelo.EgresadoRespuesta.class.getName()));
-//                            }
-//                        }
-//
-//                        listaPreguntas.put(pe.getIdPreguntaEncuesta(), preguntaEncuesta);
-//                    }
-//                }
+            Query query = em.createNamedQuery("PreguntaEncuesta.findBySeccionEncuesta");
+            query.setParameter("orden", orden);
+            query.setParameter("idEncuesta", idEncuesta);
+            List<Persistencia.PreguntaEncuesta> lista = query.getResultList();
+            
+            for (Persistencia.PreguntaEncuesta pe : lista) {
+                if (pe.getEstado()){
+                    PreguntaEncuesta preguntaEncuesta = (PreguntaEncuesta)convertidor.convertirAModelo(pe, null, Modelo.PreguntaEncuesta.class.getName());
+                    for (Persistencia.RespuestaEncuesta pre : pe.getRespuestaEncuestaCollection()) {
+                        if (pre.getEstado()){
+                            preguntaEncuesta.agregarPosibleRespuestaEncuesta((RespuestaEncuesta)convertidor.convertirAModelo(pre, null, Modelo.RespuestaEncuesta.class.getName()));
+                        }
+                    }
+
+                    for (Persistencia.EgresadoRespuesta re : e.getEgresadoRespuestaCollection()) {
+                        if (re.getIdPreguntaEncuesta().equals(pe) && re.getEstado()){
+                            preguntaEncuesta.getListaRespuestasEncuesta().add((EgresadoRespuesta) convertidor.convertirAModelo(re, null, Modelo.EgresadoRespuesta.class.getName()));
+                        }
+                    }
+
+                    listaPreguntas.put(pe.getIdPreguntaEncuesta(), preguntaEncuesta);
+                }
             }
 
             return listaPreguntas;
@@ -103,21 +106,6 @@ public class ControlardorEncuesta {
             return null;
         }
     }
-//    
-//    public long encuestaAnterior()
-//    {
-//        return 0;
-//    }
-//    
-//    public long encuestaSiguiente()
-//    {
-//        CriteriaBuilder qb = em.getCriteriaBuilder();
-//        CriteriaQuery<Number> cq = qb.createQuery(Number.class);
-//        Root<Persistencia.Encuesta> root = cq.from(Persistencia.Encuesta.class);
-//        cq.select(qb.min(root.get("idEncuesta")));
-//        cq.where(qb.equal(Persistencia.Encuesta.get("org"), qb.parameter(MyOrgType.class, "myOrg")));
-//        em.createQuery(cq).setParameter("myOrg", myOrg).getSingleResult();
-//    }
     
     public boolean guardar(ArrayList<EgresadoRespuesta> respuestas)
     {

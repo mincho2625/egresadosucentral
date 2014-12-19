@@ -37,7 +37,12 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "PreguntaEncuesta.findByPregunta", query = "SELECT p FROM PreguntaEncuesta p WHERE p.pregunta = :pregunta"),
     @NamedQuery(name = "PreguntaEncuesta.findByEstado", query = "SELECT p FROM PreguntaEncuesta p WHERE p.estado = :estado"),
     @NamedQuery(name = "PreguntaEncuesta.findByObligatoria", query = "SELECT p FROM PreguntaEncuesta p WHERE p.obligatoria = :obligatoria"),
-    @NamedQuery(name = "PreguntaEncuesta.findByOrden", query = "SELECT p FROM PreguntaEncuesta p WHERE p.orden = :orden")})
+    @NamedQuery(name = "PreguntaEncuesta.findByOrden", query = "SELECT p FROM PreguntaEncuesta p WHERE p.orden = :orden"),
+    @NamedQuery(name = "PreguntaEncuesta.findBySeccionEncuesta", 
+            query = "SELECT p FROM PreguntaEncuesta p "
+            + "inner join SeccionEncuesta s on s = p.idSeccionEncuesta "
+            + "inner join Encuesta e on e = s.idEncuesta "
+            + "WHERE s.orden = :orden and e.idEncuesta = :idEncuesta")})
 public class PreguntaEncuesta implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
