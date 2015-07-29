@@ -13,6 +13,8 @@
         <link rel="stylesheet" type="text/css" href="jce.css">
         <s:head />
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/111.0/jquery.min.js"></script>
+        <script type="text/javascript" src="js/jquery.js"></script>
+        <script type="text/javascript" src="js/base.js"></script>
         <jq:head jqueryui="true"/>
     </head>
     <body class="default">
@@ -34,21 +36,29 @@
                                         <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
                                             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                                                 <jq:select href="%{programaURL}" name="seleccionNivelEstudios" id="seleccionNivelEstudios"
-                                                           list="listaNivelesEstudios" listKey="id" listValue="nombre" multiple="true"
+                                                           list="listaNivelesEstudios" multiple="true"
                                                            label="Nivel de estudios" errorPosition="bottom" labelposition="top" onCompleteTopics="reloadThirdlist,reloadCriteria"
-                                                           onChangeTopics="reloadThirdlist,reloadCriteria" name="seleccionNivelEstudios" id="seleccionNivelEstudios"/>
-                                                <s:select label="Año Finalización" errorPosition="bottom" name="seleccionAnios" list="listaAnios" multiple="true"></s:select>
-                                                <s:select label="Género" errorPosition="bottom" name="seleccionGeneros" list="listaGeneros" listKey="id" listValue="nombre" multiple="true"></s:select>
+                                                           onChangeTopics="reloadThirdlist,reloadCriteria" name="seleccionNivelEstudios"/>
+                                                
+                                                <jq:select href="%{programaURL}" label="Año Finalización" errorPosition="bottom" name="seleccionAnios" list="listaAnios" 
+                                                          multiple="true" id="seleccionAnios" onCompleteTopics="reloadCriteria" onChangeTopics="reloadCriteria" formIds="formCorreo"></jq:select>
+                                                
+                                                <jq:select href="%{programaURL}" label="Género" errorPosition="bottom" name="seleccionGeneros" list="listaGeneros" multiple="true"
+                                                          id="seleccionGeneros" onCompleteTopics="reloadCriteria" onChangeTopics="reloadCriteria" formIds="formCorreo"></jq:select>
                                                 </div>
                                                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                                    
                                                 <jq:select href="%{programaURL}" onChangeTopics="reloadThirdlist,reloadCriteria" name="seleccionFacultades" id="seleccionFacultades"
-                                                           formIds="formCorreo" list="listaFacultades" listKey="id" listValue="nombre" multiple="true"
+                                                           formIds="formCorreo" list="listaFacultades" multiple="true"
                                                            onCompleteTopics="reloadThirdlist,reloadCriteria" label="Facultad" errorPosition="bottom"/>
+                                                
                                                 <jq:select href="%{programaURL}" reloadTopics="reloadThirdlist" label="Programa" errorPosition="bottom"
-                                                           name="seleccionProgramas" list="listaProgramas" listKey="id" listValue="nombre" id="seleccionProgramas" 
+                                                           name="seleccionProgramas" list="listaProgramas" id="seleccionProgramas" 
                                                            formIds="formCorreo" multiple="true" onCompleteTopics="reloadCriteria" onChangeTopics="reloadCriteria"/>
-                                                <s:select label="Estado Civil" errorPosition="bottom" name="seleccionEstadosCiviles" list="listaEstadosCiviles" 
-                                                          listKey="id" listValue="nombre" labelposition="top" multiple="true"></s:select>
+                                                
+                                                <jq:select href="%{programaURL}" label="Estado Civil" errorPosition="bottom" name="seleccionEstadosCiviles" list="listaEstadosCiviles" 
+                                                          labelposition="top" multiple="true" id="seleccionEstadosCiviles" onCompleteTopics="reloadCriteria" onChangeTopics="reloadCriteria"
+                                                          formIds="formCorreo"></jq:select>
                                                 </div>
                                             <s:if test="hasActionErrors()">
                                                 <s:actionerror/>
@@ -59,8 +69,8 @@
                                             </s:if>
                                         </div>
                                         <div style="margin-left: -35px" class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                                            <jq:textarea href="%{programaURL}" label="Criterios Seleccionados" readonly="true" resizable="false" formIds="formCorreo" dataType="json"
-                                                         cssStyle="height:330px;width: 200px;" rows="5" selectable="false" reloadTopics="reloadCriteria" name="criterioSeleccionado" id="criterioSeleccionado"></jq:textarea>
+                                            <jq:select href="%{programaURL}" label="Criterios Seleccionados" readonly="true" formIds="formCorreo" multiple="true"
+                                                         cssStyle="height:330px;width: 200px;" rows="5" selectable="false" reloadTopics="reloadCriteria" list="criterioSeleccionado"></jq:select>
                                                 <div class="row" style="margin-left: -35px" class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
                                                     <div  class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
                                                     <s:submit  cssClass="boton_auxiliar boton"  cssStyle="width:auto;" value="Limpar"></s:submit>
