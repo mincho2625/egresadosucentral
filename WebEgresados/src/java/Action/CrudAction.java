@@ -6,14 +6,14 @@
 
 package Action;
 
-import Controlador.ControladorEgresado;
-import Util.Listas;
+import Controlador.ControladorCrud;
+import Controlador.ControladorListas;
 import static com.opensymphony.xwork2.Action.SUCCESS;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
-import java.util.Collection;
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -26,18 +26,46 @@ import org.apache.struts2.ServletActionContext;
  * @param <T>
  */
 public abstract class CrudAction<T> extends ActionSupport implements ModelDriven<T> {
-    private final ControladorEgresado controladorEgresado;
-    protected Map<Long, T> listaObjetos = new HashMap<>();
-    protected Listas listas;
+    protected List<T> listaObjetos = new ArrayList<>();
     protected T objeto;
-    protected String coleccion;
-    protected String idObjeto;
-    protected String claseModelo;
-    protected Class claseBasePersistencia;
-    protected Class claseConcretaPersistencia;
-    protected boolean editar = false;
+    protected boolean editar;
     protected int cantidadObjetos;
+    protected ControladorListas listas;
+    protected String getIdObjeto;
+    protected String nombreIdObjeto;
+    protected String claseModelo;
+    protected String entidad;
+    protected String baseEntidad;
+    protected String consultaTodos;
+    protected String consultaIdObjeto;
+    protected Map<String, Object> parametros;
+    protected final ControladorCrud controladorCrud;
     
+    public CrudAction(String clase)
+    {
+        this.claseModelo = clase;
+        objeto = (T)instanciar();
+        listas = new ControladorListas();
+        controladorCrud = new ControladorCrud();
+        
+        //if (editar)
+        desplegar();
+    }
+    
+    /**
+     * @return the listaObjetos
+     */
+    public List<T> getListaObjetos() {
+        return listaObjetos;
+    }
+
+    /**
+     * @param listaObjetos the listaObjetos to set
+     */
+    public void setListaObjetos(List<T> listaObjetos) {
+        this.listaObjetos = listaObjetos;
+    }
+
     /**
      * @return the objeto
      */
@@ -53,30 +81,62 @@ public abstract class CrudAction<T> extends ActionSupport implements ModelDriven
     }
 
     /**
-     * @return the listaObjetos
+     * @return the cantidadObjetos
      */
-    public Collection<T> getListaObjetos() {
-        return listaObjetos.values();
+    public int getCantidadObjetos() {
+        return cantidadObjetos;
     }
 
     /**
-     * @param listaObjetos the listaObjetos to set
+     * @param cantidadObjetos the cantidadObjetos to set
      */
-    public void setListaObjetos(Map<Long, T> listaObjetos) {
-        this.listaObjetos = listaObjetos;
+    public void setCantidadObjetos(int cantidadObjetos) {
+        this.cantidadObjetos = cantidadObjetos;
     }
     
-    public CrudAction(String clase)
-    {
-        this.claseModelo = clase;
-        objeto = (T)instanciar();
-        Map session = ActionContext.getContext().getSession();
-        String usuario = (String) session.get("usuario");
-        controladorEgresado = new ControladorEgresado(usuario);
-        listas = new Listas();
+    /**
+     * @return the nombreIdObjeto
+     */
+    public String getNombreIdObjeto() {
+        return nombreIdObjeto;
+    }
+
+    /**
+     * @param nombreIdObjeto the nombreIdObjeto to set
+     */
+    public void setNombreIdObjeto(String nombreIdObjeto) {
+        this.nombreIdObjeto = nombreIdObjeto;
+    }
+
+    /**
+     * @return the parametros
+     */
+    public Map<String, Object> getParametros() {
+        return parametros;
+    }
+
+    /**
+     * @param parametros the parametros to set
+     */
+    public void setParametros(Map<String, Object> parametros) {
+        this.parametros = parametros;
     }
     
-    public abstract String desplegar();
+    /**
+     * @return the editar
+     */
+    public boolean isEditar() {
+        return editar;
+    }
+
+    /**
+     * @param editar the editar to set
+     */
+    public void setEditar(boolean editar) {
+        this.editar = editar;
+    }
+    
+    public abstract void desplegar();
     
     public abstract void insertarTipos();
     
@@ -101,20 +161,48 @@ public abstract class CrudAction<T> extends ActionSupport implements ModelDriven
         return null;
     }
     
-    /**
-     * @return the editar
-     */
-    public boolean isEditar() {
-        return editar;
+    public String obtenerLista()
+    {
+        try {
+            if (baseEntidad != null)
+                setListaObjetos((List<T>) controladorCrud.consultarLista(consultaTodos, claseModelo, getParametros(), baseEntidad));
+            else
+                setListaObjetos((List<T>) controladorCrud.consultarLista(consultaTodos, claseModelo, getParametros()));
+            
+            this.setCantidadObjetos(this.getListaObjetos().size());
+            return SUCCESS;
+        } catch (SecurityException | IllegalArgumentException ex) {
+            Logger.getLogger(CrudAction.class.getName()).log(Level.SEVERE, null, ex);
+            return ERROR;
+        }
     }
-
-    /**
-     * @param editar the editar to set
-     */
-    public void setEditar(boolean editar) {
-        this.editar = editar;
+    
+    public String crear()
+    {
+        //this.desplegar();
+        this.obtenerLista();
+        this.editar = true;
+        return SUCCESS;
     }
-
+    
+    public String editar()
+    {
+        HttpServletRequest request = (HttpServletRequest) ActionContext.getContext().get(ServletActionContext.HTTP_REQUEST);
+        this.crear();
+        
+        if (baseEntidad != null) {
+            this.setObjeto((T) controladorCrud.consultar(consultaIdObjeto, claseModelo, getNombreIdObjeto(), 
+                    Long.parseLong( request.getParameter("idObjeto")), baseEntidad));
+        }
+        else {
+            this.setObjeto((T) controladorCrud.consultar(consultaIdObjeto, claseModelo, getNombreIdObjeto(), 
+                    Long.parseLong( request.getParameter("idObjeto"))));
+        }
+        
+        this.consultarTipos();
+        return "desplegar";
+    }
+    
     public String guardar()
     {
         try {
@@ -123,10 +211,10 @@ public abstract class CrudAction<T> extends ActionSupport implements ModelDriven
             
             if (!hasErrors()){
                 insertarValoresDefecto();
-                if (claseBasePersistencia != null)
-                    controladorEgresado.actualizar(objeto, claseConcretaPersistencia.getName(), idObjeto, claseBasePersistencia.getName(), "set" + claseBasePersistencia.getSimpleName());
+                if (baseEntidad != null)
+                    controladorCrud.actualizar(getObjeto(), entidad, getIdObjeto, baseEntidad);
                 else
-                    controladorEgresado.actualizar(objeto, claseConcretaPersistencia.getName(), idObjeto);
+                    controladorCrud.actualizar(getObjeto(), entidad, getIdObjeto);
 
                 obtenerLista();
                 this.setEditar(false);
@@ -134,26 +222,9 @@ public abstract class CrudAction<T> extends ActionSupport implements ModelDriven
             }
             else
             {
-                desplegar();
+                this.crear();
                 return ERROR;
             }
-        } catch (SecurityException | IllegalArgumentException ex) {
-            Logger.getLogger(CrudAction.class.getName()).log(Level.SEVERE, null, ex);
-            return ERROR;
-        }
-    }
-    
-    public String obtenerLista()
-    {
-        try {
-            controladorEgresado.refrescar();
-            if (claseBasePersistencia != null)
-                setListaObjetos((Map<Long, T>) controladorEgresado.consultar(coleccion, idObjeto, claseModelo, claseBasePersistencia.getSimpleName()));
-            else
-                setListaObjetos((Map<Long, T>) controladorEgresado.consultar(coleccion, idObjeto, claseModelo));
-            
-            this.cantidadObjetos = this.listaObjetos.size();            
-            return SUCCESS;
         } catch (SecurityException | IllegalArgumentException ex) {
             Logger.getLogger(CrudAction.class.getName()).log(Level.SEVERE, null, ex);
             return ERROR;
@@ -165,27 +236,18 @@ public abstract class CrudAction<T> extends ActionSupport implements ModelDriven
         try {
             HttpServletRequest request = (HttpServletRequest) ActionContext.getContext().get(ServletActionContext.HTTP_REQUEST);
             
-            if (claseBasePersistencia != null)
-                this.controladorEgresado.borrar(claseBasePersistencia.getName(), Long.parseLong( request.getParameter("idObjeto")));
+            if (baseEntidad != null)
+                this.controladorCrud.borrar(baseEntidad, Long.parseLong( request.getParameter("idObjeto")));
             else
-                this.controladorEgresado.borrar(claseConcretaPersistencia.getName(), Long.parseLong( request.getParameter("idObjeto")));
+                this.controladorCrud.borrar(entidad, Long.parseLong( request.getParameter("idObjeto")));
             
             this.obtenerLista();
-            this.setEditar(false);
+            this.editar = false;
             return SUCCESS;
         } catch (SecurityException | IllegalArgumentException ex) {
             Logger.getLogger(CrudAction.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        return SUCCESS;
-    }
-    
-    public String editar()
-    {
-        HttpServletRequest request = (HttpServletRequest) ActionContext.getContext().get(ServletActionContext.HTTP_REQUEST);
-        this.desplegar();
-        this.setObjeto(this.listaObjetos.get(Long.parseLong( request.getParameter("idObjeto"))));
-        this.consultarTipos();
         return SUCCESS;
     }
     
@@ -213,6 +275,6 @@ public abstract class CrudAction<T> extends ActionSupport implements ModelDriven
 
     @Override
     public T getModel() {
-        return objeto;
+        return getObjeto();
     }
 }

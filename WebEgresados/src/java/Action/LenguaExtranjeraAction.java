@@ -8,11 +8,13 @@ package Action;
 
 import Modelo.DominioLenguaExt;
 import Modelo.Idioma;
+import Modelo.ItemLista;
 import Modelo.LenguaExtranjera;
-import static com.opensymphony.xwork2.Action.SUCCESS;
+import com.opensymphony.xwork2.ActionContext;
 import java.sql.Date;
 import java.time.LocalDate;
-import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -20,43 +22,51 @@ import java.util.Map;
  * @author YURY
  */
 public class LenguaExtranjeraAction extends CrudAction<LenguaExtranjera> {
-    private Map<Long, DominioLenguaExt> listaDominioLenguaExt;
-    private Map<Long, Idioma> listaIdiomas;
+    private List<ItemLista> listaDominioLenguaExt;
+    private List<ItemLista> listaIdiomas;
     private long dominio;
     private long idioma;
     
     public LenguaExtranjeraAction() {
         super(LenguaExtranjera.class.getName());
-        this.idObjeto = "getIdLenguaExtranjera";
-        this.coleccion = "getLenguaExtranjeraCollection";
-        this.claseConcretaPersistencia = Persistencia.LenguaExtranjera.class;
+        this.getIdObjeto = "getIdLenguaExtranjera";
+        this.consultaTodos = "LenguaExtranjera.findByIdEgresado";
+        this.entidad = LenguaExtranjera.class.getSimpleName();
+        this.nombreIdObjeto = "idLenguaExtranjera";
+        this.consultaIdObjeto = "LenguaExtranjera.findByIdLenguaExtranjera";
+        
+        Map session = ActionContext.getContext().getSession();
+        long id = (long) session.get("idEgresado");
+        this.parametros = new HashMap<>();
+        this.parametros.put("idEgresado", id);
+        this.objeto.setIdEgresado(id);
     }
     
     /**
      * @return the listaDominioLenguaExt
      */
-    public Collection<DominioLenguaExt> getListaDominioLenguaExt() {
-        return listaDominioLenguaExt.values();
+    public List<ItemLista> getListaDominioLenguaExt() {
+        return listaDominioLenguaExt;
     }
 
     /**
      * @param listaDominioLenguaExt the listaDominioLenguaExt to set
      */
-    public void setListaDominioLenguaExt(Map<Long, DominioLenguaExt> listaDominioLenguaExt) {
+    public void setListaDominioLenguaExt(List<ItemLista> listaDominioLenguaExt) {
         this.listaDominioLenguaExt = listaDominioLenguaExt;
     }
 
     /**
      * @return the listaIdiomas
      */
-    public Collection<Idioma> getListaIdiomas() {
-        return listaIdiomas.values();
+    public List<ItemLista> getListaIdiomas() {
+        return listaIdiomas;
     }
 
     /**
      * @param listaIdiomas the listaIdiomas to set
      */
-    public void setListaIdiomas(Map<Long, Idioma> listaIdiomas) {
+    public void setListaIdiomas(List<ItemLista> listaIdiomas) {
         this.listaIdiomas = listaIdiomas;
     }
 
@@ -89,19 +99,15 @@ public class LenguaExtranjeraAction extends CrudAction<LenguaExtranjera> {
     }
 
     @Override
-    public String desplegar() {
+    public void desplegar() {
         this.setListaDominioLenguaExt(listas.consultarDominioLenguaExt());
         this.setListaIdiomas(listas.consultarIdiomas());
-        
-        this.obtenerLista();
-        this.editar = true;
-        return SUCCESS;
     }
 
     @Override
     public void insertarTipos() {
-        this.objeto.setIdDominio(listas.consultarDominioLenguaExt().get(this.dominio));
-        this.objeto.setIdIdioma(listas.consultarIdiomas().get(this.idioma));
+        this.objeto.setIdDominio(new DominioLenguaExt(this.dominio));
+        this.objeto.setIdIdioma(new Idioma(this.idioma));
     }
 
     @Override

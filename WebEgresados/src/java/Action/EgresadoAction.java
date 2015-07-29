@@ -6,38 +6,44 @@
 
 package Action;
 
-import Controlador.ControladorEgresado;
+import Controlador.ControladorCrud;
+import Controlador.ControladorListas;
 import Modelo.Ciudad;
 import Modelo.Egresado;
 import Modelo.EstadoCivil;
 import Modelo.Genero;
 import Modelo.GrupoSanguineo;
+import Modelo.ItemLista;
 import Modelo.TipoDocumento;
-import Util.Listas;
 import static com.opensymphony.xwork2.Action.SUCCESS;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
+import java.io.File;
+import java.io.IOException;
 import java.sql.Date;
 import java.time.LocalDate;
-import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.http.HttpServletRequest;
+import org.apache.commons.io.FileUtils;
+import org.apache.struts2.interceptor.ServletRequestAware;
 
 /**
  *
  * @author YURY
  */
-public class EgresadoAction extends ActionSupport implements ModelDriven<Egresado> {
+public class EgresadoAction extends ActionSupport implements ModelDriven<Egresado>, ServletRequestAware {
     
-    private final ControladorEgresado controladorEgresado;
-    private final Listas listas;
+    private final ControladorCrud controladorCrud;
+    private final ControladorListas listas;
     private Egresado egresado;
-    private Map<Long, TipoDocumento> listaTiposDocumento;
-    private Map<Long, GrupoSanguineo> listaGruposSanguineos;
-    private Map<Long, Genero> listaGeneros;
-    private Map<Long, EstadoCivil> listaEstadosCiviles;
+    private List<ItemLista> listaTiposDocumento;
+    private List<ItemLista> listaGruposSanguineos;
+    private List<ItemLista> listaGeneros;
+    private List<ItemLista> listaEstadosCiviles;
     private long tipoDocumento;
     private long grupoSanguineo;
     private long genero;
@@ -49,69 +55,77 @@ public class EgresadoAction extends ActionSupport implements ModelDriven<Egresad
     private long departamento2;
     private long pais;
     private long pais2;
-        
+    private File fileUpload;
+    private String fileUploadContentType;
+    private String fileUploadFileName;
+    private HttpServletRequest servletRequest;
+    private String rutaEgresados;
+    
     public EgresadoAction()
     {
         Map session = ActionContext.getContext().getSession();
-        String usuario = (String) session.get("usuario");
-        controladorEgresado = new ControladorEgresado(usuario);
-        this.egresado = controladorEgresado.consultar();
-        this.listas = new Listas();
+        long idEgresado = (long) session.get("idEgresado");
+        controladorCrud = new ControladorCrud();
+        this.egresado = (Egresado) controladorCrud.consultar("Egresado.findByIdEgresado", 
+                Modelo.Egresado.class.getName(), "idEgresado", idEgresado, Modelo.Usuario.class.getName());
+        this.listas = new ControladorListas();
+        this.desplegar();
+        rutaEgresados = "D:\\FotosEgresados\\";
     }
 
     /**
      * @return the listaTiposDocumento
      */
-    public Collection<TipoDocumento> getListaTiposDocumento() {
-        return listaTiposDocumento.values();
+    public List<ItemLista> getListaTiposDocumento() {
+        return listaTiposDocumento;
     }
 
     /**
      * @param listaTiposDocumento the listaTiposDocumento to set
      */
-    public void setListaTiposDocumento(Map<Long, TipoDocumento> listaTiposDocumento) {
+    public void setListaTiposDocumento(List<ItemLista> listaTiposDocumento) {
         this.listaTiposDocumento = listaTiposDocumento;
     }
 
     /**
      * @return the listaGruposSanguineos
      */
-    public Collection<GrupoSanguineo> getListaGruposSanguineos() {
-        return listaGruposSanguineos.values();
+    public List<ItemLista> getListaGruposSanguineos() {
+        return listaGruposSanguineos;
     }
 
     /**
      * @param listaGruposSanguineos the listaGruposSanguineos to set
      */
-    public void setListaGruposSanguineos(Map<Long, GrupoSanguineo> listaGruposSanguineos) {
+    public void setListaGruposSanguineos(List<ItemLista> listaGruposSanguineos) {
         this.listaGruposSanguineos = listaGruposSanguineos;
     }
 
     /**
      * @return the listaGeneros
      */
-    public Collection<Genero> getListaGeneros() {
-        return listaGeneros.values();
+    public List<ItemLista> getListaGeneros() {
+        return listaGeneros;
     }
 
     /**
      * @param listaGeneros the listaGeneros to set
      */
-    public void setListaGeneros(Map<Long, Genero> listaGeneros) {
+    public void setListaGeneros(List<ItemLista> listaGeneros) {
         this.listaGeneros = listaGeneros;
     }
 
     /**
      * @return the listaEstadosCiviles
      */
-    public Collection<EstadoCivil> getListaEstadosCiviles() {
-        return listaEstadosCiviles.values();
+    public List<ItemLista> getListaEstadosCiviles() {
+        return listaEstadosCiviles;
     }
 
     /**
      * @param listaEstadosCiviles the listaEstadosCiviles to set
      */
-    public void setListaEstadosCiviles(Map<Long, EstadoCivil> listaEstadosCiviles) {
+    public void setListaEstadosCiviles(List<ItemLista> listaEstadosCiviles) {
         this.listaEstadosCiviles = listaEstadosCiviles;
     }
 
@@ -283,13 +297,69 @@ public class EgresadoAction extends ActionSupport implements ModelDriven<Egresad
         this.pais2 = pais2;
     }
     
+    /**
+     * @return the fileUpload
+     */
+    public File getFileUpload() {
+        return fileUpload;
+    }
+
+    /**
+     * @param fileUpload the fileUpload to set
+     */
+    public void setFileUpload(File fileUpload) {
+        this.fileUpload = fileUpload;
+    }
+
+    /**
+     * @return the fileUploadContentType
+     */
+    public String getFileUploadContentType() {
+        return fileUploadContentType;
+    }
+
+    /**
+     * @param fileUploadContentType the fileUploadContentType to set
+     */
+    public void setFileUploadContentType(String fileUploadContentType) {
+        this.fileUploadContentType = fileUploadContentType;
+    }
+
+    /**
+     * @return the fileUploadFileName
+     */
+    public String getFileUploadFileName() {
+        return fileUploadFileName;
+    }
+
+    /**
+     * @param fileUploadFileName the fileUploadFileName to set
+     */
+    public void setFileUploadFileName(String fileUploadFileName) {
+        this.fileUploadFileName = fileUploadFileName;
+    }
+    
+    /**
+     * @return the rutaEgresados
+     */
+    public String getRutaEgresados() {
+        return rutaEgresados;
+    }
+
+    /**
+     * @param rutaEgresados the rutaEgresados to set
+     */
+    public void setRutaEgresados(String rutaEgresados) {
+        this.rutaEgresados = rutaEgresados;
+    }
+    
     public void insertarTipos() {
         this.getEgresado().setIdCiudadExpedicion(new Ciudad(ciudad2));
         this.getEgresado().setIdCiudadNacimiento(new Ciudad(ciudad));
-        this.getEgresado().setIdEstadoCivil(listas.consultarEstadosCiviles().get(estadoCivil));
-        this.getEgresado().setIdGenero(listas.consultarGeneros().get(genero));
-        this.getEgresado().setIdGrupoSanguineo(listas.consultarGruposSanguineos().get(grupoSanguineo));
-        this.getEgresado().setIdTipoDocumento(listas.consultarTiposDocumento().get(tipoDocumento));
+        this.getEgresado().setIdEstadoCivil(new EstadoCivil(estadoCivil));
+        this.getEgresado().setIdGenero(new Genero(genero));
+        this.getEgresado().setIdGrupoSanguineo(new GrupoSanguineo(grupoSanguineo));
+        this.getEgresado().setIdTipoDocumento(new TipoDocumento(tipoDocumento));
     }
 
     public void consultarTipos() {
@@ -309,21 +379,29 @@ public class EgresadoAction extends ActionSupport implements ModelDriven<Egresad
         this.getEgresado().setAceptaCondiciones(true);
         this.getEgresado().setFechaUltimaAct(Date.valueOf(LocalDate.now()));
     }
-        
-    public String editar()
+    
+    private void desplegar()
     {
         this.setListaEstadosCiviles(listas.consultarEstadosCiviles());
         this.setListaGeneros(listas.consultarGeneros());
         this.setListaGruposSanguineos(listas.consultarGruposSanguineos());
         this.setListaTiposDocumento(listas.consultarTiposDocumento());
-        
+    }
+    
+    public String editar()
+    {
         this.consultarTipos();
-        return INPUT;
+        return "editar";
     }
 
     @Override
     public Egresado getModel() {
         return getEgresado();
+    }
+    
+    @Override
+    public void setServletRequest(HttpServletRequest hsr) {
+        this.servletRequest = hsr;
     }
 
     @Override
@@ -333,7 +411,8 @@ public class EgresadoAction extends ActionSupport implements ModelDriven<Egresad
             if (!this.hasErrors()) {
                 insertarTipos();
                 insertarValoresDefecto();
-                controladorEgresado.actualizar(getEgresado());
+                guardarFoto();
+                controladorCrud.actualizar(egresado, Egresado.class.getSimpleName(), "getIdUsuario");
                 return SUCCESS;
             }
             else
@@ -393,6 +472,24 @@ public class EgresadoAction extends ActionSupport implements ModelDriven<Egresad
         }
         else {
             return SUCCESS;
+        }
+    }
+    
+    private void guardarFoto()
+    {
+        try {
+            String filePath = servletRequest.getRealPath("/");
+            
+            if (this.fileUploadFileName != null && !this.fileUploadFileName.isEmpty()) {
+                File fileToCreate = new File(filePath, this.fileUploadFileName);
+                FileUtils.copyFile(this.fileUpload, fileToCreate);
+                
+                this.egresado.setFoto(this.egresado.getNumeroDocumento() + ".jpg");
+                File destino = new File(rutaEgresados, this.egresado.getFoto());
+                FileUtils.writeByteArrayToFile(destino, FileUtils.readFileToByteArray(this.fileUpload));
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(RegistroAction.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

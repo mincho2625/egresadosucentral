@@ -6,8 +6,8 @@
 
 package Action;
 
+import Controlador.ControladorListas;
 import Modelo.ItemLista;
-import Util.Listas;
 import com.opensymphony.xwork2.ActionSupport;
 import java.util.List;
 
@@ -21,11 +21,11 @@ public class SelectCiudadAction extends ActionSupport {
     private List<ItemLista> listaCiudades;    
     private long pais;
     private long departamento;
-    private final Listas listas;
+    private final ControladorListas listas;
     
     public SelectCiudadAction()
     {
-        listas = new Listas();
+        listas = new ControladorListas();
     }
 
     /**

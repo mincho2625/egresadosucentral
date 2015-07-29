@@ -9,15 +9,18 @@ import Modelo.AreaEmpresa;
 import Modelo.CargoEquivalente;
 import Modelo.Ciudad;
 import Modelo.ExperienciaLaboral;
+import Modelo.ItemLista;
 import Modelo.Mes;
 import Modelo.NivelCargo;
 import Modelo.RangoSalarial;
 import Modelo.Subsector;
 import Modelo.TipoContrato;
+import com.opensymphony.xwork2.ActionContext;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -25,19 +28,15 @@ import java.util.Map;
  * @author JERONIMO
  */
 public class ExperienciaLaboralAction extends CrudAction<ExperienciaLaboral> {
-
-    // Aquí van las listas que van a sr los combos del formulario, ejemplo: ciudades
-    // Debes crear el objeto TipoContrato en el modelo, los atributos del modelo deben llamarse igual que el Persistencia, porque 
-    // yo hice unos métodos genéricos que pasan los datos rápidamente, pero es importante el nombre
-    private Map<Long, TipoContrato> listaTiposContrato;
-    private Map<Long, Subsector> listaSubsectores;
-    private Map<Long, NivelCargo> listaNivelesCargo;
-    private Map<Long, AreaEmpresa> listaAreasEmpresa;
-    private Map<Long, RangoSalarial> listaRangosSalariales;
-    private Map<Long, CargoEquivalente> listaCargosEquivalentes;
-    private Map<Long, Mes> listaMeses;
+    private List<ItemLista> listaTiposContrato;
+    private List<ItemLista> listaNivelesCargo;
+    private List<ItemLista> listaAreasEmpresa;
+    private List<ItemLista> listaRangosSalariales;
+    private List<ItemLista> listaCargosEquivalentes;
+    private List<ItemLista> listaMeses;
     private ArrayList<Integer> listaAnios;
     private long tipoContrato;
+    private long sector;
     private long subsector;
     private long nivelCargo;
     private long areaEmpresa;
@@ -48,109 +47,104 @@ public class ExperienciaLaboralAction extends CrudAction<ExperienciaLaboral> {
     private long mesFinalizacion;
     private long pais;
     private long departamento;
+    private boolean trabajoActual;
 
     public ExperienciaLaboralAction() {
         super(ExperienciaLaboral.class.getName());
-        this.idObjeto = "getIdExperienciaLaboral";
-        this.coleccion = "getExperienciaLaboralCollection";
-        this.claseConcretaPersistencia = Persistencia.ExperienciaLaboral.class;
+        this.getIdObjeto = "getIdExperienciaLaboral";
+        this.consultaTodos = "ExperienciaLaboral.findByIdEgresado";
+        this.entidad = ExperienciaLaboral.class.getSimpleName();
+        this.nombreIdObjeto = "idExperienciaLaboral";
+        this.consultaIdObjeto = "ExperienciaLaboral.findByIdExperienciaLaboral";
+        
+        Map session = ActionContext.getContext().getSession();
+        long id = (long) session.get("idEgresado");
+        this.parametros = new HashMap<>();
+        this.parametros.put("idEgresado", id);
+        this.objeto.setIdEgresado(id);
     }
 
     /**
      * @return the listaTiposContrato
      */
-    public Collection<TipoContrato> getListaTiposContrato() {
-        return listaTiposContrato.values();
+    public List<ItemLista> getListaTiposContrato() {
+        return listaTiposContrato;
     }
 
     /**
      * @param listaTiposContrato the listaTiposContrato to set
      */
-    public void setListaTiposContrato(Map<Long, TipoContrato> listaTiposContrato) {
+    public void setListaTiposContrato(List<ItemLista> listaTiposContrato) {
         this.listaTiposContrato = listaTiposContrato;
-    }
-
-    /**
-     * @return the listaSubsectores
-     */
-    public Collection<Subsector> getListaSubsectores() {
-        return listaSubsectores.values();
-    }
-
-    /**
-     * @param listaSubsectores the listaSubsectores to set
-     */
-    public void setListaSubsectores(Map<Long, Subsector> listaSubsectores) {
-        this.listaSubsectores = listaSubsectores;
     }
 
     /**
      * @return the listaNivelesCargo
      */
-    public Collection<NivelCargo> getListaNivelesCargo() {
-        return listaNivelesCargo.values();
+    public List<ItemLista> getListaNivelesCargo() {
+        return listaNivelesCargo;
     }
 
     /**
      * @param listaNivelesCargo the listaNivelesCargo to set
      */
-    public void setListaNivelesCargo(Map<Long, NivelCargo> listaNivelesCargo) {
+    public void setListaNivelesCargo(List<ItemLista> listaNivelesCargo) {
         this.listaNivelesCargo = listaNivelesCargo;
     }
 
     /**
      * @return the listaAreasEmpresa
      */
-    public Collection<AreaEmpresa> getListaAreasEmpresa() {
-        return listaAreasEmpresa.values();
+    public List<ItemLista> getListaAreasEmpresa() {
+        return listaAreasEmpresa;
     }
 
     /**
      * @param listaAreasEmpresa the listaAreasEmpresa to set
      */
-    public void setListaAreasEmpresa(Map<Long, AreaEmpresa> listaAreasEmpresa) {
+    public void setListaAreasEmpresa(List<ItemLista> listaAreasEmpresa) {
         this.listaAreasEmpresa = listaAreasEmpresa;
     }
 
     /**
      * @return the listaRangosSalariales
      */
-    public Collection<RangoSalarial> getListaRangosSalariales() {
-        return listaRangosSalariales.values();
+    public List<ItemLista> getListaRangosSalariales() {
+        return listaRangosSalariales;
     }
 
     /**
      * @param listaRangosSalariales the listaRangosSalariales to set
      */
-    public void setListaRangosSalariales(Map<Long, RangoSalarial> listaRangosSalariales) {
+    public void setListaRangosSalariales(List<ItemLista> listaRangosSalariales) {
         this.listaRangosSalariales = listaRangosSalariales;
     }
 
     /**
      * @return the listaCargosEquivalentes
      */
-    public Collection<CargoEquivalente> getListaCargosEquivalentes() {
-        return listaCargosEquivalentes.values();
+    public List<ItemLista> getListaCargosEquivalentes() {
+        return listaCargosEquivalentes;
     }
 
     /**
      * @param listaCargosEquivalentes the listaCargosEquivalentes to set
      */
-    public void setListaCargosEquivalentes(Map<Long, CargoEquivalente> listaCargosEquivalentes) {
+    public void setListaCargosEquivalentes(List<ItemLista> listaCargosEquivalentes) {
         this.listaCargosEquivalentes = listaCargosEquivalentes;
     }
 
     /**
      * @return the listaMeses
      */
-    public Collection<Mes> getListaMeses() {
-        return listaMeses.values();
+    public List<ItemLista> getListaMeses() {
+        return listaMeses;
     }
 
     /**
      * @param listaMeses the listaMeses to set
      */
-    public void setListaMeses(Map<Long, Mes> listaMeses) {
+    public void setListaMeses(List<ItemLista> listaMeses) {
         this.listaMeses = listaMeses;
     }
 
@@ -321,34 +315,57 @@ public class ExperienciaLaboralAction extends CrudAction<ExperienciaLaboral> {
     public void setDepartamento(long departamento) {
         this.departamento = departamento;
     }
+    
+    /**
+     * @return the sector
+     */
+    public long getSector() {
+        return sector;
+    }
+
+    /**
+     * @param sector the sector to set
+     */
+    public void setSector(long sector) {
+        this.sector = sector;
+    }
+
+    /**
+     * @return the trabajoActual
+     */
+    public boolean isTrabajoActual() {
+        return trabajoActual;
+    }
+
+    /**
+     * @param trabajoActual the trabajoActual to set
+     */
+    public void setTrabajoActual(boolean trabajoActual) {
+        this.trabajoActual = trabajoActual;
+    }
 
     @Override
-    public String desplegar() {
-        this.obtenerLista();
+    public void desplegar() {
         this.setListaAreasEmpresa(listas.consultarAreasEmpresa());
         this.setListaCargosEquivalentes(listas.consultarCargosEquivalentes());
         this.setListaMeses(listas.consultarMeses());
         this.setListaNivelesCargo(listas.consultarNivelesCargo());
         this.setListaRangosSalariales(listas.consultarRangosSalariales());
-        this.setListaSubsectores(listas.consultarSubsectores());
         this.setListaTiposContrato(listas.consultarTiposContrato());
         this.setListaAnios(listas.consultarAnios());
-
-        this.editar = true;
-        return SUCCESS;
     }
 
     @Override
     public void insertarTipos() {
-        this.objeto.setIdAreaEmpresa(listas.consultarAreasEmpresa().get(this.areaEmpresa));
-        this.objeto.setIdCargoEquivalente(listas.consultarCargosEquivalentes().get(this.cargoEquivalente));
+        this.objeto.setIdAreaEmpresa(new AreaEmpresa(this.areaEmpresa));
+        this.objeto.setIdCargoEquivalente(new CargoEquivalente(this.cargoEquivalente));
         this.objeto.setIdCiudad(new Ciudad(this.ciudad));
-        this.objeto.setIdMesFinalizacion(listas.consultarMeses().get(this.mesFinalizacion));
-        this.objeto.setIdMesIngreso(listas.consultarMeses().get(this.mesIngreso));
-        this.objeto.setIdNivelCargo(listas.consultarNivelesCargo().get(this.nivelCargo));
-        this.objeto.setIdRangoSalarial(listas.consultarRangosSalariales().get(this.rangoSalarial));
-        this.objeto.setIdSubsector(listas.consultarSubsectores().get(this.subsector));
-        this.objeto.setIdTipoContrato(listas.consultarTiposContrato().get(this.tipoContrato));
+        this.objeto.setIdMesFinalizacion(new Mes(this.mesFinalizacion));
+        this.objeto.setIdMesIngreso(new Mes(this.mesIngreso));
+        this.objeto.setIdNivelCargo(new NivelCargo(this.nivelCargo));
+        this.objeto.setIdRangoSalarial(new RangoSalarial(this.rangoSalarial));
+        this.objeto.setIdSubsector(new Subsector(this.subsector));
+        this.objeto.setIdTipoContrato(new TipoContrato(this.tipoContrato));
     }
 
     @Override
@@ -360,11 +377,14 @@ public class ExperienciaLaboralAction extends CrudAction<ExperienciaLaboral> {
         this.setCiudad(objeto.getIdCiudad().getIdCiudad());
         this.setNivelCargo(objeto.getIdNivelCargo().getIdNivelCargo());
         this.setRangoSalarial(objeto.getIdRangoSalarial().getIdRangoSalarial());
+        this.setSector(objeto.getIdSubsector().getIdSector().getIdSector());
         this.setSubsector(objeto.getIdSubsector().getIdSubsector());
         this.setTipoContrato(objeto.getIdTipoContrato().getIdTipoContrato());
         this.setMesIngreso(objeto.getIdMesIngreso().getIdMes());
         
-        if (objeto.getIdMesFinalizacion() != null)
+        if (this.objeto.getAnioFinalizacion() == null && this.objeto.getIdMesFinalizacion() == null)
+            this.trabajoActual = true;
+        else
             this.setMesFinalizacion(objeto.getIdMesFinalizacion().getIdMes());
     }
 
@@ -389,6 +409,8 @@ public class ExperienciaLaboralAction extends CrudAction<ExperienciaLaboral> {
             addFieldError("tipoContrato", "El tipo de contrato es requerido.");
         if (ciudad <= 0)
             addFieldError("ciudad", "La ciudad es requerida.");
+        if (sector <= 0)
+            addFieldError("sector", "El sector es requerido.");
         if (subsector <= 0)
             addFieldError("subsector", "El subsector es requerido.");
         if (nivelCargo <= 0)
@@ -404,24 +426,35 @@ public class ExperienciaLaboralAction extends CrudAction<ExperienciaLaboral> {
         if (objeto.getAnioIngreso() <= 0)
             addFieldError("anioIngreso", "El año de ingreso es requerido.");
         
-        if (objeto.getAnioFinalizacion() > 0)
-        {
-            if (objeto.getAnioFinalizacion() < objeto.getAnioIngreso())
-                addFieldError("anioFinalización", "El año de finalización debe ser mayor o igual al año de ingreso.");
-            if (mesFinalizacion <= 0)
-                addFieldError("mesFinalizacion", "El mes de finalización es requerido.");
-        }
-        
-        if (mesFinalizacion > 0)
-        {
-            if (objeto.getAnioFinalizacion() <= 0)
+        if (!trabajoActual){
+            if (objeto.getAnioFinalizacion() > 0)
+            {
+                if (objeto.getAnioFinalizacion() < objeto.getAnioIngreso())
+                    addFieldError("anioFinalizacion", "El año de finalización debe ser mayor o igual al año de ingreso.");
+                if (mesFinalizacion <= 0)
+                    addFieldError("mesFinalizacion", "El mes de finalización es requerido.");
+            }
+            else
+            {
                 addFieldError("anioFinalizacion", "El año de finalización es requerido.");
-            else if (objeto.getAnioFinalizacion() == objeto.getAnioIngreso() && mesFinalizacion < mesIngreso)
-                addFieldError("mesFinalizacion", "El mes de finalización debe ser mayor o igual al mes de ingreso.");
+            }
+
+            if (mesFinalizacion > 0)
+            {
+                if (objeto.getAnioFinalizacion() <= 0)
+                    addFieldError("anioFinalizacion", "El año de finalización es requerido.");
+                else if (objeto.getAnioFinalizacion() == objeto.getAnioIngreso() && mesFinalizacion < mesIngreso)
+                    addFieldError("mesFinalizacion", "El mes de finalización debe ser mayor o igual al mes de ingreso.");
+            }
+            else
+            {
+                addFieldError("mesFinalizacion", "El mes de finalización es requerido.");
+            }
         }
-        
-        if (objeto.getAnioFinalizacion() == -1)
+        else {
             objeto.setAnioFinalizacion(null);
+            objeto.setIdMesFinalizacion(null);
+        }
     }
 
     @Override

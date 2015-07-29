@@ -6,32 +6,39 @@
 package Action;
 
 import Controlador.ControladorEgresado;
+import Controlador.ControladorListas;
 import Modelo.Ciudad;
 import Modelo.Egresado;
 import Modelo.EstadoCivil;
 import Modelo.Genero;
 import Modelo.GrupoSanguineo;
+import Modelo.ItemLista;
 import Modelo.PreguntaSeguridad;
 import Modelo.TipoDocumento;
-import Util.Listas;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
+import java.io.File;
+import java.io.IOException;
 import java.sql.Date;
 import java.time.LocalDate;
-import java.util.Collection;
-import java.util.Map;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.servlet.http.HttpServletRequest;
+import org.apache.commons.io.FileUtils;
+import org.apache.struts2.interceptor.ServletRequestAware;
 
 /**
  *
  * @author YURY
  */
-public class RegistroAction extends ActionSupport implements ModelDriven<Egresado> {
+public class RegistroAction extends ActionSupport implements ModelDriven<Egresado>, ServletRequestAware {
 
-    private Map<Long, TipoDocumento> listaTiposDocumento;
-    private Map<Long, GrupoSanguineo> listaGruposSanguineos;
-    private Map<Long, Genero> listaGeneros;
-    private Map<Long, EstadoCivil> listaEstadosCiviles;
-    private Map<Long, PreguntaSeguridad> listaPreguntas;
+    private List<ItemLista> listaTiposDocumento;
+    private List<ItemLista> listaGruposSanguineos;
+    private List<ItemLista> listaGeneros;
+    private List<ItemLista> listaEstadosCiviles;
+    private List<ItemLista> listaPreguntas;
     private long ciudadNacimiento;
     private long ciudadExpedicion;
     private long tipoDocumento;
@@ -43,80 +50,87 @@ public class RegistroAction extends ActionSupport implements ModelDriven<Egresad
     private Egresado egresado = new Egresado();
     private boolean terminos;
     private final ControladorEgresado controladorEgresado;
-    private Listas listas;
+    private final ControladorListas listas;
+    private File fileUpload;
+    private String fileUploadContentType;
+    private String fileUploadFileName;
+    private HttpServletRequest servletRequest;
+    private String rutaEgresados;
 
     public RegistroAction() {
         controladorEgresado = new ControladorEgresado();
-        listas = new Listas();
+        listas = new ControladorListas();
+        rutaEgresados = "D:\\FotosEgresados\\";
+        this.desplegar();
     }
-    
+
     /**
      * @return the listaTiposDocumento
      */
-    public Collection<TipoDocumento> getListaTiposDocumento() {
-        return listaTiposDocumento.values();
+    public List<ItemLista> getListaTiposDocumento() {
+        return listaTiposDocumento;
     }
 
     /**
      * @param listaTiposDocumento the listaTiposDocumento to set
      */
-    public void setListaTiposDocumento(Map<Long, TipoDocumento> listaTiposDocumento) {
+    public void setListaTiposDocumento(List<ItemLista> listaTiposDocumento) {
         this.listaTiposDocumento = listaTiposDocumento;
     }
 
     /**
      * @return the listaGruposSanguineos
      */
-    public Collection<GrupoSanguineo> getListaGruposSanguineos() {
-        return listaGruposSanguineos.values();
+    public List<ItemLista> getListaGruposSanguineos() {
+        return listaGruposSanguineos;
     }
 
     /**
      * @param listaGruposSanguineos the listaGruposSanguineos to set
      */
-    public void setListaGruposSanguineos(Map<Long, GrupoSanguineo> listaGruposSanguineos) {
+    public void setListaGruposSanguineos(List<ItemLista> listaGruposSanguineos) {
         this.listaGruposSanguineos = listaGruposSanguineos;
     }
 
     /**
      * @return the listaGeneros
      */
-    public Collection<Genero> getListaGeneros() {
-        return listaGeneros.values();
+    public List<ItemLista> getListaGeneros() {
+        return listaGeneros;
     }
 
     /**
      * @param listaGeneros the listaGeneros to set
      */
-    public void setListaGeneros(Map<Long, Genero> listaGeneros) {
+    public void setListaGeneros(List<ItemLista> listaGeneros) {
         this.listaGeneros = listaGeneros;
     }
 
     /**
      * @return the listaEstadosCiviles
      */
-    public Collection<EstadoCivil> getListaEstadosCiviles() {
-        return listaEstadosCiviles.values();
+    public List<ItemLista> getListaEstadosCiviles() {
+        return listaEstadosCiviles;
     }
 
     /**
      * @param listaEstadosCiviles the listaEstadosCiviles to set
      */
-    public void setListaEstadosCiviles(Map<Long, EstadoCivil> listaEstadosCiviles) {
+    public void setListaEstadosCiviles(List<ItemLista> listaEstadosCiviles) {
         this.listaEstadosCiviles = listaEstadosCiviles;
     }
 
     /**
      * @return the listaPreguntas
      */
-    public Collection<PreguntaSeguridad> getListaPreguntas() {
-        return listaPreguntas.values();
+    public List<ItemLista> getListaPreguntas() {
+        return listaPreguntas;
     }
 
     /**
      * @param listaPreguntas the listaPreguntas to set
      */
-    public void setListaPreguntas(Map<Long, PreguntaSeguridad> listaPreguntas) {
+    public void setListaPreguntas(List<ItemLista> listaPreguntas) {
         this.listaPreguntas = listaPreguntas;
     }
 
@@ -259,19 +273,61 @@ public class RegistroAction extends ActionSupport implements ModelDriven<Egresad
     public void setEgresado(Egresado egresado) {
         this.egresado = egresado;
     }
-    
+
     /**
-     * @return the listas
+     * @return the fileUpload
      */
-    public Listas getListas() {
-        return listas;
+    public File getFileUpload() {
+        return fileUpload;
     }
 
     /**
-     * @param listas the listas to set
+     * @param fileUpload the fileUpload to set
      */
-    public void setListas(Listas listas) {
-        this.listas = listas;
+    public void setFileUpload(File fileUpload) {
+        this.fileUpload = fileUpload;
+    }
+
+    /**
+     * @return the fileUploadContentType
+     */
+    public String getFileUploadContentType() {
+        return fileUploadContentType;
+    }
+
+    /**
+     * @param fileUploadContentType the fileUploadContentType to set
+     */
+    public void setFileUploadContentType(String fileUploadContentType) {
+        this.fileUploadContentType = fileUploadContentType;
+    }
+
+    /**
+     * @return the fileUploadFileName
+     */
+    public String getFileUploadFileName() {
+        return fileUploadFileName;
+    }
+
+    /**
+     * @param fileUploadFileName the fileUploadFileName to set
+     */
+    public void setFileUploadFileName(String fileUploadFileName) {
+        this.fileUploadFileName = fileUploadFileName;
+    }
+    
+    /**
+     * @return the rutaEgresados
+     */
+    public String getRutaEgresados() {
+        return rutaEgresados;
+    }
+
+    /**
+     * @param rutaEgresados the rutaEgresados to set
+     */
+    public void setRutaEgresados(String rutaEgresados) {
+        this.rutaEgresados = rutaEgresados;
     }
 
     @Override
@@ -279,13 +335,21 @@ public class RegistroAction extends ActionSupport implements ModelDriven<Egresad
         return this.egresado;
     }
 
-    public String desplegar() throws Exception {
+    @Override
+    public void setServletRequest(HttpServletRequest hsr) {
+        this.servletRequest = hsr;
+    }
+
+    private void desplegar() {
         setListaEstadosCiviles(listas.consultarEstadosCiviles());
         setListaGeneros(listas.consultarGeneros());
         setListaGruposSanguineos(listas.consultarGruposSanguineos());
         setListaTiposDocumento(listas.consultarTiposDocumento());
         setListaPreguntas(listas.consultarPreguntas());
-
+    }
+    
+    public String crear()
+    {
         return "crear";
     }
 
@@ -294,10 +358,13 @@ public class RegistroAction extends ActionSupport implements ModelDriven<Egresad
         if (!this.hasErrors()) {
             insertarTipos();
             insertarValoresDefecto();
+            
+            this.guardarFoto();
             controladorEgresado.actualizar(getEgresado());
+            clearMessages();
+            addActionMessage("Felicidades! Usted se ha registrado exitosamente en nuestra base de datos de egresados.\nEn un plazo no mayor a 24 horas se activará su cuenta.");
             return SUCCESS;
         } else {
-            desplegar();
             return ERROR;
         }
     }
@@ -379,16 +446,34 @@ public class RegistroAction extends ActionSupport implements ModelDriven<Egresad
     public void insertarTipos() {
         this.egresado.setIdCiudadExpedicion(new Ciudad(ciudadExpedicion));
         this.egresado.setIdCiudadNacimiento(new Ciudad(ciudadNacimiento));
-        this.egresado.setIdEstadoCivil(listas.consultarEstadosCiviles().get(estadoCivil));
-        this.egresado.setIdGenero(listas.consultarGeneros().get(genero));
-        this.egresado.setIdGrupoSanguineo(listas.consultarGruposSanguineos().get(grupoSanguineo));
-        this.egresado.setIdPreguntaSeguridad(listas.consultarPreguntas().get(preguntaSeguridad));
-        this.egresado.setIdTipoDocumento(listas.consultarTiposDocumento().get(tipoDocumento));
+        this.egresado.setIdEstadoCivil(new EstadoCivil(estadoCivil));
+        this.egresado.setIdGenero(new Genero(genero));
+        this.egresado.setIdGrupoSanguineo(new GrupoSanguineo(grupoSanguineo));
+        this.egresado.setIdPreguntaSeguridad(new PreguntaSeguridad(preguntaSeguridad));
+        this.egresado.setIdTipoDocumento(new TipoDocumento(tipoDocumento));
     }
 
     public void insertarValoresDefecto() {
         this.egresado.setAceptaCondiciones(true);
         this.egresado.setFechaRegistro(Date.valueOf(LocalDate.now()));
         this.egresado.setEstado(true);
+    }
+    
+    private void guardarFoto()
+    {
+        try {
+            String filePath = servletRequest.getRealPath("/");
+            
+            if (this.fileUploadFileName != null && !this.fileUploadFileName.isEmpty()) {
+                File fileToCreate = new File(filePath, this.fileUploadFileName);
+                FileUtils.copyFile(this.fileUpload, fileToCreate);
+                
+                this.egresado.setFoto(this.egresado.getNumeroDocumento() + ".jpg");
+                File destino = new File(rutaEgresados, this.egresado.getFoto());
+                FileUtils.writeByteArrayToFile(destino, FileUtils.readFileToByteArray(this.fileUpload));
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(RegistroAction.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

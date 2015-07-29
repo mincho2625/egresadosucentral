@@ -6,8 +6,8 @@
 
 package Action;
 
+import Controlador.ControladorListas;
 import Modelo.ItemLista;
-import Util.Listas;
 import com.opensymphony.xwork2.ActionSupport;
 import java.util.List;
 
@@ -26,11 +26,11 @@ public class SelectDobleCiudadAction extends ActionSupport {
     private long departamento;
     private long pais2;
     private long departamento2;
-    private final Listas listas;
+    private final ControladorListas listas;
 
     public SelectDobleCiudadAction()
     {
-        listas = new Listas();
+        listas = new ControladorListas();
     }
     
     /**
@@ -179,7 +179,6 @@ public class SelectDobleCiudadAction extends ActionSupport {
         setListaPaises(listas.consultarPaises());
         if (getPais() > 0){
             setListaDepartamentos(listas.consultarDepartamentosPorPais(getPais()));
-            System.out.println("Pais: " + pais + ", Departamentos: " + listaDepartamentos.size());
         }
         if (getDepartamento() > 0)
             setListaCiudades(listas.consultarCiudadesPorDepartamento(getDepartamento()));

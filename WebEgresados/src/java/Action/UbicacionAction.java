@@ -6,12 +6,17 @@
 package Action;
 
 import Modelo.Contacto;
+import Modelo.ItemLista;
 import Modelo.TipoContacto;
+import com.opensymphony.xwork2.ActionContext;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  *
@@ -19,27 +24,35 @@ import java.util.Map;
  */
 public class UbicacionAction extends CrudAction<Contacto> {
 
-    private Map<Long, TipoContacto> listaTiposContacto;
+    private List<ItemLista> listaTiposContacto;
     private long tipoContacto;
 
     public UbicacionAction() {
         super(Modelo.Contacto.class.getName());
-        this.idObjeto = "getIdContacto";
-        this.coleccion = "getContactoCollection";
-        this.claseConcretaPersistencia = Persistencia.Contacto.class;
+        this.getIdObjeto = "getIdContacto";
+        this.consultaTodos = "Contacto.findByIdEgresado";
+        this.entidad = Contacto.class.getSimpleName();
+        this.nombreIdObjeto = "idContacto";
+        this.consultaIdObjeto = "Contacto.findByIdContacto";
+        
+        Map session = ActionContext.getContext().getSession();
+        long id = (long) session.get("idEgresado");
+        this.parametros = new HashMap<>();
+        this.parametros.put("idEgresado", id);
+        this.objeto.setIdEgresado(id);
     }
 
     /**
      * @return the listaTiposContacto
      */
-    public Collection<TipoContacto> getListaTiposContacto() {
-        return listaTiposContacto.values();
+    public List<ItemLista> getListaTiposContacto() {
+        return listaTiposContacto;
     }
 
     /**
      * @param listaTiposContacto the listaTiposContacto to set
      */
-    public void setListaTiposContacto(Map<Long, TipoContacto> listaTiposContacto) {
+    public void setListaTiposContacto(List<ItemLista> listaTiposContacto) {
         this.listaTiposContacto = listaTiposContacto;
     }
 
@@ -58,16 +71,16 @@ public class UbicacionAction extends CrudAction<Contacto> {
     }
 
     @Override
-    public String desplegar() {
+    public void desplegar() {
         this.setListaTiposContacto(listas.consultarTiposContacto());
-        this.obtenerLista();
-        this.editar = true;
-        return SUCCESS;
+        //this.obtenerLista();
+        //this.editar = true;
     }
 
     @Override
     public void insertarTipos() {
-        this.objeto.setIdTipoContacto(listas.consultarTiposContacto().get(this.tipoContacto));
+        this.objeto.setIdTipoContacto((TipoContacto)controladorCrud.consultar("TipoContacto.findByIdTipoContacto", 
+                Modelo.TipoContacto.class.getName(), "idTipoContacto", this.tipoContacto));
     }
 
     @Override
@@ -94,17 +107,23 @@ public class UbicacionAction extends CrudAction<Contacto> {
                 if (objeto.getDescripcion().length() > objeto.getIdTipoContacto().getLongitud())
                     addFieldError("descripcion", String.format("La longitud máxima para el tipo de contacto es %d", objeto.getIdTipoContacto().getLongitud()));
                 
+                Pattern pattern;
+                Matcher matcher;
                 switch((int)objeto.getIdTipoContacto().getIdTipoCampo().getIdTipoCampo())
                 {
                     case 1:
-                        if (!objeto.getDescripcion().matches("[1-9]\\\\d{7}|[1-9]\\\\d{10}")) {
+                        pattern = Pattern.compile("[0-9]{7}|[0-9]{10}");
+                        matcher = pattern.matcher(objeto.getDescripcion());
+                        
+                        if (!matcher.matches())
                             addFieldError("descripcion", "Ingrese un teléfono válido.");
-                        }
                         break;
                     case 2:
-                        if (!objeto.getDescripcion().matches("^[_A-Za-z0-9-\\\\+]+(\\\\.[_A-Za-z0-9-]+)*@\"\n+[A-Za-z0-9-]+(\\\\.[A-Za-z0-9]+)*(\\\\.[A-Za-z]{2,})$")) {
+                        pattern = Pattern.compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
+                        matcher = pattern.matcher(objeto.getDescripcion());
+                        
+                        if (!matcher.matches())
                             addFieldError("descripcion", "Ingrese un email válido.");
-                        }
                         break;
                 }
             }
@@ -112,16 +131,15 @@ public class UbicacionAction extends CrudAction<Contacto> {
     }
 
     @Override
-    public void validarLista() {
-        this.setListaTiposContacto(listas.consultarTiposContacto());
-        
-        Collection<Long> lista = new ArrayList<>();
-        for (Contacto co : listaObjetos.values()) {
+    public void validarLista() {        
+        List<Long> lista = new ArrayList<>();
+        for (Contacto co : listaObjetos) {
             lista.add(co.getIdTipoContacto().getIdTipoContacto());
         }
-
-        for (TipoContacto tipo : listaTiposContacto.values()) {
-            if (tipo.isObligatorio() && !lista.contains(tipo.getIdTipoContacto())) {
+        
+        List<ItemLista> listaObligatorio = listas.consultarTiposContactoObligatorio();
+        for (ItemLista tipo : listaObligatorio) {
+            if (!lista.contains(tipo.getId())) {
                 addActionError(String.format("Ingrese al menos un contacto de tipo %s", tipo.getNombre()));
             }
         }

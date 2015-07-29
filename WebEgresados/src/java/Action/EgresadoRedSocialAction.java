@@ -7,11 +7,13 @@
 package Action;
 
 import Modelo.EgresadoRedSocial;
+import Modelo.ItemLista;
 import Modelo.RedSocial;
-import Util.Listas;
+import com.opensymphony.xwork2.ActionContext;
 import java.sql.Date;
 import java.time.LocalDate;
-import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -20,27 +22,35 @@ import java.util.Map;
  */
 public class EgresadoRedSocialAction extends CrudAction<EgresadoRedSocial>{
     //Esta lista es de tipos de redes sociales: facebook, twiter, etc.
-    private Map<Long, RedSocial> listaRedesSociales;
+    private List<ItemLista> listaRedesSociales;
     private long redSocial;
 
     public EgresadoRedSocialAction() {
         super(EgresadoRedSocial.class.getName());
-        this.idObjeto = "getIdEgresadoRedSocial";
-        this.coleccion = "getEgresadoRedSocialCollection";
-        this.claseConcretaPersistencia = Persistencia.EgresadoRedSocial.class;
+        this.getIdObjeto = "getIdEgresadoRedSocial";
+        this.consultaTodos = "EgresadoRedSocial.findByIdEgresado";
+        this.entidad = EgresadoRedSocial.class.getSimpleName();
+        this.nombreIdObjeto = "idEgresadoRedSocial";
+        this.consultaIdObjeto = "EgresadoRedSocial.findByIdEgresadoRedSocial";
+        
+        Map session = ActionContext.getContext().getSession();
+        long id = (long) session.get("idEgresado");
+        this.parametros = new HashMap<>();
+        this.parametros.put("idEgresado", id);
+        this.objeto.setIdEgresado(id);
     }
 
     /**
      * @return the listaRedesSociales
      */
-    public Collection<RedSocial> getListaRedesSociales() {
-        return listaRedesSociales.values();
+    public List<ItemLista> getListaRedesSociales() {
+        return listaRedesSociales;
     }
 
     /**
      * @param listaRedesSociales the listaRedesSociales to set
      */
-    public void setListaRedesSociales(Map<Long, RedSocial> listaRedesSociales) {
+    public void setListaRedesSociales(List<ItemLista> listaRedesSociales) {
         this.listaRedesSociales = listaRedesSociales;
     }
     
@@ -59,16 +69,13 @@ public class EgresadoRedSocialAction extends CrudAction<EgresadoRedSocial>{
     }
     
     @Override
-    public String desplegar() {
+    public void desplegar() {
         this.setListaRedesSociales(listas.consultarRedesSociales());
-        this.obtenerLista();
-        this.editar = true;
-        return SUCCESS;
     }
 
     @Override
     public void insertarTipos() {
-        this.objeto.setIdRedSocial(listas.consultarRedesSociales().get(this.redSocial));
+        this.objeto.setIdRedSocial(new RedSocial(this.redSocial));
     }
 
     @Override
