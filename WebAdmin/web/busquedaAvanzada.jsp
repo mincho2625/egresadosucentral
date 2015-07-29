@@ -28,7 +28,8 @@
             <div id="main-cuerpo">
                 <div class="row contenido show">
                     <div style="width: 750px;" class="componente col-lg-11 col-md-11 col-sm-11 col-xs-11 center-block">
-                        <jq:accordion id="accordion" animate="true" collapsible="true">
+                        <s:set name="indice" value="indice"/>
+                        <jq:accordion id="accordion" animate="true" collapsible="true" active="%{#indice}">
                             <jq:accordionItem title="Criterios de búsqueda">
                                 <div class="row" class="col-lg-11 col-md-11 col-sm-11 col-xs-11">
                                     <s:form action="buscarBusquedaAvanzada.action" id="formCorreo">
@@ -38,7 +39,7 @@
                                                 <jq:select href="%{programaURL}" name="seleccionNivelEstudios" id="seleccionNivelEstudios"
                                                            list="listaNivelesEstudios" multiple="true"
                                                            label="Nivel de estudios" errorPosition="bottom" labelposition="top" onCompleteTopics="reloadThirdlist,reloadCriteria"
-                                                           onChangeTopics="reloadThirdlist,reloadCriteria" name="seleccionNivelEstudios"/>
+                                                           onChangeTopics="reloadThirdlist,reloadCriteria"/>
                                                 
                                                 <jq:select href="%{programaURL}" label="Año Finalización" errorPosition="bottom" name="seleccionAnios" list="listaAnios" 
                                                           multiple="true" id="seleccionAnios" onCompleteTopics="reloadCriteria" onChangeTopics="reloadCriteria" formIds="formCorreo"></jq:select>
@@ -69,11 +70,12 @@
                                             </s:if>
                                         </div>
                                         <div style="margin-left: -35px" class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                                            <jq:select href="%{programaURL}" label="Criterios Seleccionados" readonly="true" formIds="formCorreo" multiple="true"
-                                                         cssStyle="height:330px;width: 200px;" rows="5" selectable="false" reloadTopics="reloadCriteria" list="criterioSeleccionado"></jq:select>
+                                            <jq:select href="%{programaURL}" label="Criterios Seleccionados" readonly="true" formIds="formCorreo" multiple="true" 
+                                                       cssStyle="height:330px;width: 200px;" rows="5" name="criterioSeleccionado"
+                                                       selectable="false" reloadTopics="reloadCriteria" list="criterioSeleccionado"></jq:select>
                                                 <div class="row" style="margin-left: -35px" class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
                                                     <div  class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
-                                                    <s:submit  cssClass="boton_auxiliar boton"  cssStyle="width:auto;" value="Limpar"></s:submit>
+                                                    <s:submit  cssClass="boton_auxiliar boton" cssStyle="width:auto;" value="Limpiar"></s:submit>
                                                     </div>
                                                     <div style="margin-left: 65px" class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
                                                         <s:submit  cssClass="boton_auxiliar boton "  cssStyle="width:auto;" value="Buscar"></s:submit>

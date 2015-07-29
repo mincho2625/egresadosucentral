@@ -223,6 +223,7 @@ public class SelectProgramaAction extends ActionSupport {
 
     @Override
     public String execute() throws Exception {
+        System.out.println("Carga");
         listaNivelesEstudios = listas.consultarMapNivelesEstudiosAplicaUCentral();
         listaFacultades = listas.consultarMapFacultades();
         listaEstadosCiviles = listas.consultarMapEstadosCiviles();
@@ -233,24 +234,28 @@ public class SelectProgramaAction extends ActionSupport {
             listaProgramas = listas.consultarMapProgramasPorListaFacultadYNivelEstudios(seleccionFacultades, seleccionNivelEstudios);
         }
         
+        System.out.println("seleccionNivelEstudios :" + seleccionNivelEstudios);
         if (seleccionNivelEstudios.size() > 0 && !criterioSeleccionado.contains("Nivel de estudios")) {
             criterioSeleccionado.add("Nivel de estudios");
             for (Long nivelEstudios : seleccionNivelEstudios)
                 criterioSeleccionado.add("- " + listaNivelesEstudios.get(nivelEstudios));
         }
         
+        System.out.println("seleccionFacultades :" + seleccionFacultades);
         if (seleccionFacultades.size() > 0 && !criterioSeleccionado.contains("Facultad")) {
             criterioSeleccionado.add("Facultad");
             for (Long facultad : seleccionFacultades)
                 criterioSeleccionado.add("- " + listaFacultades.get(facultad));
         }
         
+        System.out.println("seleccionProgramas :" + seleccionProgramas);
         if (seleccionProgramas.size() > 0 && !criterioSeleccionado.contains("Programa")) {
             criterioSeleccionado.add("Programa");
             for (Long programa : seleccionProgramas)
                 criterioSeleccionado.add("- " + listaProgramas.get(programa));
         }
         
+        System.out.println("seleccionEstadosCiviles :" + seleccionEstadosCiviles);
         if (seleccionEstadosCiviles.size() > 0 && !criterioSeleccionado.contains("Estado civil"))
         {
             criterioSeleccionado.add("Estado civil");
@@ -258,6 +263,7 @@ public class SelectProgramaAction extends ActionSupport {
                     criterioSeleccionado.add("- " + listaEstadosCiviles.get(estadoCivil));
         }
         
+        System.out.println("seleccionGeneros :" + seleccionGeneros);
         if (seleccionGeneros.size() > 0 && !criterioSeleccionado.contains("Genero"))
         {
             criterioSeleccionado.add("Genero");
@@ -265,12 +271,15 @@ public class SelectProgramaAction extends ActionSupport {
                     criterioSeleccionado.add("- " + listaGeneros.get(genero));
         }
         
+        System.out.println("seleccionAnios :" + seleccionAnios);
         if (seleccionAnios.size() > 0 && !criterioSeleccionado.contains("Año de grado"))
         {
             criterioSeleccionado.add("Año de grado");
                 for (Integer anio : seleccionAnios)
                     criterioSeleccionado.add("- " + anio);
         }
+        
+        System.out.println("Criterio seleccionado: " + criterioSeleccionado);
         
         return SUCCESS;
     }
