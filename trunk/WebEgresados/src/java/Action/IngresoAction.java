@@ -8,12 +8,9 @@ package Action;
 
 import Controlador.ControladorEgresado;
 import Controlador.ControladorUsuario;
-import Controlador.ControlardorEncuesta;
 import Modelo.Egresado;
-import Modelo.Encuesta;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
-import java.util.ArrayList;
 import java.util.Map;
 
 /**
@@ -23,9 +20,10 @@ import java.util.Map;
 public class IngresoAction extends ActionSupport{
     private String usuario;
     private String contrasenia;
-    private ArrayList<Encuesta> listaEncuestas;
     private boolean primeraVez;
     private String nombre;
+    // <result name="next" type="redirectAction">${nextAction}</result>
+    private String mensaje;
 
     /**
      * @return the usuario
@@ -53,20 +51,6 @@ public class IngresoAction extends ActionSupport{
      */
     public void setContrasenia(String contrasenia) {
         this.contrasenia = contrasenia;
-    }
-
-    /**
-     * @return the listaEncuestas
-     */
-    public ArrayList<Encuesta> getListaEncuestas() {
-        return listaEncuestas;
-    }
-
-    /**
-     * @param listaEncuestas the listaEncuestas to set
-     */
-    public void setListaEncuestas(ArrayList<Encuesta> listaEncuestas) {
-        this.listaEncuestas = listaEncuestas;
     }
     
     /**
@@ -97,36 +81,61 @@ public class IngresoAction extends ActionSupport{
         this.nombre = nombre;
     }
     
+    /**
+     * @return the mensaje
+     */
+    public String getMensaje() {
+        return mensaje;
+    }
+
+    /**
+     * @param mensaje the mensaje to set
+     */
+    public void setMensaje(String mensaje) {
+        this.mensaje = mensaje;
+    }
+    
     @Override
     public String execute() throws Exception {
         ControladorUsuario controladorUsuario = new ControladorUsuario();
+        
         if (controladorUsuario.login(usuario, contrasenia)) {
-            Map session = ActionContext.getContext().getSession();
-            session.put("usuario", usuario);
-            
-            ControlardorEncuesta controlardorEncuesta = new ControlardorEncuesta();
-            this.listaEncuestas = controlardorEncuesta.consultarEncuestas();
-            ControladorEgresado controladorEgresado = new ControladorEgresado(usuario);
-            Egresado egresado = controladorEgresado.consultar();
-            this.setNombre(String.format("%s %s %s", egresado.getNombres(), egresado.getPrimerApellido(), egresado.getSegundoApellido()));
-            if (egresado != null && egresado.getFechaUltimaAct() == null){
-                this.primeraVez = true;
+            ControladorEgresado controladorEgresado = new ControladorEgresado();
+            Egresado egresado = controladorEgresado.consultar(usuario);
+            if (egresado != null){
+                Map session = ActionContext.getContext().getSession();
+                session.put("idEgresado", egresado.getIdUsuario());
+                session.put("usuario", egresado.getNombre());
+
+                this.setNombre(String.format("%s %s %s", egresado.getNombres(), egresado.getPrimerApellido(), egresado.getSegundoApellido()));
+                
+                if (!egresado.isInformacionCompleta()) {
+                    this.mensaje = "Su información no está completa, por favor actualice sus datos. ";
+                    
+                    if (egresado.getFechaUltimaAct() == null) {
+                        this.primeraVez = true;
+                    }
+                }
+                
+                return SUCCESS;
             }
-            
-            return SUCCESS;
+            else {
+                addActionError("Usuario o contraseña incorrectos.");
+                return ERROR;
+            }
         }
         else {
             addActionError("Usuario o contraseña incorrectos.");
-            return ERROR;
+                return ERROR;
         }
     }
 
     @Override
     public void validate() {
-        if (usuario.equals("")) {
+        if (usuario == null || usuario.isEmpty()) {
             addFieldError("usuario", "Digite un Usuario");
         }
-        if (contrasenia.equals("")) {
+        if (contrasenia == null || contrasenia.isEmpty()) {
             addFieldError("contrasenia", "Digite una Contraseña");
         }
     }

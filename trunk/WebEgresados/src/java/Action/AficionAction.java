@@ -5,41 +5,51 @@
  */
 package Action;
 
-import Modelo.Aficion;
+import Modelo.Aficiones;
+import Modelo.ItemLista;
 import Modelo.TipoActividad;
-import static com.opensymphony.xwork2.Action.SUCCESS;
+import com.opensymphony.xwork2.ActionContext;
 import java.sql.Date;
 import java.time.LocalDate;
-import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
  *
  * @author JERONIMO
  */
-public class AficionAction extends CrudAction<Aficion> {
+public class AficionAction extends CrudAction<Aficiones> {
 
-    private Map<Long, TipoActividad> listaTiposActividades;
+    private List<ItemLista> listaTiposActividades;
     private long tipoActividad;
 
     public AficionAction() {
-        super(Aficion.class.getName());
-        this.idObjeto = "getIdAficion";
-        this.coleccion = "getAficionesCollection";
-        this.claseConcretaPersistencia = Persistencia.Aficiones.class;
+        super(Aficiones.class.getName());
+        this.getIdObjeto = "getIdAficion";
+        this.consultaTodos = "Aficiones.findByIdEgresado";
+        this.entidad = Aficiones.class.getSimpleName();
+        this.nombreIdObjeto = "idAficion";        
+        this.consultaIdObjeto = "Aficiones.findByIdAficion";
+        
+        Map session = ActionContext.getContext().getSession();
+        long id = (long) session.get("idEgresado");
+        this.parametros = new HashMap<>();
+        this.parametros.put("idEgresado", id);
+        this.objeto.setIdEgresado(id);
     }
 
     /**
      * @return the listaTiposActividades
      */
-    public Collection<TipoActividad> getListaTiposActividades() {
-        return listaTiposActividades.values();
+    public List<ItemLista> getListaTiposActividades() {
+        return listaTiposActividades;
     }
 
     /**
      * @param listaTiposActividades the listaTiposActividades to set
      */
-    public void setListaTiposActividades(Map<Long, TipoActividad> listaTiposActividades) {
+    public void setListaTiposActividades(List<ItemLista> listaTiposActividades) {
         this.listaTiposActividades = listaTiposActividades;
     }
 
@@ -58,16 +68,13 @@ public class AficionAction extends CrudAction<Aficion> {
     }
 
     @Override
-    public String desplegar() {
+    public void desplegar() {
         this.setListaTiposActividades(listas.consultarTiposActividades());
-        this.obtenerLista();
-        this.editar = true;
-        return SUCCESS;
     }
 
     @Override
     public void insertarTipos() {
-        this.objeto.setIdTipoActividad(listas.consultarTiposActividades().get(this.tipoActividad));
+        this.objeto.setIdTipoActividad(new TipoActividad(this.tipoActividad));
     }
 
     @Override

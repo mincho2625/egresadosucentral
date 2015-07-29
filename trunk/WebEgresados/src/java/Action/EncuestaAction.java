@@ -7,7 +7,7 @@
 package Action;
 
 import Controlador.ControladorEgresado;
-import Controlador.ControlardorEncuesta;
+import Controlador.ControladorEncuesta;
 import Modelo.EgresadoRespuesta;
 import Modelo.PreguntaEncuesta;
 import com.opensymphony.xwork2.ActionContext;
@@ -19,28 +19,27 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
-import org.apache.struts2.ServletActionContext;
+import org.apache.struts2.interceptor.ServletRequestAware;
 
 /**
  *
  * @author YURY
  */
-public class EncuestaAction extends ActionSupport {
+public class EncuestaAction extends ActionSupport implements ServletRequestAware {
     private Map<Long, PreguntaEncuesta> listaPreguntasEncuesta;
-    private final ControlardorEncuesta controlardorEncuesta;
+    private final ControladorEncuesta controlardorEncuesta;
+    private final ControladorEgresado controladorEgresado;
     private long orden;
+    private int ultima;
     private ArrayList<EgresadoRespuesta> listaRespuestas;
-    private final Map<String, String[]> parameterMap;
-    private final HttpServletRequest request;
+    private HttpServletRequest request;
     
     public EncuestaAction()
     {
         Map session = ActionContext.getContext().getSession();
         String usuario = (String) session.get("usuario");
-        controlardorEncuesta = new ControlardorEncuesta(usuario);
-        
-        request = (HttpServletRequest) ActionContext.getContext().get(ServletActionContext.HTTP_REQUEST);
-        this.parameterMap = request.getParameterMap();
+        controlardorEncuesta = new ControladorEncuesta(usuario);
+        controladorEgresado = new ControladorEgresado();
     }
     
     /**
@@ -71,52 +70,77 @@ public class EncuestaAction extends ActionSupport {
         this.orden = orden;
     }
     
+    /**
+     * @return the ultima
+     */
+    public int getUltima() {
+        return ultima;
+    }
+
+    /**
+     * @param ultima the ultima to set
+     */
+    public void setUltima(int ultima) {
+        this.ultima = ultima;
+    }
+    
+    @Override
+    public void setServletRequest(HttpServletRequest hsr) {
+        this.request = hsr;
+    }
+    
     public String editar()
     {
         if (request.getParameter("orden") != null)
         {
             this.orden = Long.parseLong(request.getParameter("orden"));
-            this.setListaPreguntasEncuesta(controlardorEncuesta.consularPreguntasSeccionEncuesta(orden, 1));
-            System.out.println("Preguntas: " + listaPreguntasEncuesta.size());
+            this.desplegar(0);
+            this.ultima = controlardorEncuesta.consultarUltimaEncuesta();
         }
         return SUCCESS;
     }
     
-    public void guardar(int incremento)
-    {
-        this.setListaPreguntasEncuesta(controlardorEncuesta.consularPreguntasSeccionEncuesta(this.orden, 1));
-        this.obtenerRespuestas();
-        this.controlardorEncuesta.guardar(listaRespuestas);
-        this.orden+=incremento;
-        controlardorEncuesta.refrescar();
-        this.setListaPreguntasEncuesta(controlardorEncuesta.consularPreguntasSeccionEncuesta(this.orden, 1));
-    }
-    
     public String anterior()
     {
-        System.out.println("Anterior antes, orden:" + orden);
-        guardar(-1);
-        System.out.println("Anterior despues, orden:" + orden);
+        guardar();
+        desplegar(-1);
         return SUCCESS;
     }
     
     public String siguiente()
     {
-        System.out.println("Siguiente antes, orden:" + orden);
-        guardar(1);
-        System.out.println("Siguiente despues, orden:" + orden);
+        guardar();
+        desplegar(1);
         return SUCCESS;
+    }
+    
+    public String guardar()
+    {
+        this.setListaPreguntasEncuesta(controlardorEncuesta.consultarPreguntasEncuesta(this.orden));
+        this.obtenerRespuestas();
+        this.controlardorEncuesta.guardar(listaRespuestas);
+        
+        if (orden == ultima)
+            controladorEgresado.completarInformacion();
+        
+        return SUCCESS;
+    }
+    
+    private void desplegar(int incremento)
+    {
+        this.orden+=incremento;
+        controlardorEncuesta.refrescar();
+        this.setListaPreguntasEncuesta(controlardorEncuesta.consultarPreguntasEncuesta(this.orden));
     }
     
     private void obtenerRespuestas()
     {
+        Map<String, String[]> parameterMap = request.getParameterMap();
         long idPreguntaEncuesta, idEgresadoRespuesta = 0;
         listaRespuestas = new ArrayList<>();
         
         for (Map.Entry<String, String[]> entry : parameterMap.entrySet()) {
-            System.out.println("Key: " + entry.getKey());
             if (entry.getValue().length > 0)
-                System.out.println("Value: " + entry.getValue()[0]);
             
             if (!entry.getKey().contains("otro") && !entry.getKey().equals("idEncuesta")
                     && !entry.getKey().equals("anterior") && !entry.getKey().equals("siguiente")) {
@@ -145,7 +169,6 @@ public class EncuestaAction extends ActionSupport {
                                 egresadoRespuesta.setIdRespuestaEncuesta(egresadoRespuesta.getIdPreguntaEncuesta().getRespuestaEncuesta(Long.parseLong(valor)));
                                 break;
                             case 3:
-                                System.out.println("otro: " + parameterMap.get("__checkbox_otroPregunta"+entry.getKey())[0]);
                                 if (Boolean.parseBoolean(parameterMap.get("__checkbox_otroPregunta"+entry.getKey())[0])) {
                                     egresadoRespuesta.setOtra(valor);
                                 }
@@ -158,7 +181,7 @@ public class EncuestaAction extends ActionSupport {
                         
                     }catch(NumberFormatException ex)
                     {
-                        Logger.getLogger(ControladorEgresado.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger(EncuestaAction.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
             }

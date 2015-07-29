@@ -6,18 +6,22 @@
 
 package Action;
 
-import Modelo.EducacionFormalUCentral;
+import Modelo.Ciudad;
+import Modelo.Educacion;
+import Modelo.EducacionFormalUcentral;
 import Modelo.EstadoEducacion;
+import Modelo.Institucion;
 import Modelo.ItemLista;
 import Modelo.Jornada;
 import Modelo.Mes;
 import Modelo.Programa;
-import Util.Configuracion;
-import static com.opensymphony.xwork2.Action.SUCCESS;
+import Util.Constantes;
+import com.opensymphony.xwork2.ActionContext;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -25,11 +29,10 @@ import java.util.Map;
  *
  * @author YURY
  */
-public class EducacionFormalUCentralAction extends CrudAction<EducacionFormalUCentral> {
-    private Map<Long, Mes> listaMeses;
-    private Map<Long, EstadoEducacion> listaEstadosEducacion;
-    private Map<Long, Jornada> listaJornadas;
-    private Map<Long, Programa> listaProgramas;
+public class EducacionFormalUCentralAction extends CrudAction<EducacionFormalUcentral> {
+    private List<ItemLista> listaMeses;
+    private List<ItemLista> listaEstadosEducacion;
+    private List<ItemLista> listaJornadas;
     private ArrayList<Integer> listaAnios;
     private long mesInicio;
     private long mesFinalizacion;
@@ -40,67 +43,61 @@ public class EducacionFormalUCentralAction extends CrudAction<EducacionFormalUCe
     private long facultad;
 
     public EducacionFormalUCentralAction() {
-        super(EducacionFormalUCentral.class.getName());
-        this.idObjeto = "getIdEducacion";
-        this.coleccion = "getEducacionFormalUcentral";
-        this.claseConcretaPersistencia = Persistencia.EducacionFormalUcentral.class;
-        this.claseBasePersistencia = Persistencia.Educacion.class;
+        super(EducacionFormalUcentral.class.getName());
+        this.getIdObjeto = "getIdEducacion";
+        this.consultaTodos = "EducacionFormalUcentral.findByIdEgresado";
+        this.entidad = EducacionFormalUcentral.class.getSimpleName();
+        this.nombreIdObjeto = "idEducacion";
+        this.consultaIdObjeto = "EducacionFormalUcentral.findByIdEducacion";
+        this.baseEntidad = Educacion.class.getSimpleName();
+        
+        Map session = ActionContext.getContext().getSession();
+        long id = (long) session.get("idEgresado");
+        this.parametros = new HashMap<>();
+        this.parametros.put("idEgresado", id);
+        this.objeto.setIdEgresado(id);
     }
 
     /**
      * @return the listaMeses
      */
-    public Collection<Mes> getListaMeses() {
-        return listaMeses.values();
+    public List<ItemLista> getListaMeses() {
+        return listaMeses;
     }
 
     /**
      * @param listaMeses the listaMeses to set
      */
-    public void setListaMeses(Map<Long, Mes> listaMeses) {
+    public void setListaMeses(List<ItemLista> listaMeses) {
         this.listaMeses = listaMeses;
     }
 
     /**
      * @return the listaEstadosEducacion
      */
-    public Collection<EstadoEducacion> getListaEstadosEducacion() {
-        return listaEstadosEducacion.values();
+    public List<ItemLista> getListaEstadosEducacion() {
+        return listaEstadosEducacion;
     }
 
     /**
      * @param listaEstadosEducacion the listaEstadosEducacion to set
      */
-    public void setListaEstadosEducacion(Map<Long, EstadoEducacion> listaEstadosEducacion) {
+    public void setListaEstadosEducacion(List<ItemLista> listaEstadosEducacion) {
         this.listaEstadosEducacion = listaEstadosEducacion;
     }
 
     /**
      * @return the listaJornadas
      */
-    public Collection<Jornada> getListaJornadas() {
-        return listaJornadas.values();
+    public List<ItemLista> getListaJornadas() {
+        return listaJornadas;
     }
 
     /**
      * @param listaJornadas the listaJornadas to set
      */
-    public void setListaJornadas(Map<Long, Jornada> listaJornadas) {
+    public void setListaJornadas(List<ItemLista> listaJornadas) {
         this.listaJornadas = listaJornadas;
-    }
-
-    /**
-     * @return the listaProgramas
-     */
-    public Collection<Programa> getListaProgramas() {
-        return listaProgramas.values();
-    }
-
-    /**
-     * @param listaProgramas the listaProgramas to set
-     */
-    public void setListaProgramas(Map<Long, Programa> listaProgramas) {
-        this.listaProgramas = listaProgramas;
     }
 
     /**
@@ -216,23 +213,19 @@ public class EducacionFormalUCentralAction extends CrudAction<EducacionFormalUCe
     }
     
     @Override
-    public String desplegar() {
+    public void desplegar() {
         this.setListaEstadosEducacion(listas.consultarEstadosEducacion());
         this.setListaMeses(listas.consultarMeses());
         this.setListaJornadas(listas.consultarJornadas());
         this.setListaAnios(listas.consultarAnios());
-        
-        this.obtenerLista();
-        this.editar = true;
-        return SUCCESS;
     }
 
     @Override
     public void insertarTipos() {
-        this.objeto.setIdEstadoEducacion(listas.consultarEstadosEducacion().get(this.estadoEducacion));
-        this.objeto.setIdJornada(listas.consultarJornadas().get(this.jornada));
-        this.objeto.setIdMesFinalizacion(listas.consultarMeses().get(this.mesFinalizacion));
-        this.objeto.setIdMesInicio(listas.consultarMeses().get(this.mesInicio));
+        this.objeto.setIdEstadoEducacion(new EstadoEducacion(this.estadoEducacion));
+        this.objeto.setIdJornada(new Jornada(this.jornada));
+        this.objeto.setIdMesFinalizacion(new Mes(this.mesFinalizacion));
+        this.objeto.setIdMesInicio(new Mes(this.mesInicio));
         this.objeto.setIdPrograma(new Programa(this.programa));
     }
 
@@ -251,12 +244,11 @@ public class EducacionFormalUCentralAction extends CrudAction<EducacionFormalUCe
 
     @Override
     public void insertarValoresDefecto() {
-        Configuracion configuracion = new Configuracion();
         this.objeto.setEstado(true);
         this.objeto.setFechaRegistro(Date.valueOf(LocalDate.now()));
         this.objeto.setFechaActEstado(Date.valueOf(LocalDate.now()));
-        this.objeto.setIdCiudad(configuracion.getIdCiudadUcentral());
-        this.objeto.setIdInstitucion(configuracion.getIdInstitucionUcentral());
+        this.objeto.setIdCiudad(new Ciudad(Constantes.INSTITUCION_UCENTRAL));
+        this.objeto.setIdInstitucion(new Institucion(Constantes.CIUDAD_BOGOTA));
     }
 
     @Override
@@ -299,7 +291,7 @@ public class EducacionFormalUCentralAction extends CrudAction<EducacionFormalUCe
         List<ItemLista> listaNivelesEstudios = listas.consultarNivelesEstudiosObligatorioUCentral();
         
         Collection<Long> lista = new ArrayList<>();
-        for (EducacionFormalUCentral ed : listaObjetos.values()) {
+        for (EducacionFormalUcentral ed : listaObjetos) {
             lista.add(ed.getIdPrograma().getIdNivelEstudios().getIdNivelEstudios());
         }
 

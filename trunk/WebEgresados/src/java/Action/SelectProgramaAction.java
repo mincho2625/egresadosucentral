@@ -6,8 +6,8 @@
 
 package Action;
 
+import Controlador.ControladorListas;
 import Modelo.ItemLista;
-import Util.Listas;
 import com.opensymphony.xwork2.ActionSupport;
 import java.util.List;
 
@@ -22,11 +22,11 @@ public class SelectProgramaAction extends ActionSupport {
     private long nivelEstudios;
     private long facultad;
     private long programa;
-    private final Listas listas;
+    private final ControladorListas listas;
     
     public SelectProgramaAction()
     {
-        listas = new Listas();
+        listas = new ControladorListas();
     }
 
     /**

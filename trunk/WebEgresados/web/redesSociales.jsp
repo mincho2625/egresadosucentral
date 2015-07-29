@@ -2,114 +2,128 @@
 <%@taglib uri="/struts-tags" prefix="s"%>
 <%@taglib uri="/struts-jquery-tags" prefix="jq" %>
 <html lang="es">
-    <head><title>Registro Sistema</title>
+    <head><title>Datos de Ubicacion</title>
         <meta charset="utf-8">
-        <link href="estilo2.css" rel="stylesheet" type="text/css">
-        <jq:head></jq:head>
-        </head>
-        <body>
-            <div class="TituloPrincipal" style="/* [disabled]margin-left:10px; */ font-size: 20px">
-                <div align="center">Portal Egresados  Universidad Central</div>
+        <link rel="stylesheet" href="estilo.css">
+        <link rel="stylesheet" type="text/css" href="normalize.min.css">
+        <link rel="stylesheet" type="text/css" href="bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="font-awesome.min.css">
+        <link rel="stylesheet" type="text/css" href="styles.css">
+        <link rel="stylesheet" type="text/css" href="jce.css">
+        <s:head />
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+        <jq:head jqueryui="true" />
+    </head>
+    <body class="default" ontouchstart="">
+        <div id="main" class="container" role="main">
+            <div class="row">
+                <aside>
+                    <div id="system-message-container">
+                    </div>
+                </aside>
             </div>
-            <div class="titu">
-                <p align="left"><img src="imagenes/document-open.png" width="107" height="94">		      <span class="titu2">a a a</span><img src="imagenes/logosimbolo-ucentral-v1-medium.png" width="273" height="62">  <span class="titu2">a asda </span>Redes Sociales</p>
-            </div>
-            <!--<div id="default-example" data-collapse>
-                <h3>Informacion</h3>-->
-            <div align="center" class="tabla" id="Tabla">
-                <table rules="all" class="table2"  >
-                    <caption>&nbsp;
-                    </caption>
-                    <tr>
-                        <td class="texfield"><div align="center" class="fuentetabla">Red Social<br>
-                            </div></td>
-                        <td class="texfield"><div align="center" class="fuentetabla">URL<br>
-                            </div></td>
-                        <td class="texfield"><div align="center" class="fuentetabla">Accion<br>
-                            </div></td>
-                    </tr>
+            <div id="main-cuerpo">
+                <div class="row contenido show">
+                    <div class="componente col-lg-11 col-md-11 col-sm-11 col-xs-11 center-block">
+                        <br>
+                        <div class="row" style="margin-left: 130px">
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                <img style="text-align: center;width: 130px;height: 100px;margin-left: 25px"src="imagenes/sociales.jpg">
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 ">
+                                <h1 style="color: #2a6155;width:300px" >Redes Sociales</h1>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 center-block">
+                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"></div>
+                                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                                    <table rules="all" class="table table-striped table-bordered tabla_verde" style="width: 400px">
+                                        <thead>
+                                            <tr>
+                                                <th>Red Social</th>
+                                                <th>URL</th>
+                                                <th>Acción</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <s:hidden name="cantidadObjetos"></s:hidden>
+                                            <s:iterator value="listaObjetos">
+                                                <tr>
+                                                    <td><s:property value="idRedSocial.nombre"></s:property></td>
+                                                    <td><s:property value="url"></s:property></td>
+                                                        <td>
+                                                        <s:url id="editarURL" action="editarEgresadoRedSocial.action">
+                                                            <s:param name="idObjeto" value="%{idEgresadoRedSocial}" ></s:param>
+                                                        </s:url>
+                                                        <s:a href="%{editarURL}">
+                                                            <img style="width: 20px; height: 19px;" title="Editar" alt="Editar" src="imagenes/editar-icono-8419-16.png" align="top">
+                                                        </s:a>
+                                                        <s:url id="borrarURL" action="borrarEgresadoRedSocial.action">
+                                                            <s:param name="idObjeto" value="%{idEgresadoRedSocial}"></s:param>
+                                                        </s:url>
+                                                        <s:a href="%{borrarURL}">
+                                                            <img style="width: 20px; height: 19px;" title="Borrar" alt="Borrar" src="imagenes/eliminar.png" align="top">
+                                                        </s:a>
+                                                    </td>
+                                                </tr>
+                                            </s:iterator>
+                                        </tbody>
+                                    </table>
+                                    <div class="buttons" style="margin-left: 75px; width: 250px">
+                                        <a href="crearEgresadoRedSocial.action" target="contenido">
+                                            <button type="submit" class="boton_descargar boton guardar" style="width: auto" name="nuevo">
+                                                Registro Nuevo
+                                            </button>
+                                        </a><br>
+                                    </div>
+                                    <s:if test="hasActionErrors()">
+                                        <div style="width: auto">
+                                            <s:actionerror cssClass="alert alert-danger"/>
+                                        </div>
+                                    </s:if>
+                                    <div id="contenido1">
+                                        <s:if test="editar">
+                                            <h3 style="margin-left: 75px;width: 300px">Agregar Nueva Red Social</h3>
+                                            <s:form action="guardarEgresadoRedSocial.action">
+                                                <s:push value="objeto">
+                                                    <s:hidden name="idEgresadoRedSocial"></s:hidden>
+                                                        <table  style="width: 300px">
+                                                            <tr>
+                                                                <td>
+                                                                    <s:select label="Red Social" errorPosition="bottom" cssClass="center" name="redSocial" list="listaRedesSociales" listKey="id" listValue="nombre" headerKey="-1" headerValue="- Seleccione -"></s:select>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <s:textfield label="URL" errorPosition="bottom" name="url" cssClass="center"></s:textfield>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                            <s:actionerror></s:actionerror>
+                                                        </tr>
+                                                        <tr>
+                                                            <td></td>
+                                                            <td><s:submit cssClass="boton_descargar boton guardar" cssStyle="width:auto;" value="Guardar">
+                                                            </s:submit></td>
+                                                        </tr>
 
-                <s:hidden name="cantidadObjetos"></s:hidden>
-                <s:iterator value="listaObjetos">
-                    <tr>
-                        <td class="texfield"><s:property value="idRedSocial.nombre"></s:property><br>
-                            </td>
-                            <td class="texfield"><s:property value="url"></s:property><br>
-                            </td>
-                            <td class="texfield">
-                            <s:url id="editarURL" action="editarEgresadoRedSocial.action">
-                                <s:param name="idObjeto" value="%{idEgresadoRedSocial}" ></s:param>
-                            </s:url>
-                            <s:a href="%{editarURL}">
-                                <div class="fuentetabla2"><img style="width: 20px; height: 19px;" title="Editar" alt="Editar" src="imagenes/editar-icono-8419-16.png" align="top">
-                                </s:a>
-                                <s:url id="borrarURL" action="borrarEgresadoRedSocial.action">
-                                    <s:param name="idObjeto" value="%{idEgresadoRedSocial}"></s:param>
-                                </s:url>
-                                <s:a href="%{borrarURL}">
-                                    <img style="width: 20px; height: 19px;" title="Borrar" alt="Borrar" src="imagenes/eliminar.png" align="top">
-                                </s:a></div>
-                        </td>
-                    </tr>
-                </s:iterator>
-            </table>
-            <br>
-            <div class="buttons">
-                <a href="desplegarEgresadoRedSocial.action" target="contenido">
-                    <button type="submit" class="positive" name="nuevo">
-                        <img src="imagenes/btnGuardar.png" alt=""/>
-                        Nuevo
-                    </button>
-                </a><br>
-            </div>
-            <div align="center" class="fuente2"><br>
-            </div>
-            <div id="contenido1">
-                <span class="fuente2">
-                </span>
-                <s:if test="editar">
-                    <s:form action="guardarEgresadoRedSocial.action">
-                        <s:push value="objeto">
-                            <s:hidden name="idEgresadoRedSocial"></s:hidden>
-                                <div class="tdun">
-                                    <div align="center" class="fuente2">Agregar Nueva Red Social</div>
+                                                    </table>
+                                                </s:push>
+                                            </s:form>
+                                        </s:if>
+                                    </div>
+                                    <div class="enlaces">
+                                        <div class="tdsiguiente"><a href="siguienteEgresadoRedSocial.action"><img src="imagenes/next.png" width="21" height="21"></a></div>
+                                        <div class="tdatras"><a href="anteriorEgresadoRedSocial.action" class="tdatras"><img src="imagenes/atras.jpg" width="24" height="24"></a></div>
+                                    </div>        
                                 </div>
-                                <br>
-                                <table>
-                                    <tr>
-                                        <td>
-                                            <span class="texfield">
-                                            <s:select  label="Red Social" cssClass="center" name="redSocial" list="listaRedesSociales" listKey="idRedSocial" listValue="nombre" headerKey="-1" headerValue="- Seleccione -"></s:select>
-                                            </span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <span class="texfield">
-                                            <s:textfield label="URL" name="url" cssClass="center"></s:textfield>
-                                            </span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                    <s:actionerror></s:actionerror>
-                                    <s:submit cssClass="center1" value="Guardar">
-                                    </s:submit>
-                                </tr>
-
-                            </table>
-                        </s:push>
-                    </s:form>
-                </s:if>
-            </div>
-            </div>
-            <div class="enlaces">
-                <div class="tdsiguiente"><a href="siguienteEgresadoRedSocial.action"><img src="imagenes/next.png" width="21" height="21"></a></div>
-                <div class="tdatras"><a href="anteriorEgresadoRedSocial.action" class="tdatras"><img src="imagenes/atras.jpg" width="24" height="24"></a></div>
-            </div>
-            <s:if test="hasActionErrors()">
-                <div class="errors">
-                    <s:actionerror/>
+                                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </s:if>
+            </div> 
+        </div>          
     </body>
 </html>

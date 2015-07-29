@@ -1,15 +1,18 @@
 <!DOCTYPE html>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@taglib uri="/struts-tags" prefix="s"%>
 <%@taglib uri="/struts-jquery-tags" prefix="jq" %>
 <html lang="es">
-    <head><title>Registro Sistema</title>
+    <head><title>Datos de Ubicacion</title>
         <meta charset="utf-8">
-        <link href="estilo2.css" rel="stylesheet" type="text/css">
-        <s:head/>
+        <link rel="stylesheet" href="estilo.css">
+        <link rel="stylesheet" type="text/css" href="normalize.min.css">
+        <link rel="stylesheet" type="text/css" href="bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="font-awesome.min.css">
+        <link rel="stylesheet" type="text/css" href="styles.css">
+        <link rel="stylesheet" type="text/css" href="jce.css">
+        <s:head />
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
         <jq:head jqueryui="true" />
-        <script>document.documentElement.className = "js";</script>
-
         <script type="text/javascript">
             function fnOtraInstitucion(checked)
             {
@@ -36,194 +39,179 @@
             }
         </script>
     </head>
-    <body>
-        <div class="TituloPrincipal" style="/* [disabled]margin-left:10px; */ font-size: 20px">
-            <div align="center">Portal Egresados  Universidad Central</div>
-        </div>
-        <div class="titu">
-            <p align="left"><img src="imagenes/document-open.png" width="107" height="94">
-                <span class="titu2">a a a</span><img src="imagenes/logosimbolo-ucentral-v1-medium.png" width="273" height="62">  <span class="titu2">a as</span>Educacion no Formal</p>
-        </div>
-        <!--<div id="default-example" data-collapse>
-            <h3>Informacion</h3>-->
-        <div align="center" class="tabla" id="Tabla">
-            <table rules="all" class="table2" >
-                <caption>&nbsp;</caption>
-                <tr>
-                    <td class="texfield"><div align="center" class="fuentetabla">Ciudad<br>
-                        </div></td>
-                    <td class="texfield"><div align="center" class="fuentetabla">Institucion<br>
-                        </div></td>
-                    <td class="texfield"><div align="center" class="fuentetabla">Tipo<br>
-                        </div></td>
-                    <td class="texfield"><div align="center" class="fuentetabla">Ano Finalizacion<br>
-                        </div></td>
-                    <td class="texfield"><div align="center" class="fuentetabla">Estado<br>
-                        </div></td>
-                    <td class="texfield"><div align="center" class="fuentetabla">Accion<br>
-                        </div></td>
-                </tr>
-
-                <s:hidden name="cantidadObjetos"></s:hidden>
-                <s:iterator value="listaObjetos">
-                    <tr>
-                        <td class="texfield"><s:property value="idCiudad.nombre"></s:property><br>
-                            </td>
-                            <td class="texfield"><s:property value="idInstitucion.nombre"></s:property><br>
-                            </td>
-                            <td class="texfield"><s:property value="idNivelEstudios.nombre"></s:property><br>
-                            </td>
-                            <td class="texfield"><s:property value="anioFinalizacion"></s:property><br>
-                            </td>
-                            <td class="texfield"><s:property value="idEstadoEducacion.nombre"></s:property><br>
-                            </td>
-                            <td class="texfield">
-                                <div class="fuentetabla2">
-                                <s:url id="editarURL" action="editarEducacionNoFormal.action">
-                                    <s:param name="idObjeto" value="%{idEducacion}" ></s:param>
-                                </s:url>
-                                <s:a href="%{editarURL}">
-                                    <img style="width: 20px; height: 19px;" title="Editar" alt="Editar" src="imagenes/editar-icono-8419-16.png" align="top">
-                                </s:a>
-                                <s:url id="borrarURL" action="borrarEducacionNoFormal.action">
-                                    <s:param name="idObjeto" value="%{idEducacion}"></s:param>
-                                </s:url>
-                                <s:a href="%{borrarURL}">
-                                    <img style="width: 20px; height: 19px;" title="Borrar" alt="Borrar" src="imagenes/eliminar.png" align="top">
-                                </s:a></div>
-                        </td>
-                    </tr>
-                </s:iterator>
-            </table>
-            <br>
-            <div class="buttons">
-                <a href="desplegarEducacionNoFormal.action" target="contenido">
-                    <button type="submit" class="positive" name="nuevo">
-                        <img src="imagenes/btnGuardar.png" alt=""/>
-                        Nuevo
-                    </button>
-                </a><br>
+    <body class="default" ontouchstart="">
+        <div id="main" class="container" role="main">
+            <div class="row">
+                <aside>
+                    <div id="system-message-container">
+                    </div>
+                </aside>
             </div>
-            <div class="fromtables" id="contenido1">
-                <s:if test="editar">
-                    <s:form action="guardarEducacionNoFormal.action" id="formEducacion">
-                        <s:url id="ciudadURL" action="SelectCiudad"/>
-                        <s:push value="objeto">
-                            <s:hidden name="idEducacion"></s:hidden>
-                                <div class="fuente2">
-                                    <p>Generar Nuevo Registro                                </p>
-                                </div>
-                                <table >
-                                    <tr>
-                                        <td class="tduno">
-                                        <jq:select href="%{ciudadURL}" onChangeTopics="reloadsecondlist" name="pais" id="pais"
-                                                   list="listaPaises" listKey="id" listValue="nombre" onCompleteTopics="reloadsecondlist"
-                                                   headerKey="-1" headerValue="- Seleccione -" label="País:"/>
-                                    </td>
-                                    <td>
-                                        <jq:select href="%{ciudadURL}" onChangeTopics="reloadThirdlist" onCompleteTopics="reloadThirdlist"
-                                                   formIds="formEducacion" reloadTopics="reloadsecondlist" name="departamento" id="departamento"
-                                                   list="listaDepartamentos" listKey="id" listValue="nombre" headerKey="-1"
-                                                   headerValue="- Seleccione -" label="Departamento:"/>
-                                    </td>
-                                    <td>
-                                        <jq:select href="%{ciudadURL}" formIds="formEducacion" reloadTopics="reloadThirdlist"
-                                                   name="ciudad" list="listaCiudades" listKey="id" listValue="nombre" headerKey="-1"
-                                                   headerValue="- Seleccione -" id="ciudad" label="Ciudad:"/>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <s:select label="Institucion" cssClass="texfield" name="institucion" id="institucion" list="listaInstituciones" listKey="idInstitucion" listValue="nombre" headerKey="-1" headerValue="- Seleccione -"></s:select>
-                                        <s:checkbox cssClass="texfield" name="checkOtraInstitucion" onchange="fnOtraInstitucion(this.checked);" label="Otra Instituciï¿½n"></s:checkbox>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                        <s:textfield name="otraInstitucion" id="otraInstitucion" disabled="true"></s:textfield>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                        <s:select  label="Tipo" cssClass="texfield" name="nivelEstudios" id="nivelEstudios" list="listaNivelesEstudios" listKey="id" listValue="nombre" headerKey="-1" headerValue="- Seleccione -"></s:select>
-                                        <s:checkbox cssClass="texfield" name="checkOtroTipo" onchange="fnOtroTipoEdNoFormal(this.checked);" label="Otro"></s:checkbox>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                        <s:textfield label="Cual" name="otroNivelEstudios" id="otroNivelEstudios" cssClass="texfield" disabled="true"></s:textfield>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                        <s:select label="Area estudios " cssClass="texfield" name="areaEstudios" list="listaAreasEstudios" listKey="id" listValue="nombre" headerKey="-1" headerValue="- Seleccione -"></s:select>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                        <s:textfield name="titulo" cssClass="texfield" label="Titulo"></s:textfield>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                        <s:textfield name="descripcion" label="Descripciï¿½n" cssClass="texfield"></s:textfield>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                        <s:select label="Modalidad" cssClass="texfield" name="modalidad" list="listaModalidades" listKey="idModalidad" listValue="nombre" headerKey="-1" headerValue="- Seleccione -"></s:select>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                        <s:select label="Intensidad Horaria" cssClass="texfield" name="intensidadHoraria" list="listaIntensidadesHorarias" listKey="idIntensidadHoraria" listValue="nombre" headerKey="-1" headerValue="- Seleccione -"></s:select>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                        <s:select label="Ano Inicio" cssClass="texfield" name="anioInicio" list="listaAnios" headerKey="-1" headerValue="- Seleccione -"></s:select>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                        <s:select cssClass="texfield" label="Mes Inicio " name="mesInicio" list="listaMeses" listKey="idMes" listValue="mes" headerKey="-1" headerValue="- Seleccione -"></s:select>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                        <s:select label="Ano Finalizacion" cssClass="texfield" name="anioFinalizacion" list="listaAnios" headerKey="-1" headerValue="- Seleccione -"></s:select>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                        <s:select label="Mes Finalizacion " cssClass="texfield" name="mesFinalizacion" list="listaMeses" listKey="idMes" listValue="mes" headerKey="-1" headerValue="- Seleccione -"></s:select>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                        <s:select cssClass="texfield"  label="Estado" name="estadoEducacion" list="listaEstadosEducacion" listKey="idEstadoEducacion" listValue="nombre" headerKey="-1" headerValue="- Seleccione -"></s:select>
-                                        </td>
-                                    </tr>
-                                <s:actionerror></s:actionerror>
-                                <s:submit cssClass="center1" value="Guardar">
+            <div id="main-cuerpo">
+                <div class="row contenido show">
+                    <div class="componente col-lg-11 col-md-11 col-sm-11 col-xs-11 center-block">
+                        <br>
+                        <div class="row" style="margin-left: 150px">
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                <img style="text-align: center ;width: 100px;height: 100px"src="imagenes/noformal.jpg">
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 ">
+                                <h1 style="margin-left: -30px;color: #2a6155;width:300px">Educacion no Formal</h1>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 center-block">
+                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"></div>
+                                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                                    <table rules="all" class="table table-striped table-bordered tabla_verde" style=" margin-left: -100px;width: 600px">
+                                        <thead>
+                                            <tr>
+                                                <th>Ciudad</th>
+                                                <th>Institucion</th>
+                                                <th>Tipo</th>
+                                                <th>Ano Finalizacion</th>
+                                                <th>Estado</th>
+                                                <th>Accion</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <s:hidden name="cantidadObjetos"></s:hidden>
+                                            <s:iterator value="listaObjetos">
+                                                <tr>
+                                                    <td><s:property value="idCiudad.nombre"></s:property><br>
+                                                        </td>
+                                                        <td><s:property value="idInstitucion.nombre"></s:property><br>
+                                                        </td>
+                                                        <td><s:property value="idNivelEstudios.nombre"></s:property><br>
+                                                        </td>
+                                                        <td><s:property value="anioFinalizacion"></s:property><br>
+                                                        </td>
+                                                        <td><s:property value="idEstadoEducacion.nombre"></s:property><br>
+                                                        </td>
+                                                        <td>
+                                                            <div class="fuentetabla2">
+                                                            <s:url id="editarURL" action="editarEducacionNoFormal.action">
+                                                                <s:param name="idObjeto" value="%{idEducacion}" ></s:param>
+                                                            </s:url>
+                                                            <s:a href="%{editarURL}">
+                                                                <img style="width: 20px; height: 19px;" title="Editar" alt="Editar" src="imagenes/editar-icono-8419-16.png" align="top">
+                                                            </s:a>
+                                                            <s:url id="borrarURL" action="borrarEducacionNoFormal.action">
+                                                                <s:param name="idObjeto" value="%{idEducacion}"></s:param>
+                                                            </s:url>
+                                                            <s:a href="%{borrarURL}">
+                                                                <img style="width: 20px; height: 19px;" title="Borrar" alt="Borrar" src="imagenes/eliminar.png" align="top">
+                                                            </s:a></div>
+                                                    </td>
+                                                </tr>
+                                            </s:iterator>
+                                        </tbody>
+                                    </table>
                                     <br>
-                                </s:submit>
-                            </table>
-                        </s:push>
-                    </s:form>
-                </s:if>
-            </div>
-        </div>
-        <div class="enlaces">
-            <div class="tdsiguiente"><a href="siguienteEducacionNoFormal.action"><img src="imagenes/next.png" width="24" height="24"></a></div>
-            <div class="tdatras"><a href="anteriorEducacionNoFormal.action" class="tdatras"><img src="imagenes/atras.jpg" width="24" height="24"></a></div>
-        </div>
-        <s:if test="hasActionErrors()">
-            <div class="errors">
-                <s:actionerror/>
-            </div>
-        </s:if>
-        <br>
-        <br>
+                                    <div class="fromtables" style="margin-left: 100px; width: 200px">
+                                        <a href="crearEducacionNoFormal.action" target="contenido">
+                                            <button type="submit" class="boton_descargar boton guardar" name="nuevo">
+                                                Registro Nuevo
+                                            </button>
+                                        </a><br>
+                                    </div>
+                                    <s:if test="hasActionErrors()">
+                                        <div style="width: 450px">
+                                            <s:actionerror cssClass="alert alert-danger"/>
+                                        </div>
+                                    </s:if>
+                                    <div class="fromtables" id="contenido1">
+                                        <s:if test="editar">
+                                            <h3 style="margin-left: 50px;width: 400px">Generar Nuevo Registro</h3>
+                                            <s:form action="guardarEducacionNoFormal.action" id="formEducacion">
+                                                <s:url id="ciudadURL" action="SelectCiudad"/>
+                                                <s:push value="objeto">
+                                                    <s:hidden name="idEducacion"></s:hidden>
+                                                        <table style="margin-left: -100px;width: 500px">
+                                                            <tr>
+                                                                <td><jq:select href="%{ciudadURL}" onChangeTopics="reloadsecondlist" name="pais" id="pais"
+                                                                       list="listaPaises" listKey="id" listValue="nombre" onCompleteTopics="reloadsecondlist"
+                                                                       headerKey="-1" headerValue="- Seleccione -" label="País" errorPosition="bottom"/></td>
+                                                            </tr>
+                                                        <tr>
+                                                            <td><jq:select href="%{ciudadURL}" onChangeTopics="reloadThirdlist" onCompleteTopics="reloadThirdlist"
+                                                                       formIds="formEducacion" reloadTopics="reloadsecondlist" name="departamento" id="departamento"
+                                                                       list="listaDepartamentos" listKey="id" listValue="nombre" headerKey="-1"
+                                                                       headerValue="- Seleccione -" label="Departamento" errorPosition="bottom"/></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td><jq:select href="%{ciudadURL}" formIds="formEducacion" reloadTopics="reloadThirdlist"
+                                                                       name="ciudad" list="listaCiudades" listKey="id" listValue="nombre" headerKey="-1"
+                                                                       headerValue="- Seleccione -" id="ciudad" label="Ciudad" errorPosition="bottom"/></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td><s:select label="Institución" errorPosition="bottom" name="institucion" id="institucion" list="listaInstituciones" listKey="id" listValue="nombre" headerKey="-1" headerValue="- Seleccione -"></s:select></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><s:checkbox  name="checkOtraInstitucion" onchange="fnOtraInstitucion(this.checked);"></s:checkbox>
+                                                                <s:textfield label="Otra Institución" errorPosition="bottom" name="otraInstitucion" id="otraInstitucion" disabled="true"></s:textfield></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><s:select label="Tipo" errorPosition="bottom" name="nivelEstudios" id="nivelEstudios" list="listaNivelesEstudios" listKey="id" listValue="nombre" headerKey="-1" headerValue="- Seleccione -"></s:select></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><s:checkbox name="checkOtroTipo" onchange="fnOtroTipoEdNoFormal(this.checked);" label=""></s:checkbox>
+                                                                <s:textfield label="Otro" errorPosition="bottom" label="Cual" name="otroNivelEstudios" id="otroNivelEstudios" cssClass="texfield" disabled="true"></s:textfield></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><s:select label="Área estudios" errorPosition="bottom" name="areaEstudios" list="listaAreasEstudios" listKey="id" listValue="nombre" headerKey="-1" headerValue="- Seleccione -"></s:select></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><s:textfield name="titulo" label="Título" errorPosition="bottom"></s:textfield></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><s:textfield name="descripcion" label="Descripción" errorPosition="bottom"></s:textfield></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><s:select label="Modalidad" errorPosition="bottom" name="modalidad" list="listaModalidades" listKey="id" listValue="nombre" headerKey="-1" headerValue="- Seleccione -"></s:select></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><s:select label="Intensidad Horaria" errorPosition="bottom" name="intensidadHoraria" list="listaIntensidadesHorarias" listKey="id" listValue="nombre" headerKey="-1" headerValue="- Seleccione -"></s:select></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><s:select label="Año Inicio" errorPosition="bottom" name="anioInicio" list="listaAnios" headerKey="-1" headerValue="- Seleccione -"></s:select></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><s:select label="Mes Inicio" errorPosition="bottom" name="mesInicio" list="listaMeses" listKey="id" listValue="nombre" headerKey="-1" headerValue="- Seleccione -"></s:select></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><s:select label="Año Finalización" errorPosition="bottom" name="anioFinalizacion" list="listaAnios" headerKey="-1" headerValue="- Seleccione -"></s:select></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><s:select label="Mes Finalización" errorPosition="bottom" name="mesFinalizacion" list="listaMeses" listKey="id" listValue="nombre" headerKey="-1" headerValue="- Seleccione -"></s:select></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><s:select label="Estado" errorPosition="bottom" name="estadoEducacion" list="listaEstadosEducacion" listKey="id" listValue="nombre" headerKey="-1" headerValue="- Seleccione -"></s:select></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td></td>
+                                                                <td><s:actionerror></s:actionerror></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td></td>
+                                                                <td><s:submit cssClass="boton_auxiliar boton guardar" cssStyle="width:auto;" value="Guardar"></s:submit></td>
+                                                            </tr>
+                                                        </table>
+                                                </s:push>
+                                            </s:form>
+                                        </s:if>
+                                    </div>
+                                    <div class="enlaces">
+                                        <div class="tdsiguiente"><a href="siguienteEducacionNoFormal.action"><img src="imagenes/next.png" width="24" height="24"></a></div>
+                                        <div class="tdatras"><a href="anteriorEducacionNoFormal.action" class="tdatras"><img src="imagenes/atras.jpg" width="24" height="24"></a></div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+        </div>          
     </body>
 </html>

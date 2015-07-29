@@ -10,10 +10,10 @@ import Modelo.Asociacion;
 import Modelo.ItemLista;
 import Modelo.Pais;
 import Modelo.TipoAsociacion;
-import static com.opensymphony.xwork2.Action.SUCCESS;
+import com.opensymphony.xwork2.ActionContext;
 import java.sql.Date;
 import java.time.LocalDate;
-import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -22,29 +22,37 @@ import java.util.Map;
  * @author YURY
  */
 public class AsociacionAction extends CrudAction<Asociacion> {
-    private Map<Long, TipoAsociacion> listaTiposAsociaciones;
+    private List<ItemLista> listaTiposAsociaciones;
     private List<ItemLista> listaPaises;
     private long tipoAsociacion;
     private long pais;
     
     public AsociacionAction() {
         super(Asociacion.class.getName());
-        this.idObjeto = "getIdAsociacion";
-        this.coleccion = "getAsociacionCollection";
-        this.claseConcretaPersistencia = Persistencia.Asociacion.class;
+        this.getIdObjeto = "getIdAsociacion";
+        this.consultaTodos = "Asociacion.findByIdEgresado";
+        this.entidad = Asociacion.class.getSimpleName();
+        this.nombreIdObjeto = "idAsociacion";
+        this.consultaIdObjeto = "Asociacion.findByIdAsociacion";
+        
+        Map session = ActionContext.getContext().getSession();
+        long id = (long) session.get("idEgresado");
+        this.parametros = new HashMap<>();
+        this.parametros.put("idEgresado", id);
+        this.objeto.setIdEgresado(id);
     }
 
     /**
      * @return the listaTiposAsociaciones
      */
-    public Collection<TipoAsociacion> getListaTiposAsociaciones() {
-        return listaTiposAsociaciones.values();
+    public List<ItemLista> getListaTiposAsociaciones() {
+        return listaTiposAsociaciones;
     }
 
     /**
      * @param listaTiposAsociaciones the listaTiposAsociaciones to set
      */
-    public void setListaTiposAsociaciones(Map<Long, TipoAsociacion> listaTiposAsociaciones) {
+    public void setListaTiposAsociaciones(List<ItemLista> listaTiposAsociaciones) {
         this.listaTiposAsociaciones = listaTiposAsociaciones;
     }
 
@@ -91,17 +99,14 @@ public class AsociacionAction extends CrudAction<Asociacion> {
     }
     
     @Override
-    public String desplegar() {
+    public void desplegar() {
         this.setListaTiposAsociaciones(listas.consultarTiposAsociaciones());
         this.setListaPaises(listas.consultarPaises());
-        this.obtenerLista();
-        this.editar = true;
-        return SUCCESS;
     }
 
     @Override
     public void insertarTipos() {
-        this.objeto.setIdTipoAsociacion(listas.consultarTiposAsociaciones().get(this.tipoAsociacion));
+        this.objeto.setIdTipoAsociacion(new TipoAsociacion(this.tipoAsociacion));
         this.objeto.setIdPais(new Pais(this.pais));
     }
 
