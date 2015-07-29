@@ -30,6 +30,7 @@ public class BusquedaAvanzadaAction extends ActionSupport {
     private Map<String, Object> parametros;
     private List<Egresado> listaEgresados;
     private List<String> criterioSeleccionado;
+    private int indice;
     
     public BusquedaAvanzadaAction()
     {
@@ -163,6 +164,20 @@ public class BusquedaAvanzadaAction extends ActionSupport {
         this.criterioSeleccionado = criterioSeleccionado;
     }
     
+    /**
+     * @return the indice
+     */
+    public int getIndice() {
+        return indice;
+    }
+
+    /**
+     * @param indice the indice to set
+     */
+    public void setIndice(int indice) {
+        this.indice = indice;
+    }
+    
     private void desplegar()
     {
         listaPlantillas = listas.consultarPlantillasCorreo();
@@ -178,6 +193,7 @@ public class BusquedaAvanzadaAction extends ActionSupport {
     }
     
     public String buscar() {
+        System.out.println("Inicio Buscar");
         validar();
         
         if (!hasErrors()) {
@@ -192,6 +208,8 @@ public class BusquedaAvanzadaAction extends ActionSupport {
             // buscar
             ControladorEgresado controladorEgresado = new ControladorEgresado();
             listaEgresados = controladorEgresado.consultar(parametros);
+            indice = 1;
+            System.out.println("Fin Buscar");
             return SUCCESS;
         }
         
