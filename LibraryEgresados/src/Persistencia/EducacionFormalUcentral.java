@@ -33,22 +33,7 @@ import javax.xml.bind.annotation.XmlRootElement;
                     + "inner join Educacion ed on ed = e.educacion "
                     + "inner join Egresado eg on eg = ed.idEgresado "
                     + "inner join Usuario u on u = eg.usuario "
-                    + "WHERE u.idUsuario = :idEgresado and ed.estado = :estado"),
-    @NamedQuery(name = "EducacionFormalUcentral.findByCriterio", 
-            query = "SELECT distinct eg FROM EducacionFormalUcentral e "
-                    + "inner join Educacion ed on ed = e.educacion "
-                    + "inner join Programa p on p = e.idPrograma "
-                    + "inner join Facultad f on f = p.idFacultad "
-                    + "inner join NivelEstudios n on n = p.idNivelEstudios "
-                    + "inner join Egresado eg on eg = ed.idEgresado "
-                    + "inner join Genero g on g = eg.idGenero "
-                    + "inner join EstadoCivil ec on ec = eg.idEstadoCivil "
-                    + "WHERE (p.idPrograma in (:idPrograma) or :idPrograma is null) "
-                    + "and (f.idFacultad in (:idFacultad) or :idFacultad is null) "
-                    + "and (n.idNivelEstudios in (:idNivelEstudios) or :idNivelEstudios is null) "
-                    + "and (ed.anioFinalizacion = :anioFinalizacion or :anioFinalizacion is null) "
-                    + "and (g.idGenero = :idGenero or :idGenero is null) "
-                    + "and (ec.idEstadoCivil in (:idEstadoCivil) or :idEstadoCivil is null)")})
+                    + "WHERE u.idUsuario = :idEgresado and ed.estado = :estado")})
 public class EducacionFormalUcentral implements Serializable {
     private static final long serialVersionUID = 1L;
     @JoinColumn(name = "ID_PROGRAMA", referencedColumnName = "ID_PROGRAMA")

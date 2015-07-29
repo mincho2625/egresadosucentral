@@ -235,6 +235,12 @@ public class ControladorListas {
         parametros.put("estado", true);
         return consultar("Genero.findByEstado", "getIdGenero", parametros);
     }
+    
+    public Map<Long, String> consultarMapGeneros() {
+        HashMap<String, Object> parametros = new HashMap<>();
+        parametros.put("estado", true);
+        return consultarMap("Genero.findByEstado", "getIdGenero", parametros);
+    }
 
     /**
      * @return the listaEstadosCiviles
@@ -243,6 +249,12 @@ public class ControladorListas {
         HashMap<String, Object> parametros = new HashMap<>();
         parametros.put("estado", true);
         return consultar("EstadoCivil.findByEstado", "getIdEstadoCivil", parametros, "getEstadoCivil");
+    }
+    
+    public Map<Long, String> consultarMapEstadosCiviles() {
+        HashMap<String, Object> parametros = new HashMap<>();
+        parametros.put("estado", true);
+        return consultarMap("EstadoCivil.findByEstado", "getIdEstadoCivil", parametros, "getEstadoCivil");
     }
 
     /**
@@ -367,6 +379,12 @@ public class ControladorListas {
         return consultar("NivelEstudios.findByAplicaUCentral", "getIdNivelEstudios", parametros);
     }
     
+    public Map<Long, String> consultarMapNivelesEstudiosAplicaUCentral() {
+        HashMap<String, Object> parametros = new HashMap<>();
+        parametros.put("estado", true);
+        return consultarMap("NivelEstudios.findByAplicaUCentral", "getIdNivelEstudios", parametros);
+    }
+    
     public List<ItemLista> consultarNivelesEstudiosObligatorioUCentral() { 
         HashMap<String, Object> parametros = new HashMap<>();
         parametros.put("obligatorioUCentral", true);
@@ -391,6 +409,12 @@ public class ControladorListas {
         return consultar("Facultad.findByEstado", "getIdFacultad", parametros);
     }
     
+    public Map<Long, String> consultarMapFacultades() {
+        HashMap<String, Object> parametros = new HashMap<>();
+        parametros.put("estado", true);
+        return consultarMap("Facultad.findByEstado", "getIdFacultad", parametros);
+    }
+    
     /**
      * @param idFacultad
      * @param idNivelEstudios
@@ -404,13 +428,13 @@ public class ControladorListas {
         return consultar("Programa.findByFacultadYNivelEstudios", "getIdPrograma", parametros);
     }
     
-    public List<ItemLista> consultarProgramasPorListaFacultadYNivelEstudios(List<Long> listaFacultades, 
+    public Map<Long, String> consultarMapProgramasPorListaFacultadYNivelEstudios(List<Long> listaFacultades, 
             List<Long> listaNivelesEstudios) {
         HashMap<String, Object> parametros = new HashMap<>();
         parametros.put("listaFacultades", listaFacultades);
         parametros.put("listaNivelesEstudios", listaNivelesEstudios);
         parametros.put("estado", true);
-        return consultar("Programa.findByListaFacultadYNivelEstudios", "getIdPrograma", parametros);
+        return consultarMap("Programa.findByListaFacultadYNivelEstudios", "getIdPrograma", parametros);
     }
     
     public List<ItemLista> consultarAreasEstudiosPorNivelEstudiosNull() {
@@ -511,6 +535,58 @@ public class ControladorListas {
                 item.setId((Long)convertidor.invocar(objeto, idObjeto));
                 item.setNombre((String)convertidor.invocar(objeto, nombreObjeto));
                 listaObjetos.add(item);
+            }
+
+            return listaObjetos;
+        } catch (SecurityException | IllegalArgumentException ex) {
+            Logger.getLogger(ControladorListas.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return null;
+    }
+    
+    private Map<Long, String> consultarMap(String consulta, String idObjeto, Map<String, Object> parametros)
+    {
+        Convertidor convertidor = new Convertidor();
+        EntityManager em = emf.createEntityManager();
+        Map<Long, String> listaObjetos = new HashMap<>();
+        
+        try {
+            Query query = em.createNamedQuery(consulta);
+            
+            for (Map.Entry<String, Object> entry : parametros.entrySet()) {
+                query.setParameter(entry.getKey(), entry.getValue());
+            }
+            
+            List<Object> lista = query.getResultList();
+            for(Object objeto: lista) {
+                listaObjetos.put((Long)convertidor.invocar(objeto, idObjeto), (String)convertidor.invocar(objeto, "getNombre"));
+            }
+
+            return listaObjetos;
+        } catch (SecurityException | IllegalArgumentException ex) {
+            Logger.getLogger(ControladorListas.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return null;
+    }
+    
+    private Map<Long, String> consultarMap(String consulta, String idObjeto, Map<String, Object> parametros, String nombreObjeto)
+    {
+        Convertidor convertidor = new Convertidor();
+        EntityManager em = emf.createEntityManager();
+        Map<Long, String> listaObjetos = new HashMap<>();
+        
+        try {
+            Query query = em.createNamedQuery(consulta);
+            
+            for (Map.Entry<String, Object> entry : parametros.entrySet()) {
+                query.setParameter(entry.getKey(), entry.getValue());
+            }
+            
+            List<Object> lista = query.getResultList();
+            for(Object objeto: lista) {
+                listaObjetos.put((Long)convertidor.invocar(objeto, idObjeto), (String)convertidor.invocar(objeto, nombreObjeto));
             }
 
             return listaObjetos;
