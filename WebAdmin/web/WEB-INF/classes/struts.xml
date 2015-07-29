@@ -10,7 +10,7 @@
     <constant name="struts.mapper.action.prefix.enabled" value="true" />
     <constant name="struts.ui.theme" value="ucentral" />
     
-    <package name="egresados" extends="struts-default">
+    <package name="egresados" extends="struts-default,json-default">
         
         <action name="*Ingreso" method="{1}" class="Action.IngresoAction">
             <result name="success">/index.jsp</result>
@@ -262,17 +262,7 @@
             <result name="input">/busquedaAvanzada.jsp</result>
             <result name="error">/busquedaAvanzada.jsp</result>
         </action>
-    </package>
-    
-    <package name="json" extends="json-default">
-        <interceptors>
-            <interceptor-stack name="defaultStack">
-                <interceptor-ref name="json">
-                    <param name="enableSMD">true</param>
-                </interceptor-ref>
-            </interceptor-stack>
-        </interceptors>
-
+        
         <action name="SelectPrograma" class="Action.SelectProgramaAction">
             <result type="json">
             </result>

@@ -10,7 +10,6 @@ import Controlador.ControladorListas;
 import Modelo.Egresado;
 import Modelo.ItemLista;
 import com.opensymphony.xwork2.ActionSupport;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,9 +19,6 @@ import java.util.Map;
  * @author YURY
  */
 public class BusquedaAvanzadaAction extends ActionSupport {
-    private List<Integer> listaAnios;
-    private List<ItemLista> listaGeneros;
-    private List<ItemLista> listaEstadosCiviles;
     private List<ItemLista> listaPlantillas;
     private List<Long> seleccionNivelEstudios;
     private List<Long> seleccionFacultades;
@@ -33,57 +29,12 @@ public class BusquedaAvanzadaAction extends ActionSupport {
     private final ControladorListas listas;
     private Map<String, Object> parametros;
     private List<Egresado> listaEgresados;
+    private List<String> criterioSeleccionado;
     
     public BusquedaAvanzadaAction()
     {
         listas = new ControladorListas();
         desplegar();
-        //seleccionFacultades = new ArrayList<>();
-        //seleccionNivelEstudios = new ArrayList<>();
-        //seleccionProgramas = new ArrayList<>();
-        //seleccionEstadosCiviles = new ArrayList<>();
-    }
-
-    /**
-     * @return the listaAnios
-     */
-    public List<Integer> getListaAnios() {
-        return listaAnios;
-    }
-
-    /**
-     * @param listaAnios the listaAnios to set
-     */
-    public void setListaAnios(List<Integer> listaAnios) {
-        this.listaAnios = listaAnios;
-    }
-
-    /**
-     * @return the listaGeneros
-     */
-    public List<ItemLista> getListaGeneros() {
-        return listaGeneros;
-    }
-
-    /**
-     * @param listaGeneros the listaGeneros to set
-     */
-    public void setListaGeneros(List<ItemLista> listaGeneros) {
-        this.listaGeneros = listaGeneros;
-    }
-
-    /**
-     * @return the listaEstadosCiviles
-     */
-    public List<ItemLista> getListaEstadosCiviles() {
-        return listaEstadosCiviles;
-    }
-
-    /**
-     * @param listaEstadosCiviles the listaEstadosCiviles to set
-     */
-    public void setListaEstadosCiviles(List<ItemLista> listaEstadosCiviles) {
-        this.listaEstadosCiviles = listaEstadosCiviles;
     }
 
     /**
@@ -198,11 +149,22 @@ public class BusquedaAvanzadaAction extends ActionSupport {
         this.listaEgresados = listaEgresados;
     }
     
+     /**
+     * @return the criterioSeleccionado
+     */
+    public List<String> getCriterioSeleccionado() {
+        return criterioSeleccionado;
+    }
+
+    /**
+     * @param criterioSeleccionado the criterioSeleccionado to set
+     */
+    public void setCriterioSeleccionado(List<String> criterioSeleccionado) {
+        this.criterioSeleccionado = criterioSeleccionado;
+    }
+    
     private void desplegar()
     {
-        listaAnios = listas.consultarAnios();
-        listaEstadosCiviles = listas.consultarEstadosCiviles();
-        listaGeneros = listas.consultarGeneros();
         listaPlantillas = listas.consultarPlantillasCorreo();
     }
     
@@ -220,12 +182,12 @@ public class BusquedaAvanzadaAction extends ActionSupport {
         
         if (!hasErrors()) {
             parametros = new HashMap<>();
-            parametros.put("idPrograma", this.seleccionProgramas.size() > 0 ? this.seleccionProgramas : null);
-            parametros.put("idNivelEstudios", this.seleccionNivelEstudios.size() > 0 ? this.seleccionNivelEstudios : null);
-            parametros.put("idFacultad", this.seleccionFacultades.size() > 0 ? this.seleccionFacultades : null);
-            parametros.put("anioFinalizacion", this.seleccionAnios.size() > 0 ? this.seleccionAnios : null);
-            parametros.put("idGenero", this.seleccionGeneros.size() > 0 ? this.seleccionGeneros : null);
-            parametros.put("idEstadoCivil", this.seleccionEstadosCiviles.size() > 0 ? this.seleccionEstadosCiviles : null);
+            if (this.seleccionProgramas.size() > 0) parametros.put("idPrograma", this.seleccionProgramas);
+            if (this.seleccionNivelEstudios.size() > 0) parametros.put("idNivelEstudios", this.seleccionNivelEstudios);
+            if (this.seleccionFacultades.size() > 0) parametros.put("idFacultad", this.seleccionFacultades);
+            if (this.seleccionAnios.size() > 0) parametros.put("anioFinalizacion", this.seleccionAnios);
+            if (this.seleccionGeneros.size() > 0) parametros.put("idGenero", this.seleccionGeneros);
+            if (this.seleccionEstadosCiviles.size() > 0) parametros.put("idEstadoCivil", this.seleccionEstadosCiviles);
 
             // buscar
             ControladorEgresado controladorEgresado = new ControladorEgresado();
