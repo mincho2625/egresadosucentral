@@ -1,0 +1,472 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package Controlador;
+
+import Persistencia.Aficiones;
+import Persistencia.Ciudad;
+import Persistencia.Contacto;
+import Persistencia.EdFormalOtrasInstituciones;
+import Persistencia.Educacion;
+import Persistencia.EducacionFormalUcentral;
+import Persistencia.EgresadoRespuesta;
+import Persistencia.EstadoCivil;
+import Persistencia.EstadoEducacion;
+import Persistencia.Estrato;
+import Persistencia.Genero;
+import Persistencia.Institucion;
+import Persistencia.Mes;
+import Persistencia.PreguntaEncuesta;
+import Persistencia.Programa;
+import Persistencia.Residencia;
+import Persistencia.RespuestaEncuesta;
+import Persistencia.TipoActividad;
+import Persistencia.TipoContacto;
+import Persistencia.TipoTenenciaVivienda;
+import Persistencia.TipoVivienda;
+import Persistencia.Usuario;
+import Util.Constantes;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.Query;
+import javax.transaction.Transactional;
+
+/**
+ *
+ * @author YURY
+ */
+public class CargueEgresado {
+
+    private final EntityManagerFactory emf = Persistence.createEntityManagerFactory("EgresadosPU");
+    private final EntityManager em;
+    private final String[] informacion;
+    private Persistencia.Egresado egresado;
+    private String error;
+    
+    public CargueEgresado(String[] informacion) {
+        this.informacion = informacion;
+        em = emf.createEntityManager();
+    }
+    
+    /**
+     * @return the error
+     */
+    public String getError() {
+        return error;
+    }
+
+    /**
+     * @param error the error to set
+     */
+    public void setError(String error) {
+        this.error = error;
+    }
+
+    public void iniciarTransaccion() {
+        em.getTransaction().begin();
+        //em.getTransaction().setRollbackOnly();
+        egresado = new Persistencia.Egresado();
+    }
+
+    public void terminarTransaccion(boolean ok) {
+        try {
+            if (ok) {
+                if (em.getTransaction().getRollbackOnly())
+                    em.getTransaction().commit();
+                else
+                    em.getTransaction().rollback();
+            }
+            else {
+                em.getTransaction().rollback();
+            }
+        }
+        catch (Exception ex)
+        {
+            Logger.getLogger(ControladorCargueMasivo.class.getName()).log(Level.SEVERE, null, ex);
+            error = ex.getMessage();
+            if (em.getTransaction().isActive())
+                em.getTransaction().rollback();
+        }
+        finally {
+            em.close();
+        }
+    }
+
+    public boolean crearEgresado() {
+        try {
+            if (!asignarNumeroDocumento(informacion[0])) return false;
+            if (!asignarEstadoCivil(informacion[37])) return false;
+            if (!asignarGenero(informacion[4])) return false;
+            if (!asignarNombres(informacion[5])) return false;
+            if (!asignarUsuario(informacion[12])) return false;
+
+            egresado.setAceptaCondiciones(true);
+            egresado.setInformacionCompleta(false);
+
+            //if (!asignarEducacionFormalUCentral()) return false;
+
+            //asignarInformacionContacto(informacion[13], Constantes.TIPO_CONTACTO_CORREO_PERSONAL);
+            //asignarInformacionContacto(informacion[14], Constantes.TIPO_CONTACTO_CORREO_PERSONAL);
+            //asignarInformacionContacto(informacion[19], Constantes.TIPO_CONTACTO_MOVIL);
+            //asignarInformacionContacto(informacion[20], Constantes.TIPO_CONTACTO_MOVIL);
+            //asignarInformacionContacto(informacion[21], Constantes.TIPO_CONTACTO_MOVIL);
+            //asignarInformacionContacto(informacion[17], Constantes.TIPO_CONTACTO_TELEFONO_RESIDENCIA);
+            //asignarInformacionContacto(informacion[18], Constantes.TIPO_CONTACTO_TELEFONO_RESIDENCIA);
+            //asignarInformacionContacto(informacion[22], Constantes.TIPO_CONTACTO_DIRECCION_EMPRESA);
+
+            //asignarInformacionResidencia();
+            //asignarInformacionEducacionFormalOtrasInst(informacion[30], informacion[31]);
+            //asignarInformacionEducacionFormalOtrasInst(informacion[32], informacion[33]);
+            //asignarDeportesAficiones(informacion[82]);
+            //asignarDeportesAficiones(informacion[83]);
+            //asignarEncuesta();
+            asignarFechaUltimaActualizacion(informacion[36]);
+
+            System.out.println("Persist egresado");
+            em.persist(egresado);
+
+            return true;
+        }
+        catch (Exception ex) {
+            Logger.getLogger(ControladorCargueMasivo.class.getName()).log(Level.SEVERE, null, ex);
+            error = ex.getMessage();
+            return false;
+        }
+    }
+    
+    //@Transactional
+    private boolean asignarNumeroDocumento(String numeroDocumento) {
+        System.out.println("numeroDocumento: " + numeroDocumento);
+        if (numeroDocumento != null && !numeroDocumento.isEmpty()) {
+            Map<String, Object> parametros = new HashMap<>();
+            parametros.put("numeroDocumento", numeroDocumento);
+            Object e = consultar("Egresado.findByNumeroDocumento", parametros);
+            if (e != null) {
+                setError("El número de documento ya está registrado");
+                return false;
+            }
+            
+            egresado.setNumeroDocumento(numeroDocumento);
+            return true;
+        }
+        
+        setError("El número de documento no es válido");
+        return false;
+    }
+
+    //@Transactional
+    private boolean asignarEstadoCivil(String nombre) {
+        System.out.println("Estado civil: " + nombre);
+        Map<String, Object> parametros = new HashMap<>();
+        parametros.put("estadoCivil", nombre);
+        
+        Object estadoCivil = consultar("EstadoCivil.findByEstadoCivil", parametros);
+        if (estadoCivil == null) {
+            setError(String.format("El estado civil %s no existe", nombre));
+            return false;
+        } else {
+            egresado.setIdEstadoCivil((EstadoCivil)estadoCivil);
+            return true;
+        }
+    }
+    
+    //@Transactional
+    private boolean asignarGenero(String nombre) {
+        Map<String, Object> parametros = new HashMap<>();
+        parametros.put("nombre", nombre);
+        Object genero = consultar("Genero.findByNombre", parametros);
+        if (genero == null) {
+            setError(String.format("El género %s no existe", nombre));
+            return false;
+        } else {
+            egresado.setIdGenero((Genero)genero);
+            return true;
+        }
+    }
+    
+    //@Transactional
+    private boolean asignarNombres(String nombres) {
+        String[] n = nombres.split(" ");
+        if (n.length == 2) {
+            egresado.setNombres(n[0]);
+            egresado.setPrimerApellido(n[1]);
+            return true;
+        }
+        if (n.length == 3) {
+            egresado.setNombres(n[0]);
+            egresado.setPrimerApellido(n[1]);
+            egresado.setSegundoApellido(n[2]);
+            return true;
+        }
+        if (n.length == 4) {
+            egresado.setNombres(String.format("%s %s", n[0], n[1]));
+            egresado.setPrimerApellido(n[2]);
+            egresado.setSegundoApellido(n[3]);
+            return true;
+        }
+        if (n.length > 4) {
+            egresado.setNombres(String.format("%s %s", n[0], n[1]));
+            egresado.setPrimerApellido(n[2]);
+            
+            for (int i = 3; i < n.length; i++)
+                egresado.setSegundoApellido(egresado.getSegundoApellido() + " " + n[i]);
+            return true;
+        }
+        
+        setError(String.format("El nombre %s no es válido", nombres));
+        return false;
+    }
+    
+    //@Transactional
+    private void asignarFechaUltimaActualizacion(String fecha) {
+        if (fecha != null && !fecha.isEmpty()) {
+            SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+            try {
+                egresado.setFechaUltimaAct(formato.parse(fecha));
+            } catch (ParseException ex) {
+                egresado.setFechaUltimaAct(Calendar.getInstance().getTime());
+            }
+        }
+        else {
+            egresado.setFechaUltimaAct(Calendar.getInstance().getTime());
+        }
+    }
+    
+    //@Transactional
+    private boolean asignarUsuario(String correoInstitucional) {
+        if (correoInstitucional != null && !correoInstitucional.isEmpty()) {
+            String[] split = correoInstitucional.split("@");
+            if (split.length == 2)
+            {
+                Usuario usuario = new Usuario();
+                usuario.setContrasenia(egresado.getNumeroDocumento());
+                usuario.setCorreoInstitucional(correoInstitucional);
+                usuario.setEstado(true);
+                usuario.setFechaRegistro(Calendar.getInstance().getTime());
+                usuario.setNombre(split[0]);
+                egresado.setUsuario(usuario);
+                System.out.println("persist usuario");
+                em.persist(usuario);
+                return true;
+            }
+        }
+        
+        setError(String.format("El correo institucional %s no es válido", correoInstitucional));
+        return false;
+    }
+    
+    //@Transactional
+    private boolean asignarEducacionFormalUCentral() {
+        Map<String, Object> parametros = new HashMap<>();
+        parametros.put("nombre", informacion[3]);
+        Object programa = consultar("Programa.findByNombre", parametros);
+        if (programa == null) {
+            setError(String.format("El programa %s no existe", informacion[3]));
+            return false;
+        } else {
+            EducacionFormalUcentral educacionFormalUcentral = new EducacionFormalUcentral();
+            Educacion educacion = new Educacion();
+            educacionFormalUcentral.setIdPrograma((Programa)programa);
+            educacion.setIdEgresado(egresado);
+            educacion.setFechaRegistro(Calendar.getInstance().getTime());
+            educacion.setFechaActEstado(Calendar.getInstance().getTime());
+            educacion.setIdCiudad(em.getReference(Ciudad.class, Constantes.CIUDAD_BOGOTA));
+            educacion.setIdEstadoEducacion(em.getReference(EstadoEducacion.class, Constantes.ESTADO_EDUCACION_TERMINADO));
+            educacion.setIdInstitucion(em.getReference(Institucion.class, Constantes.INSTITUCION_UCENTRAL));
+            educacion.setEstado(true);
+            
+            try {
+                SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+                Date fechaGrado = formato.parse(informacion[7]);
+                educacion.setAnioFinalizacion(fechaGrado.getYear());
+                educacion.setIdMesFinalizacion(em.getReference(Mes.class, (long)fechaGrado.getMonth()));
+            } catch (ParseException ex) {
+                setError(String.format("El formato de fecha de Grado %s no es válido", informacion[7]));
+                return false;
+            }
+            
+            educacionFormalUcentral.setEducacion(educacion);
+            System.out.println("Persist educacionFormalUcentral");
+            //egresado.getEducacionCollection().add(educacion);
+            em.persist(educacion);
+            em.persist(educacionFormalUcentral);
+            return true;
+        }
+    }
+    
+    //@Transactional
+    private void asignarInformacionContacto(String descripcion, long idTipoContacto) {
+        if (descripcion != null && !descripcion.isEmpty()) {
+            Contacto contacto = new Contacto();
+            contacto.setDescripcion(descripcion);
+            contacto.setEstado(true);
+            contacto.setFechaRegistro(Calendar.getInstance().getTime());
+            contacto.setIdEgresado(egresado);
+            contacto.setIdTipoContacto(em.getReference(TipoContacto.class, idTipoContacto));
+            System.out.println("Persist contacto");
+            //egresado.getContactoCollection().add(contacto);
+            em.persist(contacto);
+        }
+    }
+    
+    //@Transactional
+    private void asignarInformacionResidencia() {
+        Map<String, Object> parametros = new HashMap<>();
+        parametros.put("nombre", informacion[3]);
+        Object objeto = consultar("Ciudad.findByNombre", parametros);
+        if (informacion[15] != null && !informacion[15].isEmpty() && objeto != null) {
+            Residencia residencia = new Residencia();
+            residencia.setDireccion(informacion[15]);
+            residencia.setIdCiudad((Ciudad)objeto);
+            
+            parametros.clear();
+            parametros.put("nombre", informacion[3]);
+            objeto = consultar("TipoVivienda.findByNombre", parametros);
+            if (objeto != null) residencia.setIdTipoVivienda((TipoVivienda) objeto);
+            
+            parametros.clear();
+            parametros.put("nombre", informacion[69]);
+            objeto = consultar("TipoTenenciaVivienda.findByNombre", parametros);
+            if (objeto != null) residencia.setIdTipoTenenciaVivienda((TipoTenenciaVivienda) objeto);
+            
+            parametros.clear();
+            parametros.put("nombre", informacion[70]);
+            objeto = consultar("Estrato.findByNombre", parametros);
+            if (objeto != null) residencia.setIdEstrato((Estrato) objeto);            
+            
+            residencia.setComputador(convertirBooleano(informacion[84]));
+            residencia.setConexionInternet(convertirBooleano(informacion[85]));
+            residencia.setEstado(true);
+            residencia.setFechaRegistro(Calendar.getInstance().getTime());
+            residencia.setIdEgresado(egresado);
+            System.out.println("Persist residencia");
+            //egresado.getResidenciaCollection().add(residencia);
+            em.persist(residencia);
+        }
+    }
+    
+    //@Transactional
+    private void asignarInformacionExperienciaLaboral() {
+        
+    }
+    
+    //@Transactional
+    private void asignarInformacionEducacionFormalOtrasInst(String titulo, String institucion) {
+        if (titulo != null && !titulo.isEmpty() && institucion != null && !institucion.isEmpty()) {
+            EdFormalOtrasInstituciones edFormalOtrasInstituciones = new EdFormalOtrasInstituciones();
+            edFormalOtrasInstituciones.setTitulo(titulo);
+            Educacion educacion = new Educacion();
+            educacion.setEstado(true);
+            educacion.setFechaActEstado(Calendar.getInstance().getTime());
+            educacion.setIdEgresado(egresado);
+            
+            Map<String, Object> parametros = new HashMap<>();
+            parametros.put("nombre", institucion);
+            Object inst = consultar("Institucion.findByNombre", parametros);
+            if (inst != null)
+                educacion.setIdInstitucion((Institucion)inst);
+            else
+                educacion.setOtraInstitucion(institucion);
+            
+            edFormalOtrasInstituciones.setEducacion(educacion);
+            System.out.println("Persist edFormalOtrasInstituciones");
+            //egresado.getEducacionCollection().add(educacion);
+            em.persist(edFormalOtrasInstituciones);
+        }
+    }
+    
+    //@Transactional
+    private void asignarLenguaExtranjera() {
+        
+    }
+    
+    //@Transactional
+    private void asignarDeportesAficiones(String actividad) {
+        if (actividad != null && !actividad.isEmpty()) {
+            Map<String, Object> parametros = new HashMap<>();
+            parametros.put("nombre", actividad);
+            Object tipoActividad = consultar("TipoActividad.findByNombre", parametros);
+            if (tipoActividad == null)
+                tipoActividad = em.getReference(TipoActividad.class, Constantes.TIPO_ACTIVIDAD_OTRA);
+            
+            Aficiones aficiones = new Aficiones();
+            aficiones.setEstado(true);
+            aficiones.setFechaRegistro(Calendar.getInstance().getTime());
+            aficiones.setIdEgresado(egresado);
+            aficiones.setIdTipoActividad((TipoActividad)tipoActividad);
+            aficiones.setListaActividades(actividad);
+            System.out.println("Persist aficiones");
+            //egresado.getAficionesCollection().add(aficiones);
+            em.persist(aficiones);
+        }
+    }
+    
+    //@Transactional
+    private void asignarEncuesta() {
+        Query query = em.createNamedQuery("PreguntaEncuesta.findByPosicionFormato");
+        List<PreguntaEncuesta> listaPreguntas = query.getResultList();
+        for (PreguntaEncuesta preguntaEncuesta : listaPreguntas)
+        {
+            if (informacion[preguntaEncuesta.getPosicionFormato()] != null 
+                    && !informacion[preguntaEncuesta.getPosicionFormato()].isEmpty()) {
+                EgresadoRespuesta egresadoRespuesta = new EgresadoRespuesta();
+                egresadoRespuesta.setEstado(true);
+                egresadoRespuesta.setFechaRegistro(Calendar.getInstance().getTime());
+                egresadoRespuesta.setIdEgresado(egresado);
+                egresadoRespuesta.setIdPreguntaEncuesta(preguntaEncuesta);
+                
+                Map<String, Object> parametros = new HashMap<>();
+                parametros.put("respuesta", informacion[preguntaEncuesta.getPosicionFormato()]);
+                parametros.put("idPreguntaEncuesta", preguntaEncuesta);
+                Object respuestaEncuesta = consultar("RespuestaEncuesta.findByRespuesta", parametros);
+                
+                if (respuestaEncuesta != null)
+                    egresadoRespuesta.setIdRespuestaEncuesta((RespuestaEncuesta)respuestaEncuesta);
+                else
+                    egresadoRespuesta.setOtra(informacion[preguntaEncuesta.getPosicionFormato()]);
+                
+                System.out.println("Persist egresadoRespuesta");
+                //egresado.getEgresadoRespuestaCollection().add(egresadoRespuesta);
+                em.persist(egresadoRespuesta);
+            }
+        }
+    }
+
+    //@Transactional
+    private Object consultar(String consulta, Map<String, Object> parametros) {
+        try {
+            Query query = em.createNamedQuery(consulta);
+            
+            query.setParameter("estado", true);
+            if (parametros != null) {
+                for (Map.Entry<String, Object> entry : parametros.entrySet()) {
+                    query.setParameter(entry.getKey(), entry.getValue());
+                }
+            }
+            
+            return query.getSingleResult();
+        } catch (Exception ex) {
+            return null;
+        }
+    }
+    
+    private boolean convertirBooleano(String valor) {
+        if (valor != null && !valor.isEmpty()) {
+            return valor.toUpperCase().equals("SI");
+        }
+        
+        return false;
+    }
+}

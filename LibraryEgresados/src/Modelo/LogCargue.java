@@ -1,0 +1,103 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package Modelo;
+
+/**
+ *
+ * @author YURY
+ */
+public class LogCargue {
+    private long idLogCargue;
+    private String numeroDocumento;
+    private int linea;
+    private long idEgresado;
+    private EstadoLog idEstadoLog;
+    private String error;
+
+    /**
+     * @return the idLogCargue
+     */
+    public long getIdLogCargue() {
+        return idLogCargue;
+    }
+
+    /**
+     * @param idLogCargue the idLogCargue to set
+     */
+    public void setIdLogCargue(long idLogCargue) {
+        this.idLogCargue = idLogCargue;
+    }
+
+    /**
+     * @return the numeroDocumento
+     */
+    public String getNumeroDocumento() {
+        return numeroDocumento;
+    }
+
+    /**
+     * @param numeroDocumento the numeroDocumento to set
+     */
+    public void setNumeroDocumento(String numeroDocumento) {
+        this.numeroDocumento = numeroDocumento;
+    }
+
+    /**
+     * @return the linea
+     */
+    public int getLinea() {
+        return linea;
+    }
+
+    /**
+     * @param linea the linea to set
+     */
+    public void setLinea(int linea) {
+        this.linea = linea;
+    }
+
+    /**
+     * @return the idEgresado
+     */
+    public long getIdEgresado() {
+        return idEgresado;
+    }
+
+    /**
+     * @param idEgresado the idEgresado to set
+     */
+    public void setIdEgresado(long idEgresado) {
+        this.idEgresado = idEgresado;
+    }
+
+    /**
+     * @return the idEstadoLog
+     */
+    public EstadoLog getIdEstadoLog() {
+        return idEstadoLog;
+    }
+
+    /**
+     * @param idEstadoLog the idEstadoLog to set
+     */
+    public void setIdEstadoLog(EstadoLog idEstadoLog) {
+        this.idEstadoLog = idEstadoLog;
+    }
+
+    /**
+     * @return the error
+     */
+    public String getError() {
+        return error;
+    }
+
+    /**
+     * @param error the error to set
+     */
+    public void setError(String error) {
+        this.error = error;
+    }
+}
