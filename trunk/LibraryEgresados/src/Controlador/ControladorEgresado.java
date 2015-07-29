@@ -6,6 +6,7 @@
 
 package Controlador;
 
+import Modelo.EducacionFormalUcentral;
 import Modelo.Egresado;
 import Util.Convertidor;
 import java.sql.Date;
@@ -19,6 +20,11 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Join;
+import javax.persistence.criteria.Root;
 
 /**
  *
@@ -78,14 +84,49 @@ public class ControladorEgresado {
         List<Egresado> listaEgresados = new ArrayList<>();
         Convertidor convertidor = new Convertidor();
         
-        Query query = em.createNamedQuery("EducacionFormalUcentral.findByCriterio");
-        for (Map.Entry<String, Object> entry : parametros.entrySet()) {
-            query.setParameter(entry.getKey(), entry.getValue());
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Persistencia.EducacionFormalUcentral> cq = cb.createQuery(Persistencia.EducacionFormalUcentral.class);
+        Root<Persistencia.EducacionFormalUcentral> edFormalUC = cq.from(Persistencia.EducacionFormalUcentral.class);
+        Join<Persistencia.EducacionFormalUcentral, Persistencia.Educacion> educacion = edFormalUC.join(Persistencia.EducacionFormalUcentral_.educacion);
+        Join<Persistencia.Educacion, Persistencia.Egresado> egresado = educacion.join(Persistencia.Educacion_.idEgresado);
+        Join<Persistencia.EducacionFormalUcentral, Persistencia.Programa> programa = edFormalUC.join(Persistencia.EducacionFormalUcentral_.idPrograma);
+        
+        if (parametros.containsKey("anioFinalizacion")) {
+            cq.where(educacion.get(Persistencia.Educacion_.anioFinalizacion).in((List<Integer>)parametros.get("anioFinalizacion")));
         }
         
-        List<Persistencia.Egresado> lista = query.getResultList();
-        for (Persistencia.Egresado e: lista) {
-            listaEgresados.add((Egresado)convertidor.convertirAModelo(e, e.getUsuario(), Modelo.Egresado.class.getName()));
+        if (parametros.containsKey("idNivelEstudios")) {
+            Join<Persistencia.Programa, Persistencia.NivelEstudios> nivelEstudios = programa.join(Persistencia.Programa_.idNivelEstudios);
+            cq.where(nivelEstudios.get(Persistencia.NivelEstudios_.idNivelEstudios).in((List<Long>)parametros.get("idNivelEstudios")));
+        }
+        
+        if (parametros.containsKey("idFacultad")) {
+            Join<Persistencia.Programa, Persistencia.Facultad> facultad = programa.join(Persistencia.Programa_.idFacultad);
+            cq.where(facultad.get(Persistencia.Facultad_.idFacultad).in((List<Long>)parametros.get("idFacultad")));
+        }
+        
+        System.out.println("Programas: " + parametros.get("idPrograma"));
+        if (parametros.containsKey("idPrograma")) {
+            cq.where(programa.get(Persistencia.Programa_.idPrograma).in((List<Long>)parametros.get("idPrograma")));
+        }
+        
+        if (parametros.containsKey("idGenero")) {
+            Join<Persistencia.Egresado, Persistencia.Genero> genero = egresado.join(Persistencia.Egresado_.idGenero);
+            cq.where(genero.get(Persistencia.Genero_.idGenero).in((List<Long>)parametros.get("idGenero")));
+        }
+        
+        if (parametros.containsKey("idEstadoCivil")) {
+            Join<Persistencia.Egresado, Persistencia.EstadoCivil> estadoCivil = egresado.join(Persistencia.Egresado_.idEstadoCivil);
+            cq.where(estadoCivil.get(Persistencia.EstadoCivil_.idEstadoCivil).in((List<Long>)parametros.get("idEstadoCivil")));
+        }
+        
+        cq.select(edFormalUC);
+        TypedQuery<Persistencia.EducacionFormalUcentral> query = em.createQuery(cq);
+        List<Persistencia.EducacionFormalUcentral> lista = query.getResultList();
+        
+        for (Persistencia.EducacionFormalUcentral e: lista) {
+            listaEgresados.add((Egresado)convertidor.convertirAModelo(e.getEducacion().getIdEgresado(), 
+                    e.getEducacion().getIdEgresado().getUsuario(), Modelo.Egresado.class.getName()));
         }
         
         return listaEgresados;
