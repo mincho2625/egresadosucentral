@@ -26,19 +26,11 @@
                 <div class="row contenido show">
                     <div class="componente col-lg-11 col-md-11 col-sm-11 col-xs-11 center-block">
                         <div class="row">
-                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                                <img src="imagenes/logosimbolo-ucentral-v1-medium.png">
-                            </div>
-                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 ">
-                                <h1 style="margin-left: 70px;color: #2a6155;width:300px" >Cargue Masivo de Estudiantes</h1>
-                            </div>
-                        </div>
-                        <div class="row">
                             <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 center-block">
                                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"></div>
                                 <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
                                     <div class="fromtables" id="contenido1">
-                                        <h3 style="margin-left: 50px;width: 400px">Generar Nuevo Registro</h3>
+                                        <h3 style="margin-left: 50px;width: 400px">Cargar archivo</h3>
                                         <s:form action="ejecutarCargueMasivo.action" enctype="multipart/form-data" method="POST">
                                             <table style="margin-left: -50px;width: 500px">
                                                 <tr>

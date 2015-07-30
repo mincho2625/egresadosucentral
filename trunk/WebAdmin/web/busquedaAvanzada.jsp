@@ -87,8 +87,12 @@
                             </jq:accordionItem>
                             <jq:accordionItem title="Resultados">
                                 <div class="row" class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
-                                    <display:table class="tableFiltro table-striped table-bordered tabla_verde " id="egresados" name="listaEgresados" pagesize="5" cellpadding="5px;"
+                                    <display:table class="tableFiltro table-striped table-bordered tabla_verde " id="egresados" 
+                                                   name="listaEgresados" pagesize="5" cellpadding="5px;" export="true"
                                                    cellspacing="5px;" style="margin-left:50px;margin-top:20px;" requestURI="" >
+                                        <display:column title="Seleccionar">
+                                            <s:checkbox name="seleccionEgresados" fieldValue="%{#attr.listaEgresados.idUsuario}" theme="simple"/>
+                                        </display:column>
                                         <display:column property="nombres" title="Nombres"/>
                                         <display:column property="primerApellido" title="Primer apellido"/>
                                         <display:column property="segundoApellido" title="Segundo apellido"/>
