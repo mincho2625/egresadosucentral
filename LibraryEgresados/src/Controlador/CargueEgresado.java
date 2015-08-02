@@ -41,7 +41,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
-import javax.transaction.Transactional;
 
 /**
  *
@@ -76,20 +75,24 @@ public class CargueEgresado {
 
     public void iniciarTransaccion() {
         em.getTransaction().begin();
-        //em.getTransaction().setRollbackOnly();
         egresado = new Persistencia.Egresado();
     }
 
     public void terminarTransaccion(boolean ok) {
         try {
             if (ok) {
-                if (em.getTransaction().getRollbackOnly())
+                if (!em.getTransaction().getRollbackOnly()) {
                     em.getTransaction().commit();
-                else
+                    System.out.println("Commit " + informacion[0]);
+                }
+                else {
                     em.getTransaction().rollback();
+                    System.out.println("Rollback 1 " + informacion[0]);
+                }
             }
             else {
                 em.getTransaction().rollback();
+                System.out.println("Rollback 2 " + informacion[0]);
             }
         }
         catch (Exception ex)
@@ -115,20 +118,20 @@ public class CargueEgresado {
             egresado.setAceptaCondiciones(true);
             egresado.setInformacionCompleta(false);
 
-            //if (!asignarEducacionFormalUCentral()) return false;
+            if (!asignarEducacionFormalUCentral()) return false;
 
-            //asignarInformacionContacto(informacion[13], Constantes.TIPO_CONTACTO_CORREO_PERSONAL);
-            //asignarInformacionContacto(informacion[14], Constantes.TIPO_CONTACTO_CORREO_PERSONAL);
-            //asignarInformacionContacto(informacion[19], Constantes.TIPO_CONTACTO_MOVIL);
-            //asignarInformacionContacto(informacion[20], Constantes.TIPO_CONTACTO_MOVIL);
-            //asignarInformacionContacto(informacion[21], Constantes.TIPO_CONTACTO_MOVIL);
-            //asignarInformacionContacto(informacion[17], Constantes.TIPO_CONTACTO_TELEFONO_RESIDENCIA);
-            //asignarInformacionContacto(informacion[18], Constantes.TIPO_CONTACTO_TELEFONO_RESIDENCIA);
-            //asignarInformacionContacto(informacion[22], Constantes.TIPO_CONTACTO_DIRECCION_EMPRESA);
+            asignarInformacionContacto(informacion[13], Constantes.TIPO_CONTACTO_CORREO_PERSONAL);
+            asignarInformacionContacto(informacion[14], Constantes.TIPO_CONTACTO_CORREO_PERSONAL);
+            asignarInformacionContacto(informacion[19], Constantes.TIPO_CONTACTO_MOVIL);
+            asignarInformacionContacto(informacion[20], Constantes.TIPO_CONTACTO_MOVIL);
+            asignarInformacionContacto(informacion[21], Constantes.TIPO_CONTACTO_MOVIL);
+            asignarInformacionContacto(informacion[17], Constantes.TIPO_CONTACTO_TELEFONO_RESIDENCIA);
+            asignarInformacionContacto(informacion[18], Constantes.TIPO_CONTACTO_TELEFONO_RESIDENCIA);
+            asignarInformacionContacto(informacion[22], Constantes.TIPO_CONTACTO_DIRECCION_EMPRESA);
 
-            //asignarInformacionResidencia();
-            //asignarInformacionEducacionFormalOtrasInst(informacion[30], informacion[31]);
-            //asignarInformacionEducacionFormalOtrasInst(informacion[32], informacion[33]);
+//            asignarInformacionResidencia();
+            asignarInformacionEducacionFormalOtrasInst(informacion[30], informacion[31]);
+            asignarInformacionEducacionFormalOtrasInst(informacion[32], informacion[33]);
             //asignarDeportesAficiones(informacion[82]);
             //asignarDeportesAficiones(informacion[83]);
             //asignarEncuesta();
@@ -146,17 +149,16 @@ public class CargueEgresado {
         }
     }
     
-    //@Transactional
     private boolean asignarNumeroDocumento(String numeroDocumento) {
         System.out.println("numeroDocumento: " + numeroDocumento);
         if (numeroDocumento != null && !numeroDocumento.isEmpty()) {
-            Map<String, Object> parametros = new HashMap<>();
-            parametros.put("numeroDocumento", numeroDocumento);
-            Object e = consultar("Egresado.findByNumeroDocumento", parametros);
-            if (e != null) {
-                setError("El número de documento ya está registrado");
-                return false;
-            }
+//            Map<String, Object> parametros = new HashMap<>();
+//            parametros.put("numeroDocumento", numeroDocumento);
+//            Object e = consultar("Egresado.findByNumeroDocumento", parametros);
+//            if (e != null) {
+//                setError("El número de documento ya está registrado");
+//                return false;
+//            }
             
             egresado.setNumeroDocumento(numeroDocumento);
             return true;
@@ -166,7 +168,6 @@ public class CargueEgresado {
         return false;
     }
 
-    //@Transactional
     private boolean asignarEstadoCivil(String nombre) {
         System.out.println("Estado civil: " + nombre);
         Map<String, Object> parametros = new HashMap<>();
@@ -182,7 +183,6 @@ public class CargueEgresado {
         }
     }
     
-    //@Transactional
     private boolean asignarGenero(String nombre) {
         Map<String, Object> parametros = new HashMap<>();
         parametros.put("nombre", nombre);
@@ -196,7 +196,6 @@ public class CargueEgresado {
         }
     }
     
-    //@Transactional
     private boolean asignarNombres(String nombres) {
         String[] n = nombres.split(" ");
         if (n.length == 2) {
@@ -229,7 +228,6 @@ public class CargueEgresado {
         return false;
     }
     
-    //@Transactional
     private void asignarFechaUltimaActualizacion(String fecha) {
         if (fecha != null && !fecha.isEmpty()) {
             SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
@@ -244,7 +242,6 @@ public class CargueEgresado {
         }
     }
     
-    //@Transactional
     private boolean asignarUsuario(String correoInstitucional) {
         if (correoInstitucional != null && !correoInstitucional.isEmpty()) {
             String[] split = correoInstitucional.split("@");
@@ -267,7 +264,6 @@ public class CargueEgresado {
         return false;
     }
     
-    //@Transactional
     private boolean asignarEducacionFormalUCentral() {
         Map<String, Object> parametros = new HashMap<>();
         parametros.put("nombre", informacion[3]);
@@ -306,7 +302,6 @@ public class CargueEgresado {
         }
     }
     
-    //@Transactional
     private void asignarInformacionContacto(String descripcion, long idTipoContacto) {
         if (descripcion != null && !descripcion.isEmpty()) {
             Contacto contacto = new Contacto();
@@ -321,7 +316,6 @@ public class CargueEgresado {
         }
     }
     
-    //@Transactional
     private void asignarInformacionResidencia() {
         Map<String, Object> parametros = new HashMap<>();
         parametros.put("nombre", informacion[3]);
@@ -357,12 +351,10 @@ public class CargueEgresado {
         }
     }
     
-    //@Transactional
     private void asignarInformacionExperienciaLaboral() {
         
     }
     
-    //@Transactional
     private void asignarInformacionEducacionFormalOtrasInst(String titulo, String institucion) {
         if (titulo != null && !titulo.isEmpty() && institucion != null && !institucion.isEmpty()) {
             EdFormalOtrasInstituciones edFormalOtrasInstituciones = new EdFormalOtrasInstituciones();
@@ -387,12 +379,10 @@ public class CargueEgresado {
         }
     }
     
-    //@Transactional
     private void asignarLenguaExtranjera() {
         
     }
     
-    //@Transactional
     private void asignarDeportesAficiones(String actividad) {
         if (actividad != null && !actividad.isEmpty()) {
             Map<String, Object> parametros = new HashMap<>();
@@ -413,7 +403,6 @@ public class CargueEgresado {
         }
     }
     
-    //@Transactional
     private void asignarEncuesta() {
         Query query = em.createNamedQuery("PreguntaEncuesta.findByPosicionFormato");
         List<PreguntaEncuesta> listaPreguntas = query.getResultList();
@@ -444,7 +433,6 @@ public class CargueEgresado {
         }
     }
 
-    //@Transactional
     private Object consultar(String consulta, Map<String, Object> parametros) {
         try {
             Query query = em.createNamedQuery(consulta);
