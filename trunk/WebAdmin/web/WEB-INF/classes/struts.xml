@@ -4,7 +4,7 @@
     "http://struts.apache.org/dtds/struts-2.0.dtd">
 
 <struts>    
-    <constant name="struts.devMode" value="true" />
+    <constant name="struts.devMode" value="false" />
     <constant name="struts.configuration.xml.reload" value="true" />
     <constant name="struts.enable.DynamicMethodInvocation" value="true" />
     <constant name="struts.mapper.action.prefix.enabled" value="true" />
@@ -257,7 +257,7 @@
             <result name="error">/egresados.jsp</result>
         </action>
         
-        <action name="*BusquedaAvanzada" method="{1}" class="Action.BusquedaAvanzadaAction">
+        <action  name="*BusquedaAvanzada" method="{1}" class="Action.BusquedaAvanzadaAction">
             <result name="success">/busquedaAvanzada.jsp</result>
             <result name="input">/busquedaAvanzada.jsp</result>
             <result name="error">/busquedaAvanzada.jsp</result>

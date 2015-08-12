@@ -172,7 +172,7 @@
                                 </div> 
                             </div>
                         </div>
-                        <div class="componente col-lg-9 col-md-9 col-sm-8 hidden-xs  center-block">
+                        <div class="componente col-lg-9 col-md-9 col-sm-8 col-xs-9  center-block">
                             <div class="from">
                                 <br>
                                 <div id="contenido" class="menu">

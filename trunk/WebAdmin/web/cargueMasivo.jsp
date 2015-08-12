@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <%@taglib uri="/struts-tags" prefix="s"%>
 <%@taglib uri="/struts-jquery-tags" prefix="jq" %>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib uri="http://displaytag.sf.net" prefix="display"%>
 <html lang="es">
     <head><title>Datos de Ubicacion</title>
         <meta charset="utf-8">
@@ -30,19 +32,17 @@
                                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"></div>
                                 <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
                                     <div class="fromtables" id="contenido1">
-                                        <h3 style="margin-left: 50px;width: 400px">Cargar archivo</h3>
+                                        <h3 style="margin-left: 50px;width: 400px">Carge masivo de Egresados</h3>
                                         <s:form action="ejecutarCargueMasivo.action" enctype="multipart/form-data" method="POST">
-                                            <table style="margin-left: -50px;width: 500px">
+                                            <table style="margin-left: -50px;width: 300px; page: 5">
                                                 <tr>
-                                                    <td><s:file errorPosition="bottom" name="fileUpload" id="fileUpload" label="Archivo"></s:file></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                    <s:submit cssClass="boton_auxiliar boton guardar" cssStyle="width:auto;" value="Enviar"></s:submit>
-                                                    </td>
-                                                </tr>
+                                                    <td><s:file errorPosition="bottom" name="fileUpload" id="fileUpload" label="Archivo" cssStyle="width:auto;"></s:file></td>
+                                                        <td></td>
+                                                    </tr>
                                                 </table>
+                                            <s:submit cssClass="boton_auxiliar" cssStyle="width:100px;margin-left: 120px;" value="Enviar"></s:submit>
                                         </s:form>
+                                        <br>
                                     </div>
                                     <s:if test="hasActionErrors()">
                                         <div class="errors">
@@ -55,7 +55,7 @@
                                         </div>
                                     </s:if>
                                     <div id="div5" style="margin-left: -150px">
-                                        <table rules="all" class="table table-striped table-bordered tabla_verde" style="width: 690px">
+                                        <table class="table table-striped table-bordered tabla_verde" style="width: 690px">
                                             <thead>
                                                 <tr>
                                                     <th style="width: 100px">Id Proceso</th>
@@ -78,6 +78,8 @@
                                             </tbody>
                                         </table>
                                     </div>
+                                    <br>
+                                    <a href="desplegarCargueMasivo.action" target="contenido"><li Style="margin-left: 80px; width: 150px" Class="boton_auxiliar">Actualizar Pagina</li></a>
                                 </div>
                                 <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
                             </div>
