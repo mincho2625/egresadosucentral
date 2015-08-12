@@ -128,7 +128,7 @@ public class CargueMasivoAction extends ActionSupport {
     private void validar()
     {
         if (fileUpload == null)
-            addFieldError("fileUpload", "No ha seleccionado el archivo.");
+         addFieldError("fileUpload", "No ha seleccionado el archivo.");   
     }
     
     private void consultar()
