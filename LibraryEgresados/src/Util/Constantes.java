@@ -31,6 +31,7 @@ public class Constantes {
     public static final long PROCESO_EN_EJECUCIÓN = 2;
     public static final long PROCESO_TERMINADO_CON_ERRORES = 3;
     public static final long PROCESO_TERMINADO_EXITOSO = 4;
+    public static final long PROCESO_FALLO = 5;
     
     public static final long LOG_EXITOSO = 1;
     public static final long LOG_ERROR = 2;

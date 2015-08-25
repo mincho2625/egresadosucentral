@@ -166,6 +166,22 @@ public class ControladorEgresado {
         
         return false;
     }
+    public boolean actualizarFecha(Date fecha)
+    {
+        try {
+            em.getTransaction().begin();
+            Persistencia.Egresado u = em.getReference(Persistencia.Egresado.class, e.getIdEgresado());
+            u.setFechaUltimaAct(fecha);
+            em.persist(u);
+            em.getTransaction().commit();
+            
+            return true;
+        } catch (SecurityException | IllegalArgumentException ex) {
+            Logger.getLogger(ControladorEgresado.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return false;
+    }
     
     public void completarInformacion()
     {

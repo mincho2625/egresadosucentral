@@ -32,6 +32,7 @@ public class ControladorUsuario {
             EntityManager em = emf.createEntityManager();
             Query query = em.createNamedQuery("Usuario.findByNombre");
             query.setParameter("nombre", usuario);
+            query.setParameter("estado", true);
             Object result = query.getSingleResult();
             if (result != null) {
                 Persistencia.Usuario u = (Persistencia.Usuario) result;
