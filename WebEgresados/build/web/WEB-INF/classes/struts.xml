@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>    
+    <constant name="struts.devMode" value="true" />
+    <constant name="struts.configuration.xml.reload" value="true" />
+    <constant name="struts.enable.DynamicMethodInvocation" value="true" />
+    <constant name="struts.mapper.action.prefix.enabled" value="true" />
+    <constant name="struts.ui.theme" value="ucentral" />
+        
+    <package name="egresados" extends="struts-default">
+        <action name="*Registro" method="{1}" class="Action.RegistroAction">
+            <result name="crear">/registroNuevoUsuario.jsp</result>
+            <result name="success">/mensaje.jsp</result>
+            <result name="error">/registroNuevoUsuario.jsp</result>
+            <result name="input">/registroNuevoUsuario.jsp</result>
+        </action>
+        
+        <action name="*Ingreso" method="{1}" class="Action.IngresoAction">
+            <result name="success">/index.jsp</result>
+            <result name="error">/entrada.jsp</result>
+            <result name="input">/entrada.jsp</result>
+            <result name="primeraVez" type="chain">
+                <param name="actionName">Egresado</param>
+                <param name="method">editar</param>
+            </result>
+        </action>
+        
+        <action name="*Salida" method="{1}" class="Action.SalidaAction">
+            <result name="success">/entrada.jsp</result>
+            <result name="confirmar">/index.jsp</result>
+            <result name="cancelar">/index.jsp</result>
+            <result name="input">/entrada.jsp</result>
+        </action>
+        
+        <action name="*RestablecerContrasenia" method="{1}" class="Action.RestablecerContraseniaAction">
+            <result name="success">/mensaje.jsp</result>
+            <result name="input">/restablecerContrasenia.jsp</result>
+            <result name="error">/restablecerContrasenia.jsp</result>
+            <result name="desplegar">/restablecerContrasenia.jsp</result>
+        </action>
+        
+        <action name="*Egresado" method="{1}" class="Action.EgresadoAction">
+            <result name="editar">/registroSistema.jsp</result>
+            <result name="success" type="chain">
+                <param name="actionName">Ubicacion</param>
+                <param name="method">obtenerLista</param>
+            </result>
+            <result name="error">/registroSistema.jsp</result>
+            <result name="input">/registroSistema.jsp</result>
+        </action>
+        
+        <action name="*Ubicacion" method="{1}" class="Action.UbicacionAction">
+            <result name="success">/ubicacion.jsp</result>
+            <result name="input" >/ubicacion.jsp</result>
+            <result name="error" >/ubicacion.jsp</result>
+            <result name="desplegar">/ubicacion.jsp</result>
+            
+            <result name="anterior" type="chain">
+                <param name="actionName">Egresado</param>
+                <param name="method">editar</param>
+            </result>
+            <result name="siguiente" type="chain">
+                <param name="actionName">EgresadoRedSocial</param>
+                <param name="method">obtenerLista</param>
+            </result>
+        </action>
+        
+        <action name="*EgresadoRedSocial" method="{1}" class="Action.EgresadoRedSocialAction">
+            <result name="success">/redesSociales.jsp</result>
+            <result name="input" >/redesSociales.jsp</result>
+            <result name="error">/redesSociales.jsp</result>
+            <result name="desplegar">/redesSociales.jsp</result>
+            
+            <result name="anterior" type="chain">
+                <param name="actionName">Ubicacion</param>
+                <param name="method">obtenerLista</param>
+            </result>
+            <result name="siguiente" type="chain">
+                <param name="actionName">Residencia</param>
+                <param name="method">obtenerLista</param>
+            </result>
+        </action>
+        
+        <action name="*Residencia" method="{1}" class="Action.ResidenciaAction">
+            <result name="success">/residencia.jsp</result>
+            <result name="input" >/residencia.jsp</result>
+            <result name="error" >/residencia.jsp</result>
+            <result name="desplegar">/residencia.jsp</result>
+            
+            <result name="anterior" type="chain">
+                <param name="actionName">EgresadoRedSocial</param>
+                <param name="method">obtenerLista</param>
+            </result>
+            <result name="siguiente" type="chain">
+                <param name="actionName">EducacionFormalUCentral</param>
+                <param name="method">obtenerLista</param>
+            </result>
+        </action>
+        
+        <action name="*EducacionFormalUCentral" method="{1}" class="Action.EducacionFormalUCentralAction">
+            <result name="success">/educacionFormal.jsp</result>
+            <result name="input">/educacionFormal.jsp</result>
+            <result name="error">/educacionFormal.jsp</result>
+            <result name="desplegar">/educacionFormal.jsp</result>
+            
+            <result name="anterior" type="chain">
+                <param name="actionName">Residencia</param>
+                <param name="method">obtenerLista</param>
+            </result>
+            <result name="siguiente" type="chain">
+                <param name="actionName">EducacionFormalOtrasInstituciones</param>
+                <param name="method">obtenerLista</param>
+            </result>
+        </action>
+        
+        <action name="*EducacionFormalOtrasInstituciones" method="{1}" class="Action.EducacionFormalOtrasInstitucionesAction">
+            <result name="success">/educacionFormalOtrasInstituciones.jsp</result>
+            <result name="input">/educacionFormalOtrasInstituciones.jsp</result>
+            <result name="error">/educacionFormalOtrasInstituciones.jsp</result>
+            <result name="desplegar">/educacionFormalOtrasInstituciones.jsp</result>
+            
+            <result name="anterior" type="chain">
+                <param name="actionName">EducacionFormalUCentral</param>
+                <param name="method">obtenerLista</param>
+            </result>
+            <result name="siguiente" type="chain">
+                <param name="actionName">EducacionNoFormal</param>
+                <param name="method">obtenerLista</param>
+            </result>
+        </action>
+        
+        <action name="*EducacionNoFormal" method="{1}" class="Action.EducacionNoFormalAction">
+            <result name="success">/educacionNoFormal.jsp</result>
+            <result name="input" >/educacionNoFormal.jsp</result>
+            <result name="error" >/educacionNoFormal.jsp</result>
+            <result name="desplegar">/educacionNoFormal.jsp</result>
+            
+            <result name="anterior" type="chain">
+                <param name="actionName">EducacionFormalOtrasInstituciones</param>
+                <param name="method">obtenerLista</param>
+            </result>
+            <result name="siguiente" type="chain">
+                <param name="actionName">LenguaExtranjera</param>
+                <param name="method">obtenerLista</param>
+            </result>
+        </action>
+        
+        <action name="*LenguaExtranjera" method="{1}" class="Action.LenguaExtranjeraAction">
+            <result name="success">/lenguaExtranjera.jsp</result>
+            <result name="input" >/lenguaExtranjera.jsp</result>
+            <result name="error" >/lenguaExtranjera.jsp</result>
+            <result name="desplegar">/lenguaExtranjera.jsp</result>
+            
+            <result name="anterior" type="chain">
+                <param name="actionName">EducacionNoFormal</param>
+                <param name="method">obtenerLista</param>
+            </result>
+            <result name="siguiente" type="chain">
+                <param name="actionName">ExperienciaLaboral</param>
+                <param name="method">obtenerLista</param>
+            </result>
+        </action>
+        
+        <action name="*ExperienciaLaboral" method="{1}" class="Action.ExperienciaLaboralAction">
+            <result name="success">/experienciaLaboral.jsp</result>
+            <result name="input" >/experienciaLaboral.jsp</result>
+            <result name="error" >/experienciaLaboral.jsp</result>
+            <result name="desplegar">/experienciaLaboral.jsp</result>
+            
+            <result name="anterior" type="chain">
+                <param name="actionName">LenguaExtranjera</param>
+                <param name="method">obtenerLista</param>
+            </result>
+            <result name="siguiente" type="chain">
+                <param name="actionName">Reconocimiento</param>
+                <param name="method">obtenerLista</param>
+            </result>
+        </action>
+        
+        <action name="*Reconocimiento" method="{1}" class="Action.ReconocimientoAction">
+            <result name="success">/distincionesReconocimiento.jsp</result>
+            <result name="input" >/distincionesReconocimiento.jsp</result>
+            <result name="error" >/distincionesReconocimiento.jsp</result>
+            <result name="desplegar">/distincionesReconocimiento.jsp</result>
+            
+            <result name="anterior" type="chain">
+                <param name="actionName">ExperienciaLaboral</param>
+                <param name="method">obtenerLista</param>
+            </result>
+            <result name="siguiente" type="chain">
+                <param name="actionName">Asociacion</param>
+                <param name="method">obtenerLista</param>
+            </result>
+        </action>
+        
+        <action name="*Asociacion" method="{1}" class="Action.AsociacionAction">
+            <result name="success">/asociacionesRedesProfesionales.jsp</result>
+            <result name="input" >/asociacionesRedesProfesionales.jsp</result>
+            <result name="error" >/asociacionesRedesProfesionales.jsp</result>
+            <result name="desplegar">/asociacionesRedesProfesionales.jsp</result>
+            
+            <result name="anterior" type="chain">
+                <param name="actionName">Reconocimiento</param>
+                <param name="method">obtenerLista</param>
+            </result>
+            <result name="siguiente" type="chain">
+                <param name="actionName">Aficion</param>
+                <param name="method">obtenerLista</param>
+            </result>
+        </action>
+        
+        <action name="*Aficion" method="{1}" class="Action.AficionAction">
+            <result name="success">/deportesAficiones.jsp</result>
+            <result name="input" >/deportesAficiones.jsp</result>
+            <result name="error" >/deportesAficiones.jsp</result>
+            <result name="desplegar">/deportesAficiones.jsp</result>
+            
+            <result name="anterior" type="chain">
+                <param name="actionName">Asociacion</param>
+                <param name="method">obtenerLista</param>
+            </result>
+            <result name="siguiente" type="chain">
+                <param name="actionName">Encuesta</param>
+                <param name="method">editar</param>
+            </result>
+        </action>
+        
+        <action name="editarEncuesta" class="Action.EncuestaAction" method="editar">
+            <result name="success">/encuesta.jsp</result>
+        </action>        
+        <action name="anteriorEncuesta" class="Action.EncuestaAction" method="anterior">
+            <result name="success">/encuesta.jsp</result>
+        </action>
+        <action name="siguienteEncuesta" class="Action.EncuestaAction" method="siguiente">
+            <result name="success">/encuesta.jsp</result>
+        </action>
+        <action name="terminarEncuesta" class="Action.EncuestaAction" method="guardar">
+            <result name="success">/frameContenido.jsp</result>
+        </action>
+        
+        <action name="VistaPrevia" class="Action.VistaPreviaAction">
+            <result name="success"/>
+        </action>
+        
+        <action name="*Seguridad" method="{1}" class="Action.SeguridadAction">
+            <result name="success">/frameContenido.jsp</result>
+            <result name="error">/cambiarContrasenia.jsp</result>
+            <result name="input">/cambiarContrasenia.jsp</result>
+        </action>
+    </package>
+    
+    <package name="json" extends="json-default">
+        <action name="SelectCiudad" class="Action.SelectCiudadAction">
+             <result type="json"/>
+        </action>
+        
+        <action name="SelectDobleCiudad" class="Action.SelectDobleCiudadAction">
+             <result type="json"/>
+        </action>
+        
+        <action name="SelectPrograma" class="Action.SelectProgramaAction">
+            <result type="json"/>
+        </action>
+        
+        <action name="SelectAreaEstudios" class="Action.SelectAreaEstudiosAction">
+            <result type="json"/>
+        </action>
+        
+        <action name="SelectSubsector" class="Action.SelectSubsectorAction">
+            <result type="json"/>
+        </action>
+    </package>
+</struts>

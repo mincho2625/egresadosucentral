@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>    
+    <constant name="struts.devMode" value="false" />
+    <constant name="struts.configuration.xml.reload" value="true" />
+    <constant name="struts.enable.DynamicMethodInvocation" value="true" />
+    <constant name="struts.mapper.action.prefix.enabled" value="true" />
+    <constant name="struts.ui.theme" value="ucentral" />
+    
+    <package name="egresados" extends="struts-default,json-default">
+        
+        <action name="*Ingreso" method="{1}" class="Action.IngresoAction">
+            <result name="success">/index.jsp</result>
+            <result name="error">/entrada.jsp</result>
+            <result name="input">/entrada.jsp</result>
+        </action>
+        <action name="*AreaEmpresa" method="{1}" class="Action.AreaEmpresaAction">
+            <result name="success">/areaEmpresa.jsp</result>
+            <result name="input" >/areaEmpresa.jsp</result>
+            <result name="error" >/areaEmpresa.jsp</result>
+            <result name="desplegar">/areaEmpresa.jsp</result>
+        </action>
+        
+        <action name="*AreaEstudios" method="{1}" class="Action.AreaEstudiosAction">
+            <result name="success">/areaEstudios.jsp</result>
+            <result name="input" >/areaEstudios.jsp</result>
+            <result name="error" >/areaEstudios.jsp</result>
+            <result name="desplegar">/areaEstudios.jsp</result>
+        </action>
+        
+        <action name="*CargoEquivalente" method="{1}" class="Action.CargoEquivalenteAction">
+            <result name="success">/cargoEquivalente.jsp</result>
+            <result name="input" >/cargoEquivalente.jsp</result>
+            <result name="error" >/cargoEquivalente.jsp</result>
+            <result name="desplegar">/cargoEquivalente.jsp</result>
+        </action>
+        
+        <action name="*ClaseReconocimiento" method="{1}" class="Action.ClaseReconocimientoAction">
+            <result name="success">/claseReconocimiento.jsp</result>
+            <result name="input" >/claseReconocimiento.jsp</result>
+            <result name="error" >/claseReconocimiento.jsp</result>
+            <result name="desplegar">/claseReconocimiento.jsp</result>
+        </action>
+        
+        <action name="*DominioLenguaExt" method="{1}" class="Action.DominioLenguaExtAction">
+            <result name="success">/dominioLenguaExt.jsp</result>
+            <result name="input" >/dominioLenguaExt.jsp</result>
+            <result name="error" >/dominioLenguaExt.jsp</result>
+            <result name="desplegar">/dominioLenguaExt.jsp</result>
+        </action>
+        
+        <action name="*EstadoCivil" method="{1}" class="Action.EstadoCivilAction">
+            <result name="success">/estadoCivil.jsp</result>
+            <result name="input" >/estadoCivil.jsp</result>
+            <result name="error" >/estadoCivil.jsp</result>
+            <result name="desplegar">/estadoCivil.jsp</result>
+        </action>
+        
+        <action name="*EstadoEducacion" method="{1}" class="Action.EstadoEducacionAction">
+            <result name="success">/estadoEducacion.jsp</result>
+            <result name="input" >/estadoEducacion.jsp</result>
+            <result name="error" >/estadoEducacion.jsp</result>
+            <result name="desplegar">/estadoEducacion.jsp</result>
+        </action>
+        
+        <action name="*Estrato" method="{1}" class="Action.EstratoAction">
+            <result name="success">/estrato.jsp</result>
+            <result name="input" >/estrato.jsp</result>
+            <result name="error" >/estrato.jsp</result>
+            <result name="desplegar">/estrato.jsp</result>
+        </action>
+        
+        <action name="*Facultad" method="{1}" class="Action.FacultadAction">
+            <result name="success">/facultad.jsp</result>
+            <result name="input" >/facultad.jsp</result>
+            <result name="error" >/facultad.jsp</result>
+            <result name="desplegar">/facultad.jsp</result>
+        </action>
+        
+        <action name="*GrupoSanguineo" method="{1}" class="Action.GrupoSanguineoAction">
+            <result name="success">/grupoSanguineo.jsp</result>
+            <result name="input" >/grupoSanguineo.jsp</result>
+            <result name="error" >/grupoSanguineo.jsp</result>
+            <result name="desplegar">/grupoSanguineo.jsp</result>
+        </action>
+        
+        <action name="*Idioma" method="{1}" class="Action.IdiomaAction">
+            <result name="success">/idioma.jsp</result>
+            <result name="input" >/idioma.jsp</result>
+            <result name="error" >/idioma.jsp</result>
+            <result name="desplegar">/idioma.jsp</result>
+        </action>
+        
+        <action name="*Institucion" method="{1}" class="Action.InstitucionAction">
+            <result name="success">/institucion.jsp</result>
+            <result name="input" >/institucion.jsp</result>
+            <result name="error" >/institucion.jsp</result>
+            <result name="desplegar">/institucion.jsp</result>
+        </action>
+        
+        <action name="*IntensidadHoraria" method="{1}" class="Action.IntensidadHorariaAction">
+            <result name="success">/intensidadHoraria.jsp</result>
+            <result name="input" >/intensidadHoraria.jsp</result>
+            <result name="error" >/intensidadHoraria.jsp</result>
+            <result name="desplegar">/intensidadHoraria.jsp</result>
+        </action>
+        
+        <action name="*Jornada" method="{1}" class="Action.JornadaAction">
+            <result name="success">/jornada.jsp</result>
+            <result name="input" >/jornada.jsp</result>
+            <result name="error" >/jornada.jsp</result>
+            <result name="desplegar">/jornada.jsp</result>
+        </action>
+        
+        <action name="*Modalidad" method="{1}" class="Action.ModalidadAction">
+            <result name="success">/modalidad.jsp</result>
+            <result name="input" >/modalidad.jsp</result>
+            <result name="error" >/modalidad.jsp</result>
+            <result name="desplegar">/modalidad.jsp</result>
+        </action>
+        
+        <action name="*NivelCargo" method="{1}" class="Action.NivelCargoAction">
+            <result name="success">/nivelCargo.jsp</result>
+            <result name="input" >/nivelCargo.jsp</result>
+            <result name="error" >/nivelCargo.jsp</result>
+            <result name="desplegar">/nivelCargo.jsp</result>
+        </action>
+        
+        <action name="*NivelEstudios" method="{1}" class="Action.NivelEstudiosAction">
+            <result name="success">/nivelEstudios.jsp</result>
+            <result name="input" >/nivelEstudios.jsp</result>
+            <result name="error" >/nivelEstudios.jsp</result>
+            <result name="desplegar">/nivelEstudios.jsp</result>
+        </action>
+        
+        <action name="*Pais" method="{1}" class="Action.PaisAction">
+            <result name="success">/pais.jsp</result>
+            <result name="input" >/pais.jsp</result>
+            <result name="error" >/pais.jsp</result>
+            <result name="desplegar">/pais.jsp</result>
+        </action>
+        
+        <action name="*PreguntaSeguridad" method="{1}" class="Action.PreguntaSeguridadAction">
+            <result name="success">/preguntaSeguridad.jsp</result>
+            <result name="input" >/preguntaSeguridad.jsp</result>
+            <result name="error" >/preguntaSeguridad.jsp</result>
+            <result name="desplegar">/preguntaSeguridad.jsp</result>
+        </action>
+        
+        <action name="*RangoSalarial" method="{1}" class="Action.RangoSalarialAction">
+            <result name="success">/rangoSalarial.jsp</result>
+            <result name="input" >/rangoSalarial.jsp</result>
+            <result name="error" >/rangoSalarial.jsp</result>
+            <result name="desplegar">/rangoSalarial.jsp</result>
+        </action>
+        
+        <action name="*RedSocial" method="{1}" class="Action.RedSocialAction">
+            <result name="success">/redSocial.jsp</result>
+            <result name="input" >/redSocial.jsp</result>
+            <result name="error" >/redSocial.jsp</result>
+            <result name="desplegar">/redSocial.jsp</result>
+        </action>
+        
+        <action name="*Sector" method="{1}" class="Action.SectorAction">
+            <result name="success">/sector.jsp</result>
+            <result name="input" >/sector.jsp</result>
+            <result name="error" >/sector.jsp</result>
+            <result name="desplegar">/sector.jsp</result>
+        </action>
+        
+        <action name="*TipoActividad" method="{1}" class="Action.TipoActividadAction">
+            <result name="success">/tipoActividad.jsp</result>
+            <result name="input" >/tipoActividad.jsp</result>
+            <result name="error" >/tipoActividad.jsp</result>
+            <result name="desplegar">/tipoActividad.jsp</result>
+        </action>
+        
+        <action name="*TipoAsociacion" method="{1}" class="Action.TipoAsociacionAction">
+            <result name="success">/tipoAsociacion.jsp</result>
+            <result name="input" >/tipoAsociacion.jsp</result>
+            <result name="error" >/tipoAsociacion.jsp</result>
+            <result name="desplegar">/tipoAsociacion.jsp</result>
+        </action>
+        
+        <action name="*TipoContacto" method="{1}" class="Action.TipoContactoAction">
+            <result name="success">/tipoContacto.jsp</result>
+            <result name="input" >/tipoContacto.jsp</result>
+            <result name="error" >/tipoContacto.jsp</result>
+            <result name="desplegar">/ubicacion.jsp</result>
+        </action>
+        
+        <action name="*TipoContrato" method="{1}" class="Action.TipoContratoAction">
+            <result name="success">/tipoContrato.jsp</result>
+            <result name="input" >/tipoContrato.jsp</result>
+            <result name="error" >/tipoContrato.jsp</result>
+            <result name="desplegar">/tipoContrato.jsp</result>
+        </action>
+        
+        <action name="*TipoDocumento" method="{1}" class="Action.TipoDocumentoAction">
+            <result name="success">/tipoDocumento.jsp</result>
+            <result name="input" >/tipoDocumento.jsp</result>
+            <result name="error" >/tipoDocumento.jsp</result>
+            <result name="desplegar">/tipoDocumento.jsp</result>
+        </action>
+        
+        <action name="*TipoReconocimiento" method="{1}" class="Action.TipoReconocimientoAction">
+            <result name="success">/tipoReconocimiento.jsp</result>
+            <result name="input" >/tipoReconocimiento.jsp</result>
+            <result name="error" >/tipoReconocimiento.jsp</result>
+            <result name="desplegar">/tipoReconocimiento.jsp</result>
+        </action>
+        
+        <action name="*TipoTenenciaVivienda" method="{1}" class="Action.TipoTenenciaViviendaAction">
+            <result name="success">/tipoTenenciaVivienda.jsp</result>
+            <result name="input" >/tipoTenenciaVivienda.jsp</result>
+            <result name="error" >/tipoTenenciaVivienda.jsp</result>
+            <result name="desplegar">/tipoTenenciaVivienda.jsp</result>
+        </action>
+        
+        <action name="*TipoVivienda" method="{1}" class="Action.TipoViviendaAction">
+            <result name="success">/tipoVivienda.jsp</result>
+            <result name="input" >/tipoVivienda.jsp</result>
+            <result name="error" >/tipoVivienda.jsp</result>
+            <result name="desplegar">/tipoVivienda.jsp</result>
+        </action>
+        
+        <action name="*PlantillaCorreo" method="{1}" class="Action.PlantillaCorreoAction">
+            <result name="success">/plantillaCorreo.jsp</result>
+            <result name="input" >/plantillaCorreo.jsp</result>
+            <result name="error" >/plantillaCorreo.jsp</result>
+            <result name="desplegar">/plantillaCorreo.jsp</result>
+        </action>
+        
+        <action name="*ConfiguracionCorreo" method="{1}" class="Action.ConfiguracionCorreoAction">
+            <result name="success">/configuracionCorreo.jsp</result>
+            <result name="input" >/configuracionCorreo.jsp</result>
+            <result name="error" >/configuracionCorreo.jsp</result>
+        </action>
+        
+        <action name="*CorreoMasivo" method="{1}" class="Action.CorreoMasivoAction">
+            <result name="success">/correoMasivo.jsp</result>
+            <result name="input" >/correoMasivo.jsp</result>
+            <result name="error" >/correoMasivo.jsp</result>
+        </action>
+        
+        <action name="*CargueMasivo" method="{1}" class="Action.CargueMasivoAction">
+            <result name="success">/cargueMasivo.jsp</result>
+            <result name="input">/cargueMasivo.jsp</result>
+            <result name="error">/cargueMasivo.jsp</result>
+        </action>
+        
+        <action name="*Egresados" method="{1}" class="Action.EgresadoAction">
+            <result name="success">/egresados.jsp</result>
+            <result name="error">/egresados.jsp</result>
+        </action>
+        
+        <action  name="*BusquedaAvanzada" method="{1}" class="Action.BusquedaAvanzadaAction">
+            <result name="success">/busquedaAvanzada.jsp</result>
+            <result name="input">/busquedaAvanzada.jsp</result>
+            <result name="error">/busquedaAvanzada.jsp</result>
+        </action>
+        
+        <action name="SelectPrograma" class="Action.SelectProgramaAction">
+            <result type="json">
+            </result>
+        </action>
+    </package>
+</struts>

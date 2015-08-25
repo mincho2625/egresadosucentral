@@ -1,0 +1,66 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+package Modelo;
+
+/**
+ *
+ * @author YURY
+ */
+@Equivalencia(nombre = "getIdDominioLenguaExt")
+public class DominioLenguaExt {
+    private long idDominioLenguaExt;
+    private String dominioLenguaExt;
+    private boolean estado;
+    
+    public DominioLenguaExt() {}
+    
+    public DominioLenguaExt(long idDominioLenguaExt) {
+        this.idDominioLenguaExt = idDominioLenguaExt;
+    }
+
+    /**
+     * @return the idDominioLenguaExt
+     */
+    public long getIdDominioLenguaExt() {
+        return idDominioLenguaExt;
+    }
+
+    /**
+     * @param idDominioLenguaExt the idDominioLenguaExt to set
+     */
+    public void setIdDominioLenguaExt(long idDominioLenguaExt) {
+        this.idDominioLenguaExt = idDominioLenguaExt;
+    }
+
+    /**
+     * @return the dominioLenguaExt
+     */
+    public String getDominioLenguaExt() {
+        return dominioLenguaExt;
+    }
+
+    /**
+     * @param dominioLenguaExt the dominioLenguaExt to set
+     */
+    public void setDominioLenguaExt(String dominioLenguaExt) {
+        this.dominioLenguaExt = dominioLenguaExt;
+    }
+
+    /**
+     * @return the estado
+     */
+    public boolean isEstado() {
+        return estado;
+    }
+
+    /**
+     * @param estado the estado to set
+     */
+    public void setEstado(boolean estado) {
+        this.estado = estado;
+    }
+}
