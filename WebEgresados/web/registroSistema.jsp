@@ -141,14 +141,14 @@
                                                             </tr>
                                                             <tr>
                                                                 <td></td>
-                                                                <td><s:submit  cssClass="boton_auxiliar boton guardar" cssStyle="width:auto;" value="Guardar"></s:submit></td>
+                                                                <td><s:submit  cssClass="boton_auxiliar " cssStyle="width:auto;" value="Guardar" ></s:submit></td>
                                                             </tr>
                                                         </tbody>  
                                                     </table>
                                                     <div class="row">
                                                         <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
                                                             <div class="enlaces">
-                                                                <div class="tdsiguiente"><a href="siguienteEgresado.action"><img src="imagenes/next.png" width="21" height="21"></a></div>
+                                                                <div class="tdsiguiente"><a href="siguienteEgresado.action"><img src="imagenes/next.png" width="21" height="21" valu></a></div>
                                                             </div>
                                                         </div>        
                                                     </div>       

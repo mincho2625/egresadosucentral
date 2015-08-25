@@ -8,10 +8,12 @@ package Action;
 
 import Controlador.ControladorEgresado;
 import Controlador.ControladorEncuesta;
+import Modelo.Egresado;
 import Modelo.EgresadoRespuesta;
 import Modelo.PreguntaEncuesta;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
+import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -33,7 +35,16 @@ public class EncuestaAction extends ActionSupport implements ServletRequestAware
     private int ultima;
     private ArrayList<EgresadoRespuesta> listaRespuestas;
     private HttpServletRequest request;
-    
+    private Egresado egresado;
+
+    public Egresado getEgresado() {
+        return egresado;
+    }
+
+    public void setEgresado(Egresado egresado) {
+        this.egresado = egresado;
+    }
+        
     public EncuestaAction()
     {
         Map session = ActionContext.getContext().getSession();
@@ -118,11 +129,12 @@ public class EncuestaAction extends ActionSupport implements ServletRequestAware
     {
         this.setListaPreguntasEncuesta(controlardorEncuesta.consultarPreguntasEncuesta(this.orden));
         this.obtenerRespuestas();
-        this.controlardorEncuesta.guardar(listaRespuestas);
+        this.controlardorEncuesta.guardar(listaRespuestas);     
+        
+        this.controladorEgresado.actualizarFecha(Date.valueOf(LocalDate.now()));
         
         if (orden == ultima)
             controladorEgresado.completarInformacion();
-        
         return SUCCESS;
     }
     

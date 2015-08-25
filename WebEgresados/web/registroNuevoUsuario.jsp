@@ -216,7 +216,7 @@
                                                             <td><s:textfield name="nombres" label="Nombres" errorPosition="bottom"/></td>
                                                         </tr>
                                                         <tr>
-                                                            <td><jq:datepicker label="Fecha Nacimiento" errorPosition="bottom" size="45" name="fechaNacimiento" displayFormat="dd/mm/yy" changeMonth="true" changeYear="true" showButtonPanel="true"></jq:datepicker></td>
+                                                            <td><jq:datepicker label="Fecha Nacimiento" errorPosition="bottom" size="45" name="fechaNacimiento" displayFormat="dd/mm/yy" changeMonth="true" changeYear="true" maxDate="1y" showButtonPanel="true"></jq:datepicker></td>
                                                         </tr>
                                                         <tr>
                                                             <td><jq:select href="%{ciudadURL}" cssStyle="minu" onChangeTopics="reloadsecondlist" name="pais" id="pais"
@@ -241,7 +241,7 @@
                                                             <td><s:textfield  name="numeroDocumento" label="Número Documento" errorPosition="bottom"></s:textfield></td>
                                                         </tr>
                                                         <tr>
-                                                            <td><jq:datepicker label="Fecha Expedición" errorPosition="bottom" name="fechaExpedicion" displayFormat="dd/mm/yy" changeMonth="true" changeYear="true" showButtonPanel="true"></jq:datepicker></td>
+                                                            <td><jq:datepicker label="Fecha Expedición" errorPosition="bottom" name="fechaExpedicion" displayFormat="dd/mm/yy" changeMonth="true" changeYear="true" showButtonPanel="true" maxDate="1y"></jq:datepicker></td>
                                                         </tr>
                                                         <tr>
                                                             <td><jq:select href="%{ciudadURL}" onChangeTopics="reloadsecondlist2" name="pais2" id="pais2"

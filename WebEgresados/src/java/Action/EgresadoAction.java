@@ -377,7 +377,6 @@ public class EgresadoAction extends ActionSupport implements ModelDriven<Egresad
 
     public void insertarValoresDefecto() {
         this.getEgresado().setAceptaCondiciones(true);
-        this.getEgresado().setFechaUltimaAct(Date.valueOf(LocalDate.now()));
     }
     
     private void desplegar()

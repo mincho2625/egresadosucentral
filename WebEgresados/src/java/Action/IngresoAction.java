@@ -111,7 +111,7 @@ public class IngresoAction extends ActionSupport{
                 
                 if (!egresado.isInformacionCompleta()) {
                     this.mensaje = "Su información no está completa, por favor actualice sus datos. ";
-                    
+                    System.out.println("egresado.getFechaUltimaAct() "+egresado.getFechaUltimaAct());
                     if (egresado.getFechaUltimaAct() == null) {
                         this.primeraVez = true;
                     }
