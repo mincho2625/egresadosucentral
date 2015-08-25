@@ -63,6 +63,7 @@
                                                     <th style="width: 100px">Fecha Fin</th>
                                                     <th style="width: 150px">Estado</th>
                                                     <th>Error</th>
+                                                    <th></th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -73,7 +74,15 @@
                                                         <td><s:property value="fechaFin"></s:property></td>
                                                         <td><s:property value="idEstadoProceso.nombre"></s:property></td>
                                                         <td><s:property value="error"></s:property></td>
-                                                        </tr>
+                                                        <td>
+                                                                <s:url id="export" action="exportarCargueMasivo.action">
+                                                                    <s:param name="idObjeto" value="%{idProcesoCargue}"></s:param>
+                                                                </s:url>
+                                                                <s:a href="%{export}">
+                                                                    <img style="width: 20px; height: 19px;" title="Exportar" alt="Exportar" src="imagenes/eliminar.png" align="top">
+                                                                </s:a>
+                                                        </td>         
+                                                    </tr>
                                                 </s:iterator>
                                             </tbody>
                                         </table>

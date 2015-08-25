@@ -8,15 +8,20 @@ package Action;
 import Controlador.ControladorCargueMasivo;
 import Controlador.ControladorCrud;
 import Modelo.ProcesoCargue;
+import static com.opensymphony.xwork2.Action.SUCCESS;
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import java.io.File;
 import java.util.List;
+import javax.servlet.http.HttpServletRequest;
+import org.apache.struts2.ServletActionContext;
 
 /**
  *
  * @author YURY
  */
 public class CargueMasivoAction extends ActionSupport {
+
     private List<Object> listaProcesos;
     private List<Object> listaLogCargue;
     private File fileUpload;
@@ -24,9 +29,18 @@ public class CargueMasivoAction extends ActionSupport {
     private String fileUploadFileName;
     private final ControladorCrud controladorCrud;
     private ControladorCargueMasivo controladorCargueMasivo;
+    private String idObjeto;
+
+    public String getIdObjeto() {
+        return idObjeto;
+    }
+
+    public void setIdObjeto(String idObjeto) {
+        this.idObjeto = idObjeto;
+    }
     
-    public CargueMasivoAction()
-    {
+
+    public CargueMasivoAction() {
         controladorCrud = new ControladorCrud();
         consultar();
     }
@@ -100,14 +114,12 @@ public class CargueMasivoAction extends ActionSupport {
     public void setFileUploadFileName(String fileUploadFileName) {
         this.fileUploadFileName = fileUploadFileName;
     }
-    
-    public String desplegar()
-    {
+
+    public String desplegar() {
         return SUCCESS;
     }
-    
-    public String ejecutar()
-    {
+
+    public String ejecutar() {
         validar();
         if (!hasErrors()) {
             controladorCargueMasivo = new ControladorCargueMasivo();
@@ -117,22 +129,37 @@ public class CargueMasivoAction extends ActionSupport {
                 consultar();
                 return SUCCESS;
             }
-            
             addActionError("Error al crear el proceso de cargue. Intente nuevamente.");
         }
-        
+
         consultar();
         return ERROR;
     }
-    
-    private void validar()
-    {
-        if (fileUpload == null)
-         addFieldError("fileUpload", "No ha seleccionado el archivo.");   
+
+    private void validar() {
+        if (fileUpload == null) {
+            addFieldError("fileUpload", "No ha seleccionado el archivo.");
+        }
     }
-    
-    private void consultar()
-    {
+
+    private void consultar() {
         listaProcesos = controladorCrud.consultarLista("ProcesoCargue.findAllOrderByFechaInicio", ProcesoCargue.class.getName());
+    }
+
+    public String exportar() {
+         controladorCargueMasivo = new ControladorCargueMasivo();
+         HttpServletRequest request = (HttpServletRequest) ActionContext.getContext().get(ServletActionContext.HTTP_REQUEST);
+         String objeto = request.getParameter("idObjeto");
+         System.out.println("objeto " + objeto);
+         if (objeto != null) {
+         System.out.println("Ingreso");
+         controladorCargueMasivo.exportar(objeto);
+         return SUCCESS;
+         }/* else {
+         System.out.println("No se pudo exportar el proceso.");
+         addFieldError("fileUpload", "No se pudo exportar el proceso.");
+         return ERROR;
+         }*/
+         return SUCCESS;
     }
 }
