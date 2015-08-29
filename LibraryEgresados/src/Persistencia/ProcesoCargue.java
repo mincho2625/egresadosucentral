@@ -30,7 +30,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "proceso_cargue")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "ProcesoCargue.findAllOrderByFechaInicio", query = "SELECT p FROM ProcesoCargue p order by p.fechaInicio DESC")})
+    @NamedQuery(name = "ProcesoCargue.findAllOrderByFechaInicio", query = "SELECT p FROM ProcesoCargue p order by p.fechaInicio DESC"),
+    @NamedQuery(name = "ProcesoCargue.findAll", query = "SELECT p FROM ProcesoCargue p WHERE p.idProcesoCargue = :idProcesoCargue ")})
 public class ProcesoCargue implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id

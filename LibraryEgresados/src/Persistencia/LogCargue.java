@@ -27,7 +27,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "log_cargue")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Logcargue.findAll", query = "SELECT m FROM LogCargue m WHERE m.idLogCargue = :idLogCargue")})
+    @NamedQuery(name = "Logcargue.findAll", query = "SELECT m FROM LogCargue m WHERE m.idProcesoCargue = :idProcesoCargue")})
 public class LogCargue implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
