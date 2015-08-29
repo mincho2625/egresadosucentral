@@ -79,7 +79,7 @@
                                                                     <s:param name="idObjeto" value="%{idProcesoCargue}"></s:param>
                                                                 </s:url>
                                                                 <s:a href="%{export}">
-                                                                    <img style="width: 20px; height: 19px;" title="Exportar" alt="Exportar" src="imagenes/eliminar.png" align="top">
+                                                                    <img style="width: 20px; height: 19px;" title="Exportar" alt="Exportar" src="imagenes/excel.png" align="top">
                                                                 </s:a>
                                                         </td>         
                                                     </tr>

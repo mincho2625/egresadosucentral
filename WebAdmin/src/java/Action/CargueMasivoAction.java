@@ -38,7 +38,6 @@ public class CargueMasivoAction extends ActionSupport {
     public void setIdObjeto(String idObjeto) {
         this.idObjeto = idObjeto;
     }
-    
 
     public CargueMasivoAction() {
         controladorCrud = new ControladorCrud();
@@ -147,19 +146,27 @@ public class CargueMasivoAction extends ActionSupport {
     }
 
     public String exportar() {
-         controladorCargueMasivo = new ControladorCargueMasivo();
-         HttpServletRequest request = (HttpServletRequest) ActionContext.getContext().get(ServletActionContext.HTTP_REQUEST);
-         String objeto = request.getParameter("idObjeto");
-         System.out.println("objeto " + objeto);
-         if (objeto != null) {
-         System.out.println("Ingreso");
-         controladorCargueMasivo.exportar(objeto);
-         return SUCCESS;
-         }/* else {
-         System.out.println("No se pudo exportar el proceso.");
-         addFieldError("fileUpload", "No se pudo exportar el proceso.");
-         return ERROR;
-         }*/
-         return SUCCESS;
+        HttpServletRequest request = (HttpServletRequest) ActionContext.getContext().get(ServletActionContext.HTTP_REQUEST);
+        String objeto = request.getParameter("idObjeto");
+        System.out.println("objeto " + objeto);
+        if (objeto != null) {
+            System.out.println("Ingreso");
+            controladorCargueMasivo = new ControladorCargueMasivo(Long.parseLong(objeto));
+            int var= controladorCargueMasivo.exportar();
+            if (var==1) {
+                addFieldError("fileUpload", "Error al generar exportar log");
+                return ERROR;
+            }
+            if (var==2) {
+                addFieldError("fileUpload", "No existen registro del cargue para el proceso seleccionado");
+                return ERROR;
+            }
+            addFieldError("fileUpload", "Se exporto la informacion correctamente");
+            return SUCCESS;
+        } else {
+            System.out.println("No se pudo exportar el proceso.");
+            addFieldError("fileUpload", "No se pudo exportar el proceso.");
+            return ERROR;
+        }
     }
 }
