@@ -79,9 +79,9 @@ public class ControladorEgresado {
         }
     }
     
-    public List<Egresado> consultar(Map<String, Object> parametros)
+    public List<EducacionFormalUcentral> consultar(Map<String, Object> parametros)
     {
-        List<Egresado> listaEgresados = new ArrayList<>();
+        List<EducacionFormalUcentral> listaEgresados = new ArrayList<>();
         Convertidor convertidor = new Convertidor();
         
         CriteriaBuilder cb = em.getCriteriaBuilder();
@@ -125,8 +125,11 @@ public class ControladorEgresado {
         List<Persistencia.EducacionFormalUcentral> lista = query.getResultList();
         
         for (Persistencia.EducacionFormalUcentral e: lista) {
-            listaEgresados.add((Egresado)convertidor.convertirAModelo(e.getEducacion().getIdEgresado(), 
+            EducacionFormalUcentral educacionFormalUcentral = (EducacionFormalUcentral)convertidor.convertirAModelo(
+                    e.getEducacion().getEducacionFormalUcentral(), e.getEducacion(), Modelo.EducacionFormalUcentral.class.getName());
+            educacionFormalUcentral.setEgresado((Egresado)convertidor.convertirAModelo(e.getEducacion().getIdEgresado(), 
                     e.getEducacion().getIdEgresado().getUsuario(), Modelo.Egresado.class.getName()));
+            listaEgresados.add(educacionFormalUcentral);
         }
         
         return listaEgresados;

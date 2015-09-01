@@ -162,17 +162,17 @@ public class ControladorCorreo {
         return plantillaCorreo;
     }
     
-    public Address[] consultarDestinatarios(Map<String, Object> parametros) throws AddressException
+    public Address[] consultarDestinatarios(String idUsuarios) throws AddressException
     {
         List<Address> listaDestinatarios = new ArrayList<>();
-        Query query = em.createNamedQuery("EducacionFormalUcentral.findByCriterio");
-        for (Map.Entry<String, Object> entry : parametros.entrySet()) {
-            query.setParameter(entry.getKey(), entry.getValue());
-        }
+        Query query = em.createNamedQuery("Usuario.findByIdUsuarios");
+
+        query.setParameter("idUsuarios", idUsuarios);
+
         
-        List<Persistencia.Egresado> lista = query.getResultList();
-        for (Persistencia.Egresado egresado: lista) {
-            listaDestinatarios.add(new InternetAddress(egresado.getUsuario().getCorreoInstitucional()));
+        List<Persistencia.Usuario> lista = query.getResultList();
+        for (Persistencia.Usuario usuario: lista) {
+            listaDestinatarios.add(new InternetAddress(usuario.getCorreoInstitucional()));
         }
     
         Address[] stockArr = new Address[listaDestinatarios.size()];

@@ -26,6 +26,7 @@ public class Educacion {
     private String otraInstitucion;
     private boolean estado;
     private long idEgresado;
+    private Egresado egresado;
 
     /**
      * @return the idEducacion
@@ -207,5 +208,19 @@ public class Educacion {
      */
     public void setIdEgresado(Long idEgresado) {
         this.idEgresado = idEgresado;
+    }
+
+    /**
+     * @return the egresado
+     */
+    public Egresado getEgresado() {
+        return egresado;
+    }
+
+    /**
+     * @param egresado the egresado to set
+     */
+    public void setEgresado(Egresado egresado) {
+        this.egresado = egresado;
     }
 }
