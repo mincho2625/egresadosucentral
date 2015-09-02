@@ -5,14 +5,23 @@
  */
 package Action;
 
+import Controlador.ControladorCorreo;
 import Controlador.ControladorEgresado;
 import Controlador.ControladorListas;
-import Modelo.Egresado;
+import Modelo.EducacionFormalUcentral;
 import Modelo.ItemLista;
+import Modelo.PlantillaCorreo;
+import static com.opensymphony.xwork2.Action.ERROR;
+import static com.opensymphony.xwork2.Action.SUCCESS;
 import com.opensymphony.xwork2.ActionSupport;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.mail.Address;
+import javax.mail.internet.AddressException;
+import javax.naming.NamingException;
 
 /**
  *
@@ -20,21 +29,31 @@ import java.util.Map;
  */
 public class BusquedaAvanzadaAction extends ActionSupport {
     private List<ItemLista> listaPlantillas;
+    private Map<String, String> listaColumnas;
     private List<Long> seleccionNivelEstudios;
     private List<Long> seleccionFacultades;
     private List<Long> seleccionProgramas;
     private List<Long> seleccionEstadosCiviles;
     private List<Integer> seleccionAnios;
     private List<Long> seleccionGeneros;
-    private final ControladorListas listas;
     private Map<String, Object> parametros;
-    private List<Egresado> listaEgresados;
+    private List<EducacionFormalUcentral> listaEgresados;
     private List<String> criterioSeleccionado;
+    private final ControladorListas listas;
+    private long plantilla;
+    private ControladorCorreo controladorCorreo;
+    private String seleccionEgresados;
+    
     private int indice;
+    
+    private List<String> seleccionIdColumnas;
+    private List<String> seleccionIdColumnasTemp;
+    private Map<String, String> seleccionColumnas;
     
     public BusquedaAvanzadaAction()
     {
         listas = new ControladorListas();
+        seleccionColumnas = new HashMap<>();
         desplegar();
     }
 
@@ -50,6 +69,20 @@ public class BusquedaAvanzadaAction extends ActionSupport {
      */
     public void setListaPlantillas(List<ItemLista> listaPlantillas) {
         this.listaPlantillas = listaPlantillas;
+    }
+    
+    /**
+     * @return the listaColumnas
+     */
+    public Map<String, String> getListaColumnas() {
+        return listaColumnas;
+    }
+
+    /**
+     * @param listaColumnas the listaColumnas to set
+     */
+    public void setListaColumnas(Map<String, String> listaColumnas) {
+        this.listaColumnas = listaColumnas;
     }
     
     /**
@@ -139,14 +172,14 @@ public class BusquedaAvanzadaAction extends ActionSupport {
     /**
      * @return the listaEgresados
      */
-    public List<Egresado> getListaEgresados() {
+    public List<EducacionFormalUcentral> getListaEgresados() {
         return listaEgresados;
     }
 
     /**
      * @param listaEgresados the listaEgresados to set
      */
-    public void setListaEgresados(List<Egresado> listaEgresados) {
+    public void setListaEgresados(List<EducacionFormalUcentral> listaEgresados) {
         this.listaEgresados = listaEgresados;
     }
     
@@ -163,6 +196,8 @@ public class BusquedaAvanzadaAction extends ActionSupport {
     public void setCriterioSeleccionado(List<String> criterioSeleccionado) {
         this.criterioSeleccionado = criterioSeleccionado;
     }
+    
+    
     
     /**
      * @return the indice
@@ -185,7 +220,8 @@ public class BusquedaAvanzadaAction extends ActionSupport {
     
     private void validar()
     {
-        
+        if (getPlantilla() <= 0)
+            addFieldError("plantilla", "La plantilla de correo es requerida");
     }
     
     public String mostrar() {
@@ -193,8 +229,10 @@ public class BusquedaAvanzadaAction extends ActionSupport {
     }
     
     public String buscar() {
+        seleccionIdColumnasTemp = seleccionIdColumnas;
         System.out.println("Inicio Buscar");
-        validar();
+        System.out.println("Resultado seleccionIdColumnasTemp: " + seleccionIdColumnasTemp);
+        //validar();
         
         if (!hasErrors()) {
             parametros = new HashMap<>();
@@ -209,11 +247,135 @@ public class BusquedaAvanzadaAction extends ActionSupport {
             ControladorEgresado controladorEgresado = new ControladorEgresado();
             listaEgresados = controladorEgresado.consultar(parametros);
             indice = 1;
+            
+            listarColumnas();
+            
             System.out.println("Fin Buscar");
             return SUCCESS;
         }
         
         addActionError("Error al buscar resultados.");
         return ERROR;
+    }
+    
+    public String enviarCorreo()
+    {
+        validar();
+        
+        if (!hasErrors()) {
+            try {
+                controladorCorreo = new ControladorCorreo();
+                Address[] listaDestinatarios = getControladorCorreo().consultarDestinatarios(seleccionEgresados);
+                PlantillaCorreo plantillaCorreo = getControladorCorreo().consultarPlantillaCorreo(plantilla);
+                
+                if (getControladorCorreo().enviarCorreo(plantillaCorreo, listaDestinatarios)) {
+                    addActionMessage("Correos enviados exitosamente");
+                    return SUCCESS;
+                }
+            } catch (AddressException | NamingException ex) {
+                Logger.getLogger(BusquedaAvanzadaAction.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+        addActionError("Error al enviar correo.");
+        return ERROR;
+    }
+    
+    private void listarColumnas()
+    {
+        setListaColumnas(new HashMap<>());
+        getListaColumnas().put("egresado.nombres", "Nombres");
+        getListaColumnas().put("egresado.primerApellido", "Primer apellido");
+        getListaColumnas().put("egresado.segundoApellido", "Segundo apellido");
+        getListaColumnas().put("egresado.numeroDocumento", "Documento");
+        getListaColumnas().put("idPrograma.nombre", "Programa");
+        
+        for (String idColumna : seleccionIdColumnas) {
+            seleccionColumnas.put(idColumna, listaColumnas.get(idColumna));
+        }
+    }
+
+    /**
+     * @return the seleccionIdColumnas
+     */
+    public List<String> getSeleccionIdColumnas() {
+        return seleccionIdColumnas;
+    }
+
+    /**
+     * @param seleccionIdColumnas the seleccionIdColumnas to set
+     */
+    public void setSeleccionIdColumnas(List<String> seleccionIdColumnas) {
+        this.seleccionIdColumnas = seleccionIdColumnas;
+    }
+
+    /**
+     * @return the seleccionColumnas
+     */
+    public Map<String, String> getSeleccionColumnas() {
+        return seleccionColumnas;
+    }
+
+    /**
+     * @param seleccionColumnas the seleccionColumnas to set
+     */
+    public void setSeleccionColumnas(Map<String, String> seleccionColumnas) {
+        this.seleccionColumnas = seleccionColumnas;
+    }
+
+    /**
+     * @return the seleccionIdColumnasTemp
+     */
+    public List<String> getSeleccionIdColumnasTemp() {
+        return seleccionIdColumnasTemp;
+    }
+
+    /**
+     * @param seleccionIdColumnasTemp the seleccionIdColumnasTemp to set
+     */
+    public void setSeleccionIdColumnasTemp(List<String> seleccionIdColumnasTemp) {
+        this.seleccionIdColumnasTemp = seleccionIdColumnasTemp;
+    }
+
+    /**
+     * @return the plantilla
+     */
+    public long getPlantilla() {
+        return plantilla;
+    }
+
+    /**
+     * @param plantilla the plantilla to set
+     */
+    public void setPlantilla(long plantilla) {
+        this.plantilla = plantilla;
+    }
+
+    /**
+     * @return the controladorCorreo
+     */
+    public ControladorCorreo getControladorCorreo() {
+        return controladorCorreo;
+    }
+
+    /**
+     * @param controladorCorreo the controladorCorreo to set
+     */
+    public void setControladorCorreo(ControladorCorreo controladorCorreo) {
+        this.controladorCorreo = controladorCorreo;
+    }
+
+    /**
+     * @return the seleccionEgresados
+     */
+    public String getSeleccionEgresados() {
+        return seleccionEgresados;
+    }
+
+    /**
+     * @param seleccionEgresados the seleccionEgresados to set
+     */
+    public void setSeleccionEgresados(String seleccionEgresados) {
+        this.seleccionEgresados = seleccionEgresados;
     }
 }

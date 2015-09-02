@@ -10,6 +10,7 @@ import Controlador.ControladorListas;
 import static com.opensymphony.xwork2.Action.SUCCESS;
 import com.opensymphony.xwork2.ActionSupport;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -23,6 +24,7 @@ public class SelectProgramaAction extends ActionSupport {
     private Map<Long, String> listaProgramas;
     private Map<Long, String> listaEstadosCiviles;
     private Map<Long, String> listaGeneros;
+    private Map<String, String> listaColumnas;
     private List<Integer> listaAnios;
     private List<Long> seleccionNivelEstudios;
     private List<Long> seleccionFacultades;
@@ -31,12 +33,19 @@ public class SelectProgramaAction extends ActionSupport {
     private List<Long> seleccionGeneros;
     private List<Integer> seleccionAnios;
     private List<String> criterioSeleccionado;
+//    private TablaDinamica tablaDinamica;
     private final ControladorListas listas;
+    
+    private List<String> seleccionIdColumnas;
+    private Map<String, String> seleccionColumnas;
     
     public SelectProgramaAction()
     {
         listas = new ControladorListas();
         criterioSeleccionado = new ArrayList<>();
+        seleccionColumnas = new HashMap<>();
+//        tablaDinamica = new TablaDinamica();
+        System.out.println("new seleccionIdColumnas: " + seleccionIdColumnas);
     }
 
     /**
@@ -107,6 +116,20 @@ public class SelectProgramaAction extends ActionSupport {
      */
     public void setListaGeneros(Map<Long, String> listaGeneros) {
         this.listaGeneros = listaGeneros;
+    }
+    
+    /**
+     * @return the listaColumnas
+     */
+    public Map<String, String> getListaColumnas() {
+        return listaColumnas;
+    }
+
+    /**
+     * @param listaColumnas the listaColumnas to set
+     */
+    public void setListaColumnas(Map<String, String> listaColumnas) {
+        this.listaColumnas = listaColumnas;
     }
 
     /**
@@ -220,6 +243,7 @@ public class SelectProgramaAction extends ActionSupport {
     public void setCriterioSeleccionado(List<String> criterioSeleccionado) {
         this.criterioSeleccionado = criterioSeleccionado;
     }
+    
 
     @Override
     public String execute() throws Exception {
@@ -229,6 +253,7 @@ public class SelectProgramaAction extends ActionSupport {
         listaEstadosCiviles = listas.consultarMapEstadosCiviles();
         listaGeneros = listas.consultarMapGeneros();
         listaAnios = listas.consultarAnios();
+        listarColumnas();
         
         if (seleccionNivelEstudios.size() > 0 && seleccionFacultades.size() > 0) {
             listaProgramas = listas.consultarMapProgramasPorListaFacultadYNivelEstudios(seleccionFacultades, seleccionNivelEstudios);
@@ -279,10 +304,18 @@ public class SelectProgramaAction extends ActionSupport {
                     criterioSeleccionado.add("- " + anio);
         }
         
-        System.out.println("Criterio seleccionado: " + criterioSeleccionado);
+        System.out.println("seleccionIdColumnas: " + seleccionIdColumnas);
+        if (!seleccionIdColumnas.isEmpty() && seleccionColumnas.isEmpty())
+        {
+            for (String idColumna : seleccionIdColumnas)
+                seleccionColumnas.put(idColumna, listaColumnas.get(idColumna));
+        }
+        
+        
         
         return SUCCESS;
     }
+   
     
     public String getJSON() throws Exception {
         return execute();
@@ -291,4 +324,56 @@ public class SelectProgramaAction extends ActionSupport {
     public String index() {
         return SUCCESS;
     }
+    
+    private void listarColumnas()
+    {
+        listaColumnas = new HashMap<>();
+        listaColumnas.put("egresado.nombres", "Nombres");
+        listaColumnas.put("egresado.primerApellido", "Primer apellido");
+        listaColumnas.put("egresado.segundoApellido", "Segundo apellido");
+        listaColumnas.put("egresado.numeroDocumento", "Documento");
+        listaColumnas.put("idPrograma.nombre", "Programa");
+    }
+
+    /**
+     * @return the seleccionIdColumnas
+     */
+    public List<String> getSeleccionIdColumnas() {
+        return seleccionIdColumnas;
+    }
+
+    /**
+     * @param seleccionIdColumnas the seleccionIdColumnas to set
+     */
+    public void setSeleccionIdColumnas(List<String> seleccionIdColumnas) {
+        this.seleccionIdColumnas = seleccionIdColumnas;
+    }
+
+    /**
+     * @return the seleccionColumnas
+     */
+    public Map<String, String> getSeleccionColumnas() {
+        return seleccionColumnas;
+    }
+
+    /**
+     * @param seleccionColumnas the seleccionColumnas to set
+     */
+    public void setSeleccionColumnas(Map<String, String> seleccionColumnas) {
+        this.seleccionColumnas = seleccionColumnas;
+    }
+
+    /**
+     * @return the tablaDinamica
+     */
+//    public TablaDinamica getTablaDinamica() {
+//        return tablaDinamica;
+//    }
+//
+//    /**
+//     * @param tablaDinamica the tablaDinamica to set
+//     */
+//    public void setTablaDinamica(TablaDinamica tablaDinamica) {
+//        this.tablaDinamica = tablaDinamica;
+//    }
 }
