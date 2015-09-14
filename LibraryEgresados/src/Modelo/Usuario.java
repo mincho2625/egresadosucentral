@@ -111,8 +111,8 @@ public class Usuario {
     /**
      * @return the estado
      */
-    public boolean getEstado() {
-        return estado;
+    public String getEstado() {
+        return (estado ? "Activo" : "Inactivo");
     }
 
     /**

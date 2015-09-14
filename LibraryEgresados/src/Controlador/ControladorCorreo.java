@@ -12,7 +12,6 @@ import Util.Constantes;
 import Util.Convertidor;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -162,13 +161,11 @@ public class ControladorCorreo {
         return plantillaCorreo;
     }
     
-    public Address[] consultarDestinatarios(String idUsuarios) throws AddressException
+    public Address[] consultarDestinatarios(List<Long> idUsuarios) throws AddressException
     {
         List<Address> listaDestinatarios = new ArrayList<>();
         Query query = em.createNamedQuery("Usuario.findByIdUsuarios");
-
         query.setParameter("idUsuarios", idUsuarios);
-
         
         List<Persistencia.Usuario> lista = query.getResultList();
         for (Persistencia.Usuario usuario: lista) {

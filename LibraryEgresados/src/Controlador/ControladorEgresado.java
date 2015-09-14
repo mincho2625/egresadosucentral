@@ -153,13 +153,19 @@ public class ControladorEgresado {
         return true;
     }
     
-    public boolean activar(long idEgresado, boolean activo)
+    public boolean activar(List<Long> idEgresados, boolean activo)
     {
         try {
             em.getTransaction().begin();
-            Persistencia.Usuario u = em.getReference(Persistencia.Usuario.class, idEgresado);
-            u.setEstado(activo);
-            em.persist(u);
+            
+            Query query = em.createNamedQuery("Usuario.findByIdUsuarios");
+            query.setParameter("idUsuarios", idEgresados);
+
+            List<Persistencia.Usuario> lista = query.getResultList();
+            for (Persistencia.Usuario usuario: lista) {
+                usuario.setEstado(activo);
+                em.persist(usuario);
+            }
             em.getTransaction().commit();
             
             return true;
@@ -169,6 +175,7 @@ public class ControladorEgresado {
         
         return false;
     }
+    
     public boolean actualizarFecha(Date fecha)
     {
         try {
