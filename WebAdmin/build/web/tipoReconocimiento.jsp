@@ -93,8 +93,23 @@
                                                             <tr>
                                                                 <td></td>
                                                                 <td><s:submit cssClass="boton_auxiliar boton guardar" cssStyle="width:auto;" value="Guardar"></s:submit></td>
-                                                        </tr>
-                                                    </table>
+                                                            </tr>
+                                                        </table>
+                                                </s:push>
+                                            </s:form>
+                                        </s:if>
+                                        <s:if test="crear">
+                                            <h3 style="margin-left: 100px;width: 400px">Generar Nuevo Registro</h3>
+                                            <s:form action="guardarTipoReconocimiento.action">
+                                                <s:push value="objeto">
+                                                    <s:hidden name="idTipoReconocimiento"></s:hidden>
+                                                        <table style="margin-left: 50px;width: 300px">
+                                                            <tr><td><s:textfield label="Nombre" name="nombre"></s:textfield></td></tr>
+                                                            <tr>
+                                                                <td></td>
+                                                                <td><s:submit cssClass="boton_auxiliar boton guardar" cssStyle="width:auto;" value="Guardar"></s:submit></td>
+                                                            </tr>
+                                                        </table>
                                                 </s:push>
                                             </s:form>
                                         </s:if>

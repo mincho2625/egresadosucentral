@@ -32,7 +32,5 @@
     </session-config>
     <welcome-file-list>
         <welcome-file>entrada.jsp</welcome-file>
-    </welcome-file-list>
-    
-    
+    </welcome-file-list>  
 </web-app>

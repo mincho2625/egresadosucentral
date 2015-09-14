@@ -239,19 +239,20 @@
             <result name="input" >/configuracionCorreo.jsp</result>
             <result name="error" >/configuracionCorreo.jsp</result>
         </action>
-        
-        <action name="*CorreoMasivo" method="{1}" class="Action.CorreoMasivoAction">
-            <result name="success">/correoMasivo.jsp</result>
-            <result name="input" >/correoMasivo.jsp</result>
-            <result name="error" >/correoMasivo.jsp</result>
-        </action>
-        
+                
         <action name="*CargueMasivo" method="{1}" class="Action.CargueMasivoAction">
             <result name="success">/cargueMasivo.jsp</result>
             <result name="input">/cargueMasivo.jsp</result>
             <result name="error">/cargueMasivo.jsp</result>
         </action>
         
+        <action name="*Encuesta" method="{1}" class="Action.EncuestaAction">
+            <result name="success">/encuesta.jsp</result>
+            <result name="input">/encuesta.jsp</result>
+            <result name="error">/encuesta.jsp</result>
+            <result name="desplegar">/encuesta.jsp</result>
+        </action>
+                 
         <action name="*Egresados" method="{1}" class="Action.EgresadoAction">
             <result name="success">/egresados.jsp</result>
             <result name="error">/egresados.jsp</result>
@@ -267,5 +268,14 @@
             <result type="json">
             </result>
         </action>
+       <action name="*PreguntasEncuestas" method="{1}" class="Action.PreguntasEncuestasAction">
+            <result name="success">/preguntaEncuesta.jsp</result>
+            <result name="success1">/encuesta.jsp</result>
+            <result name="input">/preguntaEncuesta.jsp</result>
+            <result name="error">/preguntaEncuesta.jsp</result>
+            <result name="error1">/encuesta.jsp</result>
+            <result name="desplegar">/preguntaEncuesta.jsp</result>
+        </action>
+
     </package>
 </struts>

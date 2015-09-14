@@ -110,6 +110,33 @@
                                                 </s:push>
                                             </s:form>
                                         </s:if>
+                                            <s:if test="crear">
+                                            <h3 style="margin-left: 100px;width: 400px">Generar Nuevo Registro</h3>
+                                            <s:form action="guardarNivelEstudios.action">
+                                                <s:push value="objeto">
+                                                    <s:hidden name="idNivelEstudios"></s:hidden>
+                                                        <table style="margin-left: 50px;width: 300px">
+                                                            <tr><td><s:textfield label="Nombre" name="nombre"></s:textfield></td></tr>
+                                                                <tr>
+                                                                    <td><s:checkbox label="Formal" name="formal"></s:checkbox></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td><s:checkbox label="Obligatorio Universidad Central" name="obligatorioUCentral"></s:checkbox></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td><s:checkbox label="Obligatorio otras instituciones" name="obligatorioOtrasInst"></s:checkbox></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td><s:checkbox label="Obligatorio educación no formal" name="obligatorioNoFormal"></s:checkbox></td>
+                                                                </tr>
+                                                            <tr>
+                                                                <td></td>
+                                                                <td><s:submit cssClass="boton_auxiliar boton guardar" cssStyle="width:auto;" value="Guardar"></s:submit></td>
+                                                        </tr>
+                                                    </table>
+                                                </s:push>
+                                            </s:form>
+                                        </s:if>
                                     </div>
                                 </div>
                                 <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>

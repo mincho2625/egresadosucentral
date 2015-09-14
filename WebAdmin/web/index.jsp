@@ -252,6 +252,8 @@
                                             <div>
                                                 <div class="content">
                                                     <a href="desplegarCargueMasivo.action" target="contenido"><li class="letra">Cargue Masivo de Egresados</li></a>
+                                                    <a href="obtenerListaEncuesta.action" target="contenido"><li class="letra">Encuesta</li></a>
+                                                    <a href="obtenerListaPreguntaEncuestaPreguntasEncuestas.action" target="contenido"><li class="letra">Preguntas Encuesta</li></a>
                                                 </div>
                                             </div>
                                             <script>
