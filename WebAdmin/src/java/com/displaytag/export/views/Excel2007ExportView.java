@@ -1,6 +1,5 @@
 package com.displaytag.export.views;
 
-import Controlador.ControladorCrud;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Iterator;
@@ -25,9 +24,7 @@ import com.lowagie.text.BadElementException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class myExcel2007ExportView implements BinaryExportView {
-
- //private static Log log = LogFactory.getLog(myExcel2007ExportView.class);
+public class Excel2007ExportView implements BinaryExportView {
     private TableModel model;
     private boolean exportFull;
     private boolean header;
@@ -67,7 +64,7 @@ public class myExcel2007ExportView implements BinaryExportView {
         workbook = new XSSFWorkbook();
 
         //Create a blank sheet
-        sheet = workbook.createSheet("Server Management System");
+        sheet = workbook.createSheet("Export");
 
         defaultFont = workbook.createFont();
         defaultFont.setFontHeightInPoints((short) 10);
@@ -212,7 +209,7 @@ public class myExcel2007ExportView implements BinaryExportView {
 
         } catch (BadElementException e) {
             // TODO Auto-generated catch block
-            Logger.getLogger(myExcel2007ExportView.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(Excel2007ExportView.class.getName()).log(Level.SEVERE, null, e);
         }
 
         workbook.write(out);

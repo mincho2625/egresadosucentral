@@ -245,7 +245,7 @@
                                             <h6>Consultas</h6>
                                             <div>
                                                 <div class="content">
-                                                    <a href="mostrarBusquedaAvanzada.action" target="contenido"><li class="letra">Egresados</li></a>
+                                                    <a href="mostrarEgresados.action" target="contenido"><li class="letra">Egresados</li></a>
                                                 </div>
                                             </div>
                                             <h6>Migraci&oacute;n</h6>

@@ -3,72 +3,119 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package Action;
 
-import Controlador.ControladorCorreo;
-import Controlador.ControladorEgresado;
 import Controlador.ControladorListas;
-import Modelo.EducacionFormalUcentral;
-import Modelo.ItemLista;
-import Modelo.PlantillaCorreo;
-import static com.opensymphony.xwork2.Action.ERROR;
 import static com.opensymphony.xwork2.Action.SUCCESS;
 import com.opensymphony.xwork2.ActionSupport;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.mail.Address;
-import javax.mail.internet.AddressException;
-import javax.naming.NamingException;
 
 /**
  *
- * @author YURY
+ * @author yury
  */
 public class BusquedaAvanzadaAction extends ActionSupport {
-    private List<ItemLista> listaPlantillas;
+    private Map<Long, String> listaNivelesEstudios;
+    private Map<Long, String> listaFacultades;
+    private Map<Long, String> listaProgramas;
+    private Map<Long, String> listaEstadosCiviles;
+    private Map<Long, String> listaGeneros;
     private Map<String, String> listaColumnas;
+    private List<Integer> listaAnios;
     private List<Long> seleccionNivelEstudios;
     private List<Long> seleccionFacultades;
     private List<Long> seleccionProgramas;
     private List<Long> seleccionEstadosCiviles;
-    private List<Integer> seleccionAnios;
     private List<Long> seleccionGeneros;
-    private Map<String, Object> parametros;
-    private List<EducacionFormalUcentral> listaEgresados;
+    private List<Integer> seleccionAnios;
     private List<String> criterioSeleccionado;
+//    private TablaDinamica tablaDinamica;
     private final ControladorListas listas;
-    private long plantilla;
-    private ControladorCorreo controladorCorreo;
-    private String seleccionEgresados;
-    
-    private int indice;
     
     private List<String> seleccionIdColumnas;
-    private List<String> seleccionIdColumnasTemp;
     private Map<String, String> seleccionColumnas;
     
     public BusquedaAvanzadaAction()
     {
         listas = new ControladorListas();
+        criterioSeleccionado = new ArrayList<>();
         seleccionColumnas = new HashMap<>();
-        desplegar();
+//        tablaDinamica = new TablaDinamica();
+        System.out.println("new seleccionIdColumnas: " + seleccionIdColumnas);
     }
 
     /**
-     * @return the listaPlantillas
+     * @return the listaNivelesEstudios
      */
-    public List<ItemLista> getListaPlantillas() {
-        return listaPlantillas;
+    public Map<Long, String> getListaNivelesEstudios() {
+        return listaNivelesEstudios;
     }
 
     /**
-     * @param listaPlantillas the listaPlantillas to set
+     * @param listaNivelesEstudios the listaNivelesEstudios to set
      */
-    public void setListaPlantillas(List<ItemLista> listaPlantillas) {
-        this.listaPlantillas = listaPlantillas;
+    public void setListaNivelesEstudios(Map<Long, String> listaNivelesEstudios) {
+        this.listaNivelesEstudios = listaNivelesEstudios;
+    }
+
+    /**
+     * @return the listaFacultades
+     */
+    public Map<Long, String> getListaFacultades() {
+        return listaFacultades;
+    }
+
+    /**
+     * @param listaFacultades the listaFacultades to set
+     */
+    public void setListaFacultades(Map<Long, String> listaFacultades) {
+        this.listaFacultades = listaFacultades;
+    }
+    
+    /**
+     * @return the listaEstadosCiviles
+     */
+    public Map<Long, String> getListaEstadosCiviles() {
+        return listaEstadosCiviles;
+    }
+
+    /**
+     * @param listaEstadosCiviles the listaEstadosCiviles to set
+     */
+    public void setListaEstadosCiviles(Map<Long, String> listaEstadosCiviles) {
+        this.listaEstadosCiviles = listaEstadosCiviles;
+    }
+
+    /**
+     * @return the listaProgramas
+     */
+    public Map<Long, String> getListaProgramas() {
+        return listaProgramas;
+    }
+
+    /**
+     * @param listaProgramas the listaProgramas to set
+     */
+    public void setListaProgramas(Map<Long, String> listaProgramas) {
+        this.listaProgramas = listaProgramas;
+    }
+    
+    /**
+     * @return the listaGeneros
+     */
+    public Map<Long, String> getListaGeneros() {
+        return listaGeneros;
+    }
+
+    /**
+     * @param listaGeneros the listaGeneros to set
+     */
+    public void setListaGeneros(Map<Long, String> listaGeneros) {
+        this.listaGeneros = listaGeneros;
     }
     
     /**
@@ -84,7 +131,21 @@ public class BusquedaAvanzadaAction extends ActionSupport {
     public void setListaColumnas(Map<String, String> listaColumnas) {
         this.listaColumnas = listaColumnas;
     }
-    
+
+    /**
+     * @return the listaAnios
+     */
+    public List<Integer> getListaAnios() {
+        return listaAnios;
+    }
+
+    /**
+     * @param listaAnios the listaAnios to set
+     */
+    public void setListaAnios(List<Integer> listaAnios) {
+        this.listaAnios = listaAnios;
+    }
+
     /**
      * @return the seleccionNivelEstudios
      */
@@ -126,9 +187,9 @@ public class BusquedaAvanzadaAction extends ActionSupport {
     public void setSeleccionProgramas(List<Long> seleccionProgramas) {
         this.seleccionProgramas = seleccionProgramas;
     }
-
+    
     /**
-     * @return the seleccionestadosCiviles
+     * @return the seleccionEstadosCiviles
      */
     public List<Long> getSeleccionEstadosCiviles() {
         return seleccionEstadosCiviles;
@@ -139,6 +200,20 @@ public class BusquedaAvanzadaAction extends ActionSupport {
      */
     public void setSeleccionEstadosCiviles(List<Long> seleccionEstadosCiviles) {
         this.seleccionEstadosCiviles = seleccionEstadosCiviles;
+    }
+    
+    /**
+     * @return the seleccionGeneros
+     */
+    public List<Long> getSeleccionGeneros() {
+        return seleccionGeneros;
+    }
+
+    /**
+     * @param seleccionGeneros the seleccionGeneros to set
+     */
+    public void setSeleccionGeneros(List<Long> seleccionGeneros) {
+        this.seleccionGeneros = seleccionGeneros;
     }
 
     /**
@@ -154,36 +229,8 @@ public class BusquedaAvanzadaAction extends ActionSupport {
     public void setSeleccionAnios(List<Integer> seleccionAnios) {
         this.seleccionAnios = seleccionAnios;
     }
-
-    /**
-     * @return the seleccionGeneros
-     */
-    public List<Long> getSeleccionGeneros() {
-        return seleccionGeneros;
-    }
-
-    /**
-     * @param seleccionGeneros the seleccionGeneros to set
-     */
-    public void setSeleccionGeneros(List<Long> seleccionGeneros) {
-        this.seleccionGeneros = seleccionGeneros;
-    }
     
     /**
-     * @return the listaEgresados
-     */
-    public List<EducacionFormalUcentral> getListaEgresados() {
-        return listaEgresados;
-    }
-
-    /**
-     * @param listaEgresados the listaEgresados to set
-     */
-    public void setListaEgresados(List<EducacionFormalUcentral> listaEgresados) {
-        this.listaEgresados = listaEgresados;
-    }
-    
-     /**
      * @return the criterioSeleccionado
      */
     public List<String> getCriterioSeleccionado() {
@@ -197,102 +244,96 @@ public class BusquedaAvanzadaAction extends ActionSupport {
         this.criterioSeleccionado = criterioSeleccionado;
     }
     
-    
-    
-    /**
-     * @return the indice
-     */
-    public int getIndice() {
-        return indice;
-    }
 
-    /**
-     * @param indice the indice to set
-     */
-    public void setIndice(int indice) {
-        this.indice = indice;
-    }
-    
-    private void desplegar()
-    {
-        listaPlantillas = listas.consultarPlantillasCorreo();
-    }
-    
-    private void validar()
-    {
-        if (getPlantilla() <= 0)
-            addFieldError("plantilla", "La plantilla de correo es requerida");
-    }
-    
-    public String mostrar() {
+    @Override
+    public String execute() throws Exception {
+        System.out.println("Carga");
+        listaNivelesEstudios = listas.consultarMapNivelesEstudiosAplicaUCentral();
+        listaFacultades = listas.consultarMapFacultades();
+        listaEstadosCiviles = listas.consultarMapEstadosCiviles();
+        listaGeneros = listas.consultarMapGeneros();
+        listaAnios = listas.consultarAnios();
+        listarColumnas();
+        
+        if (seleccionNivelEstudios.size() > 0 && seleccionFacultades.size() > 0) {
+            listaProgramas = listas.consultarMapProgramasPorListaFacultadYNivelEstudios(seleccionFacultades, seleccionNivelEstudios);
+        }
+        
+        System.out.println("seleccionNivelEstudios :" + seleccionNivelEstudios);
+        if (seleccionNivelEstudios.size() > 0 && !criterioSeleccionado.contains("Nivel de estudios")) {
+            criterioSeleccionado.add("Nivel de estudios");
+            for (Long nivelEstudios : seleccionNivelEstudios)
+                criterioSeleccionado.add("- " + listaNivelesEstudios.get(nivelEstudios));
+        }
+        
+        System.out.println("seleccionFacultades :" + seleccionFacultades);
+        if (seleccionFacultades.size() > 0 && !criterioSeleccionado.contains("Facultad")) {
+            criterioSeleccionado.add("Facultad");
+            for (Long facultad : seleccionFacultades)
+                criterioSeleccionado.add("- " + listaFacultades.get(facultad));
+        }
+        
+        System.out.println("seleccionProgramas :" + seleccionProgramas);
+        if (seleccionProgramas.size() > 0 && !criterioSeleccionado.contains("Programa")) {
+            criterioSeleccionado.add("Programa");
+            for (Long programa : seleccionProgramas)
+                criterioSeleccionado.add("- " + listaProgramas.get(programa));
+        }
+        
+        System.out.println("seleccionEstadosCiviles :" + seleccionEstadosCiviles);
+        if (seleccionEstadosCiviles.size() > 0 && !criterioSeleccionado.contains("Estado civil"))
+        {
+            criterioSeleccionado.add("Estado civil");
+                for (Long estadoCivil : seleccionEstadosCiviles)
+                    criterioSeleccionado.add("- " + listaEstadosCiviles.get(estadoCivil));
+        }
+        
+        System.out.println("seleccionGeneros :" + seleccionGeneros);
+        if (seleccionGeneros.size() > 0 && !criterioSeleccionado.contains("Genero"))
+        {
+            criterioSeleccionado.add("Genero");
+                for (Long genero : seleccionGeneros)
+                    criterioSeleccionado.add("- " + listaGeneros.get(genero));
+        }
+        
+        System.out.println("seleccionAnios :" + seleccionAnios);
+        if (seleccionAnios.size() > 0 && !criterioSeleccionado.contains("Año de grado"))
+        {
+            criterioSeleccionado.add("Año de grado");
+                for (Integer anio : seleccionAnios)
+                    criterioSeleccionado.add("- " + anio);
+        }
+        
+        System.out.println("seleccionIdColumnas: " + seleccionIdColumnas);
+        if (!seleccionIdColumnas.isEmpty() && seleccionColumnas.isEmpty())
+        {
+            for (String idColumna : seleccionIdColumnas)
+                seleccionColumnas.put(idColumna, listaColumnas.get(idColumna));
+        }
+        
+        
+        
         return SUCCESS;
     }
+   
     
-    public String buscar() {
-        seleccionIdColumnasTemp = seleccionIdColumnas;
-        System.out.println("Inicio Buscar");
-        System.out.println("Resultado seleccionIdColumnasTemp: " + seleccionIdColumnasTemp);
-        //validar();
-        
-        if (!hasErrors()) {
-            parametros = new HashMap<>();
-            if (this.seleccionProgramas.size() > 0) parametros.put("idPrograma", this.seleccionProgramas);
-            if (this.seleccionNivelEstudios.size() > 0) parametros.put("idNivelEstudios", this.seleccionNivelEstudios);
-            if (this.seleccionFacultades.size() > 0) parametros.put("idFacultad", this.seleccionFacultades);
-            if (this.seleccionAnios.size() > 0) parametros.put("anioFinalizacion", this.seleccionAnios);
-            if (this.seleccionGeneros.size() > 0) parametros.put("idGenero", this.seleccionGeneros);
-            if (this.seleccionEstadosCiviles.size() > 0) parametros.put("idEstadoCivil", this.seleccionEstadosCiviles);
-
-            // buscar
-            ControladorEgresado controladorEgresado = new ControladorEgresado();
-            listaEgresados = controladorEgresado.consultar(parametros);
-            indice = 1;
-            
-            listarColumnas();
-            
-            System.out.println("Fin Buscar");
-            return SUCCESS;
-        }
-        
-        addActionError("Error al buscar resultados.");
-        return ERROR;
+    public String getJSON() throws Exception {
+        return execute();
     }
     
-    public String enviarCorreo()
-    {
-        validar();
-        
-        if (!hasErrors()) {
-            try {
-                controladorCorreo = new ControladorCorreo();
-                Address[] listaDestinatarios = getControladorCorreo().consultarDestinatarios(seleccionEgresados);
-                PlantillaCorreo plantillaCorreo = getControladorCorreo().consultarPlantillaCorreo(plantilla);
-                
-                if (getControladorCorreo().enviarCorreo(plantillaCorreo, listaDestinatarios)) {
-                    addActionMessage("Correos enviados exitosamente");
-                    return SUCCESS;
-                }
-            } catch (AddressException | NamingException ex) {
-                Logger.getLogger(BusquedaAvanzadaAction.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        
-        addActionError("Error al enviar correo.");
-        return ERROR;
+    public String index() {
+        return SUCCESS;
     }
     
     private void listarColumnas()
     {
-        setListaColumnas(new HashMap<>());
-        getListaColumnas().put("egresado.nombres", "Nombres");
-        getListaColumnas().put("egresado.primerApellido", "Primer apellido");
-        getListaColumnas().put("egresado.segundoApellido", "Segundo apellido");
-        getListaColumnas().put("egresado.numeroDocumento", "Documento");
-        getListaColumnas().put("idPrograma.nombre", "Programa");
-        
-        for (String idColumna : seleccionIdColumnas) {
-            seleccionColumnas.put(idColumna, listaColumnas.get(idColumna));
-        }
+        listaColumnas = new HashMap<>();
+        listaColumnas.put("egresado.nombres", "Nombres");
+        listaColumnas.put("egresado.primerApellido", "Primer apellido");
+        listaColumnas.put("egresado.segundoApellido", "Segundo apellido");
+        listaColumnas.put("egresado.numeroDocumento", "Documento");
+        listaColumnas.put("idPrograma.nombre", "Programa");
+        getListaColumnas().put("egresado.estado", "Estado");
     }
 
     /**
@@ -324,58 +365,16 @@ public class BusquedaAvanzadaAction extends ActionSupport {
     }
 
     /**
-     * @return the seleccionIdColumnasTemp
+     * @return the tablaDinamica
      */
-    public List<String> getSeleccionIdColumnasTemp() {
-        return seleccionIdColumnasTemp;
-    }
-
-    /**
-     * @param seleccionIdColumnasTemp the seleccionIdColumnasTemp to set
-     */
-    public void setSeleccionIdColumnasTemp(List<String> seleccionIdColumnasTemp) {
-        this.seleccionIdColumnasTemp = seleccionIdColumnasTemp;
-    }
-
-    /**
-     * @return the plantilla
-     */
-    public long getPlantilla() {
-        return plantilla;
-    }
-
-    /**
-     * @param plantilla the plantilla to set
-     */
-    public void setPlantilla(long plantilla) {
-        this.plantilla = plantilla;
-    }
-
-    /**
-     * @return the controladorCorreo
-     */
-    public ControladorCorreo getControladorCorreo() {
-        return controladorCorreo;
-    }
-
-    /**
-     * @param controladorCorreo the controladorCorreo to set
-     */
-    public void setControladorCorreo(ControladorCorreo controladorCorreo) {
-        this.controladorCorreo = controladorCorreo;
-    }
-
-    /**
-     * @return the seleccionEgresados
-     */
-    public String getSeleccionEgresados() {
-        return seleccionEgresados;
-    }
-
-    /**
-     * @param seleccionEgresados the seleccionEgresados to set
-     */
-    public void setSeleccionEgresados(String seleccionEgresados) {
-        this.seleccionEgresados = seleccionEgresados;
-    }
+//    public TablaDinamica getTablaDinamica() {
+//        return tablaDinamica;
+//    }
+//
+//    /**
+//     * @param tablaDinamica the tablaDinamica to set
+//     */
+//    public void setTablaDinamica(TablaDinamica tablaDinamica) {
+//        this.tablaDinamica = tablaDinamica;
+//    }
 }

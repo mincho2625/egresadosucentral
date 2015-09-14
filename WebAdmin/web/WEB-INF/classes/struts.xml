@@ -253,21 +253,17 @@
             <result name="desplegar">/encuesta.jsp</result>
         </action>
                  
-        <action name="*Egresados" method="{1}" class="Action.EgresadoAction">
+        <action  name="*Egresados" method="{1}" class="Action.EgresadosAction">
             <result name="success">/egresados.jsp</result>
+            <result name="input">/egresados.jsp</result>
             <result name="error">/egresados.jsp</result>
         </action>
         
-        <action  name="*BusquedaAvanzada" method="{1}" class="Action.BusquedaAvanzadaAction">
-            <result name="success">/busquedaAvanzada.jsp</result>
-            <result name="input">/busquedaAvanzada.jsp</result>
-            <result name="error">/busquedaAvanzada.jsp</result>
-        </action>
-        
-        <action name="SelectPrograma" class="Action.SelectProgramaAction">
+        <action name="BusquedaAvanzada" class="Action.BusquedaAvanzadaAction">
             <result type="json">
             </result>
         </action>
+        
        <action name="*PreguntasEncuestas" method="{1}" class="Action.PreguntasEncuestasAction">
             <result name="success">/preguntaEncuesta.jsp</result>
             <result name="success1">/encuesta.jsp</result>
