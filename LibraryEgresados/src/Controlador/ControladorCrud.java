@@ -37,6 +37,10 @@ public class ControladorCrud {
     {
         Convertidor convertidor = new Convertidor();
         try {
+            System.out.println("consulta "+consulta);
+            System.out.println("parametro "+parametro);
+            System.out.println("clase "+clase);
+            System.out.println("clase "+idObjeto);
             Query query = em.createNamedQuery(consulta);
             query.setParameter(parametro, idObjeto);
             Object objeto = query.getSingleResult();
@@ -89,6 +93,30 @@ public class ControladorCrud {
         try {
             Query query = em.createNamedQuery(consulta);
             query.setParameter("estado", true);
+            
+            if (parametros != null) {
+                for (Map.Entry<String, Object> entry : parametros.entrySet()) {
+                    query.setParameter(entry.getKey(), entry.getValue());
+                }
+            }
+            
+            List<Object> lista = query.getResultList();
+            for (Object objeto: lista) {
+                listaObjetos.add(convertidor.convertirAModelo(objeto, null, clase));
+            }
+        } catch (SecurityException | IllegalArgumentException ex) {
+            Logger.getLogger(ControladorCrud.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return listaObjetos;
+    }
+    public List<Object> consultarListaEncuesta(String consulta, String clase, Map<String, Object> parametros)
+    {
+        Convertidor convertidor = new Convertidor();
+        List<Object> listaObjetos = new ArrayList<>();
+        
+        try {
+            Query query = em.createNamedQuery(consulta);
             
             if (parametros != null) {
                 for (Map.Entry<String, Object> entry : parametros.entrySet()) {
@@ -196,4 +224,7 @@ public class ControladorCrud {
         
         return false;
     }
+    
+    
+    
 }

@@ -473,6 +473,12 @@ public class ControladorListas {
         return consultar("PlantillaCorreo.findByEstado", "getIdPlantillaCorreo", parametros);
     }
     
+    public List<ItemLista> consultarTipoRespuesta() {
+        HashMap<String, Object> parametros = new HashMap<>();
+        parametros.put("estado", true);
+        return consultar("TipoRespuesta.findByEstado", "getIdTipoRespuesta", parametros, "getNombre");
+    }
+    
     public ArrayList<Integer> consultarAnios()
     {
         ArrayList<Integer> listaAnios = new ArrayList<>();

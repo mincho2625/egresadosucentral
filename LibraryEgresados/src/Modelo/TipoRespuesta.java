@@ -14,7 +14,7 @@ public class TipoRespuesta {
     private long idTipoRespuesta;
     private String nombre;
     private boolean estado;
-
+   
     /**
      * @return the idTipoRespuesta
      */

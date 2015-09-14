@@ -24,12 +24,15 @@ public class PreguntaEncuesta {
     private Map<Long, RespuestaEncuesta> listaPosiblesRespuestasEncuesta;
     private int orden;
     private ArrayList<EgresadoRespuesta> listaRespuestasEncuesta;
-
+    private boolean obligatoria;
+    private int posicionFormato;
+    
     public PreguntaEncuesta() {
         this.listaPosiblesRespuestasEncuesta = new HashMap<>();
         this.listaRespuestasEncuesta = new ArrayList<>();
     }
 
+    
     /**
      * @return the idPreguntaEncuesta
      */
@@ -148,5 +151,21 @@ public class PreguntaEncuesta {
      */
     public void setIdEncuesta(Encuesta idEncuesta) {
         this.idEncuesta = idEncuesta;
+    }
+
+    public boolean isObligatoria() {
+        return obligatoria;
+    }
+
+    public void setObligatoria(boolean obligatoria) {
+        this.obligatoria = obligatoria;
+    }
+
+    public int getPosicionFormato() {
+        return posicionFormato;
+    }
+
+    public void setPosicionFormato(int posicionFormato) {
+        this.posicionFormato = posicionFormato;
     }
 }

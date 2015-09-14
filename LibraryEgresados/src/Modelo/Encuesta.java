@@ -6,6 +6,10 @@
 
 package Modelo;
 
+import java.util.Date;
+
+
+
 /**
  *
  * @author YURY
@@ -16,7 +20,36 @@ public class Encuesta {
     private String descripcion;
     private boolean estado;
     private int orden;
+    private boolean graduando;
+    private boolean egresado;
+    private Date fechaRegistro;
 
+    public Date getFechaRegistro() {
+        return fechaRegistro;
+    }
+
+    public void setFechaRegistro(Date fechaRegistro) {
+        this.fechaRegistro = fechaRegistro;
+    }
+    
+
+    public boolean isGraduando() {
+        return graduando;
+    }
+
+    public void setGraduando(boolean graduando) {
+        this.graduando = graduando;
+    }
+
+    public boolean isEgresado() {
+        return egresado;
+    }
+
+    public void setEgresado(boolean egresado) {
+        this.egresado = egresado;
+    }
+
+    
     /**
      * @return the idEncuesta
      */
