@@ -14,6 +14,7 @@ public class TipoActividad {
     private long idTipoActividad;
     private String nombre;
     private boolean estado;
+    private boolean soloLectura;
     
     public TipoActividad() {}
     
@@ -44,6 +45,18 @@ public class TipoActividad {
     public void setEstado(boolean estado) {
         this.estado = estado;
     }
-    
-    
+
+    /**
+     * @return the soloLectura
+     */
+    public boolean isSoloLectura() {
+        return soloLectura;
+    }
+
+    /**
+     * @param soloLectura the soloLectura to set
+     */
+    public void setSoloLectura(boolean soloLectura) {
+        this.soloLectura = soloLectura;
+    }    
 }
