@@ -14,6 +14,7 @@ public class EstadoEducacion {
     private long idEstadoEducacion;
     private String nombre;
     private boolean estado;
+    private boolean soloLectura;
     
     public EstadoEducacion() {}
     
@@ -61,5 +62,19 @@ public class EstadoEducacion {
      */
     public void setEstado(boolean estado) {
         this.estado = estado;
+    }
+
+    /**
+     * @return the soloLectura
+     */
+    public boolean isSoloLectura() {
+        return soloLectura;
+    }
+
+    /**
+     * @param soloLectura the soloLectura to set
+     */
+    public void setSoloLectura(boolean soloLectura) {
+        this.soloLectura = soloLectura;
     }
 }
