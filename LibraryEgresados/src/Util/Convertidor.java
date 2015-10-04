@@ -84,7 +84,8 @@ public class Convertidor {
 
         try {
             Object destino;
-            long id = (long) invocar(origen, idObjeto);
+            Object object_id = invocar(origen, idObjeto);
+            long id = (object_id != null ? (long)object_id : 0);
             if (id > 0) {
                 destino = em.getReference(Class.forName(claseDestino), id);
             } else {
