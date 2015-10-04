@@ -102,7 +102,7 @@ public class EstadoEducacion implements Serializable {
     /**
      * @return the soloLectura
      */
-    public boolean setSoloLectura() {
+    public boolean getSoloLectura() {
         return soloLectura;
     }
 
