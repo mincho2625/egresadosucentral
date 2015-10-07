@@ -65,6 +65,8 @@
     <class>Persistencia.TipoVivienda</class>
     <class>Persistencia.Usuario</class>
     <class>Persistencia.EstadoLog</class>
+    <class>Persistencia.UsuarioColumna</class>
+    <class>Persistencia.Columna</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/egresados?zeroDateTimeBehavior=convertToNull"/>
       <property name="javax.persistence.jdbc.user" value="root"/>

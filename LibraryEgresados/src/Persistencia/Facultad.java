@@ -32,6 +32,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Facultad.findAll", query = "SELECT f FROM Facultad f"),
     @NamedQuery(name = "Facultad.findByIdFacultad", query = "SELECT f FROM Facultad f WHERE f.idFacultad = :idFacultad"),
+    @NamedQuery(name = "Facultad.findByIdFacultades", query = "SELECT f FROM Facultad f WHERE f.idFacultad in :idFacultad"),
     @NamedQuery(name = "Facultad.findByNombre", query = "SELECT f FROM Facultad f WHERE f.nombre = :nombre"),
     @NamedQuery(name = "Facultad.findByEstado", query = "SELECT f FROM Facultad f WHERE f.estado = :estado")})
 public class Facultad implements Serializable {

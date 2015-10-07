@@ -91,8 +91,19 @@ public class ControladorEgresado {
         Join<Persistencia.Educacion, Persistencia.Egresado> egresado = educacion.join(Persistencia.Educacion_.idEgresado);
         Join<Persistencia.EducacionFormalUcentral, Persistencia.Programa> programa = edFormalUC.join(Persistencia.EducacionFormalUcentral_.idPrograma);
         
-        if (parametros.containsKey("anioFinalizacion")) {
-            cq.where(educacion.get(Persistencia.Educacion_.anioFinalizacion).in((List<Integer>)parametros.get("anioFinalizacion")));
+        if (parametros.containsKey("anioFinalizacionDesde")) {
+            cb.greaterThanOrEqualTo(educacion.get(Persistencia.Educacion_.anioFinalizacion), 
+                    Integer.parseInt(String.valueOf(parametros.get("anioFinalizacionDesde"))));
+        }
+        
+        if (parametros.containsKey("anioFinalizacionHasta")) {
+            cb.lessThanOrEqualTo(educacion.get(Persistencia.Educacion_.anioFinalizacion), 
+                    Integer.parseInt(String.valueOf(parametros.get("anioFinalizacionHasta"))));
+        }
+        
+        if (parametros.containsKey("estado")) {
+            Join<Persistencia.Egresado, Persistencia.Usuario> usuario = egresado.join(Persistencia.Egresado_.usuario);
+            cq.where(usuario.get(Persistencia.Usuario_.estado).in((List<Integer>)parametros.get("estado")));
         }
         
         if (parametros.containsKey("idNivelEstudios")) {
@@ -105,7 +116,6 @@ public class ControladorEgresado {
             cq.where(facultad.get(Persistencia.Facultad_.idFacultad).in((List<Long>)parametros.get("idFacultad")));
         }
         
-        System.out.println("Programas: " + parametros.get("idPrograma"));
         if (parametros.containsKey("idPrograma")) {
             cq.where(programa.get(Persistencia.Programa_.idPrograma).in((List<Long>)parametros.get("idPrograma")));
         }

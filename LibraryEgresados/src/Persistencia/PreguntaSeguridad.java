@@ -7,6 +7,7 @@
 package Persistencia;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,8 +16,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -31,6 +34,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "PreguntaSeguridad.findByPregunta", query = "SELECT p FROM PreguntaSeguridad p WHERE p.pregunta = :pregunta"),
     @NamedQuery(name = "PreguntaSeguridad.findByEstado", query = "SELECT p FROM PreguntaSeguridad p WHERE p.estado = :estado")})
 public class PreguntaSeguridad implements Serializable {
+    @OneToMany(mappedBy = "idPreguntaSeguridad")
+    private Collection<Usuario> usuarioCollection;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -101,6 +106,15 @@ public class PreguntaSeguridad implements Serializable {
     @Override
     public String toString() {
         return "Persistencia.PreguntaSeguridad[ idPreguntaSeguridad=" + idPreguntaSeguridad + " ]";
+    }
+
+    @XmlTransient
+    public Collection<Usuario> getUsuarioCollection() {
+        return usuarioCollection;
+    }
+
+    public void setUsuarioCollection(Collection<Usuario> usuarioCollection) {
+        this.usuarioCollection = usuarioCollection;
     }
     
 }

@@ -236,10 +236,16 @@ public class ControladorListas {
         return consultar("Genero.findByEstado", "getIdGenero", parametros);
     }
     
-    public Map<Long, String> consultarMapGeneros() {
+    public Map<Long, String> consultarGenerosMap() {
         HashMap<String, Object> parametros = new HashMap<>();
         parametros.put("estado", true);
         return consultarMap("Genero.findByEstado", "getIdGenero", parametros);
+    }
+    
+    public Map<Long, String> consultarGenerosMap(List<Long> listaGeneros) {
+        HashMap<String, Object> parametros = new HashMap<>();
+        parametros.put("idGenero", listaGeneros);
+        return consultarMap("Genero.findByIdGeneros", "getIdGenero", parametros);
     }
 
     /**
@@ -251,10 +257,16 @@ public class ControladorListas {
         return consultar("EstadoCivil.findByEstado", "getIdEstadoCivil", parametros, "getEstadoCivil");
     }
     
-    public Map<Long, String> consultarMapEstadosCiviles() {
+    public Map<Long, String> consultarEstadosCivilesMap() {
         HashMap<String, Object> parametros = new HashMap<>();
         parametros.put("estado", true);
         return consultarMap("EstadoCivil.findByEstado", "getIdEstadoCivil", parametros, "getEstadoCivil");
+    }
+    
+    public Map<Long, String> consultarEstadosCivilesMap(List<Long> listaEstadosCiviles) {
+        HashMap<String, Object> parametros = new HashMap<>();
+        parametros.put("idEstadoCivil", listaEstadosCiviles);
+        return consultarMap("EstadoCivil.findByIdEstadosCiviles", "getIdEstadoCivil", parametros, "getEstadoCivil");
     }
 
     /**
@@ -352,6 +364,12 @@ public class ControladorListas {
         return consultar("NivelEstudios.findByEstado", "getIdNivelEstudios", parametros);
     }
     
+    public Map<Long, String> consultarNivelesEstudiosMap(List<Long> listaNivelesEstudios) {
+        HashMap<String, Object> parametros = new HashMap<>();
+        parametros.put("idNivelEstudios", listaNivelesEstudios);
+        return consultarMap("NivelEstudios.findByIdNivelesEstudios", "getIdNivelEstudios", parametros);
+    }
+    
     /**
      *
      * @return
@@ -379,7 +397,7 @@ public class ControladorListas {
         return consultar("NivelEstudios.findByAplicaUCentral", "getIdNivelEstudios", parametros);
     }
     
-    public Map<Long, String> consultarMapNivelesEstudiosAplicaUCentral() {
+    public Map<Long, String> consultarNivelesEstudiosAplicaUCentralMap() {
         HashMap<String, Object> parametros = new HashMap<>();
         parametros.put("estado", true);
         return consultarMap("NivelEstudios.findByAplicaUCentral", "getIdNivelEstudios", parametros);
@@ -409,10 +427,22 @@ public class ControladorListas {
         return consultar("Facultad.findByEstado", "getIdFacultad", parametros);
     }
     
-    public Map<Long, String> consultarMapFacultades() {
+    public Map<Long, String> consultarFacultadesMap() {
         HashMap<String, Object> parametros = new HashMap<>();
         parametros.put("estado", true);
         return consultarMap("Facultad.findByEstado", "getIdFacultad", parametros);
+    }
+    
+    public Map<Long, String> consultarFacultadesMap(List<Long> listaFacultades) {
+        HashMap<String, Object> parametros = new HashMap<>();
+        parametros.put("idFacultad", listaFacultades);
+        return consultarMap("Facultad.findByIdFacultades", "getIdFacultad", parametros);
+    }
+    
+    public Map<Long, String> consultarProgramasMap(List<Long> listaProgramas) {
+        HashMap<String, Object> parametros = new HashMap<>();
+        parametros.put("idPrograma", listaProgramas);
+        return consultarMap("Programa.findByIdProgramas", "getIdPrograma", parametros);
     }
     
     /**
@@ -428,7 +458,7 @@ public class ControladorListas {
         return consultar("Programa.findByFacultadYNivelEstudios", "getIdPrograma", parametros);
     }
     
-    public Map<Long, String> consultarMapProgramasPorListaFacultadYNivelEstudios(List<Long> listaFacultades, 
+    public Map<Long, String> consultarProgramasPorListaFacultadYNivelEstudiosMap(List<Long> listaFacultades, 
             List<Long> listaNivelesEstudios) {
         HashMap<String, Object> parametros = new HashMap<>();
         parametros.put("listaFacultades", listaFacultades);

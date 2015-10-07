@@ -7,6 +7,7 @@
 package Persistencia;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -19,11 +20,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -43,6 +46,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Usuario.findByFechaRegistro", query = "SELECT u FROM Usuario u WHERE u.fechaRegistro = :fechaRegistro"),
     @NamedQuery(name = "Usuario.findByRespuestaSeguridad", query = "SELECT u FROM Usuario u WHERE u.respuestaSeguridad = :respuestaSeguridad")})
 public class Usuario implements Serializable {
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUsuario")
+    private Collection<UsuarioColumna> usuarioColumnaCollection;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -215,5 +220,14 @@ public class Usuario implements Serializable {
     @Override
     public String toString() {
         return "Persistencia.Usuario[ idUsuario=" + idUsuario + " ]";
+    }
+
+    @XmlTransient
+    public Collection<UsuarioColumna> getUsuarioColumnaCollection() {
+        return usuarioColumnaCollection;
+    }
+
+    public void setUsuarioColumnaCollection(Collection<UsuarioColumna> usuarioColumnaCollection) {
+        this.usuarioColumnaCollection = usuarioColumnaCollection;
     }
 }

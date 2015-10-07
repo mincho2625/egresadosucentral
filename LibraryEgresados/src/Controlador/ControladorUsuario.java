@@ -27,7 +27,7 @@ public class ControladorUsuario {
      * @param contrasenia
      * @return 
      */
-    public boolean login(String usuario, String contrasenia) {
+    public long login(String usuario, String contrasenia) {
         try {
             EntityManager em = emf.createEntityManager();
             Query query = em.createNamedQuery("Usuario.findByNombre");
@@ -37,16 +37,16 @@ public class ControladorUsuario {
             if (result != null) {
                 Persistencia.Usuario u = (Persistencia.Usuario) result;
                 if (u.getContrasenia().equals(contrasenia)) {
-                    return true;
+                    return u.getIdUsuario();
                 }
             }
         }
         catch(Exception ex)
         {
-            return false;
+            return 0;
         }
         
-        return false;
+        return 0;
     }
     
     public boolean cambiarContrasenia(String usuario, String contrasenia)
