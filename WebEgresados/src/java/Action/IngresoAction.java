@@ -99,12 +99,13 @@ public class IngresoAction extends ActionSupport{
     public String execute() throws Exception {
         ControladorUsuario controladorUsuario = new ControladorUsuario();
         
-        if (controladorUsuario.login(usuario, contrasenia)) {
+        long idUsuario = controladorUsuario.login(usuario, contrasenia);
+        if (idUsuario > 0) {
             ControladorEgresado controladorEgresado = new ControladorEgresado();
             Egresado egresado = controladorEgresado.consultar(usuario);
             if (egresado != null){
                 Map session = ActionContext.getContext().getSession();
-                session.put("idEgresado", egresado.getIdUsuario());
+                session.put("idEgresado", idUsuario);
                 session.put("usuario", egresado.getNombre());
 
                 this.setNombre(String.format("%s %s %s", egresado.getNombres(), egresado.getPrimerApellido(), egresado.getSegundoApellido()));

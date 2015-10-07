@@ -88,7 +88,8 @@ public class SeguridadAction extends ActionSupport {
         validar();
         if (!hasErrors()) {
             ControladorUsuario controladorUsuario = new ControladorUsuario();
-            if (controladorUsuario.login(usuario, actual))
+            long idUsuario = controladorUsuario.login(usuario, actual);
+            if (idUsuario > 0)
             {
                 if (controladorUsuario.cambiarContrasenia(usuario, nueva)) {
                     return SUCCESS;
