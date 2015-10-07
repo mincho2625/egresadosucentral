@@ -259,6 +259,16 @@
             <result name="error">/egresados.jsp</result>
         </action>
         
+        <action name="*SelectorColumnas" class="Action.SelectorColumnasAction" method="{1}">
+            <result name="success" type="chain">
+                <param name="actionName">Egresados</param>
+                <param name="method">mostrar</param>
+            </result>
+            <result name="error">/selectorColumnas.jsp</result>
+            <result name="input">/selectorColumnas.jsp</result>
+            <result name="mostrar">/selectorColumnas.jsp</result>
+        </action>
+        
         <action name="BusquedaAvanzada" class="Action.BusquedaAvanzadaAction">
             <result type="json">
             </result>

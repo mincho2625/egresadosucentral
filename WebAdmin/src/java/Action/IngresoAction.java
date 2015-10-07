@@ -82,11 +82,11 @@ public class IngresoAction extends ActionSupport{
     @Override
     public String execute() throws Exception {
         ControladorUsuario controladorUsuario = new ControladorUsuario();
-        if (controladorUsuario.login(usuario, contrasenia)) {
+        long idUsuario = controladorUsuario.login(usuario, contrasenia);
+        if (idUsuario > 0) {
             Map session = ActionContext.getContext().getSession();
+            session.put("idUsuario", idUsuario);
             session.put("usuario", usuario);
-            //ControladorEgresado controladorEgresado = new ControladorEgresado(usuario);
-            //controladorEgresado.consultar();
             return SUCCESS;
         }
         else {

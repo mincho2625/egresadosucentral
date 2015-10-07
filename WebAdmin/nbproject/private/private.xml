@@ -3,12 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/pc/Documents/NetBeansProjects/egresadosucentral/WebAdmin/src/java/Action/CrudAction.java</file>
-            <file>file:/C:/Users/pc/Documents/NetBeansProjects/egresadosucentral/WebAdmin/web/WEB-INF/web.xml</file>
-            <file>file:/C:/Users/pc/Documents/NetBeansProjects/egresadosucentral/WebAdmin/web/WEB-INF/classes/struts.xml</file>
-            <file>file:/C:/Users/pc/Documents/NetBeansProjects/egresadosucentral/WebAdmin/web/areaEstudios.jsp</file>
-            <file>file:/C:/Users/pc/Documents/NetBeansProjects/egresadosucentral/WebAdmin/src/java/Action/SubsectorAction.java</file>
-            <file>file:/C:/Users/pc/Documents/NetBeansProjects/egresadosucentral/WebAdmin/web/busquedaAvanzada.jsp</file>
+            <file>file:/D:/U.Central/Git/egresadosucentral/WebAdmin/web/egresados.jsp</file>
+            <file>file:/D:/U.Central/Git/egresadosucentral/WebAdmin/src/java/Action/BusquedaAvanzadaAction.java</file>
+            <file>file:/D:/U.Central/Git/egresadosucentral/WebAdmin/src/java/Action/EgresadosAction.java</file>
+            <file>file:/D:/U.Central/Git/egresadosucentral/WebAdmin/src/java/Action/CrudAction.java</file>
+            <file>file:/D:/U.Central/Git/egresadosucentral/WebAdmin/web/WEB-INF/classes/struts.xml</file>
+            <file>file:/D:/U.Central/Git/egresadosucentral/WebAdmin/src/java/Action/SelectorColumnasAction.java</file>
+            <file>file:/D:/U.Central/Git/egresadosucentral/WebAdmin/web/selectorColumnas.jsp</file>
         </group>
     </open-files>
 </project-private>
