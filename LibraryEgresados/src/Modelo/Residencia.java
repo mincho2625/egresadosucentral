@@ -23,6 +23,7 @@ public class Residencia {
     private Date fechaRegistro;
     private boolean estado;
     private long idEgresado;
+    private String numeroDocumento;
 
     /**
      * @return the idResidencia
@@ -176,5 +177,13 @@ public class Residencia {
      */
     public void setIdEgresado(long idEgresado) {
         this.idEgresado = idEgresado;
+    }
+
+    public String getNumeroDocumento() {
+        return numeroDocumento;
+    }
+
+    public void setNumeroDocumento(String numeroDocumento) {
+        this.numeroDocumento = numeroDocumento;
     }
 }

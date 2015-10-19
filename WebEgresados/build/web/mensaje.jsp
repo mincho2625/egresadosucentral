@@ -110,7 +110,6 @@
                             var f = new Date();
                             document.write(diasSemana[f.getDay()] + " " + f.getDate() + " de " + meses[f.getMonth()] + " del " + f.getFullYear());
                         </script>
-                        Hora:<input type="text" name="reloj" size="10" disabled="true"/>
                     </form>
                 </div>
                 <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12">

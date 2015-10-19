@@ -13,6 +13,7 @@ package Modelo;
 public class EducacionFormalUcentral extends Educacion {
     private Programa idPrograma;
     private Jornada idJornada;
+    private String numeroDocumento;
 
     /**
      * @return the idPrograma
@@ -40,5 +41,13 @@ public class EducacionFormalUcentral extends Educacion {
      */
     public void setIdJornada(Jornada idJornada) {
         this.idJornada = idJornada;
+    }
+
+    public String getNumeroDocumento() {
+        return numeroDocumento;
+    }
+
+    public void setNumeroDocumento(String numeroDocumento) {
+        this.numeroDocumento = numeroDocumento;
     }
 }

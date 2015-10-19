@@ -129,4 +129,68 @@ public class ControladorEncuesta {
     {
         em.refresh(e);
     }
+    
+    public boolean activar(Long idEncuesta, boolean activo) {
+        try {
+            em.getTransaction().begin();
+
+            Query query = em.createNamedQuery("Encuesta.findByIdEncuesta");
+            query.setParameter("idEncuesta", idEncuesta);
+
+            List<Persistencia.Encuesta> lista = query.getResultList();
+            for (Persistencia.Encuesta encuesta : lista) {
+                encuesta.setEstado(activo);
+                em.persist(encuesta);
+            }
+            em.getTransaction().commit();
+
+            return true;
+        } catch (SecurityException | IllegalArgumentException ex) {
+            Logger.getLogger(ControladorEgresado.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return false;
+    }
+    public boolean activarPregunta(Long idPreguntaEncuesta, boolean activo) {
+        try {
+            em.getTransaction().begin();
+
+            Query query = em.createNamedQuery("PreguntaEncuesta.findByIdPreguntaEncuesta");
+            query.setParameter("idPreguntaEncuesta", idPreguntaEncuesta);
+
+            List<Persistencia.PreguntaEncuesta> lista = query.getResultList();
+            for (Persistencia.PreguntaEncuesta preguntaEncuesta : lista) {
+                preguntaEncuesta.setEstado(activo);
+                em.persist(preguntaEncuesta);
+            }
+            em.getTransaction().commit();
+
+            return true;
+        } catch (SecurityException | IllegalArgumentException ex) {
+            Logger.getLogger(ControladorEgresado.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return false;
+    }
+    public boolean activarRespuesta(Long idRespuestaEncuesta, boolean activo) {
+        try {
+            em.getTransaction().begin();
+
+            Query query = em.createNamedQuery("RespuestaEncuesta.findByIdRespuestaEncuesta");
+            query.setParameter("idRespuestaEncuesta", idRespuestaEncuesta);
+
+            List<Persistencia.RespuestaEncuesta> lista = query.getResultList();
+            for (Persistencia.RespuestaEncuesta respuestaencuesta : lista) {
+                respuestaencuesta.setEstado(activo);
+                em.persist(respuestaencuesta);
+            }
+            em.getTransaction().commit();
+
+            return true;
+        } catch (SecurityException | IllegalArgumentException ex) {
+            Logger.getLogger(ControladorEgresado.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return false;
+    }
 }

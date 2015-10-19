@@ -50,6 +50,7 @@
             </result>
             <result name="error">/registroSistema.jsp</result>
             <result name="input">/registroSistema.jsp</result>
+            <result name="encu">/encuesta.jsp</result>
         </action>
         
         <action name="*Ubicacion" method="{1}" class="Action.UbicacionAction">
@@ -238,7 +239,7 @@
             <result name="success">/encuesta.jsp</result>
         </action>
         <action name="terminarEncuesta" class="Action.EncuestaAction" method="guardar">
-            <result name="success">/frameContenido.jsp</result>
+            <result name="success">/encuesta.jsp</result>
         </action>
         
         <action name="VistaPrevia" class="Action.VistaPreviaAction">
@@ -246,7 +247,7 @@
         </action>
         
         <action name="*Seguridad" method="{1}" class="Action.SeguridadAction">
-            <result name="success">/frameContenido.jsp</result>
+            <result name="success">/cambiarContrasenia.jsp</result>
             <result name="error">/cambiarContrasenia.jsp</result>
             <result name="input">/cambiarContrasenia.jsp</result>
         </action>

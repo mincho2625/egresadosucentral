@@ -53,7 +53,7 @@
                                             <s:iterator value="listaObjetos">
                                                 <tr>
                                                     <td><s:property value="idTipoVivienda.nombre"></s:property></td>                                                    
-                                                    <td><s:property value="idCiudadResidencia.nombre"></s:property></td>
+                                                    <td><s:property value="idCiudad.nombre"></s:property></td>
                                                     <td><s:property value="direccion"></s:property></td>
                                                     <td><s:property value="idEstrato.nombre"></s:property></td>
                                                         <td>
@@ -61,11 +61,9 @@
                                                             <s:url id="editarURL" action="editarResidencia.action">
                                                                 <s:param name="idObjeto" value="%{#idObjeto}" ></s:param>
                                                             </s:url>
-                                                            <jq:dialog id="%{'dialogEditar' + #idObjeto}" onCloseTopics="onCloseTopicDialog" autoOpen="false" 
-                                                                       modal="true" title="Nuevo" href="%{editarURL}" dataType="html"/>
-                                                            <jq:a id="%{'aeditar' + #idObjeto}" openDialog="%{'dialogEditar' + #idObjeto}" button="true">
-                                                                <div class="fuentetabla2"><img style="width: 20px; height: 19px;" title="Editar Nueva Residencia" alt="Editar" src="imagenes/editar-icono-8419-16.png" align="top">
-                                                            </jq:a>
+                                                            <s:a href="%{editarURL}">
+                                                                <div class="fuentetabla2"><img style="width: 20px; height: 19px;" title="Editar" alt="Editar" src="imagenes/editar-icono-8419-16.png" align="top">
+                                                            </s:a>
                                                             <s:url id="borrarURL" action="borrarResidencia.action">
                                                                 <s:param name="idObjeto" value="%{idResidencia}"></s:param>
                                                             </s:url>
@@ -78,12 +76,12 @@
                                         </tbody>
                                     </table>
                                     
-                                    <div class="buttons" style="margin-left: 75px; width: 250px">
+                                    <div class="buttons" style="margin-left: 110px; width: 250px">
                                         <a href="crearResidencia.action" target="contenido">
-                                            <button type="submit" class="boton_descargar boton guardar" style="width: auto" name="nuevo">
+                                            <button type="submit" class="boton_auxiliar boton guardar" style="width: auto" name="nuevo">
                                                 Registro Nuevo
                                             </button>
-                                        </a><br>
+                                        </a>
                                     </div>
                                     <s:if test="hasActionErrors()">
                                         <div style="width: auto">
@@ -136,7 +134,7 @@
                                                             <tr> <s:actionerror></s:actionerror></tr>
                                                             <tr>
                                                                 <td></td>
-                                                                <td><s:submit cssClass="boton_auxiliar boton guardar" cssStyle="width:auto;"value="Guardar"></s:submit></td>
+                                                                <td><s:submit cssClass="boton_auxiliar" cssStyle="width:auto;"value="Guardar"></s:submit></td>
                                                             </tr>    
                                                         </table>
                                                 </s:push>

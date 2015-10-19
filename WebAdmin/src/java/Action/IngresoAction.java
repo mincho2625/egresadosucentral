@@ -87,6 +87,8 @@ public class IngresoAction extends ActionSupport{
             Map session = ActionContext.getContext().getSession();
             session.put("idUsuario", idUsuario);
             session.put("usuario", usuario);
+            //ControladorEgresado controladorEgresado = new ControladorEgresado(usuario);
+            //controladorEgresado.consultar();
             return SUCCESS;
         }
         else {

@@ -16,18 +16,22 @@ import Persistencia.EstadoCivil;
 import Persistencia.EstadoEducacion;
 import Persistencia.Estrato;
 import Persistencia.Genero;
+import Persistencia.GrupoSanguineo;
 import Persistencia.Institucion;
 import Persistencia.Mes;
 import Persistencia.PreguntaEncuesta;
+import Persistencia.PreguntaSeguridad;
 import Persistencia.Programa;
 import Persistencia.Residencia;
 import Persistencia.RespuestaEncuesta;
 import Persistencia.TipoActividad;
 import Persistencia.TipoContacto;
+import Persistencia.TipoDocumento;
 import Persistencia.TipoTenenciaVivienda;
 import Persistencia.TipoVivienda;
 import Persistencia.Usuario;
 import Util.Constantes;
+import Util.Utilidades;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -37,6 +41,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -53,8 +59,10 @@ public class CargueEgresado {
     private final String[] informacion;
     private Persistencia.Egresado egresado;
     private String error;
+    Utilidades utilidades;
 
     public CargueEgresado(String[] informacion) {
+        utilidades = new Utilidades();
         this.informacion = informacion;
         em = emf.createEntityManager();
     }
@@ -119,6 +127,24 @@ public class CargueEgresado {
             if (!asignarNumeroDocumento(informacion[0])) {
                 return false;
             }
+            if (!asignarFechaNacimiento(informacion[58])) {
+                return false;
+            }
+            if (!asignarFechaExpedicionDoc(informacion[59])) {
+                return false;
+            }
+            if (!asignarCuidadExpedicionDoc(informacion[60])) {
+                return false;
+            }
+            if (!asignarGrupoSanguineo(informacion[61])) {
+                return false;
+            }
+            if (!asignarCuidadNacimiento(informacion[62])) {
+                return false;
+            }
+            if (!asignarTipodocumento(informacion[63])) {
+                return false;
+            }
             if (!asignarEstadoCivil(informacion[26])) {
                 return false;
             }
@@ -177,6 +203,97 @@ public class CargueEgresado {
         }
         setError("El número de documento no es válido");
         return false;
+    }
+
+    private boolean asignarFechaNacimiento(String fechaNacimiento) {
+        SimpleDateFormat formatoDeFecha = new SimpleDateFormat("yyyy-MM-dd");
+        Date fecha = null;
+        if (fechaNacimiento != null && !fechaNacimiento.isEmpty()) {
+            try {
+                fecha = formatoDeFecha.parse(fechaNacimiento);
+                egresado.setFechaNacimiento(fecha);
+            } catch (ParseException ex) {
+                setError("El formato de fecha de nacimiento no es válido");
+            }
+            return true;
+        }
+        setError("La fecha de nacimiento no es válida");
+        return false;
+    }
+
+    private boolean asignarFechaExpedicionDoc(String FechaExpedicionDoc) {
+        SimpleDateFormat formatoDeFecha = new SimpleDateFormat("yyyy-MM-dd");
+        Date fecha = null;
+        if (FechaExpedicionDoc != null && !FechaExpedicionDoc.isEmpty()) {
+            try {
+                fecha = formatoDeFecha.parse(FechaExpedicionDoc);
+                egresado.setFechaExpedicion(fecha);
+            } catch (ParseException ex) {
+                setError("El formato de fecha de expedicion de documento no es válido");
+            }
+            return true;
+        }
+        setError("La cuidad de expedicion de documento no es válida");
+        return false;
+    }
+
+    private boolean asignarCuidadExpedicionDoc(String CuidadExpedicionDoc) {
+        System.out.println("CuidadExpedicionDoc: " + CuidadExpedicionDoc);
+        Map<String, Object> parametros = new HashMap<>();
+        parametros.put("nombre", CuidadExpedicionDoc);
+
+        Object CiudadExpedicion = consultar("Ciudad.findByNombre", parametros);
+        if (CiudadExpedicion == null) {
+            setError(String.format("La cuidad de Expedicion %s no existe", CuidadExpedicionDoc));
+            return false;
+        } else {
+            egresado.setIdCiudadExpedicion((Ciudad) CiudadExpedicion);
+            return true;
+        }
+    }
+
+    private boolean asignarGrupoSanguineo(String GrupoSanguineo) {
+        System.out.println("GrupoSanguineo: " + GrupoSanguineo);
+        Map<String, Object> parametros = new HashMap<>();
+        parametros.put("grupoSanguineo", GrupoSanguineo);
+        Object gruposanguineo = consultar("GrupoSanguineo.findByGrupoSanguineo", parametros);
+        if (gruposanguineo == null) {
+            setError(String.format("El Grupo Sanguineo %s no existe", GrupoSanguineo));
+            return false;
+        } else {
+            egresado.setIdGrupoSanguineo((GrupoSanguineo) gruposanguineo);
+            return true;
+        }
+    }
+
+    private boolean asignarCuidadNacimiento(String CuidadNacimiento) {
+        System.out.println("Cuidad Nacimiento: " + CuidadNacimiento);
+        Map<String, Object> parametros = new HashMap<>();
+        parametros.put("nombre", CuidadNacimiento);
+
+        Object cuidadnacimiento = consultar("Ciudad.findByNombre", parametros);
+        if (cuidadnacimiento == null) {
+            setError(String.format("La cuidad de nacimiento %s no existe", CuidadNacimiento));
+            return false;
+        } else {
+            egresado.setIdCiudadNacimiento((Ciudad) cuidadnacimiento);
+            return true;
+        }
+    }
+
+    private boolean asignarTipodocumento(String Tipodocumento) {
+        System.out.println("Tipo documento: " + Tipodocumento);
+        Map<String, Object> parametros = new HashMap<>();
+        parametros.put("nombre", Tipodocumento);
+
+        Object tipodocumento = consultar("TipoDocumento.findByNombre", parametros);
+        if (tipodocumento == null) {
+            setError(String.format("El tipo de documento %s no existe", Tipodocumento));
+            return false;
+        } else {
+            egresado.setIdTipoDocumento((TipoDocumento) tipodocumento);
+            return true;
+        }
     }
 
     private boolean asignarEstadoCivil(String nombre) {
@@ -243,13 +360,9 @@ public class CargueEgresado {
     private void asignarFechaUltimaActualizacion(String fecha) {
         if (fecha != null && !fecha.isEmpty()) {
             SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
-            try {
-                egresado.setFechaUltimaAct(formato.parse(fecha));
-            } catch (ParseException ex) {
-                egresado.setFechaUltimaAct(Calendar.getInstance().getTime());
-            }
+            egresado.setFechaUltimaAct(null);
         } else {
-            egresado.setFechaUltimaAct(Calendar.getInstance().getTime());
+            egresado.setFechaUltimaAct(null);
         }
     }
 
@@ -257,16 +370,38 @@ public class CargueEgresado {
         if (correoInstitucional != null && !correoInstitucional.isEmpty()) {
             String[] split = correoInstitucional.split("@");
             if (split.length == 2) {
-                Usuario usuario = new Usuario();
-                usuario.setContrasenia(egresado.getNumeroDocumento());
-                usuario.setCorreoInstitucional(correoInstitucional);
-                usuario.setEstado(true);
-                usuario.setFechaRegistro(Calendar.getInstance().getTime());
-                usuario.setNombre(split[0]);
-                egresado.setUsuario(usuario);
-                System.out.println("persist usuario");
-                em.persist(usuario);
-                return true;
+                Map<String, Object> parametros = new HashMap<>();
+                parametros.put("pregunta", informacion[64]);
+                Object preguntaseguridad = consultar("PreguntaSeguridad.findByPregunta", parametros);
+                if (preguntaseguridad != null) {
+                    Usuario usuario = new Usuario();
+                    usuario.setContrasenia(utilidades.Encriptar(egresado.getNumeroDocumento()));
+                    Pattern pat = Pattern.compile("^[_a-z0-9-]+(\\.[_a-z0-9-]+)*@[a-z0-9-]+(\\.[a-z0-9-]+)*(\\.[a-z]{2,3})$");
+                    Matcher mat = pat.matcher(correoInstitucional);
+                    if (mat.matches()) {
+                        String[] correo = correoInstitucional.split("@");
+                        if (!correo[1].equals("ucentral.edu.co")) {
+                            setError(String.format("El correo institucional no es formato (ucentral.edu.co)", correoInstitucional));
+                        } else {
+                            usuario.setCorreoInstitucional(correoInstitucional);
+                        }
+                    } else {
+                        setError(String.format("El correo institucional no es valido", correoInstitucional));
+                        return false;
+                    }
+                    usuario.setEstado(true);
+                    usuario.setFechaRegistro(Calendar.getInstance().getTime());
+                    usuario.setNombre(split[0]);
+                    usuario.setIdPreguntaSeguridad((PreguntaSeguridad) preguntaseguridad);
+                    usuario.setRespuestaSeguridad(utilidades.Encriptar(informacion[65]));
+                    egresado.setUsuario(usuario);
+                    System.out.println("persist usuario");
+                    em.persist(usuario);
+                    return true;
+                } else {
+                    setError(String.format("La pregunta de seguridad %s no existe", informacion[64]));
+                    return false;
+                }
             }
         }
 
@@ -341,21 +476,21 @@ public class CargueEgresado {
                 objeto = consultar("TipoVivienda.findByNombre", parametros);
                 if (objeto != null) {
                     residencia.setIdTipoVivienda((TipoVivienda) objeto);
-                }else {
+                } else {
                     setError(String.format("Tipo de vivienda %s no validao", informacion[47]));
                     return false;
                 }
-                
+
                 parametros.clear();
                 parametros.put("nombre", informacion[48]);
                 objeto = consultar("TipoTenenciaVivienda.findByNombre", parametros);
                 if (objeto != null) {
                     residencia.setIdTipoTenenciaVivienda((TipoTenenciaVivienda) objeto);
-                }else {
+                } else {
                     setError(String.format("Tipo tenencia de vivienda %s no validao", informacion[48]));
                     return false;
                 }
-                
+
                 parametros.clear();
                 parametros.put("nombre", informacion[49]);
                 objeto = consultar("Estrato.findByNombre", parametros);
@@ -471,7 +606,7 @@ public class CargueEgresado {
     private Object consultar(String consulta, Map<String, Object> parametros) {
         try {
             EntityManager em1 = emf.createEntityManager();
-            System.out.println("consulta "+consulta);
+            System.out.println("consulta " + consulta);
             Query query = em1.createNamedQuery(consulta);
             query.setParameter("estado", true);
             if (parametros != null) {

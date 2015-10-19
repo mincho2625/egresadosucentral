@@ -1,6 +1,6 @@
 #contenido iframe{
     width: 750px;
-    height: 990px;
+    height: 930px;
     border: 0px;
     text-align: center;
 }
@@ -227,33 +227,77 @@ background-repeat: no-repeat;
 }
 #div1 {
      overflow: auto;
-     height:270px;
-     width: 720px;
+     height:auto;
+     width: 700px;
 }
 #div2 {
      overflow: auto;
-     height:270px;
+     height:auto;
      width: 620px;
      margin-left: -100px;
 }
 #div3 {
      overflow: auto;
-     height:270px;
+     height:auto;
      width: 470px;
      margin-left: -30;
 }
 #div4 {
      overflow: auto;
-     height:270px;
+     height:auto;
      width: 710px;
      margin-left: -28px;
 }
 #div5 {
      overflow: auto;
-     height:270px;
+     height:auto;
      width: 720px;
+}
+#div6 {
+     overflow: auto;
+     height:auto;
+     width: 650px;
+}
+#div7 {
+     overflow: auto;
+     height:auto;
+     width: 550px;
+}
+#div8 {
+     overflow: auto;
+     height:auto;
+     width: 650px;
+}
+#div9 {
+     overflow: auto;
+     height:auto;
+     width: 700px;;
 }
 .editar {
     color: blue; 
     cursor:pointer;
+}
+.displayTableFrame {
+    overflow-x: scroll;
+    height: 100px;
+    width: 100%;
+}
+
+.checkboxList {
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding: 2px;
+}
+.checkboxlist-container {
+    background-color: white;
+    border: 1px solid #636f07;
+    height: 80px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.checkboxList input, .radioButtonList input, .radioButtonListHorizontal input {
+    /* float: left; */
+    width: 13px;
+    height: 13px;
 }

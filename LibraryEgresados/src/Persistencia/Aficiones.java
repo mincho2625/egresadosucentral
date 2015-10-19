@@ -36,6 +36,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Aficiones.findByListaActividades", query = "SELECT a FROM Aficiones a WHERE a.listaActividades = :listaActividades"),
     @NamedQuery(name = "Aficiones.findByFechaRegistro", query = "SELECT a FROM Aficiones a WHERE a.fechaRegistro = :fechaRegistro"),
     @NamedQuery(name = "Aficiones.findByEstado", query = "SELECT a FROM Aficiones a WHERE a.estado = :estado"),
+    @NamedQuery(name = "Aficiones.findByConsulta", query = "SELECT a FROM Aficiones a inner join Egresado e on e = a.idEgresado WHERE a.estado = :estado"),
     @NamedQuery(name = "Aficiones.findByIdEgresado", 
             query = "SELECT a FROM Aficiones a "
                     + "inner join Egresado e on e = a.idEgresado "

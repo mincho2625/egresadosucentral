@@ -25,7 +25,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author YURY
+ * @author pc
  */
 @Entity
 @Table(name = "columna")
@@ -134,12 +134,15 @@ public class Columna implements Serializable {
             return false;
         }
         Columna other = (Columna) object;
-        return !((this.idColumna == null && other.idColumna != null) || (this.idColumna != null && !this.idColumna.equals(other.idColumna)));
+        if ((this.idColumna == null && other.idColumna != null) || (this.idColumna != null && !this.idColumna.equals(other.idColumna))) {
+            return false;
+        }
+        return true;
     }
 
     @Override
     public String toString() {
-        return "Persistencia.Columna[ idColumna=" + idColumna + " ]";
+        return "Controlador.Columna[ idColumna=" + idColumna + " ]";
     }
     
 }

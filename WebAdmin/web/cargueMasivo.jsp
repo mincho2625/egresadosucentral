@@ -55,37 +55,31 @@
                                         </div>
                                     </s:if>
                                     <div id="div5" style="margin-left: -150px">
-                                        <table class="table table-striped table-bordered tabla_verde" style="width: 690px">
-                                            <thead>
-                                                <tr>
-                                                    <th style="width: 100px">Id Proceso</th>
-                                                    <th style="width: 100px">Fecha Inicio</th>
-                                                    <th style="width: 100px">Fecha Fin</th>
-                                                    <th style="width: 150px">Estado</th>
-                                                    <th>Error</th>
-                                                    <th></th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <s:iterator value="listaProcesos">
-                                                    <tr>
-                                                        <td><s:property value="idProcesoCargue"></s:property></td>
-                                                        <td><s:property value="fechaInicio"></s:property></td>
-                                                        <td><s:property value="fechaFin"></s:property></td>
-                                                        <td><s:property value="idEstadoProceso.nombre"></s:property></td>
-                                                        <td><s:property value="error"></s:property></td>
-                                                        <td>
-                                                                <s:url id="export" action="exportarCargueMasivo.action">
-                                                                    <s:param name="idObjeto" value="%{idProcesoCargue}"></s:param>
-                                                                </s:url>
-                                                                <s:a href="%{export}">
-                                                                    <img style="width: 20px; height: 19px;" title="Exportar" alt="Exportar" src="imagenes/excel.png" align="top">
-                                                                </s:a>
-                                                        </td>         
-                                                    </tr>
-                                                </s:iterator>
-                                            </tbody>
-                                        </table>
+                                        <s:form >
+                                            <display:table class="table table-striped table-bordered tabla_verde" style="width: 690px" export="true"
+                                                           name="listaProcesos" pagesize="5" cellspacing="5px;"  cellpadding="5px;" uid="row" requestURI="/desplegarCargueMasivo.action">
+                                                
+                                                <display:column property="idProcesoCargue" title="Id Proceso" sortable="true"/>
+                                                <display:column property="fechaInicio" format="{0,date,dd-MM-yyyy}" title="Fecha Inicio" sortable="true"/>
+                                                <display:column property="fechaFin" format="{0,date,dd-MM-yyyy}" title="Fecha Fin" sortable="true"/>
+                                                <display:column property="idEstadoProceso.nombre" title="Estado" sortable="true"/>
+                                                <display:column property="error" title="Error" sortable="true"/>
+                                                <display:column title="Acción">
+                                                    <s:url id="export" action="exportarCargueMasivo.action">
+                                                        <s:param name="idObjeto" value="%{#attr.row.idProcesoCargue}"></s:param>
+                                                    </s:url>
+                                                    <s:a href="%{export}">
+                                                        <img style="width: 20px; height: 19px;" title="Exportar log del cargue" alt="Exportar log del cargue" src="imagenes/excel.png" align="top">
+                                                    </s:a>
+                                                </display:column>
+                                                        
+                                                <display:setProperty name="export.csv.filename" value="CargueMasivo.csv" />
+                                                <display:setProperty name="export.excel.filename" value="CargueMasivo.xlsx" />
+                                                <display:setProperty name="export.xml.filename" value="CargueMasivo.xml" />
+                                                <display:setProperty name="export.pdf.filename" value="CargueMasivo.pdf" />
+                                                
+                                            </display:table>
+                                        </s:form>
                                     </div>
                                     <br>
                                     <a href="desplegarCargueMasivo.action" target="contenido"><li Style="margin-left: 80px; width: 150px" Class="boton_auxiliar">Actualizar Pagina</li></a>

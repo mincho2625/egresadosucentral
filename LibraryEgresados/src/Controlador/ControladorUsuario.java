@@ -12,6 +12,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
+import Util.Utilidades;
 
 /**
  *
@@ -20,7 +21,6 @@ import javax.persistence.Query;
 public class ControladorUsuario {
     private final EntityManagerFactory emf = Persistence.createEntityManagerFactory("EgresadosPU");
     private static final String base = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ@!#$";
-
     /**
      *
      * @param usuario
@@ -29,6 +29,7 @@ public class ControladorUsuario {
      */
     public long login(String usuario, String contrasenia) {
         try {
+            String contrase;
             EntityManager em = emf.createEntityManager();
             Query query = em.createNamedQuery("Usuario.findByNombre");
             query.setParameter("nombre", usuario);
@@ -36,7 +37,8 @@ public class ControladorUsuario {
             Object result = query.getSingleResult();
             if (result != null) {
                 Persistencia.Usuario u = (Persistencia.Usuario) result;
-                if (u.getContrasenia().equals(contrasenia)) {
+                contrase=Utilidades.Desencriptar(u.getContrasenia());
+                if (contrase.equals(contrasenia)) {
                     return u.getIdUsuario();
                 }
             }
@@ -55,11 +57,12 @@ public class ControladorUsuario {
             EntityManager em = emf.createEntityManager();
             Query query = em.createNamedQuery("Usuario.findByNombre");
             query.setParameter("nombre", usuario);
+            query.setParameter("estado", true);
             Object result = query.getSingleResult();
             if (result != null) {
                 em.getTransaction().begin();
                 Persistencia.Usuario u = (Persistencia.Usuario) result;
-                u.setContrasenia(contrasenia);
+                u.setContrasenia(Utilidades.Encriptar(contrasenia));
                 em.persist(u);
                 em.getTransaction().commit();
                 return true;
@@ -86,5 +89,21 @@ public class ControladorUsuario {
         }
 
         return contrasena;
+    }
+    public boolean informacionCompleta(String documento) {
+        boolean informacion=false;
+        try {
+            EntityManager em = emf.createEntityManager();
+            Query query = em.createNamedQuery("Egresado.findByNumeroDocumento");
+            query.setParameter("numeroDocumento", documento);
+            Object result = query.getSingleResult();
+            if (result != null) {
+                Persistencia.Egresado u = (Persistencia.Egresado) result;
+                System.out.println("jijijijijij "+u.isInformacionCompleta());
+                informacion=u.isInformacionCompleta();
+            }
+        } catch (Exception ex) {
+        }
+        return informacion;
     }
 }

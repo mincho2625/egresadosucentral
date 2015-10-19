@@ -44,6 +44,11 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "ExperienciaLaboral.findByAnioFinalizacion", query = "SELECT e FROM ExperienciaLaboral e WHERE e.anioFinalizacion = :anioFinalizacion"),
     @NamedQuery(name = "ExperienciaLaboral.findByEstado", query = "SELECT e FROM ExperienciaLaboral e WHERE e.estado = :estado"),
     @NamedQuery(name = "ExperienciaLaboral.findByActual", query = "SELECT e FROM ExperienciaLaboral e WHERE e.actual = :actual"),
+    @NamedQuery(name = "ExperienciaLaboral.findByConsulta", 
+            query = "SELECT a FROM ExperienciaLaboral a "
+                    + "inner join Egresado e on e = a.idEgresado "
+                    + "inner join Usuario u on u = e.usuario "
+                    + "WHERE a.estado = :estado"),
     @NamedQuery(name = "ExperienciaLaboral.findByIdEgresado", 
             query = "SELECT a FROM ExperienciaLaboral a "
                     + "inner join Egresado e on e = a.idEgresado "

@@ -13,7 +13,7 @@
         <link rel="stylesheet" type="text/css" href="jce.css">
         <s:head />
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-        <jq:head jqueryui="true" jquerytheme="simple"/>
+        <jq:head jqueryui="true" />
         <script type="text/javascript">
             function mostrarImagen(event) {
                 var selectedFile = event.target.files[0];
@@ -22,7 +22,7 @@
                 var imgtag = document.getElementById("vistaPrevia");
                 imgtag.title = selectedFile.name;
 
-                reader.onload = function(event) {
+                reader.onload = function (event) {
                     imgtag.src = event.target.result;
                 };
 
@@ -76,72 +76,72 @@
                                                             </tr>
                                                             <tr>
                                                                 <td><s:textfield name="primerApellido" label="Primer Apellido" errorPosition="bottom"/></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td><s:textfield name="segundoApellido" label="Segundo Apellido" errorPosition="bottom"/></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td><s:textfield name="nombres" label="Nombres" errorPosition="bottom"/></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td><jq:datepicker label="Fecha Nacimiento" errorPosition="bottom" maxDate="0" readonly = "true" buttonImageOnly="true" name="fechaNacimiento" displayFormat="dd/mm/yy" changeMonth="true" changeYear="true" showButtonPanel="true"></jq:datepicker></td>
                                                             </tr>
                                                             <tr>
-                                                                <td><s:textfield name="segundoApellido" label="Segundo Apellido" errorPosition="bottom"/></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td><s:textfield name="nombres" label="Nombres" errorPosition="bottom"/></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td><jq:datepicker label="Fecha Nacimiento" errorPosition="bottom" name="fechaNacimiento" displayFormat="dd/mm/yy" changeMonth="true" changeYear="true" showButtonPanel="true"></jq:datepicker></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td><jq:select href="%{ciudadURL}" onChangeTopics="reloadsecondlist" name="pais" id="pais"
+                                                                <td><jq:select href="%{ciudadURL}" onChangeTopics="reloadsecondlist" name="pais" id="pais" 
                                                                        list="listaPaises" listKey="id" listValue="nombre" onCompleteTopics="reloadsecondlist"
                                                                        headerKey="-1" headerValue="- Seleccione -" label="País Nacimiento" errorPosition="bottom"/></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td><jq:select href="%{ciudadURL}" onChangeTopics="reloadThirdlist" onCompleteTopics="reloadThirdlist"
+                                                        </tr>
+                                                        <tr>
+                                                            <td><jq:select href="%{ciudadURL}" onChangeTopics="reloadThirdlist" onCompleteTopics="reloadThirdlist"
                                                                        formIds="formRegistro" reloadTopics="reloadsecondlist" name="departamento" id="departamento"
                                                                        list="listaDepartamentos" listKey="id" listValue="nombre" headerKey="-1"
                                                                        headerValue="- Seleccione -" label="Departamento Nacimiento" errorPosition="bottom"/></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td><jq:select href="%{ciudadURL}" formIds="formRegistro" reloadTopics="reloadThirdlist"
+                                                        </tr>
+                                                        <tr>
+                                                            <td><jq:select href="%{ciudadURL}" formIds="formRegistro" reloadTopics="reloadThirdlist"
                                                                        name="ciudad" list="listaCiudades" listKey="id" listValue="nombre" headerKey="-1"
                                                                        headerValue="- Seleccione -" id="ciudad" label="Ciudad Nacimiento" errorPosition="bottom"/></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td><s:select label="Tipo Documento" errorPosition="bottom" name="tipoDocumento" list="listaTiposDocumento" listKey="id" listValue="nombre" headerKey="-1" headerValue="- Seleccione - "/></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td><s:textfield name="numeroDocumento" cssClass="texfield" label="Numero Documento" errorPosition="bottom"></s:textfield></td>
                                                             </tr>
                                                             <tr>
-                                                                <td><s:select label="Tipo Documento" errorPosition="bottom" name="tipoDocumento" list="listaTiposDocumento" listKey="id" listValue="nombre" headerKey="-1" headerValue="- Seleccione - "/></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td><s:textfield name="numeroDocumento" cssClass="texfield" label="Numero Documento" errorPosition="bottom"></s:textfield></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td><jq:datepicker label="Fecha Expedición" errorPosition="bottom" name="fechaExpedicion" displayFormat="dd/mm/yy" changeMonth="true" changeYear="true" showButtonPanel="true"></jq:datepicker></td>
+                                                                <td><jq:datepicker maxDate="0" readonly = "true" buttonImageOnly="true" label="Fecha Expedición" errorPosition="bottom" name="fechaExpedicion" displayFormat="dd/mm/yy" changeMonth="true" changeYear="true" showButtonPanel="true"></jq:datepicker></td>
                                                             </tr>
                                                             <tr>
                                                                 <td><jq:select href="%{ciudadURL}" onChangeTopics="reloadsecondlist2" name="pais2" id="pais2"
-                                                                   list="listaPaises2" listKey="id" listValue="nombre" onCompleteTopics="reloadsecondlist2"
-                                                                   headerKey="-1" headerValue="- Seleccione -" label="País Expedición" errorPosition="bottom"/></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td><jq:select href="%{ciudadURL}" onChangeTopics="reloadThirdlist2" onCompleteTopics="reloadThirdlist2"
+                                                                       list="listaPaises2" listKey="id" listValue="nombre" onCompleteTopics="reloadsecondlist2"
+                                                                       headerKey="-1" headerValue="- Seleccione -" label="País Expedición" errorPosition="bottom"/></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td><jq:select href="%{ciudadURL}" onChangeTopics="reloadThirdlist2" onCompleteTopics="reloadThirdlist2"
                                                                        formIds="formRegistro" reloadTopics="reloadsecondlist2" name="departamento2" id="departamento2"
                                                                        list="listaDepartamentos2" listKey="id" listValue="nombre" headerKey="-1"
                                                                        headerValue="- Seleccione -" label="Departamento Expedición" errorPosition="bottom"/></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td><jq:select href="%{ciudadURL}" reloadTopics="reloadThirdlist2" label="Ciudad Expedición" errorPosition="bottom"
+                                                        </tr>
+                                                        <tr>
+                                                            <td><jq:select href="%{ciudadURL}" reloadTopics="reloadThirdlist2" label="Ciudad Expedición" errorPosition="bottom"
                                                                        name="ciudad2" list="listaCiudades2" listKey="id" listValue="nombre" headerKey="-1"
                                                                        headerValue="- Seleccione -" id="ciudad2" formIds="formRegistro"/></td>
-                                                            </tr>
+                                                        </tr>
+                                                        <tr>
+                                                            <td><s:select label="Grupo Sanguineo" errorPosition="bottom" name="grupoSanguineo" list="listaGruposSanguineos" listKey="id" listValue="nombre" headerKey="-1" headerValue="- Seleccione - "/></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td><s:select label="Género" errorPosition="bottom" name="genero" list="listaGeneros" listKey="id" listValue="nombre" headerKey="-1" headerValue="- Seleccione - "/></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td><s:select label="Estado Civil" errorPosition="bottom" name="estadoCivil" list="listaEstadosCiviles" listKey="id" listValue="nombre" headerKey="-1" headerValue="- Seleccione - "/></td>
+                                                        </tr>
                                                             <tr>
-                                                                <td><s:select label="Grupo Sanguineo" errorPosition="bottom" name="grupoSanguineo" list="listaGruposSanguineos" listKey="id" listValue="nombre" headerKey="-1" headerValue="- Seleccione - "/></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td><s:select label="Género" errorPosition="bottom" name="genero" list="listaGeneros" listKey="id" listValue="nombre" headerKey="-1" headerValue="- Seleccione - "/></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td><s:select label="Estado Civil" errorPosition="bottom" name="estadoCivil" list="listaEstadosCiviles" listKey="id" listValue="nombre" headerKey="-1" headerValue="- Seleccione - "/></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <s:actionerror/>
-                                                            </tr>
-                                                            <tr>
-                                                                <td></td>
-                                                                <td><s:submit  cssClass="boton_auxiliar " cssStyle="width:auto;" value="Guardar" ></s:submit></td>
+                                                            <s:actionerror/>
+                                                        </tr>
+                                                        <tr>
+                                                            <td></td>
+                                                            <td><s:submit  cssClass="boton_auxiliar " cssStyle="width:auto;" value="Guardar" ></s:submit></td>
                                                             </tr>
                                                         </tbody>  
                                                     </table>

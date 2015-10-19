@@ -8,12 +8,16 @@ package Action;
 
 import Controlador.ControladorEgresado;
 import Controlador.ControladorEncuesta;
+import Controlador.ControladorCrud;
 import Modelo.Egresado;
 import Modelo.EgresadoRespuesta;
 import Modelo.PreguntaEncuesta;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
+import com.opensymphony.xwork2.ModelDriven;
 import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -27,16 +31,18 @@ import org.apache.struts2.interceptor.ServletRequestAware;
  *
  * @author YURY
  */
-public class EncuestaAction extends ActionSupport implements ServletRequestAware {
+public class EncuestaAction extends ActionSupport implements ModelDriven<Egresado>, ServletRequestAware  {
     private Map<Long, PreguntaEncuesta> listaPreguntasEncuesta;
     private final ControladorEncuesta controlardorEncuesta;
     private final ControladorEgresado controladorEgresado;
+    private final ControladorCrud controladorCrud;
     private long orden;
     private int ultima;
     private ArrayList<EgresadoRespuesta> listaRespuestas;
     private HttpServletRequest request;
     private Egresado egresado;
-
+    private String usuario;
+    
     public Egresado getEgresado() {
         return egresado;
     }
@@ -47,10 +53,16 @@ public class EncuestaAction extends ActionSupport implements ServletRequestAware
         
     public EncuestaAction()
     {
-        Map session = ActionContext.getContext().getSession();
-        String usuario = (String) session.get("usuario");
+       Map session = ActionContext.getContext().getSession();
+        long idEgresado = (long) session.get("idEgresado");
+        usuario = (String) session.get("usuario");
+        System.out.println("usuario "+idEgresado);
         controlardorEncuesta = new ControladorEncuesta(usuario);
         controladorEgresado = new ControladorEgresado();
+        controladorCrud = new ControladorCrud();
+        this.egresado = (Egresado) controladorCrud.consultar("Egresado.findByIdEgresado", 
+                Modelo.Egresado.class.getName(), "idEgresado", idEgresado, Modelo.Usuario.class.getName());
+        System.out.println("aaaaaaaaa");
     }
     
     /**
@@ -131,10 +143,23 @@ public class EncuestaAction extends ActionSupport implements ServletRequestAware
         this.obtenerRespuestas();
         this.controlardorEncuesta.guardar(listaRespuestas);     
         
-        this.controladorEgresado.actualizarFecha(Date.valueOf(LocalDate.now()));
-        
         if (orden == ultima)
-            controladorEgresado.completarInformacion();
+        {
+            try {
+                System.out.println("jojojojojojo1");
+                controladorEgresado.completarInformacion(usuario);
+                java.util.Date fecha = null;
+                SimpleDateFormat formatoDeFecha = new SimpleDateFormat("yyyy-MM-dd");
+                String fecha1 = formatoDeFecha.format(Date.valueOf(LocalDate.now()));
+                fecha = formatoDeFecha.parse(fecha1);
+                this.egresado.setFechaUltimaAct(fecha);
+                this.egresado.setInformacionCompleta(true);
+                controladorCrud.actualizar(egresado, Egresado.class.getSimpleName(), "getIdUsuario");            
+                System.out.println("jojojojojojo2");
+            } catch (ParseException ex) {
+                
+            }
+        }
         return SUCCESS;
     }
     
@@ -198,5 +223,10 @@ public class EncuestaAction extends ActionSupport implements ServletRequestAware
                 }
             }
         }
+    }
+
+    @Override
+    public Egresado getModel() {
+        return getEgresado();
     }
 }

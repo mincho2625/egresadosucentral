@@ -6,6 +6,8 @@
 
 package Modelo;
 
+import java.util.Date;
+
 /**
  *
  * @author YURY
@@ -15,6 +17,25 @@ public class RespuestaEncuesta {
     private String respuesta;
     private boolean estado;
     private int orden;
+    private PreguntaEncuesta idPreguntaEncuesta;
+    private Date fechaRegistro;
+
+    public Date getFechaRegistro() {
+        return fechaRegistro;
+    }
+
+    public void setFechaRegistro(Date fechaRegistro) {
+        this.fechaRegistro = fechaRegistro;
+    }
+    
+
+    public PreguntaEncuesta getIdPreguntaEncuesta() {
+        return idPreguntaEncuesta;
+    }
+
+    public void setIdPreguntaEncuesta(PreguntaEncuesta idPreguntaEncuesta) {
+        this.idPreguntaEncuesta = idPreguntaEncuesta;
+    }
 
     /**
      * @return the idRespuestaEncuesta
@@ -47,8 +68,8 @@ public class RespuestaEncuesta {
     /**
      * @return the estado
      */
-    public boolean isEstado() {
-        return estado;
+    public String getEstado() {
+        return (estado ? "Activo" : "Inactivo");
     }
 
     /**

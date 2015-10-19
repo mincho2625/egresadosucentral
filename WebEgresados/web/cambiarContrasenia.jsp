@@ -39,6 +39,11 @@
                             <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 center-block">
                                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"></div>
                                 <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                                    <s:if test="hasActionMessages()">
+                                            <div style="width: 450px">
+                                                <s:actionmessage cssClass="alert alert-danger"/>
+                                            </div>
+                                        </s:if>
                                     <s:form action="cambiarContraseniaSeguridad.action">
                                         <div class="item-page">
                                             <br>

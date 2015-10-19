@@ -121,7 +121,7 @@ public class ControladorCargueMasivo {
                 String[] informacion = linea.split(delimitador);
                 CargueEgresado cargueEgresado = new CargueEgresado(informacion);
                 System.out.println("informacion.length: " + informacion.length);
-                if (informacion.length == 58) {
+                if (informacion.length == 66) {
                     cargueEgresado.iniciarTransaccion();
                     if (validarCedula(cargueEgresado.validarDocumento())) {
                         if (validarCorreo(cargueEgresado.validarCorreo())) {

@@ -8,6 +8,7 @@ package Action;
 
 import Modelo.AreaEmpresa;
 
+
 /**
  *
  * @author yury
@@ -21,6 +22,7 @@ public class AreaEmpresaAction extends CrudAction<AreaEmpresa> {
         this.entidad = AreaEmpresa.class.getSimpleName();
         this.consultaTodos = "AreaEmpresa.findByEstado";
         this.consultaIdObjeto = "AreaEmpresa.findByIdAreaEmpresa";
+        System.out.println("Area de empresa");
     }
 
     @Override

@@ -42,12 +42,12 @@
         <script src="/plugins/system/jcemediabox/js/jcemediabox.js?bab2623533a38959d58ee39b77ca85cd" type="text/javascript"></script>
         <script src="/modules/mod_redes_js_uc/js/mod_redes_js_uc.min.js" type="text/javascript"></script>
         <script type="text/javascript">
-            jQuery(window).on('load', function() {
+            jQuery(window).on('load', function () {
 
                 new JCaption('img.caption');
             });
             JCEMediaBox.init({popup: {width: "", height: "", legacy: 0, lightbox: 0, shadowbox: 0, resize: 1, icons: 1, overlay: 1, overlayopacity: 0.8, overlaycolor: "#000000", fadespeed: 500, scalespeed: 500, hideobjects: 0, scrolling: "fixed", close: 2, labels: {'close': 'Close', 'next': 'Next', 'previous': 'Previous', 'cancel': 'Cancel', 'numbers': '{$current} of {$total}'}, cookie_expiry: "", google_viewer: 0, pdfjs: 0}, tooltip: {className: "tooltip", opacity: 0.8, speed: 150, position: "br", offsets: {x: 16, y: 16}}, base: "/", imgpath: "plugins/system/jcemediabox/img", theme: "standard", themecustom: "", themepath: "plugins/system/jcemediabox/themes"});
-            jQuery(document).ready(function()
+            jQuery(document).ready(function ()
             {
                 jQuery('.hasTooltip').tooltip({"html": true, "container": "body"});
             });
@@ -57,8 +57,8 @@
         <link rel="stylesheet" href="http://www.ucentral.edu.co/plugins/content/sige/plugin_sige/sige.css" type="text/css" media="screen" />
         <script type="text/javascript" src="http://www.ucentral.edu.co/plugins/content/sige/plugin_sige/slimbox.js"></script>
         <script type="text/javascript">
-            Slimbox.scanPage = function() {
-                $$("a[rel^=lightbox]").slimbox({counterText: "Image {x} of {y}"}, null, function(el) {
+            Slimbox.scanPage = function () {
+                $$("a[rel^=lightbox]").slimbox({counterText: "Image {x} of {y}"}, null, function (el) {
                     return (this == el) || ((this.rel.length > 8) && (this.rel == el.rel));
                 });
             };
@@ -104,12 +104,22 @@
                 var imgtag = document.getElementById("vistaPrevia");
                 imgtag.title = selectedFile.name;
 
-                reader.onload = function(event) {
-                  imgtag.src = event.target.result;
+                reader.onload = function (event) {
+                    imgtag.src = event.target.result;
                 };
 
                 reader.readAsDataURL(selectedFile);
-              }
+            }
+            
+            function objeto() {
+                var m = document.getElementById("correoInstitucional").value;
+                var expreg = new RegExp("^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$");
+
+                if (expreg.test(m))
+                    alert("Correo valido");
+                else
+                    alert("Correo no valido");
+            }
         </script>
     </head>
 
@@ -200,76 +210,76 @@
                                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-11">
                                     <s:form action="guardarRegistro.action" id="formRegistro" enctype="multipart/form-data" method="POST">
                                         <s:url id="ciudadURL" action="SelectDobleCiudad"/>
-                                            <div class="top item-page">
-                                                <table style="width: 500px">
-                                                    <tbody>
-                                                        <tr>
-                                                            <td><s:file label="Foto" errorPosition="bottom" name="fileUpload" id="fileUpload" onchange="mostrarImagen(event);"></s:file></td>
+                                        <div class="top item-page">
+                                            <table style="width: 500px">
+                                                <tbody>
+                                                    <tr>
+                                                        <td><s:file label="Foto" errorPosition="bottom" name="fileUpload" id="fileUpload" onchange="mostrarImagen(event);"></s:file></td>
                                                         </tr>
                                                         <tr>
                                                             <td><s:textfield name="primerApellido" label="Primer Apellido" errorPosition="bottom"/></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td><s:textfield name="segundoApellido" label="Segundo Apellido" errorPosition="bottom"/></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td><s:textfield name="nombres" label="Nombres" errorPosition="bottom"/></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td><jq:datepicker label="Fecha Nacimiento" errorPosition="bottom" size="45" name="fechaNacimiento" displayFormat="dd/mm/yy" changeMonth="true" changeYear="true" maxDate="1y" showButtonPanel="true"></jq:datepicker></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><s:textfield name="segundoApellido" label="Segundo Apellido" errorPosition="bottom"/></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><s:textfield name="nombres" label="Nombres" errorPosition="bottom"/></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><jq:datepicker label="Fecha Nacimiento" errorPosition="bottom" maxDate="0" readonly = "true" buttonImageOnly="true" name="fechaNacimiento" displayFormat="dd/mm/yy" changeMonth="true" changeYear="true" showButtonPanel="true"></jq:datepicker></td>
                                                         </tr>
                                                         <tr>
                                                             <td><jq:select href="%{ciudadURL}" cssStyle="minu" onChangeTopics="reloadsecondlist" name="pais" id="pais"
                                                                    list="listaPaises" listKey="id" listValue="nombre" onCompleteTopics="reloadsecondlist"
                                                                    headerKey="-1" headerValue="- Seleccione -" label="País Nacimiento" errorPosition="bottom"/></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td><jq:select href="%{ciudadURL}"  onChangeTopics="reloadThirdlist" onCompleteTopics="reloadThirdlist"
+                                                    </tr>
+                                                    <tr>
+                                                        <td><jq:select href="%{ciudadURL}"  onChangeTopics="reloadThirdlist" onCompleteTopics="reloadThirdlist"
                                                                    formIds="formRegistro" reloadTopics="reloadsecondlist" name="departamento" id="departamento"
                                                                    list="listaDepartamentos" listKey="id" listValue="nombre" headerKey="-1"
                                                                    headerValue="- Seleccione -" label="Departamento Nacimiento" errorPosition="bottom"/></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td><jq:select href="%{ciudadURL}"  formIds="formRegistro" reloadTopics="reloadThirdlist"
+                                                    </tr>
+                                                    <tr>
+                                                        <td><jq:select href="%{ciudadURL}"  formIds="formRegistro" reloadTopics="reloadThirdlist"
                                                                    name="ciudadNacimiento" list="listaCiudades" listKey="id" listValue="nombre" headerKey="-1"
                                                                    headerValue="- Seleccione -" id="ciudad" label="Ciudad Nacimiento" errorPosition="bottom"/></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><s:select label="Tipo Documento" errorPosition="bottom" name="tipoDocumento" list="listaTiposDocumento" listKey="id" listValue="nombre" headerKey="-1" headerValue="- Seleccione - "/></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><s:textfield  name="numeroDocumento" label="Número Documento" errorPosition="bottom"></s:textfield></td>
                                                         </tr>
                                                         <tr>
-                                                            <td><s:select label="Tipo Documento" errorPosition="bottom" name="tipoDocumento" list="listaTiposDocumento" listKey="id" listValue="nombre" headerKey="-1" headerValue="- Seleccione - "/></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td><s:textfield  name="numeroDocumento" label="Número Documento" errorPosition="bottom"></s:textfield></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td><jq:datepicker label="Fecha Expedición" errorPosition="bottom" name="fechaExpedicion" displayFormat="dd/mm/yy" changeMonth="true" changeYear="true" showButtonPanel="true" maxDate="1y"></jq:datepicker></td>
+                                                            <td><jq:datepicker maxDate="0" readonly = "true" buttonImageOnly="true" label="Fecha Expedición" errorPosition="bottom" name="fechaExpedicion" displayFormat="dd/mm/yy" changeMonth="true" changeYear="true" showButtonPanel="true"></jq:datepicker></td>
                                                         </tr>
                                                         <tr>
                                                             <td><jq:select href="%{ciudadURL}" onChangeTopics="reloadsecondlist2" name="pais2" id="pais2"
                                                                    list="listaPaises2" listKey="id" listValue="nombre" onCompleteTopics="reloadsecondlist2"
                                                                    headerKey="-1" headerValue="- Seleccione -" label="País Expedición" errorPosition="bottom"/></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td><jq:select href="%{ciudadURL}"  onChangeTopics="reloadThirdlist2" onCompleteTopics="reloadThirdlist2"
+                                                    </tr>
+                                                    <tr>
+                                                        <td><jq:select href="%{ciudadURL}"  onChangeTopics="reloadThirdlist2" onCompleteTopics="reloadThirdlist2"
                                                                    formIds="formRegistro" reloadTopics="reloadsecondlist2" name="departamento2" id="departamento2"
                                                                    list="listaDepartamentos2" listKey="id" listValue="nombre" headerKey="-1"
                                                                    headerValue="- Seleccione -" label="Departamento Expedición" errorPosition="bottom"/></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td><jq:select href="%{ciudadURL}"  reloadTopics="reloadThirdlist2" label="Ciudad Expedición" errorPosition="bottom"
+                                                    </tr>
+                                                    <tr>
+                                                        <td><jq:select href="%{ciudadURL}"  reloadTopics="reloadThirdlist2" label="Ciudad Expedición" errorPosition="bottom"
                                                                    name="ciudadExpedicion" list="listaCiudades2" listKey="id" listValue="nombre" headerKey="-1"
                                                                    headerValue="- Seleccione -" id="ciudad2" formIds="formRegistro"/></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td><s:select label="Grupo Sanguíneo" errorPosition="bottom" name="grupoSanguineo" list="listaGruposSanguineos" listKey="id" listValue="nombre" headerKey="-1" headerValue="- Seleccione - "/></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td><s:select label="Género" errorPosition="bottom" name="genero" list="listaGeneros" listKey="id" listValue="nombre" headerKey="-1" headerValue="- Seleccione - "/></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td><s:select label="Estado Civil" errorPosition="bottom" name="estadoCivil" list="listaEstadosCiviles" listKey="id" listValue="nombre" headerKey="-1" headerValue="- Seleccione - "/></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td><s:textfield name="correoInstitucional" label="Correo Institucional" errorPosition="bottom"></s:textfield></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><s:select label="Grupo Sanguineo" errorPosition="bottom" name="grupoSanguineo" list="listaGruposSanguineos" listKey="id" listValue="nombre" headerKey="-1" headerValue="- Seleccione - "/></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><s:select label="Género" errorPosition="bottom" name="genero" list="listaGeneros" listKey="id" listValue="nombre" headerKey="-1" headerValue="- Seleccione - "/></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><s:select label="Estado Civil" errorPosition="bottom" name="estadoCivil" list="listaEstadosCiviles" listKey="id" listValue="nombre" headerKey="-1" headerValue="- Seleccione - "/></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><s:textfield  onfocus="objeto()" name="correoInstitucional" label="Correo Institucional" errorPosition="bottom"></s:textfield></td>
                                                         </tr>
                                                         <tr>
                                                             <td><s:textfield name="nombre" label="Usuario" errorPosition="bottom"></s:textfield></td>
@@ -282,9 +292,9 @@
                                                         </tr>
                                                         <tr>
                                                             <td><s:select label="Pregunta Seguridad" errorPosition="bottom" name="preguntaSeguridad" list="listaPreguntas" listKey="id" listValue="nombre" headerKey="-1" headerValue="- Seleccione - "/></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td><s:password name="respuestaSeguridad" label="Respuesta Secreta" errorPosition="bottom"></s:password></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><s:password name="respuestaSeguridad" label="Respuesta Secreta" errorPosition="bottom"></s:password></td>
                                                         </tr>
                                                         <tr>
                                                             <td><s:checkbox cssClass="checkbox" name="terminos" label="Términos y Condiciones" errorPosition="bottom"></s:checkbox></td>

@@ -18,6 +18,7 @@ public class EducacionNoFormal extends Educacion {
     private AreaEstudios idAreaEstudios;
     private Modalidad idModalidad;
     private NivelEstudios idNivelEstudios;
+    private String numeroDocumento;
 
     /**
      * @return the otroNivelEstudios
@@ -115,5 +116,13 @@ public class EducacionNoFormal extends Educacion {
      */
     public void setIdNivelEstudios(NivelEstudios idNivelEstudios) {
         this.idNivelEstudios = idNivelEstudios;
+    }
+
+    public String getNumeroDocumento() {
+        return numeroDocumento;
+    }
+
+    public void setNumeroDocumento(String numeroDocumento) {
+        this.numeroDocumento = numeroDocumento;
     }
 }

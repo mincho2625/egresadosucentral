@@ -20,6 +20,7 @@ public class EgresadoRespuesta {
     private PreguntaEncuesta idPreguntaEncuesta;
     private long idEgresadoRespuesta;
     private Date fechaRegistro;
+    private String numeroDocumento;    
 
     /**
      * @return the idRespuestaEncuesta
@@ -117,5 +118,13 @@ public class EgresadoRespuesta {
      */
     public void setFechaRegistro(Date fechaRegistro) {
         this.fechaRegistro = fechaRegistro;
+    }
+
+    public String getNumeroDocumento() {
+        return numeroDocumento;
+    }
+
+    public void setNumeroDocumento(String numeroDocumento) {
+        this.numeroDocumento = numeroDocumento;
     }
 }

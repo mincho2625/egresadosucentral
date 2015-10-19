@@ -19,6 +19,7 @@ public class EgresadoRedSocial {
     private long idEgresado;
     private boolean estado;
     private Date fechaRegistro;
+    private String numeroDocumento;    
 
     /**
      * @return the idEgresadoRedSocial
@@ -102,5 +103,13 @@ public class EgresadoRedSocial {
      */
     public void setFechaRegistro(Date fechaRegistro) {
         this.fechaRegistro = fechaRegistro;
+    }
+
+    public String getNumeroDocumento() {
+        return numeroDocumento;
+    }
+
+    public void setNumeroDocumento(String numeroDocumento) {
+        this.numeroDocumento = numeroDocumento;
     }
 }

@@ -32,7 +32,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "GrupoSanguineo.findAll", query = "SELECT g FROM GrupoSanguineo g"),
     @NamedQuery(name = "GrupoSanguineo.findByIdGrupoSanguineo", query = "SELECT g FROM GrupoSanguineo g WHERE g.idGrupoSanguineo = :idGrupoSanguineo"),
-    @NamedQuery(name = "GrupoSanguineo.findByGrupoSanguineo", query = "SELECT g FROM GrupoSanguineo g WHERE g.grupoSanguineo = :grupoSanguineo"),
+    @NamedQuery(name = "GrupoSanguineo.findByGrupoSanguineo", query = "SELECT g FROM GrupoSanguineo g WHERE g.grupoSanguineo = :grupoSanguineo and g.estado = :estado"),
     @NamedQuery(name = "GrupoSanguineo.findByEstado", query = "SELECT g FROM GrupoSanguineo g WHERE g.estado = :estado")})
 public class GrupoSanguineo implements Serializable {
     private static final long serialVersionUID = 1L;

@@ -105,7 +105,7 @@
                                                                 <td><s:textfield label="Descripción" errorPosition="bottom" name="descripcion"></s:textfield></td>
                                                             </tr>
                                                             <tr>
-                                                                <td><jq:datepicker label="Fecha vinculación" errorPosition="bottom" name="fechaVinculacion" displayFormat="dd/mm/yy" changeMonth="true" changeYear="true" showButtonPanel="true"></jq:datepicker>   </td>
+                                                                <td><jq:datepicker  label="Fecha vinculación"  errorPosition="bottom" maxDate="0" readonly = "true" buttonImageOnly="true"  name="fechaVinculacion" displayFormat="dd/mm/yy" changeYear="true" ></jq:datepicker></td>
                                                             </tr>
                                                             <tr>
                                                                 <td><s:select label="País" errorPosition="bottom" name="pais" list="listaPaises" listKey="id" listValue="nombre" headerKey="-1" headerValue="- Seleccione -"></s:select></td>
@@ -117,8 +117,8 @@
                                                             <tr>
                                                                 <td></td>
                                                                 <td><s:submit cssClass="boton_auxiliar boton guardar" cssStyle="width:auto;" value="Guardar"></s:submit></td>
-                                                        </tr>
-                                                    </table>
+                                                            </tr>
+                                                        </table>
                                                 </s:push>
                                             </s:form>
                                         </s:if>

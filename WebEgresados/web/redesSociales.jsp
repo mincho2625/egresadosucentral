@@ -42,7 +42,7 @@
                                         <thead>
                                             <tr>
                                                 <th>Red Social</th>
-                                                <th>URL</th>
+                                                <th>Nombre de usuario</th>
                                                 <th>Acción</th>
                                             </tr>
                                         </thead>
@@ -70,12 +70,12 @@
                                             </s:iterator>
                                         </tbody>
                                     </table>
-                                    <div class="buttons" style="margin-left: 75px; width: 250px">
+                                    <div class="buttons" style="margin-left: 110px; width: 250px">
                                         <a href="crearEgresadoRedSocial.action" target="contenido">
-                                            <button type="submit" class="boton_descargar boton guardar" style="width: auto" name="nuevo">
+                                            <button type="submit" class="boton_auxiliar boton guardar" style="width: auto" name="nuevo">
                                                 Registro Nuevo
                                             </button>
-                                        </a><br>
+                                        </a>
                                     </div>
                                     <s:if test="hasActionErrors()">
                                         <div style="width: auto">
@@ -91,12 +91,12 @@
                                                         <table  style="width: 300px">
                                                             <tr>
                                                                 <td>
-                                                                    <s:select label="Red Social" errorPosition="bottom" cssClass="center" name="redSocial" list="listaRedesSociales" listKey="id" listValue="nombre" headerKey="-1" headerValue="- Seleccione -"></s:select>
+                                                                    <s:select label="Red Social:*" errorPosition="bottom" cssClass="center" name="redSocial" list="listaRedesSociales" listKey="id" listValue="nombre" headerKey="-1" headerValue="- Seleccione -"></s:select>
                                                                 </td>
                                                             </tr>
                                                             <tr>
                                                                 <td>
-                                                                    <s:textfield label="URL" errorPosition="bottom" name="url" cssClass="center"></s:textfield>
+                                                                    <s:textfield label="Nombre de Usuario:*" errorPosition="bottom" name="url" cssClass="center"></s:textfield>
                                                                 </td>
                                                             </tr>
                                                             <tr>
@@ -104,7 +104,7 @@
                                                         </tr>
                                                         <tr>
                                                             <td></td>
-                                                            <td><s:submit cssClass="boton_descargar boton guardar" cssStyle="width:auto;" value="Guardar">
+                                                            <td><s:submit cssClass="boton_auxiliar" cssStyle="width:auto;" value="Guardar">
                                                             </s:submit></td>
                                                         </tr>
 
@@ -114,8 +114,8 @@
                                         </s:if>
                                     </div>
                                     <div class="enlaces">
-                                        <div class="tdsiguiente"><a href="siguienteEgresadoRedSocial.action"><img src="imagenes/next.png" width="21" height="21"></a></div>
-                                        <div class="tdatras"><a href="anteriorEgresadoRedSocial.action" class="tdatras"><img src="imagenes/atras.jpg" width="24" height="24"></a></div>
+                                        <div class="tdsiguiente"><a href="siguienteEgresadoRedSocial.action"><img src="imagenes/next.png" title="Siguiente" alt="Siguiente" width="21" height="21"></a></div>
+                                        <div class="tdatras"><a href="anteriorEgresadoRedSocial.action" class="tdatras"><img src="imagenes/atras.jpg" title="Atras" alt="Atras" width="24" height="24"></a></div>
                                     </div>        
                                 </div>
                                 <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>

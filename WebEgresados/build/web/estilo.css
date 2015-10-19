@@ -225,3 +225,8 @@ background-repeat: no-repeat;
     color: #CC0000;
     background-color: #1A171B;
 }
+
+.imagen{
+    margin-top: 40px;
+    vertical-align: middle;
+}

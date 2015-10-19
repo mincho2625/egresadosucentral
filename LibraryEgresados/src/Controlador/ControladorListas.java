@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Controlador;
 
 import Modelo.ItemLista;
@@ -26,6 +25,7 @@ import javax.persistence.Query;
  * @author YURY
  */
 public class ControladorListas {
+
     private final EntityManagerFactory emf = Persistence.createEntityManagerFactory("EgresadosPU");
 
     /**
@@ -108,9 +108,8 @@ public class ControladorListas {
         parametros.put("estado", true);
         return consultar("TipoContrato.findByEstado", "getIdTipoContrato", parametros);
     }
-    
-    public List<ItemLista> consultarSectores()
-    {
+
+    public List<ItemLista> consultarSectores() {
         HashMap<String, Object> parametros = new HashMap<>();
         parametros.put("estado", true);
         return consultar("Sector.findByEstado", "getIdSector", parametros);
@@ -162,7 +161,7 @@ public class ControladorListas {
         parametros.put("estado", true);
         return consultar("CargoEquivalente.findByEstado", "getIdCargoEquivalente", parametros);
     }
-    
+
     /**
      * @return the listaTiposVivienda
      */
@@ -198,7 +197,7 @@ public class ControladorListas {
         parametros.put("estado", true);
         return consultar("TipoContacto.findByEstado", "getIdTipoContacto", parametros);
     }
-    
+
     /**
      * @return the listaTiposContacto
      */
@@ -235,13 +234,13 @@ public class ControladorListas {
         parametros.put("estado", true);
         return consultar("Genero.findByEstado", "getIdGenero", parametros);
     }
-    
+
     public Map<Long, String> consultarGenerosMap() {
         HashMap<String, Object> parametros = new HashMap<>();
         parametros.put("estado", true);
         return consultarMap("Genero.findByEstado", "getIdGenero", parametros);
     }
-    
+
     public Map<Long, String> consultarGenerosMap(List<Long> listaGeneros) {
         HashMap<String, Object> parametros = new HashMap<>();
         parametros.put("idGenero", listaGeneros);
@@ -256,13 +255,13 @@ public class ControladorListas {
         parametros.put("estado", true);
         return consultar("EstadoCivil.findByEstado", "getIdEstadoCivil", parametros, "getEstadoCivil");
     }
-    
+
     public Map<Long, String> consultarEstadosCivilesMap() {
         HashMap<String, Object> parametros = new HashMap<>();
         parametros.put("estado", true);
         return consultarMap("EstadoCivil.findByEstado", "getIdEstadoCivil", parametros, "getEstadoCivil");
     }
-    
+
     public Map<Long, String> consultarEstadosCivilesMap(List<Long> listaEstadosCiviles) {
         HashMap<String, Object> parametros = new HashMap<>();
         parametros.put("idEstadoCivil", listaEstadosCiviles);
@@ -286,7 +285,7 @@ public class ControladorListas {
         parametros.put("estado", true);
         return consultar("TipoAsociacion.findByEstado", "getIdTipoAsociacion", parametros);
     }
-    
+
     /**
      * @return the listaPaises
      */
@@ -295,7 +294,7 @@ public class ControladorListas {
         parametros.put("estado", true);
         return consultar("Pais.findByEstado", "getIdPais", parametros);
     }
-    
+
     /**
      * @param idPais
      * @return the listaDepartamentosPorPais
@@ -306,7 +305,7 @@ public class ControladorListas {
         parametros.put("idPais", idPais);
         return consultar("Departamento.findByIdPais", "getIdDepartamento", parametros);
     }
-    
+
     /**
      * @param idDepartamento
      * @return the listaCiudades
@@ -363,13 +362,13 @@ public class ControladorListas {
         parametros.put("estado", true);
         return consultar("NivelEstudios.findByEstado", "getIdNivelEstudios", parametros);
     }
-    
+
     public Map<Long, String> consultarNivelesEstudiosMap(List<Long> listaNivelesEstudios) {
         HashMap<String, Object> parametros = new HashMap<>();
         parametros.put("idNivelEstudios", listaNivelesEstudios);
         return consultarMap("NivelEstudios.findByIdNivelesEstudios", "getIdNivelEstudios", parametros);
     }
-    
+
     /**
      *
      * @return
@@ -380,14 +379,14 @@ public class ControladorListas {
         parametros.put("estado", true);
         return consultar("NivelEstudios.findByFormal", "getIdNivelEstudios", parametros);
     }
-    
+
     public List<ItemLista> consultarNivelesEstudiosNoFormal() {
         HashMap<String, Object> parametros = new HashMap<>();
         parametros.put("formal", false);
         parametros.put("estado", true);
         return consultar("NivelEstudios.findByFormal", "getIdNivelEstudios", parametros);
     }
-    
+
     /**
      * @return the listaNivelesEstudiosUCentral
      */
@@ -396,55 +395,55 @@ public class ControladorListas {
         parametros.put("estado", true);
         return consultar("NivelEstudios.findByAplicaUCentral", "getIdNivelEstudios", parametros);
     }
-    
+
     public Map<Long, String> consultarNivelesEstudiosAplicaUCentralMap() {
         HashMap<String, Object> parametros = new HashMap<>();
         parametros.put("estado", true);
         return consultarMap("NivelEstudios.findByAplicaUCentral", "getIdNivelEstudios", parametros);
     }
-    
-    public List<ItemLista> consultarNivelesEstudiosObligatorioUCentral() { 
+
+    public List<ItemLista> consultarNivelesEstudiosObligatorioUCentral() {
         HashMap<String, Object> parametros = new HashMap<>();
         parametros.put("obligatorioUCentral", true);
         parametros.put("estado", true);
         return consultar("NivelEstudios.findByObligatorioUCentral", "getIdNivelEstudios", parametros);
     }
-    
+
     /**
      *
      * @return
      */
-    public List<ItemLista> consultarNivelesEstudiosObligatorioOtrasInst() { 
+    public List<ItemLista> consultarNivelesEstudiosObligatorioOtrasInst() {
         HashMap<String, Object> parametros = new HashMap<>();
         parametros.put("obligatorioOtrasInst", true);
         parametros.put("estado", true);
         return consultar("NivelEstudios.findByObligatorioOtrasInst", "getIdNivelEstudios", parametros);
     }
-    
+
     public List<ItemLista> consultarFacultades() {
         HashMap<String, Object> parametros = new HashMap<>();
         parametros.put("estado", true);
         return consultar("Facultad.findByEstado", "getIdFacultad", parametros);
     }
-    
+
     public Map<Long, String> consultarFacultadesMap() {
         HashMap<String, Object> parametros = new HashMap<>();
         parametros.put("estado", true);
         return consultarMap("Facultad.findByEstado", "getIdFacultad", parametros);
     }
-    
+
     public Map<Long, String> consultarFacultadesMap(List<Long> listaFacultades) {
         HashMap<String, Object> parametros = new HashMap<>();
         parametros.put("idFacultad", listaFacultades);
         return consultarMap("Facultad.findByIdFacultades", "getIdFacultad", parametros);
     }
-    
+
     public Map<Long, String> consultarProgramasMap(List<Long> listaProgramas) {
         HashMap<String, Object> parametros = new HashMap<>();
         parametros.put("idPrograma", listaProgramas);
         return consultarMap("Programa.findByIdProgramas", "getIdPrograma", parametros);
     }
-    
+
     /**
      * @param idFacultad
      * @param idNivelEstudios
@@ -457,8 +456,8 @@ public class ControladorListas {
         parametros.put("estado", true);
         return consultar("Programa.findByFacultadYNivelEstudios", "getIdPrograma", parametros);
     }
-    
-    public Map<Long, String> consultarProgramasPorListaFacultadYNivelEstudiosMap(List<Long> listaFacultades, 
+
+    public Map<Long, String> consultarProgramasPorListaFacultadYNivelEstudiosMap(List<Long> listaFacultades,
             List<Long> listaNivelesEstudios) {
         HashMap<String, Object> parametros = new HashMap<>();
         parametros.put("listaFacultades", listaFacultades);
@@ -466,13 +465,13 @@ public class ControladorListas {
         parametros.put("estado", true);
         return consultarMap("Programa.findByListaFacultadYNivelEstudios", "getIdPrograma", parametros);
     }
-    
+
     public List<ItemLista> consultarAreasEstudiosPorNivelEstudiosNull() {
         HashMap<String, Object> parametros = new HashMap<>();
         parametros.put("estado", true);
         return consultar("AreaEstudios.findByIdNivelEstudiosNull", "getIdAreaEstudios", parametros);
     }
-    
+
     public List<ItemLista> consultarAreasEstudiosPorNivelEstudios(long idNivelEstudios) {
         HashMap<String, Object> parametros = new HashMap<>();
         parametros.put("idNivelEstudios", idNivelEstudios);
@@ -490,56 +489,65 @@ public class ControladorListas {
         parametros.put("estado", true);
         return consultar("Institucion.findOtras", "getIdInstitucion", parametros);
     }
-    
-    public List<ItemLista> consultarTiposCampos(){
+
+    public List<ItemLista> consultarTiposCampos() {
         HashMap<String, Object> parametros = new HashMap<>();
         parametros.put("estado", true);
         return consultar("TipoCampo.findByEstado", "getIdTipoCampo", parametros);
     }
-    
+
     public List<ItemLista> consultarPlantillasCorreo() {
         HashMap<String, Object> parametros = new HashMap<>();
         parametros.put("estado", true);
         return consultar("PlantillaCorreo.findByEstado", "getIdPlantillaCorreo", parametros);
     }
-    
+
     public List<ItemLista> consultarTipoRespuesta() {
         HashMap<String, Object> parametros = new HashMap<>();
         parametros.put("estado", true);
         return consultar("TipoRespuesta.findByEstado", "getIdTipoRespuesta", parametros, "getNombre");
     }
-    
-    public ArrayList<Integer> consultarAnios()
-    {
+
+    public List<ItemLista> consultarIdEncuesta() {
+        HashMap<String, Object> parametros = new HashMap<>();
+        parametros.put("estado", true);
+        return consultar("Encuesta.findByEstado", "getIdEncuesta", parametros, "getNombre");
+    }
+
+    public List<ItemLista> consultarIdPregunta() {
+        HashMap<String, Object> parametros = new HashMap<>();
+        parametros.put("estado", true);
+        return consultar("PreguntaEncuesta.findByEstado", "getIdPreguntaEncuesta", parametros, "getNombre");
+    }
+
+    public ArrayList<Integer> consultarAnios() {
         ArrayList<Integer> listaAnios = new ArrayList<>();
         Calendar calendario = Calendar.getInstance(Locale.ROOT);
         int anio = calendario.get(Calendar.YEAR);
-        
+
         for (int i = 1900; i <= anio; i++) {
             listaAnios.add(i);
         }
         return listaAnios;
     }
-    
-    private List<ItemLista> consultar(String consulta, String idObjeto, Map<String, Object> parametros)
-    {
+
+    private List<ItemLista> consultar(String consulta, String idObjeto, Map<String, Object> parametros) {
         Convertidor convertidor = new Convertidor();
         EntityManager em = emf.createEntityManager();
         List<ItemLista> listaObjetos = new ArrayList<>();
-        
+
         try {
             Query query = em.createNamedQuery(consulta);
-            
+
             for (Map.Entry<String, Object> entry : parametros.entrySet()) {
                 query.setParameter(entry.getKey(), entry.getValue());
             }
-            
+
             List<Object> lista = query.getResultList();
-            for(Object objeto: lista)
-            {
+            for (Object objeto : lista) {
                 ItemLista item = new ItemLista();
-                item.setId((Long)convertidor.invocar(objeto, idObjeto));
-                item.setNombre((String)convertidor.invocar(objeto, "getNombre"));
+                item.setId((Long) convertidor.invocar(objeto, idObjeto));
+                item.setNombre((String) convertidor.invocar(objeto, "getNombre"));
                 listaObjetos.add(item);
             }
 
@@ -547,29 +555,27 @@ public class ControladorListas {
         } catch (SecurityException | IllegalArgumentException ex) {
             Logger.getLogger(ControladorListas.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         return null;
     }
-    
-    private List<ItemLista> consultar(String consulta, String idObjeto, Map<String, Object> parametros, String nombreObjeto)
-    {
+
+    private List<ItemLista> consultar(String consulta, String idObjeto, Map<String, Object> parametros, String nombreObjeto) {
         Convertidor convertidor = new Convertidor();
         EntityManager em = emf.createEntityManager();
         List<ItemLista> listaObjetos = new ArrayList<>();
-        
+
         try {
             Query query = em.createNamedQuery(consulta);
-            
+
             for (Map.Entry<String, Object> entry : parametros.entrySet()) {
                 query.setParameter(entry.getKey(), entry.getValue());
             }
-            
+
             List<Object> lista = query.getResultList();
-            for(Object objeto: lista)
-            {
+            for (Object objeto : lista) {
                 ItemLista item = new ItemLista();
-                item.setId((Long)convertidor.invocar(objeto, idObjeto));
-                item.setNombre((String)convertidor.invocar(objeto, nombreObjeto));
+                item.setId((Long) convertidor.invocar(objeto, idObjeto));
+                item.setNombre((String) convertidor.invocar(objeto, nombreObjeto));
                 listaObjetos.add(item);
             }
 
@@ -577,59 +583,57 @@ public class ControladorListas {
         } catch (SecurityException | IllegalArgumentException ex) {
             Logger.getLogger(ControladorListas.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         return null;
     }
-    
-    private Map<Long, String> consultarMap(String consulta, String idObjeto, Map<String, Object> parametros)
-    {
+
+    private Map<Long, String> consultarMap(String consulta, String idObjeto, Map<String, Object> parametros) {
         Convertidor convertidor = new Convertidor();
         EntityManager em = emf.createEntityManager();
         Map<Long, String> listaObjetos = new HashMap<>();
-        
+
         try {
             Query query = em.createNamedQuery(consulta);
-            
+
             for (Map.Entry<String, Object> entry : parametros.entrySet()) {
                 query.setParameter(entry.getKey(), entry.getValue());
             }
-            
+
             List<Object> lista = query.getResultList();
-            for(Object objeto: lista) {
-                listaObjetos.put((Long)convertidor.invocar(objeto, idObjeto), (String)convertidor.invocar(objeto, "getNombre"));
+            for (Object objeto : lista) {
+                listaObjetos.put((Long) convertidor.invocar(objeto, idObjeto), (String) convertidor.invocar(objeto, "getNombre"));
             }
 
             return listaObjetos;
         } catch (SecurityException | IllegalArgumentException ex) {
             Logger.getLogger(ControladorListas.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         return null;
     }
-    
-    private Map<Long, String> consultarMap(String consulta, String idObjeto, Map<String, Object> parametros, String nombreObjeto)
-    {
+
+    private Map<Long, String> consultarMap(String consulta, String idObjeto, Map<String, Object> parametros, String nombreObjeto) {
         Convertidor convertidor = new Convertidor();
         EntityManager em = emf.createEntityManager();
         Map<Long, String> listaObjetos = new HashMap<>();
-        
+
         try {
             Query query = em.createNamedQuery(consulta);
-            
+
             for (Map.Entry<String, Object> entry : parametros.entrySet()) {
                 query.setParameter(entry.getKey(), entry.getValue());
             }
-            
+
             List<Object> lista = query.getResultList();
-            for(Object objeto: lista) {
-                listaObjetos.put((Long)convertidor.invocar(objeto, idObjeto), (String)convertidor.invocar(objeto, nombreObjeto));
+            for (Object objeto : lista) {
+                listaObjetos.put((Long) convertidor.invocar(objeto, idObjeto), (String) convertidor.invocar(objeto, nombreObjeto));
             }
 
             return listaObjetos;
         } catch (SecurityException | IllegalArgumentException ex) {
             Logger.getLogger(ControladorListas.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         return null;
     }
 }

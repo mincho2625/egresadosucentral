@@ -5,6 +5,7 @@
  */
 package Persistencia;
 
+import Persistencia.Usuario;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -21,7 +22,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author YURY
+ * @author pc
  */
 @Entity
 @Table(name = "usuario_columna")
@@ -93,12 +94,15 @@ public class UsuarioColumna implements Serializable {
             return false;
         }
         UsuarioColumna other = (UsuarioColumna) object;
-        return !((this.idUsuarioColumna == null && other.idUsuarioColumna != null) || (this.idUsuarioColumna != null && !this.idUsuarioColumna.equals(other.idUsuarioColumna)));
+        if ((this.idUsuarioColumna == null && other.idUsuarioColumna != null) || (this.idUsuarioColumna != null && !this.idUsuarioColumna.equals(other.idUsuarioColumna))) {
+            return false;
+        }
+        return true;
     }
 
     @Override
     public String toString() {
-        return "Persistencia.UsuarioColumna[ idUsuarioColumna=" + idUsuarioColumna + " ]";
+        return "Controlador.UsuarioColumna[ idUsuarioColumna=" + idUsuarioColumna + " ]";
     }
     
 }

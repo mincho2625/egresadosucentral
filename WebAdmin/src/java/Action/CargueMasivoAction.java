@@ -147,7 +147,7 @@ public class CargueMasivoAction extends ActionSupport {
 
     public String exportar() {
         HttpServletRequest request = (HttpServletRequest) ActionContext.getContext().get(ServletActionContext.HTTP_REQUEST);
-        String objeto = request.getParameter("objeto");
+        String objeto = request.getParameter("idObjeto");
         System.out.println("objeto " + objeto);
         if (objeto != null) {
             System.out.println("Ingreso");

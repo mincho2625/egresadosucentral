@@ -5,6 +5,7 @@
  */
 package Action;
 
+import Controlador.ControladorEncuesta;
 import Modelo.Encuesta;
 import com.opensymphony.xwork2.ActionContext;
 import java.time.LocalDate;
@@ -15,13 +16,12 @@ import org.apache.struts2.ServletActionContext;
  *
  * @author pc
  */
-public class EncuestaAction extends CrudAction<Encuesta> {
-    
-   private String activo="Activo";
-   private String inactivo="Inactivo";
-   private String si="Si";
-   private String no="No";
-   
+public class EncuestaAction extends CrudEncuestaAction<Encuesta> {
+
+    private String activo = "Activo";
+    private String inactivo = "Inactivo";
+    private String si = "Si";
+    private String no = "No";
 
     public EncuestaAction() {
         super(Encuesta.class.getName());
@@ -48,12 +48,17 @@ public class EncuestaAction extends CrudAction<Encuesta> {
 
     @Override
     public void validar() {
-        
+        if (objeto.getDescripcion().isEmpty()) {
+            addFieldError("Encuesta", "Digite la descripción de la encuesta.");
+        }
+
+        if (objeto.getOrden() <= 0) {
+            addFieldError("Encuesta", "Digiete el orden de la encuesta.");
+        }
     }
 
     @Override
     public void validarLista() {
-
     }
 
     @Override
@@ -66,10 +71,13 @@ public class EncuestaAction extends CrudAction<Encuesta> {
         this.objeto.setNombre(request.getParameter("nombre"));
         this.objeto.setDescripcion(request.getParameter("descripcion"));
         this.objeto.setOrden(Integer.parseInt(request.getParameter("orden")));
-        this.objeto.setGraduando(true);
-        this.objeto.setEgresado(true);
         insertarTipos();
         validar();
+        if (objeto.getNombre().isEmpty()) {
+            addFieldError("Encuesta", "Digite el Nombre de la encuesta.");
+        }
+        this.objeto.setGraduando(true);
+        this.objeto.setEgresado(true);
         if (!hasErrors()) {
             insertarValoresDefecto();
             controladorCrud.actualizar(getObjeto(), entidad, getIdObjeto);
@@ -84,19 +92,22 @@ public class EncuestaAction extends CrudAction<Encuesta> {
     }
 
     public String cambiarEstado() {
-        insertarTipos();
+        ControladorEncuesta controladorEncuesta = new ControladorEncuesta();
         HttpServletRequest request = (HttpServletRequest) ActionContext.getContext().get(ServletActionContext.HTTP_REQUEST);
-        if (Boolean.parseBoolean(request.getParameter("idObjeto1"))) {
-            this.objeto.setEstado(false);
-        } 
-        if (Boolean.parseBoolean(request.getParameter("idObjeto1")) == false) {
-            this.objeto.setEstado(true);
+        System.out.println("jojojojo " + request.getParameter("idObjeto1"));
+        if (!hasErrors()) {
+            if (request.getParameter("idObjeto1").equals("Activo")) {
+                controladorEncuesta.activar(Long.parseLong(request.getParameter("idObjeto")), false);
+            }
+            if (request.getParameter("idObjeto1").equals("Inactivo")) {
+                controladorEncuesta.activar(Long.parseLong(request.getParameter("idObjeto")), true);
+            }
+            obtenerLista();
+            return SUCCESS;
         }
-            
-        this.objeto.setIdEncuesta(Long.parseLong(request.getParameter("idObjeto")));
-        controladorCrud.actualizar(getObjeto(), entidad, getIdObjeto);
-        obtenerLista();
-        return SUCCESS;
+        addActionError("No se pudo cambiar el estado");
+        return ERROR;
+
     }
 
     public String getActivo() {

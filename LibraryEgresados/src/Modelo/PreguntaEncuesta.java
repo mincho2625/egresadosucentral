@@ -32,6 +32,11 @@ public class PreguntaEncuesta {
         this.listaRespuestasEncuesta = new ArrayList<>();
     }
 
+    public PreguntaEncuesta(long idPreguntaEncuesta) {
+        this.idPreguntaEncuesta = idPreguntaEncuesta;
+    }
+
+    
     
     /**
      * @return the idPreguntaEncuesta
@@ -64,8 +69,8 @@ public class PreguntaEncuesta {
     /**
      * @return the estado
      */
-    public boolean isEstado() {
-        return estado;
+    public String getEstado() {
+        return (estado ? "Activo" : "Inactivo");
     }
 
     /**
@@ -167,5 +172,9 @@ public class PreguntaEncuesta {
 
     public void setPosicionFormato(int posicionFormato) {
         this.posicionFormato = posicionFormato;
+    }
+
+    public void getIdTipoRespuesta(TipoRespuesta reference) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

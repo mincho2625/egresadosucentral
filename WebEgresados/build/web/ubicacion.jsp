@@ -73,7 +73,7 @@
                                             </s:iterator>
                                         </tbody>
                                     </table>
-                                    <div class="fromtables" style="margin-left: 100px; width: 200px">
+                                    <div class="fromtables" style="margin-left: 110px; width: 200px">
                                         <a href="crearUbicacion.action" target="contenido">
                                             <button  type="submit" class="boton_descargar boton guardar" name="nuevo">
                                                 Nuevo Registro
@@ -108,7 +108,7 @@
                                                             <tr>
                                                                 <td></td>
                                                                 <td>
-                                                                <s:submit cssClass="boton_auxiliar boton guardar" cssStyle="width:auto;" value="Guardar"></s:submit>
+                                                                <s:submit cssClass="boton_auxiliar" cssStyle="width:auto;" value="Guardar"></s:submit>
                                                                 </td>
                                                             </tr>
                                                         </table>

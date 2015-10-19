@@ -34,8 +34,9 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "PreguntaEncuesta.findAll", query = "SELECT p FROM PreguntaEncuesta p"),
     @NamedQuery(name = "PreguntaEncuesta.findByIdPreguntaEncuesta", query = "SELECT p FROM PreguntaEncuesta p WHERE p.idPreguntaEncuesta = :idPreguntaEncuesta"),
-    @NamedQuery(name = "PreguntaEncuesta.findByPregunta", query = "SELECT p FROM PreguntaEncuesta p WHERE p.pregunta = :pregunta"),
+    @NamedQuery(name = "PreguntaEncuesta.findByPregunta", query = "SELECT p FROM PreguntaEncuesta p WHERE p.pregunta = :pregunta and p.estado = :estado"),
     @NamedQuery(name = "PreguntaEncuesta.findByEstado", query = "SELECT p FROM PreguntaEncuesta p WHERE p.estado = :estado"),
+    @NamedQuery(name = "PreguntaEncuesta.findByEstadoPregunta", query = "SELECT p FROM PreguntaEncuesta p inner join TipoRespuesta e on e = e.idTipoRespuesta WHERE p.estado = :estado and e.idTipoRespuesta BETWEEN 2 AND 99"),
     @NamedQuery(name = "PreguntaEncuesta.findByObligatoria", query = "SELECT p FROM PreguntaEncuesta p WHERE p.obligatoria = :obligatoria"),
     @NamedQuery(name = "PreguntaEncuesta.findByIdEncuesta", query = "SELECT p FROM PreguntaEncuesta p WHERE p.idEncuesta = :idEncuesta"),
     @NamedQuery(name = "PreguntaEncuesta.findByOrden", query = "SELECT p FROM PreguntaEncuesta p WHERE p.orden = :orden"),

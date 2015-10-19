@@ -45,12 +45,12 @@
         <script src="/plugins/system/jcemediabox/js/jcemediabox.js?bab2623533a38959d58ee39b77ca85cd" type="text/javascript"></script>
         <script src="/modules/mod_redes_js_uc/js/mod_redes_js_uc.min.js" type="text/javascript"></script>
         <script type="text/javascript">
-            jQuery(window).on('load', function() {
+            jQuery(window).on('load', function () {
 
                 new JCaption('img.caption');
             });
             JCEMediaBox.init({popup: {width: "", height: "", legacy: 0, lightbox: 0, shadowbox: 0, resize: 1, icons: 1, overlay: 1, overlayopacity: 0.8, overlaycolor: "#000000", fadespeed: 500, scalespeed: 500, hideobjects: 0, scrolling: "fixed", close: 2, labels: {'close': 'Close', 'next': 'Next', 'previous': 'Previous', 'cancel': 'Cancel', 'numbers': '{$current} of {$total}'}, cookie_expiry: "", google_viewer: 0, pdfjs: 0}, tooltip: {className: "tooltip", opacity: 0.8, speed: 150, position: "br", offsets: {x: 16, y: 16}}, base: "/", imgpath: "plugins/system/jcemediabox/img", theme: "standard", themecustom: "", themepath: "plugins/system/jcemediabox/themes"});
-            jQuery(document).ready(function()
+            jQuery(document).ready(function ()
             {
                 jQuery('.hasTooltip').tooltip({"html": true, "container": "body"});
             });
@@ -60,8 +60,8 @@
         <link rel="stylesheet" href="http://www.ucentral.edu.co/plugins/content/sige/plugin_sige/sige.css" type="text/css" media="screen" />
         <script type="text/javascript" src="http://www.ucentral.edu.co/plugins/content/sige/plugin_sige/slimbox.js"></script>
         <script type="text/javascript">
-            Slimbox.scanPage = function() {
-                $$("a[rel^=lightbox]").slimbox({counterText: "Image {x} of {y}"}, null, function(el) {
+            Slimbox.scanPage = function () {
+                $$("a[rel^=lightbox]").slimbox({counterText: "Image {x} of {y}"}, null, function (el) {
                     return (this == el) || ((this.rel.length > 8) && (this.rel == el.rel));
                 });
             };
@@ -76,9 +76,9 @@
         <script type="text/javascript" src="/templates/ucentral/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="/templates/ucentral/js/scripts.min.js"></script>
         <script>
-            (function(i, s, o, g, r, a, m) {
+            (function (i, s, o, g, r, a, m) {
                 i['GoogleAnalyticsObject'] = r;
-                i[r] = i[r] || function() {
+                i[r] = i[r] || function () {
                     (i[r].q = i[r].q || []).push(arguments)
                 }, i[r].l = 1 * new Date();
                 a = s.createElement(o),
@@ -202,68 +202,79 @@
                                             <h6>Correo electrónico</h6>
                                             <div>
                                                 <div class="content">                            
-                                                    <a href="obtenerListaPlantillaCorreo.action" target="contenido"><li class="letra">Plantillas</li></a>
                                                     <a href="editarConfiguracionCorreo.action" target="contenido"><li class="letra">Cuenta</li></a>
-                                                    <a href="mostrarCorreoMasivo.action" target="contenido"><li class="letra">Correo masivo</li></a>
+                                                    <a href="obtenerListaPlantillaCorreo.action" target="contenido"><li class="letra">Plantillas</li></a>
+                                                </div>
+                                            </div>
+                                            <h6>Consultas</h6>
+                                            <div>
+                                                <div class="content" style="height: 300px;overflow: auto;">
+                                                    <a href="mostrarEgresados.action" target="contenido"><li class="letra">Egresados</li></a>
+                                                    <a href="generarListaAficiones.action" target="contenido"><li class="letra"> Consulta de Aficiones</li></a>
+                                                    <a href="generarListaAsociaciones.action" target="contenido"><li class="letra"> Consulta de Asociaciones</li></a>
+                                                    <a href="generarListaContactos.action" target="contenido"><li class="letra"> Consulta de Contactos</li></a>
+                                                    <a href="generarListaEducacionFormalUCentral.action" target="contenido"><li class="letra"> Consulta de educaci&oacute;n formal</li></a>
+                                                    <a href="generarListaEducacionFormalOtrasInsti.action" target="contenido"><li class="letra"> Consulta de educaci&oacute;n formal otras institucion</li></a>
+                                                    <a href="generarListaEducacionNoFormal.action" target="contenido"><li class="letra"> Consulta de educaci&oacute;n no formal</li></a>
+                                                    <a href="generarListaEgresadoRedesSocial.action" target="contenido"><li class="letra"> Consulta de redes sociales</li></a>
+                                                    <a href="generarListaegresadoRespuestas.action" target="contenido"><li class="letra"> Consulta respuestas egresado</li></a>
+                                                    <a href="generarListaExperienciaLaboral.action" target="contenido"><li class="letra"> Consulta de experiencia laboral</li></a>
+                                                    <a href="generarListaReconocimiento.action" target="contenido"><li class="letra"> Consulta de distinciones y reconocimientos</li></a>
+                                                    <a href="generarListaResidencia.action" target="contenido"><li class="letra"> Consulta de Residencia</li></a>
                                                 </div>
                                             </div>
                                             <h6>Listas formulario actualización</h6>
                                             <div>
-                                                <div class="content"  style="height: 300px;overflow: auto;">
+                                                <div class="content"  style="height: 280px;overflow: auto;">
+                                                    <a href="obtenerListaAreaEmpresa.action" target="contenido"><li class="letra">&Aacute;rea empresa</li></a>
+                                                    <a href="obtenerListaAreaEstudios.action" target="contenido"><li class="letra">&Aacute;rea estudios</li></a>
+                                                    <a href="obtenerListaTipoAsociacion.action" target="contenido"><li class="letra">Asociaciones o Redes Profesionales</li></a>
+                                                    <a href="obtenerListaCargoEquivalente.action" target="contenido"><li class="letra">Cargo equivalente</li></a>
+                                                    <a href="obtenerListaClaseReconocimiento.action" target="contenido"><li class="letra">Clase de reconocimiento</li></a>
+                                                    <a href="obtenerListaDominioLenguaExt.action" target="contenido"><li class="letra">Dominio lengua extranjera</li></a>
+                                                    <a href="obtenerListaEncuesta.action" target="contenido"><li class="letra">Encuesta</li></a>
                                                     <a href="obtenerListaEstadoCivil.action" target="contenido"><li class="letra">Estado civil</li>
-                                                        <a href="obtenerListaEstrato.action" target="contenido"><li class="letra">Estrato</li></a>
-                                                        <a href="obtenerListaGrupoSanguineo.action" target="contenido"><li class="letra">Grupos sangu&iacute;neos</li></a>
-                                                        <a href="obtenerListaPais.action" target="contenido"><li class="letra">Pa&iacute;ses</li></a>
-                                                        <a href="obtenerListaPreguntaSeguridad.action" target="contenido"><li class="letra">Preguntas de seguridad</li></a>
-                                                        <a href="obtenerListaTipoContacto.action" target="contenido"><li class="letra">Tipos de contacto</li></a>
-                                                        <a href="obtenerListaTipoDocumento.action" target="contenido"><li class="letra">Tipos de documento</li></a>
-                                                        <a href="obtenerListaTipoTenenciaVivienda.action" target="contenido"><li class="letra">Tipos tenencia vivienda</li></a>
-                                                        <a href="obtenerListaTipoVivienda.action" target="contenido"><li class="letra">Tipos de vivienda</li></a>
-                                                        <a href="obtenerListaAreaEstudios.action" target="contenido"><li class="letra">&Aacute;rea estudios</li></a>
-                                                        <a href="obtenerListaDominioLenguaExt.action" target="contenido"><li class="letra">Dominio lengua extranjera</li></a>
                                                         <a href="obtenerListaEstadoEducacion.action" target="contenido"><li class="letra">Estado educaci&oacute;n</li></a>
+                                                        <a href="obtenerListaEstrato.action" target="contenido"><li class="letra">Estrato</li></a>
                                                         <a href="obtenerListaFacultad.action" target="contenido"><li class="letra">Facultades</li></a>
+                                                        <a href="obtenerListaGrupoSanguineo.action" target="contenido"><li class="letra">Grupos sangu&iacute;neos</li></a>
                                                         <a href="obtenerListaIdioma.action" target="contenido"><li class="letra">Idiomas</li></a>
                                                         <a href="obtenerListaInstitucion.action" target="contenido"><li class="letra">Instituciones</li></a>
                                                         <a href="obtenerListaIntensidadHoraria.action" target="contenido"><li class="letra">Intensidades horarias</li></a>
                                                         <a href="obtenerListaJornada.action" target="contenido"><li class="letra">Jornadas</li></a>
                                                         <a href="obtenerListaModalidad.action" target="contenido"><li class="letra">Modalidades</li></a>
-                                                        <a href="obtenerListaNivelEstudios.action" target="contenido"><li class="letra">Niveles estudios</li></a>
-                                                        <a href="obtenerListaAreaEmpresa.action" target="contenido"><li class="letra">&Aacute;rea empresa</li></a>
-                                                        <a href="obtenerListaCargoEquivalente.action" target="contenido"><li class="letra">Cargo equivalente</li></a>
                                                         <a href="obtenerListaNivelCargo.action" target="contenido"><li class="letra">Niveles cargos</li></a>
+                                                        <a href="obtenerListaNivelEstudios.action" target="contenido"><li class="letra">Niveles estudios</li></a>
+                                                        <a href="obtenerListaPais.action" target="contenido"><li class="letra">Pa&iacute;ses</li></a>
+                                                        <a href="obtenerListaPreguntaEncuestaPreguntasEncuestas.action" target="contenido"><li class="letra">Preguntas Encuesta</li></a>
+                                                        <a href="obtenerListaPreguntaSeguridad.action" target="contenido"><li class="letra">Preguntas de seguridad</li></a>
                                                         <a href="obtenerListaRangoSalarial.action" target="contenido"><li class="letra">Rangos salariales</li></a>
-                                                        <a href="obtenerListaSector.action" target="contenido"><li class="letra">Sectores</li></a>
-                                                        <a href="obtenerListaTipoContrato.action" target="contenido"><li class="letra">Tipos de contrato</li></a>
-                                                        <a href="obtenerListaClaseReconocimiento.action" target="contenido"><li class="letra">Clase de reconocimiento</li></a>
-                                                        <a href="obtenerListaTipoAsociacion.action" target="contenido"><li class="letra">Asociaciones o Redes Profesionales</li></a>
                                                         <a href="obtenerListaRedSocial.action" target="contenido"><li class="letra">Redes sociales</li></a>
+                                                        <a href="obtenerListaEncuestaRespuestaRespuestasEncu.action" target="contenido"><li class="letra">Respuesta Encuesta</li></a>
+                                                        <a href="obtenerListaSector.action" target="contenido"><li class="letra">Sectores</li></a>
                                                         <a href="obtenerListaTipoActividad.action" target="contenido"><li class="letra">Tipos actividades</li></a>
+                                                        <a href="obtenerListaTipoContacto.action" target="contenido"><li class="letra">Tipos de contacto</li></a>
+                                                        <a href="obtenerListaTipoContrato.action" target="contenido"><li class="letra">Tipos de contrato</li></a>
+                                                        <a href="obtenerListaTipoDocumento.action" target="contenido"><li class="letra">Tipos de documento</li></a>
                                                         <a href="obtenerListaTipoReconocimiento.action" target="contenido"><li class="letra">Tipos de reconocimiento</li></a>
-                                                </div>
-                                            </div>
-                                            <h6>Consultas</h6>
-                                            <div>
-                                                <div class="content">
-                                                    <a href="mostrarEgresados.action" target="contenido"><li class="letra">Egresados</li></a>
+                                                        <a href="obtenerListaTipoVivienda.action" target="contenido"><li class="letra">Tipos de vivienda</li></a>                                                        
+                                                        <a href="obtenerListaTipoTenenciaVivienda.action" target="contenido"><li class="letra">Tipos tenencia vivienda</li></a>
                                                 </div>
                                             </div>
                                             <h6>Migraci&oacute;n</h6>
                                             <div>
                                                 <div class="content">
                                                     <a href="desplegarCargueMasivo.action" target="contenido"><li class="letra">Cargue Masivo de Egresados</li></a>
-                                                    <a href="obtenerListaEncuesta.action" target="contenido"><li class="letra">Encuesta</li></a>
-                                                    <a href="obtenerListaPreguntaEncuestaPreguntasEncuestas.action" target="contenido"><li class="letra">Preguntas Encuesta</li></a>
                                                 </div>
                                             </div>
                                             <script>
                                                 $("#css3-animated-example").collapse({
                                                     accordion: true,
-                                                    open: function() {
+                                                    open: function () {
                                                         this.addClass("open");
                                                         this.css({height: this.children().outerHeight()});
                                                     },
-                                                    close: function() {
+                                                    close: function () {
                                                         this.css({height: "0px"});
                                                         this.removeClass("open");
                                                     }
@@ -298,7 +309,7 @@
                 </div>    
             </div>    
             <footer id="bottom" class="container">
-                <div id="footer" class="row">
+                <div id="footer" class="row" style="margin-left: -30px;margin-right: 0px;">
                     <div class="col-lg-2 col-md-2 col-sm-12 col-xs-11">
                         <figure class="logo">
                             <a href="http://www.ucentral.edu.co/" title="Universidad Central">
@@ -336,6 +347,7 @@
                         </div>
                     </div>
                 </div>
-            </footer> 
+            </footer>
+        </div>    
     </body>
 </html>

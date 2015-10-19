@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Action;
 
 import Controlador.ControladorCrud;
@@ -15,6 +14,7 @@ import Modelo.Genero;
 import Modelo.GrupoSanguineo;
 import Modelo.ItemLista;
 import Modelo.TipoDocumento;
+import Util.Utilidades;
 import static com.opensymphony.xwork2.Action.SUCCESS;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
@@ -36,7 +36,7 @@ import org.apache.struts2.interceptor.ServletRequestAware;
  * @author YURY
  */
 public class EgresadoAction extends ActionSupport implements ModelDriven<Egresado>, ServletRequestAware {
-    
+
     private final ControladorCrud controladorCrud;
     private final ControladorListas listas;
     private Egresado egresado;
@@ -60,13 +60,12 @@ public class EgresadoAction extends ActionSupport implements ModelDriven<Egresad
     private String fileUploadFileName;
     private HttpServletRequest servletRequest;
     private String rutaEgresados;
-    
-    public EgresadoAction()
-    {
+
+    public EgresadoAction() {
         Map session = ActionContext.getContext().getSession();
         long idEgresado = (long) session.get("idEgresado");
         controladorCrud = new ControladorCrud();
-        this.egresado = (Egresado) controladorCrud.consultar("Egresado.findByIdEgresado", 
+        this.egresado = (Egresado) controladorCrud.consultar("Egresado.findByIdEgresado",
                 Modelo.Egresado.class.getName(), "idEgresado", idEgresado, Modelo.Usuario.class.getName());
         this.listas = new ControladorListas();
         this.desplegar();
@@ -184,7 +183,7 @@ public class EgresadoAction extends ActionSupport implements ModelDriven<Egresad
     public void setEstadoCivil(long estadoCivil) {
         this.estadoCivil = estadoCivil;
     }
-    
+
     /**
      * @return the egresado
      */
@@ -198,7 +197,7 @@ public class EgresadoAction extends ActionSupport implements ModelDriven<Egresad
     public void setEgresado(Egresado egresado) {
         this.egresado = egresado;
     }
-    
+
     /**
      * @return the terminos
      */
@@ -212,7 +211,7 @@ public class EgresadoAction extends ActionSupport implements ModelDriven<Egresad
     public void setTerminos(boolean terminos) {
         this.terminos = terminos;
     }
-    
+
     /**
      * @return the ciudad
      */
@@ -296,7 +295,7 @@ public class EgresadoAction extends ActionSupport implements ModelDriven<Egresad
     public void setPais2(long pais2) {
         this.pais2 = pais2;
     }
-    
+
     /**
      * @return the fileUpload
      */
@@ -338,7 +337,7 @@ public class EgresadoAction extends ActionSupport implements ModelDriven<Egresad
     public void setFileUploadFileName(String fileUploadFileName) {
         this.fileUploadFileName = fileUploadFileName;
     }
-    
+
     /**
      * @return the rutaEgresados
      */
@@ -352,7 +351,7 @@ public class EgresadoAction extends ActionSupport implements ModelDriven<Egresad
     public void setRutaEgresados(String rutaEgresados) {
         this.rutaEgresados = rutaEgresados;
     }
-    
+
     public void insertarTipos() {
         this.getEgresado().setIdCiudadExpedicion(new Ciudad(ciudad2));
         this.getEgresado().setIdCiudadNacimiento(new Ciudad(ciudad));
@@ -378,17 +377,15 @@ public class EgresadoAction extends ActionSupport implements ModelDriven<Egresad
     public void insertarValoresDefecto() {
         this.getEgresado().setAceptaCondiciones(true);
     }
-    
-    private void desplegar()
-    {
+
+    private void desplegar() {
         this.setListaEstadosCiviles(listas.consultarEstadosCiviles());
         this.setListaGeneros(listas.consultarGeneros());
         this.setListaGruposSanguineos(listas.consultarGruposSanguineos());
         this.setListaTiposDocumento(listas.consultarTiposDocumento());
     }
-    
-    public String editar()
-    {
+
+    public String editar() {
         this.consultarTipos();
         return "editar";
     }
@@ -397,7 +394,7 @@ public class EgresadoAction extends ActionSupport implements ModelDriven<Egresad
     public Egresado getModel() {
         return getEgresado();
     }
-    
+
     @Override
     public void setServletRequest(HttpServletRequest hsr) {
         this.servletRequest = hsr;
@@ -413,9 +410,7 @@ public class EgresadoAction extends ActionSupport implements ModelDriven<Egresad
                 guardarFoto();
                 controladorCrud.actualizar(egresado, Egresado.class.getSimpleName(), "getIdUsuario");
                 return SUCCESS;
-            }
-            else
-            {
+            } else {
                 editar();
                 return ERROR;
             }
@@ -424,7 +419,7 @@ public class EgresadoAction extends ActionSupport implements ModelDriven<Egresad
             return ERROR;
         }
     }
-    
+
     public void validar() {
         if (egresado.getPrimerApellido().equals("")) {
             addFieldError("primerApellido", "El primer apellido es requerido.");
@@ -432,6 +427,7 @@ public class EgresadoAction extends ActionSupport implements ModelDriven<Egresad
         if (egresado.getNombres().equals("")) {
             addFieldError("nombres", "Los nombres son requeridos.");
         }
+        System.out.println("Fecha de nacimiento " + egresado.getFechaNacimiento());
         if (egresado.getFechaNacimiento() == null) {
             addFieldError("fechaNacimiento", "La fecha de nacimiento es requerida.");
         }
@@ -461,28 +457,25 @@ public class EgresadoAction extends ActionSupport implements ModelDriven<Egresad
         }
     }
 
-    public String siguiente()
-    {
+    public String siguiente() {
         consultarTipos();
         validar();
         if (hasErrors()) {
             editar();
             return ERROR;
-        }
-        else {
+        } else {
             return SUCCESS;
         }
     }
-    
-    private void guardarFoto()
-    {
+
+    private void guardarFoto() {
         try {
             String filePath = servletRequest.getRealPath("/");
-            
+
             if (this.fileUploadFileName != null && !this.fileUploadFileName.isEmpty()) {
                 File fileToCreate = new File(filePath, this.fileUploadFileName);
                 FileUtils.copyFile(this.fileUpload, fileToCreate);
-                
+
                 this.egresado.setFoto(this.egresado.getNumeroDocumento() + ".jpg");
                 File destino = new File(rutaEgresados, this.egresado.getFoto());
                 FileUtils.writeByteArrayToFile(destino, FileUtils.readFileToByteArray(this.fileUpload));

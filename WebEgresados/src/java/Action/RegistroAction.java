@@ -15,15 +15,19 @@ import Modelo.GrupoSanguineo;
 import Modelo.ItemLista;
 import Modelo.PreguntaSeguridad;
 import Modelo.TipoDocumento;
+import Util.Utilidades;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.io.FileUtils;
 import org.apache.struts2.interceptor.ServletRequestAware;
@@ -315,7 +319,7 @@ public class RegistroAction extends ActionSupport implements ModelDriven<Egresad
     public void setFileUploadFileName(String fileUploadFileName) {
         this.fileUploadFileName = fileUploadFileName;
     }
-    
+
     /**
      * @return the rutaEgresados
      */
@@ -347,9 +351,8 @@ public class RegistroAction extends ActionSupport implements ModelDriven<Egresad
         setListaTiposDocumento(listas.consultarTiposDocumento());
         setListaPreguntas(listas.consultarPreguntas());
     }
-    
-    public String crear()
-    {
+
+    public String crear() {
         return "crear";
     }
 
@@ -358,7 +361,7 @@ public class RegistroAction extends ActionSupport implements ModelDriven<Egresad
         if (!this.hasErrors()) {
             insertarTipos();
             insertarValoresDefecto();
-            
+
             this.guardarFoto();
             controladorEgresado.actualizar(getEgresado());
             clearMessages();
@@ -370,6 +373,8 @@ public class RegistroAction extends ActionSupport implements ModelDriven<Egresad
     }
 
     public void validar() {
+        System.out.println("jojojojo " + egresado.getFechaExpedicion());
+
         if (egresado.getPrimerApellido().equals("")) {
             addFieldError("primerApellido", "El primer apellido es requerido.");
         }
@@ -420,14 +425,41 @@ public class RegistroAction extends ActionSupport implements ModelDriven<Egresad
 
         if (egresado.getCorreoInstitucional().equals("")) {
             addFieldError("correoInstitucional", "El correo institucional es requerido");
+        } else {
+            Pattern pat = Pattern.compile("^[_a-z0-9-]+(\\.[_a-z0-9-]+)*@[a-z0-9-]+(\\.[a-z0-9-]+)*(\\.[a-z]{2,3})$");
+            Matcher mat = pat.matcher(egresado.getCorreoInstitucional());
+            if (mat.matches()) {
+                String[] correo=egresado.getCorreoInstitucional().split("@");
+                if (!correo[1].equals("ucentral.edu.co")) {
+                    addFieldError("correoInstitucional", "El correo institucional no es formato (ucentral.edu.co)");
+                }
+            } else {
+                addFieldError("correoInstitucional", "El correo institucional no es valido");
+            }
         }
 
         if (egresado.getContrasenia().equals("")) {
             addFieldError("contrasenia", "La contrasenia es requerida");
+        } else {
+            Pattern pat = Pattern.compile("(?=^.{8,}$)((?=.*\\d)|(?=.*\\W+))(?![.\\n])(?=.*[A-Z])(?=.*[a-z]).*$");
+            Matcher mat = pat.matcher(egresado.getContrasenia());
+            if (mat.matches()) {
+                System.out.println("Válido");
+            } else {
+                addFieldError("contrasenia", "La contraseña debe contener al menos una letra mayúscula, \n"
+                        + "al menos una letra minúscula, \n"
+                        + "al menos un número o caracter especial, \n"
+                        + "cuya longitud sea como mínimo 8 caracteres, \n"
+                        + "cuya longitud máxima no debe ser arbitrariamente limitada.");
+            }
         }
 
         if (!egresado.getContrasenia().equals(confirmacionClave)) {
             addFieldError("confirmacionClave", "La confirmación de contraseña es incorrecta.");
+        } else {
+            Utilidades utilidades = new Utilidades();
+            String contra = utilidades.Encriptar(egresado.getContrasenia());
+            egresado.setContrasenia(contra);
         }
 
         if (preguntaSeguridad <= 0) {
@@ -436,6 +468,10 @@ public class RegistroAction extends ActionSupport implements ModelDriven<Egresad
 
         if (egresado.getRespuestaSeguridad().equals("")) {
             addFieldError("respuestaSeguridad", "La respuesta de seguridad es requerida.");
+        } else {
+            Utilidades utilidades = new Utilidades();
+            String respu = utilidades.Encriptar(egresado.getRespuestaSeguridad());
+            egresado.setRespuestaSeguridad(respu);
         }
 
         if (!terminos) {
@@ -458,16 +494,15 @@ public class RegistroAction extends ActionSupport implements ModelDriven<Egresad
         this.egresado.setFechaRegistro(Date.valueOf(LocalDate.now()));
         this.egresado.setEstado(true);
     }
-    
-    private void guardarFoto()
-    {
+
+    private void guardarFoto() {
         try {
             String filePath = servletRequest.getRealPath("/");
-            
+
             if (this.fileUploadFileName != null && !this.fileUploadFileName.isEmpty()) {
                 File fileToCreate = new File(filePath, this.fileUploadFileName);
                 FileUtils.copyFile(this.fileUpload, fileToCreate);
-                
+
                 this.egresado.setFoto(this.egresado.getNumeroDocumento() + ".jpg");
                 File destino = new File(rutaEgresados, this.egresado.getFoto());
                 FileUtils.writeByteArrayToFile(destino, FileUtils.readFileToByteArray(this.fileUpload));

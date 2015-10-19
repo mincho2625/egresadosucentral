@@ -2,14 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/D:/U.Central/Git/egresadosucentral/WebAdmin/web/egresados.jsp</file>
-            <file>file:/D:/U.Central/Git/egresadosucentral/WebAdmin/src/java/Action/BusquedaAvanzadaAction.java</file>
-            <file>file:/D:/U.Central/Git/egresadosucentral/WebAdmin/src/java/Action/EgresadosAction.java</file>
-            <file>file:/D:/U.Central/Git/egresadosucentral/WebAdmin/src/java/Action/CrudAction.java</file>
-            <file>file:/D:/U.Central/Git/egresadosucentral/WebAdmin/web/WEB-INF/classes/struts.xml</file>
-            <file>file:/D:/U.Central/Git/egresadosucentral/WebAdmin/src/java/Action/SelectorColumnasAction.java</file>
-            <file>file:/D:/U.Central/Git/egresadosucentral/WebAdmin/web/selectorColumnas.jsp</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>

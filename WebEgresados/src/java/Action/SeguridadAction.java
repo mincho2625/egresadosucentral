@@ -10,6 +10,8 @@ import Controlador.ControladorUsuario;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  *
@@ -92,6 +94,7 @@ public class SeguridadAction extends ActionSupport {
             if (idUsuario > 0)
             {
                 if (controladorUsuario.cambiarContrasenia(usuario, nueva)) {
+                    addActionMessage("Contraseña cambiada exitosamente");
                     return SUCCESS;
                 }
                 else {
@@ -116,6 +119,18 @@ public class SeguridadAction extends ActionSupport {
         }
         if (nueva == null || nueva.isEmpty()) {
             addFieldError("nueva", "Digite una nueva contraseña");
+        }else {
+            Pattern pat = Pattern.compile("(?=^.{8,}$)((?=.*\\d)|(?=.*\\W+))(?![.\\n])(?=.*[A-Z])(?=.*[a-z]).*$");
+            Matcher mat = pat.matcher(nueva);
+            if (mat.matches()) {
+                System.out.println("Válido");
+            } else {
+                addFieldError("nueva", "La contraseña debe contener al menos una letra mayúscula, \n"
+                        + "al menos una letra minúscula, \n"
+                        + "al menos un número o caracter especial, \n"
+                        + "cuya longitud sea como mínimo 8 caracteres, \n"
+                        + "cuya longitud máxima no debe ser arbitrariamente limitada.");
+            }
         }
         if (confirmarNueva == null || confirmarNueva.isEmpty()) {
             addFieldError("confirmarNueva", "Digite la confirmación de la nueva contraseña");

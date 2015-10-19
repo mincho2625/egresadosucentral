@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <%@taglib uri="/struts-tags" prefix="s"%>
 <%@taglib uri="/struts-jquery-tags" prefix="jq" %>
+<%@taglib uri="http://displaytag.sf.net" prefix="display"%>
 <html lang="es">
     <head><title>Configuración de mensajes de correo electrónico</title>
         <meta charset="utf-8">
@@ -38,42 +39,29 @@
                                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"></div>
                                 <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
                                     <div id="div5" style="margin-left: -150px">
-                                        <table rules="all" class="table table-striped table-bordered tabla_verde" style="width: 700px">
-                                            <thead>
-                                                <tr>
-                                                    <th>Nombre</th>
-                                                    <th>Asunto</th>
-                                                    <th>Acción</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <s:hidden name="cantidadObjetos"></s:hidden>
-                                                <s:iterator value="listaObjetos">
-                                                    <tr>
-                                                        <td><s:property value="nombre"></s:property></td>
-                                                        <td><s:property value="asunto"></s:property></td>
-                                                            <td>
-                                                                <div class="fuentetabla2">
-                                                                <s:url id="editarURL" action="editarPlantillaCorreo.action">
-                                                                    <s:param name="idObjeto" value="%{idPlantillaCorreo}" ></s:param>
-                                                                </s:url>
-                                                                <s:a href="%{editarURL}">
-                                                                    <img style="width: 20px; height: 19px;" title="Editar" alt="Editar" src="imagenes/editar-icono-8419-16.png" align="top">
-                                                                </s:a>
-                                                                <s:if test="!soloLectura">
-                                                                    <s:url id="borrarURL" action="borrarPlantillaCorreo.action">
-                                                                        <s:param name="idObjeto" value="%{idPlantillaCorreo}"></s:param>
-                                                                    </s:url>
-                                                                    <s:a href="%{borrarURL}">
-                                                                        <img style="width: 20px; height: 19px;" title="Borrar" alt="Borrar" src="imagenes/eliminar.png" align="top">
-                                                                    </s:a>
-                                                                </s:if>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                </s:iterator>
-                                            </tbody>
-                                        </table>
+                                        <s:form>
+                                            <display:table class="table table-striped table-bordered tabla_verde" style="width: 700px"
+                                                           name="listaObjetos" pagesize="5" cellspacing="5px;"  cellpadding="5px;" uid="row" requestURI="/obtenerListaPlantillaCorreo.action">
+                                                <display:column property="nombre" title="Nombre" sortable="true" />
+                                                <display:column property="asunto" title="Asunto" sortable="true" />
+                                                <display:column title="Acción">
+                                                    <s:url id="editarURL" action="editarPlantillaCorreo.action">
+                                                        <s:param name="idObjeto" value="%{#attr.row.idPlantillaCorreo}" ></s:param>
+                                                    </s:url>
+                                                    <s:a href="%{editarURL}">
+                                                        <img style="width: 20px; height: 19px;" title="Editar" alt="Editar" src="imagenes/editar-icono-8419-16.png" align="top">
+                                                    </s:a>
+                                                    <s:if test="!soloLectura">
+                                                        <s:url id="borrarURL" action="borrarPlantillaCorreo.action">
+                                                            <s:param name="idObjeto" value="%{#attr.row.idPlantillaCorreo}"></s:param>
+                                                        </s:url>
+                                                        <s:a href="%{borrarURL}">
+                                                            <img style="width: 20px; height: 19px;" title="Borrar" alt="Borrar" src="imagenes/eliminar.png" align="top">
+                                                        </s:a>
+                                                    </s:if>
+                                                </display:column>
+                                            </display:table>
+                                        </s:form>
                                     </div>
                                     <div class="fromtables" style="margin-left: 100px; width: 200px">
                                         <a href="crearPlantillaCorreo.action" target="contenido">
@@ -89,6 +77,24 @@
                                     </s:if>
                                     <div class="fromtables" id="contenido1">
                                         <s:if test="editar">
+                                            <h3 style="margin-left: 100px;width: 400px">Generar Nuevo Registro</h3>
+                                            <s:form action="guardarPlantillaCorreo.action">
+                                                <s:push value="objeto">
+                                                    <s:hidden name="idPlantillaCorreo"></s:hidden>
+                                                    <s:hidden name="soloLectura"></s:hidden>
+                                                        <table style="margin-left: 50px;width: 300px">
+                                                            <tr><td><s:textfield label="Nombre" name="nombre"></s:textfield></td></tr>
+                                                        <tr><td><s:textfield label="Asunto" name="asunto"></s:textfield></td></tr>
+                                                        <tr><td><s:textarea label="Contenido" name="contenido"></s:textarea></td></tr>
+                                                            <tr>
+                                                                <td></td>
+                                                                <td><s:submit cssClass="boton_auxiliar boton guardar" cssStyle="width:auto;" value="Guardar"></s:submit></td>
+                                                            </tr>
+                                                        </table>
+                                                </s:push>
+                                            </s:form>
+                                        </s:if>
+                                            <s:if test="crear">
                                             <h3 style="margin-left: 100px;width: 400px">Generar Nuevo Registro</h3>
                                             <s:form action="guardarPlantillaCorreo.action">
                                                 <s:push value="objeto">

@@ -21,7 +21,7 @@ public class Asociacion {
     private boolean estado;
     private TipoAsociacion idTipoAsociacion;
     private long idEgresado;
-
+    private String numeroDocumento;    
     /**
      * @return the idAsociacion
      */
@@ -132,5 +132,13 @@ public class Asociacion {
      */
     public void setIdEgresado(long idEgresado) {
         this.idEgresado = idEgresado;
+    }
+
+    public String getNumeroDocumento() {
+        return numeroDocumento;
+    }
+
+    public void setNumeroDocumento(String numeroDocumento) {
+        this.numeroDocumento = numeroDocumento;
     }
 }

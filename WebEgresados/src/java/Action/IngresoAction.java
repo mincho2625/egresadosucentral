@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Action;
 
 import Controlador.ControladorEgresado;
@@ -11,13 +10,15 @@ import Controlador.ControladorUsuario;
 import Modelo.Egresado;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
+import java.sql.Date;
 import java.util.Map;
 
 /**
  *
  * @author YURY
  */
-public class IngresoAction extends ActionSupport{
+public class IngresoAction extends ActionSupport {
+
     private String usuario;
     private String contrasenia;
     private boolean primeraVez;
@@ -52,7 +53,7 @@ public class IngresoAction extends ActionSupport{
     public void setContrasenia(String contrasenia) {
         this.contrasenia = contrasenia;
     }
-    
+
     /**
      * @return the primeraVez
      */
@@ -66,7 +67,7 @@ public class IngresoAction extends ActionSupport{
     public void setPrimeraVez(boolean primeraVez) {
         this.primeraVez = primeraVez;
     }
-    
+
     /**
      * @return the nombre
      */
@@ -80,7 +81,7 @@ public class IngresoAction extends ActionSupport{
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-    
+
     /**
      * @return the mensaje
      */
@@ -94,40 +95,43 @@ public class IngresoAction extends ActionSupport{
     public void setMensaje(String mensaje) {
         this.mensaje = mensaje;
     }
-    
+
     @Override
     public String execute() throws Exception {
+
         ControladorUsuario controladorUsuario = new ControladorUsuario();
-        
+
         long idUsuario = controladorUsuario.login(usuario, contrasenia);
         if (idUsuario > 0) {
             ControladorEgresado controladorEgresado = new ControladorEgresado();
             Egresado egresado = controladorEgresado.consultar(usuario);
             if (egresado != null){
                 Map session = ActionContext.getContext().getSession();
-                session.put("idEgresado", idUsuario);
+                session.put("idEgresado", egresado.getIdUsuario());
                 session.put("usuario", egresado.getNombre());
-
-                this.setNombre(String.format("%s %s %s", egresado.getNombres(), egresado.getPrimerApellido(), egresado.getSegundoApellido()));
                 
+                if (egresado.getSegundoApellido() != null) {
+                    this.setNombre(String.format("%s %s %s", egresado.getNombres(), egresado.getPrimerApellido(), egresado.getSegundoApellido()));
+                } else {
+                    this.setNombre(String.format("%s %s", egresado.getNombres(), egresado.getPrimerApellido()));
+                }
+
                 if (!egresado.isInformacionCompleta()) {
                     this.mensaje = "Su información no está completa, por favor actualice sus datos. ";
-                    System.out.println("egresado.getFechaUltimaAct() "+egresado.getFechaUltimaAct());
+                    System.out.println("egresado.getFechaUltimaAct() " + egresado.getFechaUltimaAct());
                     if (egresado.getFechaUltimaAct() == null) {
                         this.primeraVez = true;
                     }
                 }
-                
+
                 return SUCCESS;
-            }
-            else {
+            } else {
                 addActionError("Usuario o contraseña incorrectos.");
                 return ERROR;
             }
-        }
-        else {
+        } else {
             addActionError("Usuario o contraseña incorrectos.");
-                return ERROR;
+            return ERROR;
         }
     }
 

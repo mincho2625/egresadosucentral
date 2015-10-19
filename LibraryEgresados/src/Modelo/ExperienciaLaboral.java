@@ -42,6 +42,7 @@ public class ExperienciaLaboral {
     private Integer anioFinalizacion;
     private long idEgresado;
     private boolean estado;
+    private String numeroDocumento;
 
     /**
      * @return the idExperienciaLaboral
@@ -335,5 +336,13 @@ public class ExperienciaLaboral {
      */
     public void setEstado(boolean estado) {
         this.estado = estado;
+    }
+
+    public String getNumeroDocumento() {
+        return numeroDocumento;
+    }
+
+    public void setNumeroDocumento(String numeroDocumento) {
+        this.numeroDocumento = numeroDocumento;
     }
 }

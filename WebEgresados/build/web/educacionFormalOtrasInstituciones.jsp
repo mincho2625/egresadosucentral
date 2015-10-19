@@ -44,7 +44,7 @@
                                 <img style="text-align: center;width: 100px;height: 100px"src="imagenes/formalotras.jpg">
                             </div>
                             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 ">
-                                <h1 style="margin-left: -30px;color: #2a6155;width:300px">Educacion FoRmal Otras Instituciones</h1>
+                                <h1 style="margin-left: -30px;color: #2a6155;width:300px">Educacion Formal Otras Instituciones</h1>
                             </div>
                         </div>
                         <div class="row">
@@ -93,9 +93,9 @@
                                         </tbody>    
                                     </table>
                                     <br>
-                                    <div class="fromtables" style="margin-left: 100px; width: 200px">
+                                    <div class="fromtables" style="margin-left: 110px; width: 200px">
                                         <a href="crearEducacionFormalOtrasInstituciones.action" target="contenido">
-                                            <button type="submit" class="boton_descargar boton guardar" name="nuevo">
+                                            <button type="submit" class="boton_auxiliar boton guardar" name="nuevo">
                                                 Registro Nuevo
                                             </button>
                                         </a><br>
@@ -170,7 +170,7 @@
                                                             </tr>
                                                             <tr>
                                                                 <td></td>
-                                                                <td><s:submit cssClass="boton_auxiliar boton guardar" cssStyle="width:auto;" value="Guardar"></s:submit></td>
+                                                                <td><s:submit cssClass="boton_auxiliar" cssStyle="width:auto;" value="Guardar"></s:submit></td>
                                                             </tr>    
                                                     </table>
                                                 </s:push>

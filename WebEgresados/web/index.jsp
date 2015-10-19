@@ -190,7 +190,6 @@
                             var f = new Date();
                             document.write(diasSemana[f.getDay()] + " " + f.getDate() + " de " + meses[f.getMonth()] + " del " + f.getFullYear());
                         </script>
-
                     </form>
                 </div>
                 <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12">
@@ -260,11 +259,12 @@
                     <div class="componente col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         <div>
                             <div class="global-position-aux-2 col-lg-2 col-md-2 col-sm-12 col-xs-12">
-                                <br>
-                                <div>
-                                    <div class="custom">
-                                        <div class="titulo-articulo-arrow">
-                                            <p>Bienvenido(a)<br> <s:property value="nombre"></s:property></p>
+                                    <a href="entrada.jsp"></a>
+                                    <br>
+                                    <div>
+                                        <div class="custom">
+                                            <div class="titulo-articulo-arrow">
+                                                <p>Bienvenido(a)<br> <s:property value="nombre"></s:property></p>
                                             </div>  
                                         </div>
                                     </div>
@@ -378,6 +378,9 @@
                                         <div>
                                             <div id="contenido">
                                                 <s:if test="primeraVez">
+                                                    <div style="color:#1A171B;font-family: Arial, Helvetica, sans-serif;font-size: 24px;">
+                                                        <s:property value="mensaje"></s:property>
+                                                    </div>
                                                     <iframe src="editarEgresado.action" name="contenido"></iframe>
                                                 </s:if>
                                                 <s:else>

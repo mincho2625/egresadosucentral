@@ -189,7 +189,7 @@
             <result name="success">/tipoContacto.jsp</result>
             <result name="input" >/tipoContacto.jsp</result>
             <result name="error" >/tipoContacto.jsp</result>
-            <result name="desplegar">/ubicacion.jsp</result>
+            <result name="desplegar">/tipoContacto.jsp</result>
         </action>
         
         <action name="*TipoContrato" method="{1}" class="Action.TipoContratoAction">
@@ -259,19 +259,18 @@
             <result name="error">/egresados.jsp</result>
         </action>
         
-        <action name="*SelectorColumnas" class="Action.SelectorColumnasAction" method="{1}">
-            <result name="success" type="chain">
-                <param name="actionName">Egresados</param>
-                <param name="method">mostrar</param>
-            </result>
-            <result name="error">/selectorColumnas.jsp</result>
-            <result name="input">/selectorColumnas.jsp</result>
-            <result name="mostrar">/selectorColumnas.jsp</result>
-        </action>
-        
         <action name="BusquedaAvanzada" class="Action.BusquedaAvanzadaAction">
             <result type="json">
             </result>
+        </action>
+                
+        <action name="*RespuestasEncu" method="{1}" class="Action.RespuestasEncuAction">
+            <result name="success">/respuestaEncuesta.jsp</result>
+            <result name="success1">/preguntaEncuesta.jsp</result>
+            <result name="input">/respuestaEncuesta.jsp</result>
+            <result name="error">/respuestaEncuesta.jsp</result>
+            <result name="error1">/preguntaEncuesta.jsp</result>
+            <result name="desplegar">/respuestaEncuesta.jsp</result>
         </action>
         
        <action name="*PreguntasEncuestas" method="{1}" class="Action.PreguntasEncuestasAction">
@@ -281,6 +280,98 @@
             <result name="error">/preguntaEncuesta.jsp</result>
             <result name="error1">/encuesta.jsp</result>
             <result name="desplegar">/preguntaEncuesta.jsp</result>
+        </action>
+        
+        <action name="*Aficiones" method="{1}" class="Action.AficionesAction">
+            <result name="success">/aficiones.jsp</result>
+            <result name="success1">/aficiones.jsp</result>
+            <result name="input">/aficiones.jsp</result>
+            <result name="error">/aficiones.jsp</result>
+            <result name="error1">/aficiones.jsp</result>
+            <result name="desplegar">/aficiones.jsp</result>
+        </action>
+        <action name="*Asociaciones" method="{1}" class="Action.AsociacionesAction">
+            <result name="success">/asociaciones.jsp</result>
+            <result name="success1">/asociaciones.jsp</result>
+            <result name="input">/asociaciones.jsp</result>
+            <result name="error">/asociaciones.jsp</result>
+            <result name="error1">/asociaciones.jsp</result>
+            <result name="desplegar">/asociaciones.jsp</result>
+        </action>
+        
+        <action name="*Contactos" method="{1}" class="Action.ContactosAction">
+            <result name="success">/contactos.jsp</result>
+            <result name="success1">/contactos.jsp</result>
+            <result name="input">/contactos.jsp</result>
+            <result name="error">/contactos.jsp</result>
+            <result name="error1">/contactos.jsp</result>
+            <result name="desplegar">/contactos.jsp</result>
+        </action>
+                
+        <action name="*EducacionFormalOtrasInsti" method="{1}" class="Action.EducacionFormalOtrasInstiAction">
+            <result name="success">/educacionFormalOtrasInstitucion.jsp</result>
+            <result name="input">/educacionFormalOtrasInstitucion.jsp</result>
+            <result name="error">/educacionFormalOtrasInstitucion.jsp</result>
+            <result name="desplegar">/educacionFormalOtrasInstitucion.jsp</result>
+        </action>
+        
+        <action name="*EducacionFormalUCentral" method="{1}" class="Action.EducacionFormalUCentralAction">
+            <result name="success">/educacionFormal.jsp</result>
+            <result name="input">/educacionFormal.jsp</result>
+            <result name="error">/educacionFormal.jsp</result>
+            <result name="desplegar">/educacionFormal.jsp</result>
+        </action>
+        
+        <action name="*EducacionNoFormal" method="{1}" class="Action.EducacionNoFormalAction">
+            <result name="success">/educacionNoFormal.jsp</result>
+            <result name="input" >/educacionNoFormal.jsp</result>
+            <result name="error" >/educacionNoFormal.jsp</result>
+            <result name="desplegar">/educacionNoFormal.jsp</result>
+        </action>
+        
+        <action name="*EgresadoRedesSocial" method="{1}" class="Action.EgresadoRedesSocialAction">
+            <result name="success">/redesSociales.jsp</result>
+            <result name="input" >/redesSociales.jsp</result>
+            <result name="error">/redesSociales.jsp</result>
+            <result name="desplegar">/redesSociales.jsp</result>
+        </action>
+        
+        <action name="*egresadoRespuestas" method="{1}" class="Action.egresadoRespuestasAction">
+            <result name="success">/egresadoRespuestas.jsp</result>
+            <result name="input" >/egresadoRespuestas.jsp</result>
+            <result name="error">/egresadoRespuestas.jsp</result>
+            <result name="desplegar">/egresadoRespuestas.jsp</result>
+        </action>
+        
+        <action name="*Residencia" method="{1}" class="Action.ResidenciaAction">
+            <result name="success">/residencia.jsp</result>
+            <result name="input" >/residencia.jsp</result>
+            <result name="error" >/residencia.jsp</result>
+            <result name="desplegar">/residencia.jsp</result>
+        </action>
+        
+        <action name="*ExperienciaLaboral" method="{1}" class="Action.ExperienciaLaboralAction">
+            <result name="success">/experienciaLaboral.jsp</result>
+            <result name="input" >/experienciaLaboral.jsp</result>
+            <result name="error" >/experienciaLaboral.jsp</result>
+            <result name="desplegar">/experienciaLaboral.jsp</result>
+        </action>
+        
+        <action name="*Reconocimiento" method="{1}" class="Action.ReconocimientoAction">
+            <result name="success">/distincionesReconocimiento.jsp</result>
+            <result name="input" >/distincionesReconocimiento.jsp</result>
+            <result name="error" >/distincionesReconocimiento.jsp</result>
+            <result name="desplegar">/distincionesReconocimiento.jsp</result>
+        </action>
+        
+        <action name="*SelectorColumnas" class="Action.SelectorColumnasAction" method="{1}">
+            <result name="success" type="chain">
+                <param name="actionName">Egresados</param>
+                <param name="method">mostrar</param>
+            </result>
+            <result name="error">/selectorColumnas.jsp</result>
+            <result name="input">/selectorColumnas.jsp</result>
+            <result name="mostrar">/selectorColumnas.jsp</result>
         </action>
 
     </package>

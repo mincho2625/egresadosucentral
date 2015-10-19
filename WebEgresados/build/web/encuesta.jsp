@@ -130,7 +130,12 @@
                                                     <div class="tdatrasEncuesta"><s:submit cssClass="boton_auxiliar boton tdatrasEncuesta" cssStyle="width:auto;" value="Anterior" action="anteriorEncuesta" src="imagenes/atras.jpg" width="24" height="24"></s:submit></div>
                                                 </s:if>
                                                 <s:if test="orden == ultima">
-                                                    <div class="tdsiguienteEncuesta"><s:submit cssClass="boton_auxiliar boton" cssStyle="width:auto;" value="Terminar" action="terminarEncuesta" src="imagenes/next.png" width="24" height="24"></s:submit></div>
+                                                    <div class="tdsiguienteEncuesta">
+                                                        <s:submit cssClass="boton_auxiliar boton" cssStyle="width:auto;" value="Terminar" action="terminarEncuesta" src="imagenes/next.png" width="24" height="24"></s:submit>
+                                                        </div>
+                                                        <div class="enlaces">
+                                                            <div class="tdsiguiente"><a href="RedesUcentral.jsp"><img src="imagenes/next.png" width="24" height="24"></a></div>
+                                                        </div>
                                                 </s:if>
                                                 <s:else>
                                                     <div class="tdsiguienteEncuesta"><s:submit cssClass="boton_auxiliar boton" cssStyle="width:auto;" value="Siguiente" src="imagenes/next.png" width="24" height="24"></s:submit></div>

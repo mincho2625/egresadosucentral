@@ -36,6 +36,11 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "EgresadoRedSocial.findByEstado", query = "SELECT e FROM EgresadoRedSocial e WHERE e.estado = :estado"),
     @NamedQuery(name = "EgresadoRedSocial.findByUrl", query = "SELECT e FROM EgresadoRedSocial e WHERE e.url = :url"),
     @NamedQuery(name = "EgresadoRedSocial.findByFechaRegistro", query = "SELECT e FROM EgresadoRedSocial e WHERE e.fechaRegistro = :fechaRegistro"),
+    @NamedQuery(name = "EgresadoRedSocial.findByConsulta", 
+            query = "SELECT a FROM EgresadoRedSocial a "
+                    + "inner join Egresado e on e = a.idEgresado "
+                    + "inner join Usuario u on u = e.usuario "
+                    + "WHERE a.estado = :estado"),
     @NamedQuery(name = "EgresadoRedSocial.findByIdEgresado", 
             query = "SELECT a FROM EgresadoRedSocial a "
                     + "inner join Egresado e on e = a.idEgresado "

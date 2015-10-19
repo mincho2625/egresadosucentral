@@ -51,7 +51,7 @@ public class Sector {
     /**
      * @return the estado
      */
-    public boolean getEstado() {
+    public boolean isEstado() {
         return estado;
     }
 

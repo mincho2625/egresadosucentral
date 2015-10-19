@@ -24,6 +24,13 @@ public class Encuesta {
     private boolean egresado;
     private Date fechaRegistro;
 
+    public Encuesta() {
+    }
+        
+    public Encuesta(long idEncuesta) {
+        this.idEncuesta = idEncuesta;
+    }
+    
     public Date getFechaRegistro() {
         return fechaRegistro;
     }
@@ -95,8 +102,8 @@ public class Encuesta {
     /**
      * @return the estado
      */
-    public boolean isEstado() {
-        return estado;
+    public String getEstado() {
+        return (estado ? "Activo" : "Inactivo");
     }
 
     /**

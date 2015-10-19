@@ -38,6 +38,11 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Residencia.findByConexionInternet", query = "SELECT r FROM Residencia r WHERE r.conexionInternet = :conexionInternet"),
     @NamedQuery(name = "Residencia.findByFechaRegistro", query = "SELECT r FROM Residencia r WHERE r.fechaRegistro = :fechaRegistro"),
     @NamedQuery(name = "Residencia.findByEstado", query = "SELECT r FROM Residencia r WHERE r.estado = :estado"),
+    @NamedQuery(name = "Residencia.findByConsulta", 
+            query = "SELECT a FROM Residencia a "
+                    + "inner join Egresado e on e = a.idEgresado "
+                    + "inner join Usuario u on u = e.usuario "
+                    + "WHERE a.estado = :estado"),
     @NamedQuery(name = "Residencia.findByIdEgresado", 
             query = "SELECT a FROM Residencia a "
                     + "inner join Egresado e on e = a.idEgresado "

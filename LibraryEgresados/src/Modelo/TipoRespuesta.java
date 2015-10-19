@@ -14,7 +14,14 @@ public class TipoRespuesta {
     private long idTipoRespuesta;
     private String nombre;
     private boolean estado;
-   
+
+    public TipoRespuesta() {
+    }
+
+    
+    public TipoRespuesta(long idTipoRespuesta) {
+        this.idTipoRespuesta = idTipoRespuesta;
+    }
     /**
      * @return the idTipoRespuesta
      */

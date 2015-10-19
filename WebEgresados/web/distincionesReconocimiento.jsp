@@ -132,7 +132,7 @@
                                                             <td><s:textfield name="entidadOtorgante" label="Entidad Otorgante" errorPosition="bottom"></s:textfield></td>
                                                             </tr>
                                                             <tr>
-                                                                <td><jq:datepicker label="Fecha" errorPosition="bottom" name="fechaReconocimiento" displayFormat="dd/mm/yy" changeMonth="true" changeYear="true" showButtonPanel="true"></jq:datepicker></td>
+                                                                <td><jq:datepicker maxDate="0" readonly = "true" buttonImageOnly="true" label="Fecha" errorPosition="bottom" name="fechaReconocimiento" displayFormat="dd/mm/yy" changeMonth="false" changeYear="true" showButtonPanel="true"></jq:datepicker></td>
                                                             </tr>
                                                             <tr>
                                                                 <td></td>

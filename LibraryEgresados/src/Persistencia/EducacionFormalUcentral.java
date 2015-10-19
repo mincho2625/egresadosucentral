@@ -28,6 +28,12 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "EducacionFormalUcentral.findAll", query = "SELECT e FROM EducacionFormalUcentral e"),
     @NamedQuery(name = "EducacionFormalUcentral.findByIdEducacion", 
             query = "SELECT e FROM EducacionFormalUcentral e inner join Educacion ed on ed = e.educacion WHERE ed.idEducacion = :idEducacion"),
+    @NamedQuery(name = "EducacionFormalUcentral.findConsulta", 
+            query = "SELECT e FROM EducacionFormalUcentral e "
+                    + "inner join Educacion ed on ed = e.educacion "
+                    + "inner join Egresado eg on eg = ed.idEgresado "
+                    + "inner join Usuario u on u = eg.usuario "
+                    + "WHERE ed.estado = :estado"),
     @NamedQuery(name = "EducacionFormalUcentral.findByIdEgresado", 
             query = "SELECT e FROM EducacionFormalUcentral e "
                     + "inner join Educacion ed on ed = e.educacion "

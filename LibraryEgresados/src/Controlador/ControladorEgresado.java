@@ -10,6 +10,8 @@ import Modelo.EducacionFormalUcentral;
 import Modelo.Egresado;
 import Util.Convertidor;
 import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,30 +36,28 @@ public class ControladorEgresado {
     private final EntityManagerFactory emf = Persistence.createEntityManagerFactory("EgresadosPU");
     private final EntityManager em;
     private Persistencia.Egresado e;
-    
-    public ControladorEgresado()
-    {
+    private Persistencia.Egresado eg;
+
+    public ControladorEgresado() {
         em = emf.createEntityManager();
     }
-    
-    public Egresado consultar(String nombreUsuario)
-    {
+
+    public Egresado consultar(String nombreUsuario) {
         Egresado egresado = null;
         Query query = em.createNamedQuery("Egresado.findByNombreUsuario");
         query.setParameter("nombreUsuario", nombreUsuario);
-        
+
         List results = query.getResultList();
-        if(!results.isEmpty()){
-            e = (Persistencia.Egresado)results.get(0);
+        if (!results.isEmpty()) {
+            e = (Persistencia.Egresado) results.get(0);
             Convertidor convertidor = new Convertidor();
-            egresado = (Egresado)convertidor.convertirAModelo(e, e.getUsuario(), Modelo.Egresado.class.getName());
+            egresado = (Egresado) convertidor.convertirAModelo(e, e.getUsuario(), Modelo.Egresado.class.getName());
         }
-        
+
         return egresado;
     }
-    
-    public Egresado consultar(String numeroDocumento, long tipoDocumento, Date fechaNacimiento)
-    {
+
+    public Egresado consultar(String numeroDocumento, long tipoDocumento, Date fechaNacimiento) {
         Egresado egresado = null;
         try {
             Query query = em.createNamedQuery("Egresado.findByNumeroDocumento");
@@ -65,20 +65,18 @@ public class ControladorEgresado {
             Object result = query.getSingleResult();
             if (result != null) {
                 e = (Persistencia.Egresado) result;
-                if (e.getIdTipoDocumento().getIdTipoDocumento().equals(tipoDocumento) && e.getFechaNacimiento().equals(fechaNacimiento))
-                {
+                if (e.getIdTipoDocumento().getIdTipoDocumento().equals(tipoDocumento) && e.getFechaNacimiento().equals(fechaNacimiento)) {
                     Convertidor convertidor = new Convertidor();
-                    egresado = (Egresado)convertidor.convertirAModelo(e, e.getUsuario(), Modelo.Egresado.class.getName());
+                    egresado = (Egresado) convertidor.convertirAModelo(e, e.getUsuario(), Modelo.Egresado.class.getName());
                 }
             }
-            
+
             return egresado;
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             return null;
         }
     }
-    
+
     public List<EducacionFormalUcentral> consultar(Map<String, Object> parametros)
     {
         List<EducacionFormalUcentral> listaEgresados = new ArrayList<>();
@@ -155,62 +153,73 @@ public class ControladorEgresado {
         e = (Persistencia.Egresado) convertidor.convertirAPersistencia(egresado, Persistencia.Egresado.class.getName(), "getIdEgresado", em);
         Persistencia.Usuario u = (Persistencia.Usuario) convertidor.convertirAPersistencia(egresado, Persistencia.Usuario.class.getName(), "getIdUsuario", em);
         e.setUsuario(u);
-        
+
         em.persist(u);
         em.persist(e);
         em.getTransaction().commit();
 
         return true;
     }
-    
-    public boolean activar(List<Long> idEgresados, boolean activo)
-    {
+
+    public boolean activar(List<Long> idEgresados, boolean activo) {
         try {
             em.getTransaction().begin();
-            
+
             Query query = em.createNamedQuery("Usuario.findByIdUsuarios");
             query.setParameter("idUsuarios", idEgresados);
 
             List<Persistencia.Usuario> lista = query.getResultList();
-            for (Persistencia.Usuario usuario: lista) {
+            for (Persistencia.Usuario usuario : lista) {
                 usuario.setEstado(activo);
                 em.persist(usuario);
             }
             em.getTransaction().commit();
-            
+
             return true;
         } catch (SecurityException | IllegalArgumentException ex) {
             Logger.getLogger(ControladorEgresado.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         return false;
     }
-    
-    public boolean actualizarFecha(Date fecha)
-    {
+
+    public boolean actualizarFecha(Date fecha) {
         try {
             em.getTransaction().begin();
             Persistencia.Egresado u = em.getReference(Persistencia.Egresado.class, e.getIdEgresado());
             u.setFechaUltimaAct(fecha);
             em.persist(u);
             em.getTransaction().commit();
-            
+
             return true;
         } catch (SecurityException | IllegalArgumentException ex) {
             Logger.getLogger(ControladorEgresado.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         return false;
     }
-    
-    public void completarInformacion()
-    {
-        em.getTransaction().begin();
-        
-        e.setInformacionCompleta(true);
-        e.setFechaUltimaAct(Date.valueOf(LocalDate.now()));
-        
-        em.persist(e);
-        em.getTransaction().commit();
+
+    public void completarInformacion(String nombreUsuario) {
+        try {
+            EntityManager em1 = emf.createEntityManager();
+            Query query = em1.createNamedQuery("Egresado.findByNombreUsuario");
+            query.setParameter("nombreUsuario", nombreUsuario);
+            eg = ((Persistencia.Egresado) query.getSingleResult());
+            em.getTransaction().begin();
+            System.out.println("aaaaaa "+eg.getIdEgresado());
+            java.util.Date fecha = null;
+            SimpleDateFormat formatoDeFecha = new SimpleDateFormat("yyyy-MM-dd");
+            String fecha1 = formatoDeFecha.format(Date.valueOf(LocalDate.now()));
+            fecha = formatoDeFecha.parse(fecha1);
+            System.out.println("bbbbbbbb");
+            /*eg.setFechaUltimaAct(fecha);
+            System.out.println("jojoajdojaodjaodjad11111");
+            eg.setInformacionCompleta(true);
+            System.out.println("jojoajdojaodjaodjad");
+            em.persist(eg);
+            em.getTransaction().commit();*/
+        } catch (ParseException ex) {
+
+        }
     }
 }

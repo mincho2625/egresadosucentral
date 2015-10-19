@@ -19,7 +19,7 @@ public class Contacto {
     private Date fechaRegistro;
     private long idEgresado;
     private boolean estado;
-
+    private String numeroDocumento;    
     /**
      * @return the idContacto
      */
@@ -102,5 +102,13 @@ public class Contacto {
      */
     public void setEstado(boolean estado) {
         this.estado = estado;
+    }
+
+    public String getNumeroDocumento() {
+        return numeroDocumento;
+    }
+
+    public void setNumeroDocumento(String numeroDocumento) {
+        this.numeroDocumento = numeroDocumento;
     }
 }
