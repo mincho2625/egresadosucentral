@@ -25,6 +25,7 @@ public class Egresado extends Usuario {
     private TipoDocumento idTipoDocumento;
     private boolean aceptaCondiciones;
     private boolean informacionCompleta;
+    private EducacionFormalUcentral educacionFormalUcentral;
 
     /**
      * @return the fechaExpedicion
@@ -262,5 +263,19 @@ public class Egresado extends Usuario {
      */
     public void setInformacionCompleta(boolean informacionCompleta) {
         this.informacionCompleta = informacionCompleta;
+    }
+
+    /**
+     * @return the educacionFormalUcentral
+     */
+    public EducacionFormalUcentral getEducacionFormalUcentral() {
+        return educacionFormalUcentral;
+    }
+
+    /**
+     * @param educacionFormalUcentral the educacionFormalUcentral to set
+     */
+    public void setEducacionFormalUcentral(EducacionFormalUcentral educacionFormalUcentral) {
+        this.educacionFormalUcentral = educacionFormalUcentral;
     }
 }

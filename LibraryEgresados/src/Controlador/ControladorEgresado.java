@@ -77,9 +77,9 @@ public class ControladorEgresado {
         }
     }
 
-    public List<EducacionFormalUcentral> consultar(Map<String, Object> parametros)
+    public List<Egresado> consultar(Map<String, Object> parametros)
     {
-        List<EducacionFormalUcentral> listaEgresados = new ArrayList<>();
+        List<Egresado> listaEgresados = new ArrayList<>();
         Convertidor convertidor = new Convertidor();
         
         CriteriaBuilder cb = em.getCriteriaBuilder();
@@ -133,11 +133,45 @@ public class ControladorEgresado {
         List<Persistencia.EducacionFormalUcentral> lista = query.getResultList();
         
         for (Persistencia.EducacionFormalUcentral e: lista) {
-            EducacionFormalUcentral educacionFormalUcentral = (EducacionFormalUcentral)convertidor.convertirAModelo(
-                    e.getEducacion().getEducacionFormalUcentral(), e.getEducacion(), Modelo.EducacionFormalUcentral.class.getName());
-            educacionFormalUcentral.setEgresado((Egresado)convertidor.convertirAModelo(e.getEducacion().getIdEgresado(), 
-                    e.getEducacion().getIdEgresado().getUsuario(), Modelo.Egresado.class.getName()));
-            listaEgresados.add(educacionFormalUcentral);
+            Egresado eg = (Egresado)convertidor.convertirAModelo(e.getEducacion().getIdEgresado(), 
+                    e.getEducacion().getIdEgresado().getUsuario(), Modelo.Egresado.class.getName());
+            eg.setEducacionFormalUcentral((EducacionFormalUcentral)convertidor.convertirAModelo(
+                    e.getEducacion().getEducacionFormalUcentral(), e.getEducacion(), Modelo.EducacionFormalUcentral.class.getName()));
+            
+            listaEgresados.add(eg);
+        }
+        
+        if (!parametros.containsKey("idNivelEstudios") && !parametros.containsKey("idFacultad") 
+                && !parametros.containsKey("idPrograma")) {
+            
+            CriteriaBuilder cbe = em.getCriteriaBuilder();
+            CriteriaQuery<Persistencia.Egresado> cqe = cbe.createQuery(Persistencia.Egresado.class);
+            Root<Persistencia.Egresado> egresadoRoot = cqe.from(Persistencia.Egresado.class);
+            cbe.isNull(egresadoRoot.get(Persistencia.Egresado_.educacionCollection));
+
+            if (parametros.containsKey("idGenero")) {
+                Join<Persistencia.Egresado, Persistencia.Genero> generoRoot = egresadoRoot.join(Persistencia.Egresado_.idGenero);
+                cqe.where(generoRoot.get(Persistencia.Genero_.idGenero).in((List<Long>)parametros.get("idGenero")));
+            }
+
+            if (parametros.containsKey("idEstadoCivil")) {
+                Join<Persistencia.Egresado, Persistencia.EstadoCivil> estadoCivilRoot = egresadoRoot.join(Persistencia.Egresado_.idEstadoCivil);
+                cqe.where(estadoCivilRoot.get(Persistencia.EstadoCivil_.idEstadoCivil).in((List<Long>)parametros.get("idEstadoCivil")));
+            }
+
+            if (parametros.containsKey("estado")) {
+                Join<Persistencia.Egresado, Persistencia.Usuario> usuarioRoot = egresadoRoot.join(Persistencia.Egresado_.usuario);
+                cqe.where(usuarioRoot.get(Persistencia.Usuario_.estado).in((List<Integer>)parametros.get("estado")));
+            }
+            
+            cqe.select(egresadoRoot);
+            TypedQuery<Persistencia.Egresado> queryNoEd = em.createQuery(cqe);
+            List<Persistencia.Egresado> listaNoEd = queryNoEd.getResultList();
+
+            for (Persistencia.Egresado eNoEd: listaNoEd) {
+                Egresado egNoEd = (Egresado)convertidor.convertirAModelo(eNoEd, eNoEd.getUsuario(), Modelo.Egresado.class.getName());
+                listaEgresados.add(egNoEd);
+            }
         }
         
         return listaEgresados;

@@ -154,7 +154,7 @@
                                                 <display:setProperty name="export.pdf.filename" value="Egresados.pdf" />
 
                                                 <display:column style="width: 30px" title="Seleccionar" media="html">
-                                                    <s:checkbox name="seleccionEgresados" fieldValue="%{#attr.row.egresado.idUsuario}" theme="simple"/>
+                                                    <s:checkbox name="seleccionEgresados" fieldValue="%{#attr.row.idUsuario}" theme="simple"/>
                                                 </display:column>
 
                                                 <c:forEach items="${listaColumnas}" var="entry">

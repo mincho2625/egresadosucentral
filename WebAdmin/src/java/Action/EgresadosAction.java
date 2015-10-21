@@ -10,6 +10,7 @@ import Controlador.ControladorCorreo;
 import Controlador.ControladorEgresado;
 import Controlador.ControladorListas;
 import Modelo.EducacionFormalUcentral;
+import Modelo.Egresado;
 import Modelo.ItemLista;
 import Modelo.PlantillaCorreo;
 import com.opensymphony.xwork2.ActionContext;
@@ -29,6 +30,7 @@ import javax.naming.NamingException;
  * @author YURY
  */
 public class EgresadosAction extends ActionSupport {
+
     private Map<Long, String> listaNivelesEstudios;
     private Map<Long, String> listaFacultades;
     private Map<Long, String> listaGeneros;
@@ -44,23 +46,22 @@ public class EgresadosAction extends ActionSupport {
     private int anioFinalizacionDesde;
     private int anioFinalizacionHasta;
     private int actual;
-    
+
     private List<ItemLista> listaPlantillas;
     private Map<String, String> listaColumnas;
-    private List<EducacionFormalUcentral> listaEgresados;
-    private List<Long> seleccionEgresados;    
-    private long plantilla;    
+    private List<Egresado> listaEgresados;
+    private List<Long> seleccionEgresados;
+    private long plantilla;
     private int indice;
     private final ControladorListas listas;
     private final ControladorCorreo controladorCorreo;
-    
-    public EgresadosAction()
-    {
+
+    public EgresadosAction() {
         listas = new ControladorListas();
         controladorCorreo = new ControladorCorreo();
         desplegar();
     }
-    
+
     /**
      * @return the seleccionNivelEstudios
      */
@@ -88,76 +89,87 @@ public class EgresadosAction extends ActionSupport {
     public void setIndice(int indice) {
         this.indice = indice;
     }
-    
-    private void desplegar()
-    {
+
+    private void desplegar() {
         listaNivelesEstudios = listas.consultarNivelesEstudiosAplicaUCentralMap();
         listaFacultades = listas.consultarFacultadesMap();
         listaGeneros = listas.consultarGenerosMap();
         setListaEstadosCiviles(listas.consultarEstadosCivilesMap());
         listaPlantillas = listas.consultarPlantillasCorreo();
-        
+
         listaEstados = new HashMap<>();
         listaEstados.put(1, "Activo");
         listaEstados.put(0, "Inactivo");
-        
+
         Calendar calendario = Calendar.getInstance(Locale.ROOT);
         actual = calendario.get(Calendar.YEAR);
-        anioFinalizacionDesde = actual -1;
+        anioFinalizacionDesde = actual - 1;
         anioFinalizacionHasta = actual;
-        
+
         seleccionProgramas = new ArrayList<>();
     }
-    
-    private void validar()
-    {
-        if (seleccionEgresados.isEmpty())
+
+    private void validar() {
+        if (seleccionEgresados == null || seleccionEgresados.isEmpty()) {
             addActionError("Seleccione al menos un egresado.");
+        }
     }
-    
-    private void validarCorreoMasivo()
-    {
-        if (plantilla <= 0)
+
+    private void validarCorreoMasivo() {
+        if (plantilla <= 0) {
             addActionError("Seleccione plantilla de correo.");
+        }
+
     }
-    
+
     public String mostrar() {
         return SUCCESS;
     }
-    
-    public String limpiar()
-    {
+
+    public String limpiar() {
         seleccionNivelEstudios.clear();
         seleccionFacultades.clear();
         seleccionGeneros.clear();
         seleccionEstadosCiviles.clear();
         seleccionProgramas.clear();
         seleccionEstados.clear();
-        
+
         return SUCCESS;
     }
-    
+
     public String buscar() {
         System.out.println("Inicio Buscar");
-        
+
         System.out.println("seleccionNivelEstudios: " + seleccionNivelEstudios);
         System.out.println("seleccionFacultades: " + seleccionFacultades);
         System.out.println("seleccionProgramas: " + seleccionProgramas);
-        
-        if (seleccionNivelEstudios != null && seleccionNivelEstudios.size() > 0 && 
-                seleccionFacultades != null && seleccionFacultades.size() > 0) {
+
+        if (seleccionNivelEstudios != null && seleccionNivelEstudios.size() > 0
+                && seleccionFacultades != null && seleccionFacultades.size() > 0) {
             setListaProgramas(listas.consultarProgramasPorListaFacultadYNivelEstudiosMap(seleccionFacultades, seleccionNivelEstudios));
         }
         System.out.println("seleccionProgramass: " + seleccionProgramas);
-        
+
         if (!hasErrors()) {
             Map<String, Object> parametros = new HashMap<>();
-            if (this.seleccionProgramas.size() > 0) parametros.put("idPrograma", this.seleccionProgramas);
-            if (this.seleccionNivelEstudios.size() > 0) parametros.put("idNivelEstudios", this.seleccionNivelEstudios);
-            if (this.seleccionFacultades.size() > 0) parametros.put("idFacultad", this.seleccionFacultades);
-            if (this.seleccionGeneros.size() > 0) parametros.put("idGenero", this.seleccionGeneros);
-            if (this.seleccionEstadosCiviles.size() > 0) parametros.put("idEstadoCivil", this.seleccionEstadosCiviles);
-            if (this.seleccionEstados.size() > 0) parametros.put("estado", this.seleccionEstados);
+            if (this.seleccionProgramas.size() > 0) {
+                parametros.put("idPrograma", this.seleccionProgramas);
+            }
+            if (this.seleccionNivelEstudios.size() > 0) {
+                parametros.put("idNivelEstudios", this.seleccionNivelEstudios);
+            }
+            if (this.seleccionFacultades.size() > 0) {
+                parametros.put("idFacultad", this.seleccionFacultades);
+            }
+            if (this.seleccionGeneros.size() > 0) {
+                parametros.put("idGenero", this.seleccionGeneros);
+            }
+            if (this.seleccionEstadosCiviles.size() > 0) {
+                parametros.put("idEstadoCivil", this.seleccionEstadosCiviles);
+            }
+            if (this.seleccionEstados.size() > 0) {
+                parametros.put("estado", this.seleccionEstados);
+            }
             parametros.put("anioFinalizacionDesde", this.anioFinalizacionDesde);
             parametros.put("anioFinalizacionHasta", this.anioFinalizacionHasta);
 
@@ -165,67 +177,66 @@ public class EgresadosAction extends ActionSupport {
             ControladorEgresado controladorEgresado = new ControladorEgresado();
             listaEgresados = controladorEgresado.consultar(parametros);
             indice = 1;
-            
+
             // Consultar columnas para mostrar información
             Map session = ActionContext.getContext().getSession();
             long idUsuario = (long) session.get("idUsuario");
             ControladorColumnas controladorColumnas = new ControladorColumnas();
             listaColumnas = controladorColumnas.consultarEducacionFormalUCentralPorUsuarioMap(idUsuario);
             System.out.println("listaColumnas: " + listaColumnas);
-            
+
             System.out.println("Fin Buscar");
             return SUCCESS;
         }
-        
+
         addActionError("Error al buscar resultados.");
         return ERROR;
     }
-    
-    public String enviarCorreo() throws AddressException, NamingException
-    {
+
+    public String enviarCorreo() throws AddressException, NamingException {
+        indice = 1;
         validar();
         validarCorreoMasivo();
         if (!hasErrors()) {
-
             Address[] listaDestinatarios = controladorCorreo.consultarDestinatarios(getSeleccionEgresados());
             PlantillaCorreo plantillaCorreo = controladorCorreo.consultarPlantillaCorreo(getPlantilla());
-            
+
             if (controladorCorreo.enviarCorreo(plantillaCorreo, listaDestinatarios)) {
                 addActionMessage("Correos enviados exitosamente");
                 return SUCCESS;
             }
-            
+
             addActionError("Error al enviar correo masivo.");
             return ERROR;
         }
-        
+
         return ERROR;
     }
-    
-    public String activar()
-    {
+
+    public String activar() {
+        indice = 1;
         validar();
         if (!hasErrors()) {
             ControladorEgresado controladorEgresado = new ControladorEgresado();
             controladorEgresado.activar(seleccionEgresados, true);
             return SUCCESS;
         }
-        
+
         return ERROR;
     }
-    
-    public String inactivar()
-    {
+
+    public String inactivar() {
+        indice = 1;
         validar();
         if (!hasErrors()) {
             ControladorEgresado controladorEgresado = new ControladorEgresado();
             controladorEgresado.activar(seleccionEgresados, false);
             return SUCCESS;
         }
-        
+
         return ERROR;
     }
- 
+
     /**
      * @return the listaNivelesEstudios
      */
@@ -383,14 +394,14 @@ public class EgresadosAction extends ActionSupport {
     /**
      * @return the listaEgresados
      */
-    public List<EducacionFormalUcentral> getListaEgresados() {
+    public List<Egresado> getListaEgresados() {
         return listaEgresados;
     }
 
     /**
      * @param listaEgresados the listaEgresados to set
      */
-    public void setListaEgresados(List<EducacionFormalUcentral> listaEgresados) {
+    public void setListaEgresados(List<Egresado> listaEgresados) {
         this.listaEgresados = listaEgresados;
     }
 
