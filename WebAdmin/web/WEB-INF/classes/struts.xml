@@ -336,7 +336,7 @@
             <result name="desplegar">/redesSociales.jsp</result>
         </action>
         
-        <action name="*egresadoRespuestas" method="{1}" class="Action.egresadoRespuestasAction">
+        <action name="*egresadoRespuestas" method="{1}" class="Action.EgresadoRespuestasAction">
             <result name="success">/egresadoRespuestas.jsp</result>
             <result name="input" >/egresadoRespuestas.jsp</result>
             <result name="error">/egresadoRespuestas.jsp</result>

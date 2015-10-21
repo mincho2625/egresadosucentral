@@ -6,7 +6,6 @@
 package Action;
 
 import Modelo.PlantillaCorreo;
-import Util.Constantes;
 
 /**
  *
@@ -41,8 +40,11 @@ public class PlantillaCorreoAction extends CrudAction<PlantillaCorreo> {
 
     @Override
     public void validar() {
-        if (objeto.getNombre().isEmpty())
+        if (objeto.getNombre().isEmpty()){
             addFieldError("nombre", "El nombre es requerido");
+        }else{
+            
+        }
         if (objeto.getAsunto().isEmpty())
             addFieldError("asunto", "El asunto es requerido");
         if (objeto.getContenido().isEmpty())

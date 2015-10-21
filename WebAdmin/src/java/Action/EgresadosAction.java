@@ -209,7 +209,7 @@ public class EgresadosAction extends ActionSupport {
             addActionError("Error al enviar correo masivo.");
             return ERROR;
         }
-
+        
         return ERROR;
     }
 

@@ -3,13 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Controlador;
 
 import Modelo.ConfiguracionCorreo;
 import Modelo.PlantillaCorreo;
 import Util.Constantes;
 import Util.Convertidor;
+import Util.Utilidades;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -34,6 +34,7 @@ import javax.persistence.Query;
  * @author YURY
  */
 public class ControladorCorreo {
+
     private final EntityManagerFactory emf = Persistence.createEntityManagerFactory("EgresadosPU");
     private final EntityManager em;
 
@@ -57,10 +58,10 @@ public class ControladorCorreo {
             Message mensaje = new MimeMessage(sesion);
             mensaje.setFrom(new InternetAddress(configuracionCorreo.getUsuario()));
             mensaje.addRecipients(Message.RecipientType.TO, listaDestinatarios);
-            
+
             mensaje.setSubject(plantillaCorreo.getAsunto());
             mensaje.setContent(plantillaCorreo.getContenido(), "text/html");
-            
+
             Transport t = sesion.getTransport("smtp");
             t.connect(configuracionCorreo.getUsuario(), configuracionCorreo.getContrasenia());
             t.sendMessage(mensaje, mensaje.getAllRecipients());
@@ -78,7 +79,7 @@ public class ControladorCorreo {
         if (configuracionCorreo == null) {
             return false;
         }
-
+        Utilidades utilidades = new Utilidades();
         em.getTransaction().begin();
         Query query = em.createNamedQuery("Parametro.findByLista");
         List<String> listaNombres = new ArrayList<>();
@@ -90,29 +91,34 @@ public class ControladorCorreo {
 
         List<Persistencia.Parametro> result = query.getResultList();
         for (Persistencia.Parametro parametro : result) {
-            if (parametro.getNombre().equals(Constantes.SERVIDOR_CORREO)) {
-                parametro.setValor(configuracionCorreo.getServidor());
+            try {
+                if (parametro.getNombre().equals(Constantes.SERVIDOR_CORREO)) {
+                    parametro.setValor(utilidades.Encriptar(configuracionCorreo.getServidor()));
+                }
+                if (parametro.getNombre().equals(Constantes.PUERTO_CORREO)) {
+                    parametro.setValor(utilidades.Encriptar(configuracionCorreo.getPuerto()));
+                }
+                if (parametro.getNombre().equals(Constantes.USUARIO_CORREO)) {
+                    parametro.setValor(utilidades.Encriptar(configuracionCorreo.getUsuario()));
+                }
+                if (parametro.getNombre().equals(Constantes.CONTRASENIA_CORREO)) {
+                    parametro.setValor(utilidades.Encriptar(configuracionCorreo.getContrasenia()));
+                }
+
+                em.persist(parametro);
+            } catch (Exception ex) {
+
             }
-            if (parametro.getNombre().equals(Constantes.PUERTO_CORREO)) {
-                parametro.setValor(configuracionCorreo.getPuerto());
-            }
-            if (parametro.getNombre().equals(Constantes.USUARIO_CORREO)) {
-                parametro.setValor(configuracionCorreo.getUsuario());
-            }
-            if (parametro.getNombre().equals(Constantes.CONTRASENIA_CORREO)) {
-                parametro.setValor(configuracionCorreo.getContrasenia());
-            }
-            
-            em.persist(parametro);
         }
-        
+
         em.getTransaction().commit();
         return true;
     }
-    
+
     public ConfiguracionCorreo consultarConfiguracion() {
         ConfiguracionCorreo configuracionCorreo = new ConfiguracionCorreo();
         List<String> listaNombres = new ArrayList<>();
+        Utilidades utilidades = new Utilidades();
         try {
             Query query = em.createNamedQuery("Parametro.findByLista");
             listaNombres.add(Constantes.SERVIDOR_CORREO);
@@ -123,17 +129,21 @@ public class ControladorCorreo {
 
             List<Persistencia.Parametro> result = query.getResultList();
             for (Persistencia.Parametro parametro : result) {
-                if (parametro.getNombre().equals(Constantes.SERVIDOR_CORREO)) {
-                    configuracionCorreo.setServidor(parametro.getValor());
-                }
-                if (parametro.getNombre().equals(Constantes.PUERTO_CORREO)) {
-                    configuracionCorreo.setPuerto(parametro.getValor());
-                }
-                if (parametro.getNombre().equals(Constantes.USUARIO_CORREO)) {
-                    configuracionCorreo.setUsuario(parametro.getValor());
-                }
-                if (parametro.getNombre().equals(Constantes.CONTRASENIA_CORREO)) {
-                    configuracionCorreo.setContrasenia(parametro.getValor());
+                try {
+                    if (parametro.getNombre().equals(Constantes.SERVIDOR_CORREO)) {
+                        configuracionCorreo.setServidor(utilidades.Desencriptar(parametro.getValor()));
+                    }
+                    if (parametro.getNombre().equals(Constantes.PUERTO_CORREO)) {
+                        configuracionCorreo.setPuerto(utilidades.Desencriptar(parametro.getValor()));
+                    }
+                    if (parametro.getNombre().equals(Constantes.USUARIO_CORREO)) {
+                        configuracionCorreo.setUsuario(utilidades.Desencriptar(parametro.getValor()));
+                    }
+                    if (parametro.getNombre().equals(Constantes.CONTRASENIA_CORREO)) {
+                        configuracionCorreo.setContrasenia(utilidades.Desencriptar(parametro.getValor()));
+                    }
+                } catch (Exception ex) {
+                    Logger.getLogger(ControladorCorreo.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
 
@@ -144,34 +154,32 @@ public class ControladorCorreo {
 
         return null;
     }
-    
-    public PlantillaCorreo consultarPlantillaCorreo(long idPlantillaCorreo)
-    {
-        Convertidor convertidor= new Convertidor();
+
+    public PlantillaCorreo consultarPlantillaCorreo(long idPlantillaCorreo) {
+        Convertidor convertidor = new Convertidor();
         PlantillaCorreo plantillaCorreo = null;
-        
+
         Query query = em.createNamedQuery("PlantillaCorreo.findByIdPlantillaCorreo");
         query.setParameter("idPlantillaCorreo", idPlantillaCorreo);
-        
+
         List results = query.getResultList();
-        if(!results.isEmpty()){
-            plantillaCorreo = (PlantillaCorreo)convertidor.convertirAModelo(results.get(0), null, Modelo.PlantillaCorreo.class.getName());
+        if (!results.isEmpty()) {
+            plantillaCorreo = (PlantillaCorreo) convertidor.convertirAModelo(results.get(0), null, Modelo.PlantillaCorreo.class.getName());
         }
-        
+
         return plantillaCorreo;
     }
-    
-    public Address[] consultarDestinatarios(List<Long> idUsuarios) throws AddressException
-    {
+
+    public Address[] consultarDestinatarios(List<Long> idUsuarios) throws AddressException {
         List<Address> listaDestinatarios = new ArrayList<>();
         Query query = em.createNamedQuery("Usuario.findByIdUsuarios");
         query.setParameter("idUsuarios", idUsuarios);
-        
+
         List<Persistencia.Usuario> lista = query.getResultList();
-        for (Persistencia.Usuario usuario: lista) {
+        for (Persistencia.Usuario usuario : lista) {
             listaDestinatarios.add(new InternetAddress(usuario.getCorreoInstitucional()));
         }
-    
+
         Address[] stockArr = new Address[listaDestinatarios.size()];
         System.out.println("Destinatarios: " + listaDestinatarios.size());
         return listaDestinatarios.toArray(stockArr);

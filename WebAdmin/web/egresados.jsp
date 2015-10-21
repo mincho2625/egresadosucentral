@@ -55,22 +55,22 @@
                                                     <h4 style="color: #2a6155;width:200px">Nivel de estudios</h4>
                                                     <div style="width: 250px" class="checkboxlist-container">
                                                     <jq:checkboxlist  cssStyle="vertical" errorPosition="bottom" name="seleccionNivelEstudios" 
-                                                                     list="listaNivelesEstudios" onCompleteTopics="reloadThirdlist,reloadCriteria" buttonset="false"
-                                                                     id="seleccionNivelEstudios" onChangeTopics="reloadThirdlist,reloadCriteria"></jq:checkboxlist>
+                                                                      list="listaNivelesEstudios" onCompleteTopics="reloadThirdlist,reloadCriteria" buttonset="false"
+                                                                      id="seleccionNivelEstudios" onChangeTopics="reloadThirdlist,reloadCriteria"></jq:checkboxlist>
                                                     </div> 
                                                     <br>
                                                     <h4 style="color: #2a6155;width:200px">Género</h4>
                                                     <div style="width: 250px" class="checkboxlist-container">
                                                     <jq:checkboxlist  cssStyle="vertical" errorPosition="bottom" name="seleccionGeneros" 
-                                                                                 list="listaGeneros" onCompleteTopics="reloadCriteria" buttonset="false"
-                                                                                 id="seleccionGeneros" onChangeTopics="reloadCriteria"></jq:checkboxlist>
+                                                                      list="listaGeneros" onCompleteTopics="reloadCriteria" buttonset="false"
+                                                                      id="seleccionGeneros" onChangeTopics="reloadCriteria"></jq:checkboxlist>
                                                     </div>
                                                     <br>
                                                     <h4 style="color: #2a6155;width:200px">Estado Civil</h4>
                                                     <div style="width: 250px" class="checkboxlist-container">
                                                     <jq:checkboxlist cssStyle="vertical"  errorPosition="bottom" name="seleccionEstadosCiviles" 
-                                                                             list="listaEstadosCiviles" onCompleteTopics="reloadCriteria" buttonset="false"
-                                                                             id="seleccionEstadosCiviles" onChangeTopics="reloadCriteria"></jq:checkboxlist>
+                                                                     list="listaEstadosCiviles" onCompleteTopics="reloadCriteria" buttonset="false"
+                                                                     id="seleccionEstadosCiviles" onChangeTopics="reloadCriteria"></jq:checkboxlist>
                                                     </div>
                                                 </div>
                                                 <div style="margin-left: 180px" class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
@@ -98,8 +98,8 @@
                                                     <h4 style="color: #2a6155;width:200px">Estado</h4>
                                                     <div style="width: 250px" class="checkboxlist-container">
                                                     <jq:checkboxlist  cssStyle="vertical"  errorPosition="bottom" name="seleccionEstados" 
-                                                                                 list="listaEstados" onCompleteTopics="reloadCriteria" buttonset="false"
-                                                                                 id="seleccionEstados" onChangeTopics="reloadCriteria"></jq:checkboxlist>
+                                                                      list="listaEstados" onCompleteTopics="reloadCriteria" buttonset="false"
+                                                                      id="seleccionEstados" onChangeTopics="reloadCriteria"></jq:checkboxlist>
                                                     </div>
                                                     <br>
                                                     <br>
@@ -130,11 +130,11 @@
                                                     <s:submit action="Egresados" method="buscar" cssClass="boton_auxiliar boton "  cssStyle="width:auto;" value="Buscar"></s:submit>
                                                     </div>
 
-                                                    <jq:dialog id="dialogColumnas"  title="Seleccionar columnas" autoOpen="false" href="mostrarSelectorColumnas.action"
+                                                <jq:dialog id="dialogColumnas"  title="Seleccionar columnas" autoOpen="false" href="mostrarSelectorColumnas.action"
                                                            buttons="{ 'Guardar':function() { guardar(); },'Cancelar':function() { cerrar(); } }" modal="false"
                                                            resizable="false" position="center" height="400" width="600" cssStyle="display: block">
                                                 </jq:dialog>
-                                                    <jq:a openDialog="dialogColumnas"><h4 class="boton_auxiliar boton"  style="width: 200px;margin-left: -35px">Seleccionar Columnas</h4></jq:a>
+                                                <jq:a openDialog="dialogColumnas"><h4 class="boton_auxiliar boton"  style="width: 200px;margin-left: -35px">Seleccionar Columnas</h4></jq:a>
                                                 </div>
                                             </div>
                                         </div>
@@ -164,12 +164,18 @@
                                         </div>
                                         <br>
                                         <div class="row" class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
-                                            <div style="margin-left: 100px" class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                                                <s:select label="Plantilla de correo" errorPosition="bottom" name="plantilla" list="listaPlantillas" listKey="id" listValue="nombre" headerKey="-1" headerValue="- Seleccione -"></s:select>
-                                                <s:submit action="Egresados" method="enviarCorreo" cssClass="boton_auxiliar boton  guardar" cssStyle="width:auto;" value="Enviar correo"/>
+                                            <s:if test="hasActionErrors()">
+                                                <div style="width: 300px;margin-left: 220px" class="errors">
+                                                    <s:actionerror/>
+                                                </div>
+                                            </s:if>
+                                            <div style="margin-left: 10px" class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                                <s:select label="Plantilla de correo" errorPosition="bottom" name="plantilla" list="listaPlantillas" cssStyle="width:auto;" listKey="id" listValue="nombre" headerKey="-1" headerValue="- Seleccione -"></s:select>
+                                                </div>
+                                                <div style="margin-left: 35px" class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                                                <s:submit action="Egresados" method="enviarCorreo" cssClass="boton_auxiliar boton  guardar" cssStyle="width:130px;" value="Enviar correo"/>
                                             </div>
-
-                                            <div style="margin-left: 100px" class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                                            <div style="margin-left: 150px;margin-top: -5px" class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
                                                 <table>
                                                     <tr>
                                                         <td><s:submit action="Egresados" method="activar" cssClass="boton_auxiliar boton  guardar" cssStyle="width:auto;" value="Activar"/></td>
@@ -178,12 +184,6 @@
                                                 </table>
                                             </div>
                                         </div>
-
-                                        <s:if test="hasActionErrors()">
-                                            <div class="errors">
-                                                <s:actionerror/>
-                                            </div>
-                                        </s:if>
                                     </s:form>
                                 </div>
                             </jq:accordionItem>

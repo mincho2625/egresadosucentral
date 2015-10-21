@@ -59,6 +59,7 @@ public class ConfiguracionCorreoAction extends ActionSupport implements ModelDri
     }
     
     public String editar() {
+        
         return SUCCESS;
     }
     
